@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(WordsDbContext))]
-    [Migration("20190220100003_Initial")]
+    [Migration("20190220120953_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IrregularVerbEntity");
+                    b.ToTable("IrregularVerbs");
                 });
 
             modelBuilder.Entity("DAL.Entities.WordEntity", b =>
@@ -52,7 +52,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WordEntity");
+                    b.ToTable("Words");
                 });
 
             modelBuilder.Entity("DAL.Entities.WordVerbEntity", b =>
@@ -73,7 +73,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("WordId");
 
-                    b.ToTable("WordVerbEntity");
+                    b.ToTable("WordVerbs");
                 });
 
             modelBuilder.Entity("DAL.Entities.WordVerbEntity", b =>

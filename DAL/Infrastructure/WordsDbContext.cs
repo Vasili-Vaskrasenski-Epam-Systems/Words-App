@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Infrastructure
@@ -11,6 +12,10 @@ namespace DAL.Infrastructure
         {
 
         }
+
+        public DbSet<WordEntity> Words { get; set; }
+        public DbSet<IrregularVerbEntity> IrregularVerbs { get; set; }
+        public DbSet<WordVerbEntity> WordVerbs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

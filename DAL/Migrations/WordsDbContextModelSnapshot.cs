@@ -31,7 +31,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IrregularVerbEntity");
+                    b.ToTable("IrregularVerbs");
                 });
 
             modelBuilder.Entity("DAL.Entities.WordEntity", b =>
@@ -50,7 +50,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WordEntity");
+                    b.ToTable("Words");
                 });
 
             modelBuilder.Entity("DAL.Entities.WordVerbEntity", b =>
@@ -71,7 +71,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("WordId");
 
-                    b.ToTable("WordVerbEntity");
+                    b.ToTable("WordVerbs");
                 });
 
             modelBuilder.Entity("DAL.Entities.WordVerbEntity", b =>

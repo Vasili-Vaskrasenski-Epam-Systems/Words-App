@@ -8,7 +8,7 @@ namespace DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "IrregularVerbEntity",
+                name: "IrregularVerbs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -17,11 +17,11 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IrregularVerbEntity", x => x.Id);
+                    table.PrimaryKey("PK_IrregularVerbs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "WordEntity",
+                name: "Words",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -32,11 +32,11 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WordEntity", x => x.Id);
+                    table.PrimaryKey("PK_Words", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "WordVerbEntity",
+                name: "WordVerbs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -46,42 +46,42 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WordVerbEntity", x => x.Id);
+                    table.PrimaryKey("PK_WordVerbs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WordVerbEntity_IrregularVerbEntity_VerbId",
+                        name: "FK_WordVerbs_IrregularVerbs_VerbId",
                         column: x => x.VerbId,
-                        principalTable: "IrregularVerbEntity",
+                        principalTable: "IrregularVerbs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WordVerbEntity_WordEntity_WordId",
+                        name: "FK_WordVerbs_Words_WordId",
                         column: x => x.WordId,
-                        principalTable: "WordEntity",
+                        principalTable: "Words",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_WordVerbEntity_VerbId",
-                table: "WordVerbEntity",
+                name: "IX_WordVerbs_VerbId",
+                table: "WordVerbs",
                 column: "VerbId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WordVerbEntity_WordId",
-                table: "WordVerbEntity",
+                name: "IX_WordVerbs_WordId",
+                table: "WordVerbs",
                 column: "WordId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "WordVerbEntity");
+                name: "WordVerbs");
 
             migrationBuilder.DropTable(
-                name: "IrregularVerbEntity");
+                name: "IrregularVerbs");
 
             migrationBuilder.DropTable(
-                name: "WordEntity");
+                name: "Words");
         }
     }
 }
