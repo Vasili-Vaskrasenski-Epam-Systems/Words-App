@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DAL.Entities;
 using DAL.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,20 +14,29 @@ namespace Main.Controllers
 
         public WordsController(WordsDbContext context)
         {
-            this._context = context;
+            this._context = context; 
         }
 
         public IActionResult Index()
         {
             var words = this._context.Words.ToList();
 
-            return View(words);
+            return View("Index", words);
         }
 
-        [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            var word = new WordEntity();
+            return View(word);
+        }
+
+        [HttpPost]
+        public IActionResult Create([Bind("Word, Transcription, Translation")] WordEntity entity)
+        {
+            this._context.Words.Add(entity);
+            this._context.SaveChanges();
+
+            return Index();
         }
     }
 }

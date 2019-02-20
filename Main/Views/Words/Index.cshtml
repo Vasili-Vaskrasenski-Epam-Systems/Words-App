@@ -1,10 +1,17 @@
 ﻿@model List<DAL.Entities.WordEntity>
+
 @{
     ViewData["Title"] = "Index";
 }
 
+@foreach (var word in Model)
+{
+    <span>Word</span>
+    <span>@word.Word</span>
+}
+
 <div class="button-bar">
-    <input type="button" asp-action="Create"/>
+    <a asp-action="Create">Create</a>
 </div>
 
 <h1>Index</h1>
