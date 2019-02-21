@@ -1,1 +1,24 @@
-﻿
+<h1>Already existing words</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!words"><em>Loading...</em></p>
+
+<table class='table table-striped' *ngIf="words">
+  <thead>
+  <tr>
+    <th>Word</th>
+    <th>Transcription</th>
+    <th>Translation</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let word of words">
+    <td>{{ word.word }}</td>
+    <td>{{ word.transcription}}</td>
+    <td>{{ word.translation }}</td>
+    <th></th>
+  </tr>
+  </tbody>
+</table>
