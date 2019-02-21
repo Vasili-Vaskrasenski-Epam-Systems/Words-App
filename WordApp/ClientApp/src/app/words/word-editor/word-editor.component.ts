@@ -1,19 +1,29 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: "app-word-editor",
-  templateUrl: "./word-editor.html"
+  templateUrl: "./word-editor.component.html",
+  inputs: ['word', 'transcription', 'translation']
 })
 
 export class WordEditorComponent {
-  wordEditForm = new FormGroup({
-    word: new FormControl(''),
-    transcription: new FormControl(''),
-    translation: new FormControl(''),
-  });
+  @Output() notifyAboutEdit: EventEmitter<WordModel> = new EventEmitter<WordModel>();
+  @Output() notifyAboutDelete: EventEmitter<WordModel> = new EventEmitter<WordModel>();
 
-  onSubmit() {
-    console.warn(this.wordEditForm.value);
+  onEdit(): void {
+    this.notifyAboutEdit.emit(null);
   }
+
+  onDelete(): void {
+    this.notifyAboutDelete.emit(null);
+  }
+
+  //wordEditForm = new FormGroup({
+  //  word: new FormControl(''),
+  //  transcription: new FormControl(''),
+  //  translation: new FormControl(''),
+  //});
+
+  
+
 }

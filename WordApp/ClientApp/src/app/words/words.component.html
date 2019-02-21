@@ -18,7 +18,7 @@
     <td>{{ word.word }}</td>
     <td>{{ word.transcription}}</td>
     <td>{{ word.translation }}</td>
-    <th></th>
+    <td><app-word-editor (notifyAboutEdit) = "onWordEdit($event)" (notifyAboutDelete) = "onWordDelete($event)"></app-word-editor></td>
   </tr>
   </tbody>
 </table>

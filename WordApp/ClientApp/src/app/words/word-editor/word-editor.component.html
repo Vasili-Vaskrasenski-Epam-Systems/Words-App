@@ -1,19 +1,2 @@
-<form [formGroup]="wordEditForm" (ngSubmit)="onSubmit()">
-
-  <label>
-    Word:
-    <input type="text" formControlName="word" required>
-  </label>
-
-  <label>
-    Transcription:
-    <input type="text" formControlName="transcription" required>
-  </label>
-
-  <label>
-    Translation:
-    <input type="text" formControlName="translation" required>
-  </label>
-
-  <button type="submit" [disabled]="!profileForm.valid">Submit</button>
-</form>
+<button (click)="onEdit()">Edit</button>
+<button (click)="onDelete()">Delete</button>
