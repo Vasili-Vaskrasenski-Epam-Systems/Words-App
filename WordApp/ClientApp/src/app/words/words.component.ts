@@ -1,22 +1,22 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { WordsService } from './words.service';
 
 @Component({
   selector: 'app-words',
   templateUrl: './words.component.html',
 })
-export class WordsComponent {
-  private  words: WordModel[];
-  private baseUrl: string;
-
+export class WordsComponent implements OnInit {
+  private words: WordModel[];
+  
   ngOnInit() {
-    this.http.get<WordModel[]>(this.baseUrl + 'api/Words/GetWords').subscribe(result => {
+
+    this.wordsService.getWords().subscribe(result => {
       this.words = result;
     }, error => console.error(error));
-  }
+  };
 
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = baseUrl;
+  constructor(public wordsService: WordsService) {
+    
   }
 }

@@ -12,7 +12,9 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { WordsComponent } from "./words/words.component";
-import { IrregularVerbsComponent } from "./irregularverbs/irregularverbs.component"
+import { IrregularVerbsComponent } from './irregularverbs/irregularverbs.component';
+
+import { WordsService } from './words/words.service';
 
 
 const routes: Routes = [
@@ -35,7 +37,7 @@ const routes: Routes = [
     IrregularVerbsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [WordsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
