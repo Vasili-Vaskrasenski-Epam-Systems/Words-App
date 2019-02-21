@@ -16,11 +16,11 @@ export class WordsComponent implements OnInit {
   };
 
   onWordEdit(word: WordModel): void {
-    console.log('edit');
+    console.log('edit' + word.word);
   }
 
   onWordDelete(word: WordModel): void {
-    console.log('delete');
+    console.log('delete' + word.word);
   }
 
 

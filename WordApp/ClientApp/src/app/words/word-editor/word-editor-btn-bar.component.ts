@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: "app-word-editor-btn-bar",
@@ -7,23 +7,16 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 
 export class WordEditorBtnBarComponent {
+
+  @Input() word: WordModel;
   @Output() notifyAboutEdit: EventEmitter<WordModel> = new EventEmitter<WordModel>();
   @Output() notifyAboutDelete: EventEmitter<WordModel> = new EventEmitter<WordModel>();
 
   onEdit(): void {
-    this.notifyAboutEdit.emit(null);
+    this.notifyAboutEdit.emit(this.word);
   }
 
   onDelete(): void {
-    this.notifyAboutDelete.emit(null);
+    this.notifyAboutDelete.emit(this.word);
   }
-
-  //wordEditForm = new FormGroup({
-  //  word: new FormControl(''),
-  //  transcription: new FormControl(''),
-  //  translation: new FormControl(''),
-  //});
-
-  
-
 }
