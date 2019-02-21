@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: "app-word-editor",
-  templateUrl: "./word-editor.component.html",
+  selector: "app-word-editor-btn-bar",
+  templateUrl: "./word-editor-btn-bar.component.html",
   inputs: ['word', 'transcription', 'translation']
 })
 
-export class WordEditorComponent {
+export class WordEditorBtnBarComponent {
   @Output() notifyAboutEdit: EventEmitter<WordModel> = new EventEmitter<WordModel>();
   @Output() notifyAboutDelete: EventEmitter<WordModel> = new EventEmitter<WordModel>();
 

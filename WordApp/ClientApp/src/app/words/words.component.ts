@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WordsService } from './words.service';
-import { WordEditorComponent } from './word-editor/word-editor.component';
+import { WordEditorBtnBarComponent } from './word-editor/word-editor-btn-bar.component';
 
 @Component({
   selector: 'app-words',
