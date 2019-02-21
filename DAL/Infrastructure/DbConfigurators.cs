@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DAL.Entities;
+﻿using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,7 +10,7 @@ namespace DAL.Infrastructure
         {
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
-            builder.Property(e => e.RowVersion).IsConcurrencyToken();
+            builder.Property(e => e.RowVersion).IsRowVersion();
         }
     }
 

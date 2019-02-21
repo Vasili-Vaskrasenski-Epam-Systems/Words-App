@@ -3,7 +3,7 @@
 <p>This component demonstrates fetching data from the server.</p>
 
 <p *ngIf="!words"><em>Loading...</em></p>
-
+<button (click)="onWordAdd()">Add Word</button>
 <table class='table table-striped' *ngIf="words">
   <thead>
   <tr>

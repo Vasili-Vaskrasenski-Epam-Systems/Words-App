@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(WordsDbContext))]
-    [Migration("20190220120953_Initial")]
+    [Migration("20190221150643_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,8 @@ namespace DAL.Migrations
                     b.Property<string>("CommonWord");
 
                     b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
 
@@ -42,7 +43,8 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("Transcription");
 
@@ -61,7 +63,8 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<Guid>("VerbId");
 

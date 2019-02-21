@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { WordsService } from './words.service';
-import { WordEditorBtnBarComponent } from './word-editor/word-editor-btn-bar.component';
 
 @Component({
   selector: 'app-words',
@@ -15,12 +14,18 @@ export class WordsComponent implements OnInit {
     }, error => console.error(error));
   };
 
+  onWordAdd(): void {
+    alert('One day add function will be added');
+  }
+
   onWordEdit(word: WordModel): void {
-    console.log('edit' + word.word);
+    alert('edit' + word.word);
   }
 
   onWordDelete(word: WordModel): void {
-    console.log('delete' + word.word);
+    var index = this.words.findIndex(w => w.word === word.word);
+    this.words.splice(index, 1);
+    alert('delete' + word.word);
   }
 
 

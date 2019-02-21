@@ -27,7 +27,8 @@ namespace DAL.Migrations
                     b.Property<string>("CommonWord");
 
                     b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
 
@@ -40,7 +41,8 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("Transcription");
 
@@ -59,7 +61,8 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken();
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<Guid>("VerbId");
 

@@ -12,7 +12,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    RowVersion = table.Column<byte[]>(nullable: true),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
                     CommonWord = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -25,7 +25,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    RowVersion = table.Column<byte[]>(nullable: true),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
                     Word = table.Column<string>(nullable: true),
                     Transcription = table.Column<string>(nullable: true),
                     Translation = table.Column<string>(nullable: true)
@@ -40,7 +40,7 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    RowVersion = table.Column<byte[]>(nullable: true),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
                     WordId = table.Column<Guid>(nullable: false),
                     VerbId = table.Column<Guid>(nullable: false)
                 },

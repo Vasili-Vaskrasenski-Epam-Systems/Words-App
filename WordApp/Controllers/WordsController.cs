@@ -20,7 +20,8 @@ namespace WordApp.Controllers
         [HttpGet("[action]")]
         public IEnumerable<WordEntity> GetWords()
         {
-            return this._context.Words.ToList();
+            var words = this._context.Words.ToList();
+            return words;
         }
     }
 }
