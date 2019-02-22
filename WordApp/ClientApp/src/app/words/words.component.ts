@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WordsService } from './words.service';
+import { WordModel } from './word.model';
 
 @Component({
   selector: 'app-words',
@@ -26,6 +27,10 @@ export class WordsComponent implements OnInit {
     var index = this.words.findIndex(w => w.word === word.word);
     this.words.splice(index, 1);
     alert('delete' + word.word);
+  }
+
+  onWordCreate(word: WordModel): void {
+    this.words.push(word);
   }
 
 

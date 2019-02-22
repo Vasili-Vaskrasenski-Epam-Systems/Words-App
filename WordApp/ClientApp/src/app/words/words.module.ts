@@ -5,6 +5,7 @@ import { WordsComponent } from './words.component';
 import { WordEditorBtnBarComponent } from './word-editor/word-editor-btn-bar.component';
 import { WordEditorFormComponent } from './word-editor/word-editor-form.component';
 
+
 @NgModule({
   declarations: [
     WordsComponent,

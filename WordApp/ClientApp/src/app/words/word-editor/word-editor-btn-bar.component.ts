@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { WordModel } from './../word.model';
 
 @Component({
   selector: "app-word-editor-btn-bar",

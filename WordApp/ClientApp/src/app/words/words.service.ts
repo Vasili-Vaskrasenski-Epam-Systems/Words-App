@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { WordModel } from './word.model';
 
 @Injectable()
 export class WordsService {

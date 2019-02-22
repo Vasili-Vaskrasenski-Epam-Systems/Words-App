@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { WordModel } from './../word.model';
 
 @Component({
   selector: "app-word-editor-form",
@@ -6,16 +7,23 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
   inputs: ['word', 'transcription', 'translation']
 })
 
-export class WordEditorFormComponent {
+export class WordEditorFormComponent  {
 
-  @Input() word: WordModel;
-  @Output() notifyAboutEdit: EventEmitter<WordModel> = new EventEmitter<WordModel>();
+  //private isCreateMode: boolean;
+
+  //@Input() word: WordModel;
+  //@Output() notifyAboutEdit: EventEmitter<WordModel> = new EventEmitter<WordModel>();
   @Output() notifyAboutCreate: EventEmitter<WordModel> = new EventEmitter<WordModel>();
 
-  //onEdit(): void {
-  //  this.notifyAboutEdit.emit(this.word);
-  //}
+  onAddWord(newWord: {
+    word: string;
+    transcription: string;
+    translation: string;
+  }): void {
+    const word = new WordModel(newWord.word, newWord.transcription, newWord.translation);
 
+    this.notifyAboutCreate.emit(word);
+  }
   //onDelete(): void {
   //  this.notifyAboutDelete.emit(this.word);
   //}
