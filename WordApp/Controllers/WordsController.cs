@@ -1,47 +1,42 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
+using BL.Services;
 using DAL.Entities;
-using DAL.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using WordApp.Models;
 
 namespace WordApp.Controllers
 {
     [Route("api/[controller]")]
-    public class WordsController : Controller
+    public class WordsController : BaseController
     {
-        private readonly WordsDbContext _context;
-        public WordsController(WordsDbContext context)
+        private readonly IEntityService<WordEntity> _service;
+        
+        public WordsController(IEntityService<WordEntity> service, IMapper mapper): base(mapper)
         {
-            this._context = context;
+            this._service = service;
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<WordEntity> GetWords()
+        public IEnumerable<WordModel> GetWords()
         {
-            var words = this._context.Words.ToList();
-            return words;
+            return base.Mapper.Map<List<WordModel>>(this._service.GetEntities());
         }
 
         [HttpPost("[action]")]
-        public WordEntity CreateWord([FromBody] WordEntity wordEntity)
+        public WordModel CreateWord([FromBody] WordEntity wordEntity)
         {
-            this._context.Words.Add(wordEntity);
-            this._context.SaveChanges();
-            return wordEntity;
+            return base.Mapper.Map<WordModel>(this._service.CreateEntity(wordEntity));
         }
 
         [HttpPost("[action]")]
-        public WordEntity DeleteWord([FromBody] WordEntity wordEntity)
+        public WordModel DeleteWord([FromBody] WordEntity wordEntity)
         {
-            this._context.Words.Remove(wordEntity);
-            this._context.SaveChanges();
-            return wordEntity;
+            return base.Mapper.Map<WordModel>(this._service.DeleteEntity(wordEntity));
         }
 
         [HttpPost("[action]")]
-        public WordEntity UpdateWord([FromBody] WordEntity wordEntity)
+        public WordModel UpdateWord([FromBody] WordEntity wordEntity)
         {
             //var wordToUpdate = this._context.Words.FirstOrDefault(w => w.Id == wordEntity.Id);
 
@@ -50,10 +45,7 @@ namespace WordApp.Controllers
             //wordToUpdate.Translation = wordEntity.Translation;
             //wordToUpdate.RowVersion = wordEntity.RowVersion;
 
-            this._context.Words.Update(wordEntity);
-            this._context.SaveChanges();
-
-            return wordEntity;
+            return base.Mapper.Map<WordModel>(this._service.UpdateEntity(wordEntity));
         }
     }
 }

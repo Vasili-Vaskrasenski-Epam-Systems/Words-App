@@ -1,3 +1,6 @@
+using AutoMapper;
+using BL.Services;
+using DAL.Entities;
 using DAL.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +10,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WordApp.Infrastructure;
+
 
 namespace WordApp
 {
@@ -24,8 +29,20 @@ namespace WordApp
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            #region AutoMapper
+            var mappingConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingRules()));
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            #endregion
+
+            #region DbContext
             services.AddDbContext<WordsDbContext>(opts =>
                 opts.UseSqlServer(this.Configuration.GetConnectionString("WordsDbConnectionString")));
+            #endregion
+
+            #region Business Services
+            services.AddScoped(typeof(IEntityService<WordEntity>), typeof(WordService));
+            #endregion
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
