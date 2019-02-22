@@ -12,6 +12,16 @@ export class WordsService {
     return this.http.get<WordModel[]>(url);
   }
 
+  public createWord(word: WordModel): any {
+    var url = this.baseUrl + 'api/Words/CreateWord';
+    return this.http.post<WordModel>(url, word);
+  }
+
+  public deleteWord(word: WordModel): any {
+    var url = this.baseUrl + 'api/Words/DeleteWord';
+    return this.http.post<string>(url, word);
+  }
+
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
   }

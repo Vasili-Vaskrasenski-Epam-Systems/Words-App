@@ -23,5 +23,21 @@ namespace WordApp.Controllers
             var words = this._context.Words.ToList();
             return words;
         }
+
+        [HttpPost("[action]")]
+        public WordEntity CreateWord([FromBody] WordEntity wordEntity)
+        {
+            this._context.Words.Add(wordEntity);
+            this._context.SaveChanges();
+            return wordEntity;
+        }
+
+        [HttpPost("[action]")]
+        public WordEntity DeleteWord([FromBody] WordEntity wordEntity)
+        {
+            this._context.Words.Remove(wordEntity);
+            this._context.SaveChanges();
+            return wordEntity;
+        }
     }
 }

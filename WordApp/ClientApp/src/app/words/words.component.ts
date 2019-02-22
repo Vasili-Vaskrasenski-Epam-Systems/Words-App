@@ -24,13 +24,16 @@ export class WordsComponent implements OnInit {
   }
 
   onWordDelete(word: WordModel): void {
-    var index = this.words.findIndex(w => w.word === word.word);
-    this.words.splice(index, 1);
-    alert('delete' + word.word);
+    this.wordsService.deleteWord(word).subscribe(result => {
+      var index = this.words.findIndex(w => w.word === word.word);
+      this.words.splice(index, 1);
+    }, error => console.error(error));
   }
 
   onWordCreate(word: WordModel): void {
-    this.words.push(word);
+    this.wordsService.createWord(word).subscribe(result => {
+      this.words.push(result);
+    },error => console.error(error));
   }
 
 

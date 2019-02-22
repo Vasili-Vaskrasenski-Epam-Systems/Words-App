@@ -20,7 +20,7 @@ export class WordEditorFormComponent  {
     transcription: string;
     translation: string;
   }): void {
-    const word = new WordModel(newWord.word, newWord.transcription, newWord.translation);
+    const word = new WordModel(newWord.word, newWord.transcription, newWord.translation, null, null);
 
     this.notifyAboutCreate.emit(word);
   }
