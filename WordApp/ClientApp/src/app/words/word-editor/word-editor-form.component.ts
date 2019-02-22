@@ -14,17 +14,21 @@ export class WordEditorFormComponent  {
   //@Input() word: WordModel;
   //@Output() notifyAboutEdit: EventEmitter<WordModel> = new EventEmitter<WordModel>();
   @Output() notifyAboutCreate: EventEmitter<WordModel> = new EventEmitter<WordModel>();
+  @Output() notifyAboutCancelCreate = new EventEmitter();
 
   onAddWord(newWord: {
     word: string;
     transcription: string;
     translation: string;
   }): void {
-    const word = new WordModel(newWord.word, newWord.transcription, newWord.translation, null, null);
+    const word = new WordModel(newWord.word, newWord.transcription, newWord.translation, '00000000-0000-0000-0000-000000000000', null);
 
     this.notifyAboutCreate.emit(word);
   }
-  //onDelete(): void {
-  //  this.notifyAboutDelete.emit(this.word);
-  //}
+
+  onCancelAddWord(): void {
+    this.notifyAboutCancelCreate.emit();
+  };
 }
+
+

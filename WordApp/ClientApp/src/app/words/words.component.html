@@ -2,11 +2,11 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 
-<app-word-editor-form (notifyAboutCreate)="onWordCreate($event)"></app-word-editor-form>
+<button *ngIf="!willAdd" (click)="onShowWordCreateForm()" class="btn btn-primary">Create Word</button>
+
+<app-word-editor-form *ngIf="willAdd" (notifyAboutCreate)="onWordCreate($event)" (notifyAboutCancelCreate)="onCancelWordCreate()"></app-word-editor-form>
 
 <p *ngIf="!words"><em>Loading...</em></p>
-
-<!--<button (click)="onWordAdd()">Add Word</button>-->
 
 <table class='table table-striped' *ngIf="words">
   <thead>

@@ -12,8 +12,13 @@ export class WordsService {
     return this.http.get<WordModel[]>(url);
   }
 
-  public createWord(word: WordModel): any {
+  public createWord(wordEntity: WordModel): any {
     var url = this.baseUrl + 'api/Words/CreateWord';
+    return this.http.post<WordModel>(url, wordEntity);
+  }
+
+  public updateWord(word: WordModel): any {
+    var url = this.baseUrl + 'api/Words/UpdateWord';
     return this.http.post<WordModel>(url, word);
   }
 

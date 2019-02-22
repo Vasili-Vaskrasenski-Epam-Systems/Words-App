@@ -39,5 +39,21 @@ namespace WordApp.Controllers
             this._context.SaveChanges();
             return wordEntity;
         }
+
+        [HttpPost("[action]")]
+        public WordEntity UpdateWord([FromBody] WordEntity wordEntity)
+        {
+            //var wordToUpdate = this._context.Words.FirstOrDefault(w => w.Id == wordEntity.Id);
+
+            //wordToUpdate.Word = wordEntity.Word;
+            //wordToUpdate.Transcription = wordEntity.Transcription;
+            //wordToUpdate.Translation = wordEntity.Translation;
+            //wordToUpdate.RowVersion = wordEntity.RowVersion;
+
+            this._context.Words.Update(wordEntity);
+            this._context.SaveChanges();
+
+            return wordEntity;
+        }
     }
 }

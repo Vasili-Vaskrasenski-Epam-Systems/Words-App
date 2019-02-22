@@ -8,6 +8,7 @@ import { WordModel } from './word.model';
 })
 export class WordsComponent implements OnInit {
   private words: WordModel[];
+  private willAdd: boolean;
   
   ngOnInit() {
     this.wordsService.getWords().subscribe(result => {
@@ -15,17 +16,17 @@ export class WordsComponent implements OnInit {
     }, error => console.error(error));
   };
 
-  onWordAdd(): void {
-    alert('One day add function will be added');
-  }
-
   onWordEdit(word: WordModel): void {
-    alert('edit' + word.word);
+    this.wordsService.updateWord(word).subscribe(result => {
+      //var index = this.words.findIndex(w => w.word === result.word);
+      //this.words.splice(index, 1);
+      //TODO need some logic for update properties on UI
+    }, error => console.error(error));
   }
 
   onWordDelete(word: WordModel): void {
     this.wordsService.deleteWord(word).subscribe(result => {
-      var index = this.words.findIndex(w => w.word === word.word);
+      var index = this.words.findIndex(w => w.word === result.word);
       this.words.splice(index, 1);
     }, error => console.error(error));
   }
@@ -33,7 +34,16 @@ export class WordsComponent implements OnInit {
   onWordCreate(word: WordModel): void {
     this.wordsService.createWord(word).subscribe(result => {
       this.words.push(result);
+      this.willAdd = false;
     },error => console.error(error));
+  }
+
+  onShowWordCreateForm(): void {
+    this.willAdd = true;
+  }
+
+  onCancelWordCreate(): void {
+    this.willAdd = false;
   }
 
 
