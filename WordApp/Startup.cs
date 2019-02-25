@@ -42,6 +42,7 @@ namespace WordApp
 
             #region Business Services
             services.AddScoped(typeof(IEntityService<WordEntity>), typeof(WordService));
+            services.AddScoped(typeof(IEntityService<IrregularVerbEntity>), typeof(IrregularVerbService));
             #endregion
 
             // In production, the Angular files will be served from this directory

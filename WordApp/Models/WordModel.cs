@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WordApp.Models
+﻿namespace WordApp.Models
 {
-    public class WordModel
+    public class WordModel:BaseModel
     {
         public string Word { get; set; }
         public string Transcription { get; set; }

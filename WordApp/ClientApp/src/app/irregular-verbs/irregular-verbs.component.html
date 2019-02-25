@@ -1,0 +1,29 @@
+<h1>Already existing irregular verbs</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<!--<button *ngIf="!willAdd" (click)="onShowWordCreateForm()" class="btn btn-primary">Create Word</button>
+
+<app-word-editor-form *ngIf="willAdd" (notifyAboutCreate)="onWordCreate($event)" (notifyAboutCancelCreate)="onCancelWordCreate()"></app-word-editor-form>-->
+
+<p *ngIf="!irregularVerbs"><em>Loading...</em></p>
+
+<table class='table table-striped' *ngIf="irregularVerbs">
+  <thead>
+    <tr>
+      <th>Word</th>
+      <th>First Form</th>
+      <th>Second Form</th>
+      <th>Third Form</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let irregularVerb of irregularVerbs">
+      <td>{{ irregularVerb.commonWord}}</td>
+      <td *ngFor="let word of irregularVerb.words">{{ word.word}}</td>
+      <!--<td><app-word-editor-btn-bar (notifyAboutEdit)="onWordEdit($event)" (notifyAboutDelete)="onWordDelete($event)" [word]="word"></app-word-editor-btn-bar></td>-->
+    <!--</td>-->
+    </tr>
+  </tbody>
+</table>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { IrregularVerbsComponent } from './irregularverbs.component';
+import { IrregularVerbsComponent } from './irregular-verbs.component';
 
 @NgModule({
   declarations: [IrregularVerbsComponent],

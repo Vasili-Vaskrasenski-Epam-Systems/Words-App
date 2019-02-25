@@ -25,6 +25,7 @@ export class WordsComponent implements OnInit {
   }
 
   onWordDelete(word: WordModel): void {
+    console.log(word);
     this.wordsService.deleteWord(word).subscribe(result => {
       var index = this.words.findIndex(w => w.word === result.word);
       this.words.splice(index, 1);
