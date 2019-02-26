@@ -38,10 +38,11 @@ export class WordEditorComponent implements AfterViewInit {
     });
 
     instance.notifyAboutConfirm.subscribe(e => {
-      this.wordObject.word = e.word;
-      this.wordObject.transcription = e.transcription;
-      this.wordObject.translation = e.translation;
-
+      var instance = <WordModel>e;
+      this.wordObject.word = instance.word;
+      this.wordObject.transcription = instance.transcription;
+      this.wordObject.translation = instance.translation;
+      
       this.vcrafdcc.clear();
       this.actWithButtons(false);
       this.notifyAboutEdit.emit(e);

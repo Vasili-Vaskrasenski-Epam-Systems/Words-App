@@ -29,15 +29,16 @@ export class WordsComponent implements OnInit, AfterViewInit {
   }
 
   onWordEdit(word: WordModel): void {
-    console.log(word);
     this.wordsService.updateWord(word).subscribe(result => {
+      var wordToUpdate = this.words.find(w => w.id === result.id);
+      wordToUpdate.rowVersion = result.rowVersion;
       }, error => console.error(error));
   }
 
   onWordDelete(word: WordModel): void {
     console.log(word);
     this.wordsService.deleteWord(word).subscribe(result => {
-      var index = this.words.findIndex(w => w.word === result.word);
+      var index = this.words.findIndex(w => w.id === result.id);
       this.words.splice(index, 1);
     }, error => console.error(error));
   }
