@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DAL.Entities;
 using DAL.Infrastructure;
@@ -43,7 +44,9 @@ namespace BL.Services
 
         public List<IrregularVerbEntity> GetEntities()
         {
-            return new List<IrregularVerbEntity>(this._context.IrregularVerbs.Include(e => e.WordVerbs));
+            return this._context.IrregularVerbs
+                .Include(iv => iv.WordVerbs)
+                .ThenInclude(w => w.Word).ToList();
         }
     }
 }

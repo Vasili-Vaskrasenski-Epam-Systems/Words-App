@@ -10,12 +10,12 @@ import { WordEditorFormComponent } from "./word-editor/word-editor-form.componen
 export class WordsComponent implements OnInit, AfterViewInit {
   private words: WordModel[];
   private componentFactory: any;
-  
+
   @ViewChild('vcrafdcc', { read: ViewContainerRef }) vcrafdcc: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
-  
 
-  constructor(public wordsService: WordsService, private componentFactoryResolver: ComponentFactoryResolver) {
+
+  constructor(private wordsService: WordsService, private componentFactoryResolver: ComponentFactoryResolver) {
   }
 
   ngOnInit() {
@@ -32,7 +32,7 @@ export class WordsComponent implements OnInit, AfterViewInit {
     this.wordsService.updateWord(word).subscribe(result => {
       var wordToUpdate = this.words.find(w => w.id === result.id);
       wordToUpdate.rowVersion = result.rowVersion;
-      }, error => console.error(error));
+    }, error => console.error(error));
   }
 
   onWordDelete(word: WordModel): void {
@@ -46,8 +46,7 @@ export class WordsComponent implements OnInit, AfterViewInit {
   onWordCreate(word: WordModel): void {
     this.wordsService.createWord(word).subscribe(result => {
       this.words.push(result);
-      this.vcrafdcc.clear();
-      this.showFormBtn.nativeElement.disabled = false;
+      this.clearForm();
     }, error => console.error(error));
   }
 
@@ -57,7 +56,7 @@ export class WordsComponent implements OnInit, AfterViewInit {
     var instance = <WordEditorFormComponent>ref.instance;
 
     instance.notifyAboutCancel.subscribe(e => {
-      this.onCancelWordCreate();
+      this.clearForm();
     });
 
     instance.notifyAboutConfirm.subscribe(e => {
@@ -65,7 +64,7 @@ export class WordsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onCancelWordCreate(): void {
+  private clearForm() {
     this.vcrafdcc.clear();
     this.showFormBtn.nativeElement.disabled = false;
   }

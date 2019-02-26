@@ -1,0 +1,26 @@
+<form>
+  <div class="form-group">
+    
+    <label for="word">Common Word</label>
+      <input type="text" class="form-control" id="commonWord" name="commonWord" placeholder="ex: Go" [(ngModel)]="irregularVerbObject.commonWord"/>
+    
+    <label for="firstForm">First Form</label>
+    <select class="form-control" id="firstForm" name="firstForm" [(ngModel)]="firstForm">
+      <option *ngFor="let word of existingWords" [ngValue]="word">{{word.word}}</option>
+    </select>
+
+    <label for="secondForm">Second Form</label>
+    <select class="form-control" id="secondForm" name="secondForm" [(ngModel)]="secondForm">
+      <option *ngFor="let word of existingWords" [ngValue]="word">{{word.word}}</option>
+    </select>
+
+    <label for="thirdForm">Third Form</label>
+    <select class="form-control" id="thirdForm" name="thirdForm" [(ngModel)]="thirdForm">
+      <option *ngFor="let word of existingWords" [ngValue]="word">{{word.word}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <button type="button" class="btn btn-success" (click)="onConfirm()">Confirm</button>
+  <button type="button" (click)="onCancel()" class="btn btn-danger">Cancel</button>
+  </div>
+</form>

@@ -1,12 +1,10 @@
 <h1>Already existing words</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
-
 <div class="add-form-dynamic-component-container">
   <button #showAddFormBtn (click)="onShowWordCreateForm()" class="btn btn-primary">Create Word</button>
   <ng-container #vcrafdcc></ng-container>
 </div>
-
+<p></p>
 <!--<app-word-editor-form *ngIf="willAdd" (notifyAboutCreate)="onWordCreate($event)" (notifyAboutCancelCreate)="onCancelWordCreate()"></app-word-editor-form>-->
 
 <p *ngIf="!words"><em>Loading...</em></p>
@@ -21,18 +19,13 @@
     </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let word of words">
-    <td>{{ word.word }}</td>
-    <td>{{ word.transcription}}</td>
-    <td>{{ word.translation }}</td>
-    <td>
-      <!--<div class="btn-toolbar">-->
+    <tr *ngFor="let word of words">
+      <td>{{ word.word }}</td>
+      <td>{{ word.transcription}}</td>
+      <td>{{ word.translation }}</td>
+      <td>
         <app-word-editor [wordObject]="word" (notifyAboutEdit)="onWordEdit($event)" (notifyAboutDelete)="onWordDelete($event)"></app-word-editor>
-        <!--<div class="btn-group">
-          <button (click)="onWordDelete(word)" class="btn btn-danger">Delete</button>
-        </div>-->
-      <!--</div>-->
-    </td>
-  </tr>
+      </td>
+    </tr>
   </tbody>
 </table>

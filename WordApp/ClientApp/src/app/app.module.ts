@@ -14,10 +14,6 @@ import { HomeComponent } from './home/home.component';
 import { WordsComponent } from "./words/words.component";
 import { IrregularVerbsComponent } from './irregular-verbs/irregular-verbs.component';
 
-import { WordsService } from './words/words.service';
-import { IrregularVerbsService } from './irregular-verbs/irregular-verbs.service';
-
-
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'words', component: WordsComponent },
@@ -38,7 +34,6 @@ const routes: Routes = [
     IrregularVerbsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [WordsService, IrregularVerbsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

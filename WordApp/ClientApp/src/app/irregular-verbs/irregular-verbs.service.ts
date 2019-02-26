@@ -12,6 +12,11 @@ export class IrregularVerbsService {
     return this.http.get<IrregularVerbModel[]>(url);
   }
 
+  public createIrregularVerb(verbModel: IrregularVerbModel): any {
+    var url = this.baseUrl + 'api/IrregularVerbs/CreateIrregularVerb';
+    return this.http.post<IrregularVerbModel>(url, verbModel);
+  }
+
   //public createWord(wordEntity: IrregularVerbModel): any {
   //  var url = this.baseUrl + 'api/Words/CreateWord';
   //  return this.http.post<IrregularVerbModel>(url, wordEntity);
@@ -29,5 +34,6 @@ export class IrregularVerbsService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
+    console.log('verbs-service-created');
   }
 };

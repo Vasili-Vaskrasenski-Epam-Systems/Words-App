@@ -2,9 +2,10 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 
-<!--<button *ngIf="!willAdd" (click)="onShowWordCreateForm()" class="btn btn-primary">Create Word</button>
-
-<app-word-editor-form *ngIf="willAdd" (notifyAboutCreate)="onWordCreate($event)" (notifyAboutCancelCreate)="onCancelWordCreate()"></app-word-editor-form>-->
+<div class="add-form-dynamic-component-container">
+  <button #showAddFormBtn (click)="onShowVerbCreateForm()" class="btn btn-primary">Create Verb</button>
+  <ng-container #editVerbFormContainer></ng-container>
+</div>
 
 <p *ngIf="!irregularVerbs"><em>Loading...</em></p>
 
@@ -22,6 +23,7 @@
     <tr *ngFor="let irregularVerb of irregularVerbs">
       <td>{{ irregularVerb.commonWord}}</td>
       <td *ngFor="let word of irregularVerb.words">{{ word.word}}</td>
+      <td>EDIT/DELETE</td>
       <!--<td><app-word-editor-btn-bar (notifyAboutEdit)="onWordEdit($event)" (notifyAboutDelete)="onWordDelete($event)" [word]="word"></app-word-editor-btn-bar></td>-->
     <!--</td>-->
     </tr>

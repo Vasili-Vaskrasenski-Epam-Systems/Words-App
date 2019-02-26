@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using DAL.Entities;
 using WordApp.Models;
 
@@ -9,6 +10,16 @@ namespace WordApp.Infrastructure
         public MappingRules()
         {
             CreateMap<WordEntity, WordModel>().ReverseMap();
+
+            CreateMap<IrregularVerbEntity, IrregularVerbModel>()
+                .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.WordVerbs.Select(wv => wv.Word)));
+
+            CreateMap<IrregularVerbModel, IrregularVerbEntity>()
+                .ForMember(dest => dest.WordVerbs,
+                    opt => opt.MapFrom(src => src.Words.Select(w => new WordVerbEntity()
+                    {
+                        WordId = w.Id,
+                    })));
         }
     }
 }

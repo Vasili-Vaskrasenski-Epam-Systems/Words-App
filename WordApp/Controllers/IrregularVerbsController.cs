@@ -19,7 +19,16 @@ namespace WordApp.Controllers
         [HttpGet("[action]")]
         public IEnumerable<IrregularVerbModel> GetIrregularVerbs()
         {
-            return base.Mapper.Map<List<IrregularVerbModel>>(this._irregularVerbService.GetEntities());
+            var entities = this._irregularVerbService.GetEntities();
+            return base.Mapper.Map<List<IrregularVerbModel>>(entities);
+        }
+
+        [HttpPost("[action]")]
+        public IrregularVerbModel CreateIrregularVerb([FromBody] IrregularVerbModel verbModel)
+        {
+            var createdVerb = this._irregularVerbService.CreateEntity(base.Mapper.Map<IrregularVerbEntity>(verbModel));
+
+            return Mapper.Map<IrregularVerbModel>(createdVerb);
         }
     }
 }

@@ -13,8 +13,8 @@ export class WordEditorComponent implements AfterViewInit {
   @Input() wordObject: WordModel;
   @Output() notifyAboutEdit: EventEmitter<WordModel> = new EventEmitter<WordModel>();
   @Output() notifyAboutDelete: EventEmitter<WordModel> = new EventEmitter<WordModel>();
-  
-  @ViewChild('vcreditform', { read: ViewContainerRef }) vcrafdcc: ViewContainerRef;
+
+  @ViewChild('vcreditform', { read: ViewContainerRef }) container: ViewContainerRef;
   @ViewChild('editBtn') editBtn: ElementRef<HTMLButtonElement>;
   @ViewChild('deleteBtn') deleteBtn: ElementRef<HTMLButtonElement>;
 
@@ -27,23 +27,23 @@ export class WordEditorComponent implements AfterViewInit {
 
   onShowWordEditForm(): void {
     this.actWithButtons(true);
-    var ref = this.vcrafdcc.createComponent(this.componentFactory);
+    var ref = this.container.createComponent(this.componentFactory);
     var instance = <WordEditorFormComponent>ref.instance;
     instance.setWord(this.wordObject);
 
     instance.notifyAboutCancel.subscribe(e => {
-      this.vcrafdcc.clear();
+      this.container.clear();
       this.actWithButtons(false);
-      this.vcrafdcc.clear();
     });
 
     instance.notifyAboutConfirm.subscribe(e => {
       var instance = <WordModel>e;
+
       this.wordObject.word = instance.word;
       this.wordObject.transcription = instance.transcription;
       this.wordObject.translation = instance.translation;
-      
-      this.vcrafdcc.clear();
+
+      this.container.clear();
       this.actWithButtons(false);
       this.notifyAboutEdit.emit(e);
     });

@@ -4,7 +4,7 @@ namespace WordApp.Models
 {
     public class IrregularVerbModel: BaseModel
     {
-        public string Word { get; set; }
-        public List<WordModel> WordModels { get; set; }
+        public string CommonWord { get; set; }
+        public List<WordModel> Words { get; set; }
     }
 }
