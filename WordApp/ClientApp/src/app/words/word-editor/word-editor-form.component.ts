@@ -16,7 +16,7 @@ export class WordEditorFormComponent  {
   @Output() notifyAboutCreate: EventEmitter<WordModel> = new EventEmitter<WordModel>();
   @Output() notifyAboutCancelCreate = new EventEmitter();
 
-  onAddWord(newWord: {
+  private onAddWord(newWord: {
     word: string;
     transcription: string;
     translation: string;
@@ -26,7 +26,7 @@ export class WordEditorFormComponent  {
     this.notifyAboutCreate.emit(word);
   }
 
-  onCancelAddWord(): void {
+  private onCancelAddWord(): void {
     this.notifyAboutCancelCreate.emit();
   };
 }

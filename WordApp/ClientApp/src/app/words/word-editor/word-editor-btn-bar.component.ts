@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output, Input, AfterViewInit, AfterViewChecked} from '@angular/core';
 import { WordModel } from './../word.model';
 
 @Component({

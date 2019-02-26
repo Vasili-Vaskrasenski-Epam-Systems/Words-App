@@ -1,27 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { WordsService } from './words.service';
-import { WordModel } from './word.model';
+import { Component, OnInit, AfterViewInit, ViewChild, ComponentFactoryResolver, ViewContainerRef, ElementRef } from "@angular/core";
+import { WordsService } from "./words.service";
+import { WordModel } from "./word.model";
+import { WordEditorFormComponent } from "./word-editor/word-editor-form.component";
 
 @Component({
   selector: 'app-words',
   templateUrl: './words.component.html',
 })
-export class WordsComponent implements OnInit {
+export class WordsComponent implements OnInit, AfterViewInit {
   private words: WordModel[];
-  private willAdd: boolean;
+  private componentFactory: any;
   
+  @ViewChild('vcrafdcc', { read: ViewContainerRef }) vcrafdcc: ViewContainerRef;
+  @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
+  
+
+  constructor(public wordsService: WordsService, private componentFactoryResolver: ComponentFactoryResolver) {
+  }
+
   ngOnInit() {
     this.wordsService.getWords().subscribe(result => {
       this.words = result;
     }, error => console.error(error));
   };
 
+  ngAfterViewInit(): void {
+    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordEditorFormComponent);
+  }
+
   onWordEdit(word: WordModel): void {
-    this.wordsService.updateWord(word).subscribe(result => {
+    console.log(word);
+    //this.wordsService.updateWord(word).subscribe(result => {
       //var index = this.words.findIndex(w => w.word === result.word);
       //this.words.splice(index, 1);
       //TODO need some logic for update properties on UI
-    }, error => console.error(error));
+    //}, error => console.error(error));
   }
 
   onWordDelete(word: WordModel): void {
@@ -35,20 +48,29 @@ export class WordsComponent implements OnInit {
   onWordCreate(word: WordModel): void {
     this.wordsService.createWord(word).subscribe(result => {
       this.words.push(result);
-      this.willAdd = false;
-    },error => console.error(error));
+      this.vcrafdcc.clear();
+      this.showFormBtn.nativeElement.disabled = false;
+    }, error => console.error(error));
   }
 
   onShowWordCreateForm(): void {
-    this.willAdd = true;
+    this.showFormBtn.nativeElement.disabled = true;
+    var ref = this.vcrafdcc.createComponent(this.componentFactory);
+    var instance = <WordEditorFormComponent>ref.instance;
+
+    instance.notifyAboutCancelCreate.subscribe(e => {
+      this.onCancelWordCreate();
+    });
+
+    instance.notifyAboutCreate.subscribe(e => {
+      this.onWordCreate(e);
+    });
+
   }
 
   onCancelWordCreate(): void {
-    this.willAdd = false;
+    this.vcrafdcc.clear();
+    this.showFormBtn.nativeElement.disabled = false;
   }
 
-
-  constructor(public wordsService: WordsService) {
-    
-  }
 }

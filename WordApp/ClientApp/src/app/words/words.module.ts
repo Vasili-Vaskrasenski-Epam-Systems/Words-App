@@ -11,9 +11,10 @@ import { WordEditorFormComponent } from './word-editor/word-editor-form.componen
     WordsComponent,
     WordEditorBtnBarComponent,
     WordEditorFormComponent
-  ],
+    ],
   imports: [FormsModule, BrowserModule],
-  exports: [WordsComponent]
+  exports: [WordsComponent],
+  entryComponents: [WordEditorFormComponent]
 })
 
 export class WordsModule {
