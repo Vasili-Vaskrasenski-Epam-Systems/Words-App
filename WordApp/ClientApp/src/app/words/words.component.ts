@@ -30,11 +30,8 @@ export class WordsComponent implements OnInit, AfterViewInit {
 
   onWordEdit(word: WordModel): void {
     console.log(word);
-    //this.wordsService.updateWord(word).subscribe(result => {
-      //var index = this.words.findIndex(w => w.word === result.word);
-      //this.words.splice(index, 1);
-      //TODO need some logic for update properties on UI
-    //}, error => console.error(error));
+    this.wordsService.updateWord(word).subscribe(result => {
+      }, error => console.error(error));
   }
 
   onWordDelete(word: WordModel): void {
@@ -58,19 +55,17 @@ export class WordsComponent implements OnInit, AfterViewInit {
     var ref = this.vcrafdcc.createComponent(this.componentFactory);
     var instance = <WordEditorFormComponent>ref.instance;
 
-    instance.notifyAboutCancelCreate.subscribe(e => {
+    instance.notifyAboutCancel.subscribe(e => {
       this.onCancelWordCreate();
     });
 
-    instance.notifyAboutCreate.subscribe(e => {
+    instance.notifyAboutConfirm.subscribe(e => {
       this.onWordCreate(e);
     });
-
   }
 
   onCancelWordCreate(): void {
     this.vcrafdcc.clear();
     this.showFormBtn.nativeElement.disabled = false;
   }
-
 }

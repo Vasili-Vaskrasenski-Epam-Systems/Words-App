@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { WordModel } from './../word.model';
 
 @Component({
@@ -8,26 +8,24 @@ import { WordModel } from './../word.model';
 })
 
 export class WordEditorFormComponent  {
+  private wordObject: WordModel;
+  @Output() notifyAboutConfirm: EventEmitter<WordModel> = new EventEmitter<WordModel>();
+  @Output() notifyAboutCancel = new EventEmitter();
 
-  //private isCreateMode: boolean;
-
-  //@Input() word: WordModel;
-  //@Output() notifyAboutEdit: EventEmitter<WordModel> = new EventEmitter<WordModel>();
-  @Output() notifyAboutCreate: EventEmitter<WordModel> = new EventEmitter<WordModel>();
-  @Output() notifyAboutCancelCreate = new EventEmitter();
-
-  private onAddWord(newWord: {
-    word: string;
-    transcription: string;
-    translation: string;
-  }): void {
-    const word = new WordModel(newWord.word, newWord.transcription, newWord.translation, '00000000-0000-0000-0000-000000000000', null);
-
-    this.notifyAboutCreate.emit(word);
+  constructor() {
+    this.wordObject = new WordModel(null, null, null, "00000000-0000-0000-0000-000000000000", null);
   }
 
-  private onCancelAddWord(): void {
-    this.notifyAboutCancelCreate.emit();
+  setWord(word: WordModel) {
+    this.wordObject = new WordModel(word.word, word.transcription, word.translation, word.id, word.rowVersion);
+  }
+  
+  private onConfirm() {
+    this.notifyAboutConfirm.emit(this.wordObject);
+  }
+
+  private onCancel(): void {
+    this.notifyAboutCancel.emit();
   };
 }
 
