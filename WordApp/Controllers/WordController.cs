@@ -8,11 +8,11 @@ using WordApp.Models;
 namespace WordApp.Controllers
 {
     [Route("api/[controller]")]
-    public class WordsController : BaseController
+    public class WordController : BaseController
     {
         private readonly IEntityService<WordEntity> _service;
         
-        public WordsController(IEntityService<WordEntity> service, IMapper mapper): base(mapper)
+        public WordController(IEntityService<WordEntity> service, IMapper mapper): base(mapper)
         {
             this._service = service;
         }

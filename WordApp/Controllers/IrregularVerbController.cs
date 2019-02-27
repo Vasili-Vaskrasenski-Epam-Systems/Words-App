@@ -8,10 +8,10 @@ using WordApp.Models;
 namespace WordApp.Controllers
 {
     [Route("api/[controller]")]
-    public class IrregularVerbsController: BaseController
+    public class IrregularVerbController: BaseController
     {
         private readonly IEntityService<IrregularVerbEntity> _irregularVerbService;
-        public IrregularVerbsController(IMapper mapper, IEntityService<IrregularVerbEntity> irregularVerbService) : base(mapper)
+        public IrregularVerbController(IMapper mapper, IEntityService<IrregularVerbEntity> irregularVerbService) : base(mapper)
         {
             this._irregularVerbService = irregularVerbService;
         }
