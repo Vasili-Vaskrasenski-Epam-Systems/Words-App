@@ -2,13 +2,11 @@
 
 <div class="add-form-dynamic-component-container">
   <button #showAddFormBtn (click)="onShowWordCreateForm()" class="btn btn-primary">Create Word</button>
-  <ng-container #vcrafdcc></ng-container>
+  <ng-container #createWordFormContainer></ng-container>
 </div>
 <p></p>
-<!--<app-word-editor-form *ngIf="willAdd" (notifyAboutCreate)="onWordCreate($event)" (notifyAboutCancelCreate)="onCancelWordCreate()"></app-word-editor-form>-->
 
 <p *ngIf="!words"><em>Loading...</em></p>
-
 <table class='table table-striped' *ngIf="words">
   <thead>
     <tr>

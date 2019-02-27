@@ -1,12 +1,10 @@
 <h1>Already existing irregular verbs</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
-
 <div class="add-form-dynamic-component-container">
   <button #showAddFormBtn (click)="onShowVerbCreateForm()" class="btn btn-primary">Create Verb</button>
   <ng-container #editVerbFormContainer></ng-container>
 </div>
-
+<p></p>
 <p *ngIf="!irregularVerbs"><em>Loading...</em></p>
 
 <table class='table table-striped' *ngIf="irregularVerbs">
@@ -23,8 +21,7 @@
     <tr *ngFor="let irregularVerb of irregularVerbs">
       <td>{{ irregularVerb.commonWord}}</td>
       <td *ngFor="let word of irregularVerb.words">{{ word.word}}</td>
-      <td>EDIT/DELETE</td>
-      <!--<td><app-word-editor-btn-bar (notifyAboutEdit)="onWordEdit($event)" (notifyAboutDelete)="onWordDelete($event)" [word]="word"></app-word-editor-btn-bar></td>-->
+      <td><app-irregular-verb-editor [verbObject]="irregularVerb" [existingWords]="availableWords" (notifyAboutDelete)="onVerbDelete($event)" (notifyAboutEdit)="onVerbEdit($event)"></app-irregular-verb-editor></td>
     <!--</td>-->
     </tr>
   </tbody>

@@ -9,7 +9,7 @@ namespace BL.Services
         T CreateEntity(T entity);
         T DeleteEntity(T entity);
         T UpdateEntity(T entity);
-        T GetEntity(Guid Id);
+        T GetEntity(Guid id);
         List<T> GetEntities();
     }
 }

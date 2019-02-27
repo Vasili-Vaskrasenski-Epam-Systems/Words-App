@@ -7,8 +7,7 @@ import { IrregularVerbModel } from "./../irregular-verb.model";
   templateUrl: './irregular-verb-editor-form.component.html',
 })
 
-export class IrregularVerbEditorFormComponent implements OnInit
-{
+export class IrregularVerbEditorFormComponent implements OnInit {
   private irregularVerbObject: IrregularVerbModel;
   private firstForm: WordModel;
   private secondForm: WordModel;
@@ -23,18 +22,32 @@ export class IrregularVerbEditorFormComponent implements OnInit
   }
 
   ngOnInit(): void {
-    this.firstForm = this.existingWords[0];
-    this.secondForm = this.existingWords[0];
-    this.thirdForm = this.existingWords[0];
+    if (this.existingWords && !this.irregularVerbObject) {
+      this.firstForm = this.existingWords[0];
+      this.secondForm = this.existingWords[0];
+      this.thirdForm = this.existingWords[0];
+    }
+  }
+
+  setVerbs(verb: IrregularVerbModel) {
+    this.irregularVerbObject = new IrregularVerbModel(verb.commonWord, verb.words, verb.id, verb.rowVersion);
+    this.firstForm = this.existingWords.find(e => e.id === this.irregularVerbObject.words[0].id);
+    this.secondForm = this.existingWords.find(e => e.id === this.irregularVerbObject.words[1].id);;
+    this.thirdForm = this.existingWords.find(e => e.id === this.irregularVerbObject.words[2].id);;
   }
 
   private onConfirm() {
-    this.irregularVerbObject.words = [ this.firstForm, this.secondForm, this.thirdForm ];
+    this.irregularVerbObject.words = [this.firstForm, this.secondForm, this.thirdForm];
     this.notifyAboutConfirm.emit(this.irregularVerbObject);
   }
 
   private onCancel() {
     this.notifyAboutCancel.emit();
+  }
+
+  private setSelectValue(wordId: string, model: WordModel) {
+    var elementToSelect = this.existingWords.find(e => e.id === wordId);
+    model = elementToSelect;
   }
 };
 

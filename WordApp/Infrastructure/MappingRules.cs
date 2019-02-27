@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using DAL.Entities;
 using WordApp.Models;
@@ -18,6 +19,7 @@ namespace WordApp.Infrastructure
                 .ForMember(dest => dest.WordVerbs,
                     opt => opt.MapFrom(src => src.Words.Select(w => new WordVerbEntity()
                     {
+                        VerbId = src.Id != Guid.Empty ? src.Id : Guid.Empty,
                         WordId = w.Id,
                     })));
         }

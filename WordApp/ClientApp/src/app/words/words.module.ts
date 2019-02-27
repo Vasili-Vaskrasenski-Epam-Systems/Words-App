@@ -15,8 +15,7 @@ import { WordsService } from './words.service';
     ],
   imports: [FormsModule, BrowserModule],
   exports: [
-    WordsComponent,
-    WordEditorComponent
+    WordsComponent
   ],
   providers:[WordsService],
   entryComponents: [WordEditorFormComponent]

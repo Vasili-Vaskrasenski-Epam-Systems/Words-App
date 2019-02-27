@@ -20,7 +20,7 @@ namespace BL.Services
         {
             this._context.IrregularVerbs.Add(entity);
             this._context.SaveChanges();
-            return entity;
+            return this.GetEntity(entity.Id);
         }
 
         public IrregularVerbEntity DeleteEntity(IrregularVerbEntity entity)
@@ -32,14 +32,20 @@ namespace BL.Services
 
         public IrregularVerbEntity UpdateEntity(IrregularVerbEntity entity)
         {
-            //this._context.IrregularVerbs.Update(entity);
-            //this._context.
-            throw new NotImplementedException();
+            var wordVerbs = this._context.WordVerbs.Where(wv => wv.VerbId == entity.Id).ToList();
+            this._context.WordVerbs.RemoveRange(wordVerbs);
+
+            this._context.IrregularVerbs.Update(entity);
+            this._context.SaveChanges();
+
+            return GetEntity(entity.Id);
         }
 
-        public IrregularVerbEntity GetEntity(Guid Id)
-        {
-            throw new NotImplementedException();
+        public IrregularVerbEntity GetEntity(Guid id)
+        {           
+            return this._context.IrregularVerbs
+                .Include(iv => iv.WordVerbs)
+                .ThenInclude(w => w.Word).FirstOrDefault(e => e.Id == id);
         }
 
         public List<IrregularVerbEntity> GetEntities()

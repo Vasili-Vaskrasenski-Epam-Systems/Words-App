@@ -35,9 +35,9 @@ namespace BL.Services
             return entity;
         }
 
-        public WordEntity GetEntity(Guid Id)
+        public WordEntity GetEntity(Guid id)
         {
-            return this._wordContext.Words.FirstOrDefault(w => w.Id == Id);
+            return this._wordContext.Words.FirstOrDefault(w => w.Id == id);
         }
 
         public List<WordEntity> GetEntities()

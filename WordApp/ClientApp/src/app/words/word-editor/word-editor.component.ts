@@ -5,7 +5,6 @@ import { WordEditorFormComponent } from './word-editor-form.component';
 @Component({
   selector: "app-word-editor",
   templateUrl: "./word-editor.component.html",
-  inputs: ['word', 'transcription', 'translation']
 })
 
 export class WordEditorComponent implements AfterViewInit {
@@ -14,7 +13,7 @@ export class WordEditorComponent implements AfterViewInit {
   @Output() notifyAboutEdit: EventEmitter<WordModel> = new EventEmitter<WordModel>();
   @Output() notifyAboutDelete: EventEmitter<WordModel> = new EventEmitter<WordModel>();
 
-  @ViewChild('vcreditform', { read: ViewContainerRef }) container: ViewContainerRef;
+  @ViewChild('editWordFormContainer', { read: ViewContainerRef }) editWordFormContainer: ViewContainerRef;
   @ViewChild('editBtn') editBtn: ElementRef<HTMLButtonElement>;
   @ViewChild('deleteBtn') deleteBtn: ElementRef<HTMLButtonElement>;
 
@@ -27,12 +26,12 @@ export class WordEditorComponent implements AfterViewInit {
 
   onShowWordEditForm(): void {
     this.actWithButtons(true);
-    var ref = this.container.createComponent(this.componentFactory);
+    var ref = this.editWordFormContainer.createComponent(this.componentFactory);
     var instance = <WordEditorFormComponent>ref.instance;
     instance.setWord(this.wordObject);
 
     instance.notifyAboutCancel.subscribe(e => {
-      this.container.clear();
+      this.editWordFormContainer.clear();
       this.actWithButtons(false);
     });
 
@@ -43,7 +42,7 @@ export class WordEditorComponent implements AfterViewInit {
       this.wordObject.transcription = instance.transcription;
       this.wordObject.translation = instance.translation;
 
-      this.container.clear();
+      this.editWordFormContainer.clear();
       this.actWithButtons(false);
       this.notifyAboutEdit.emit(e);
     });

@@ -17,20 +17,15 @@ export class IrregularVerbsService {
     return this.http.post<IrregularVerbModel>(url, verbModel);
   }
 
-  //public createWord(wordEntity: IrregularVerbModel): any {
-  //  var url = this.baseUrl + 'api/Words/CreateWord';
-  //  return this.http.post<IrregularVerbModel>(url, wordEntity);
-  //}
+  public updateIrregularVerb(verbModel: IrregularVerbModel): any {
+    var url = this.baseUrl + 'api/IrregularVerbs/UpdateIrregularVerb';
+    return this.http.post<IrregularVerbModel>(url, verbModel);
+  }
 
-  //public updateWord(word: IrregularVerbModel): any {
-  //  var url = this.baseUrl + 'api/Words/UpdateWord';
-  //  return this.http.post<IrregularVerbModel>(url, word);
-  //}
-
-  //public deleteWord(word: IrregularVerbModel): any {
-  //  //var url = this.baseUrl + 'api/Words/DeleteWord';
-  //  //return this.http.post<string>(url, word);
-  //}
+  public deleteIrregularVerb(verbModel: IrregularVerbModel): any {
+    var url = this.baseUrl + 'api/IrregularVerbs/DeleteIrregularVerb';
+    return this.http.post<string>(url, verbModel);
+  }
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;

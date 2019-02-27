@@ -24,11 +24,27 @@ namespace WordApp.Controllers
         }
 
         [HttpPost("[action]")]
+        public IrregularVerbModel UpdateIrregularVerb([FromBody] IrregularVerbModel verbModel)
+        {
+            var verbToUpdate = base.Mapper.Map<IrregularVerbEntity>(verbModel);
+            var updatedVerb = this._irregularVerbService.UpdateEntity(verbToUpdate);
+            return base.Mapper.Map<IrregularVerbModel>(updatedVerb);
+        }
+
+        [HttpPost("[action]")]
         public IrregularVerbModel CreateIrregularVerb([FromBody] IrregularVerbModel verbModel)
         {
-            var createdVerb = this._irregularVerbService.CreateEntity(base.Mapper.Map<IrregularVerbEntity>(verbModel));
+            var verbToCreate = base.Mapper.Map<IrregularVerbEntity>(verbModel);
+            var createdVerb = this._irregularVerbService.CreateEntity(verbToCreate);
+            return base.Mapper.Map<IrregularVerbModel>(createdVerb);
+        }
 
-            return Mapper.Map<IrregularVerbModel>(createdVerb);
+        [HttpPost("[action]")]
+        public IrregularVerbModel DeleteIrregularVerb([FromBody] IrregularVerbModel verbModel)
+        {
+            var verbToDelete = base.Mapper.Map<IrregularVerbEntity>(verbModel);
+            var deletedVerb = this._irregularVerbService.DeleteEntity(verbToDelete);
+            return base.Mapper.Map<IrregularVerbModel>(deletedVerb);
         }
     }
 }

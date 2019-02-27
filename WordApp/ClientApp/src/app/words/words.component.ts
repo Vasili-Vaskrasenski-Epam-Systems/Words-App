@@ -11,7 +11,7 @@ export class WordsComponent implements OnInit, AfterViewInit {
   private words: WordModel[];
   private componentFactory: any;
 
-  @ViewChild('vcrafdcc', { read: ViewContainerRef }) vcrafdcc: ViewContainerRef;
+  @ViewChild('createWordFormContainer', { read: ViewContainerRef }) createWordFormContainer: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
 
 
@@ -52,7 +52,7 @@ export class WordsComponent implements OnInit, AfterViewInit {
 
   onShowWordCreateForm(): void {
     this.showFormBtn.nativeElement.disabled = true;
-    var ref = this.vcrafdcc.createComponent(this.componentFactory);
+    var ref = this.createWordFormContainer.createComponent(this.componentFactory);
     var instance = <WordEditorFormComponent>ref.instance;
 
     instance.notifyAboutCancel.subscribe(e => {
@@ -65,7 +65,7 @@ export class WordsComponent implements OnInit, AfterViewInit {
   }
 
   private clearForm() {
-    this.vcrafdcc.clear();
+    this.createWordFormContainer.clear();
     this.showFormBtn.nativeElement.disabled = false;
   }
 }
