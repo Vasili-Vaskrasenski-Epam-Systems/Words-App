@@ -2,9 +2,8 @@
 
 namespace DAL.Entities
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity: BaseVersionEntity
     {
         public Guid Id { get; set; }
-        public byte[] RowVersion { get; set; }
     }
 }

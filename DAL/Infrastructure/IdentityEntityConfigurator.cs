@@ -1,20 +1,19 @@
 ﻿using DAL.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DAL.Infrastructure
 {
-    internal abstract class BaseDbConfigurator<T>: IEntityTypeConfiguration<T> where T: BaseEntity
+    internal class IdentityEntityConfigurator<T> : VersionEntityConfigurator<T> where T : BaseEntity
     {
-        public virtual void Configure(EntityTypeBuilder<T> builder)
+        public override void Configure(EntityTypeBuilder<T> builder)
         {
+            base.Configure(builder);
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
-            builder.Property(e => e.RowVersion).IsRowVersion();
         }
     }
 
-    internal class WordConfigurator : BaseDbConfigurator<WordEntity>
+    internal class WordConfigurator : IdentityEntityConfigurator<WordEntity>
     {
         public override void Configure(EntityTypeBuilder<WordEntity> builder)
         {
@@ -26,7 +25,7 @@ namespace DAL.Infrastructure
         }
     }
 
-    internal class IrregularVerbConfigurator : BaseDbConfigurator<IrregularVerbEntity>
+    internal class IrregularVerbConfigurator : IdentityEntityConfigurator<IrregularVerbEntity>
     {
         public override void Configure(EntityTypeBuilder<IrregularVerbEntity> builder)
         {
@@ -36,10 +35,5 @@ namespace DAL.Infrastructure
                 .WithOne(ee => ee.Verb)
                 .HasForeignKey(ee => ee.VerbId);
         }
-    }
-
-    internal class VerbWordConfigurator : BaseDbConfigurator<WordVerbEntity>
-    {
-
     }
 }

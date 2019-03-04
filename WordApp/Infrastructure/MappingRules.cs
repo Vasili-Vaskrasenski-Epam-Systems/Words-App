@@ -19,7 +19,7 @@ namespace WordApp.Infrastructure
                 .ForMember(dest => dest.WordVerbs,
                     opt => opt.MapFrom(src => src.Words.Select(w => new WordVerbEntity()
                     {
-                        VerbId = src.Id != Guid.Empty ? src.Id : Guid.Empty,
+                        //VerbId = src.Id != Guid.Empty ? src.Id : Guid.Empty,
                         WordId = w.Id,
                     })));
         }

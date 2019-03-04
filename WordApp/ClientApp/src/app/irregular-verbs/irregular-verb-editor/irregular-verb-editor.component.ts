@@ -22,6 +22,7 @@ export class IrregularVerbEditorComponent implements AfterViewInit {
   @ViewChild('deleteBtn') deleteBtn: ElementRef<HTMLButtonElement>;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+
   }
 
   ngAfterViewInit(): void {
@@ -31,7 +32,9 @@ export class IrregularVerbEditorComponent implements AfterViewInit {
   onShowVerbEditForm(): void {
     this.actWithButtons(true);
     var ref = this.container.createComponent(this.componentFactory);
+
     var instance = <IrregularVerbEditorFormComponent>ref.instance;
+
     instance.existingWords = this.existingWords;
     instance.setVerbs(this.verbObject);
 
@@ -42,9 +45,6 @@ export class IrregularVerbEditorComponent implements AfterViewInit {
 
     instance.notifyAboutConfirm.subscribe(e => {
       var instance = <IrregularVerbModel>e;
-
-      //this.verbObject.commonWord = instance.commonWord;
-      //this.verbObject.words = instance.words;
 
       this.container.clear();
       this.actWithButtons(false);

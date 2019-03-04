@@ -8,7 +8,7 @@ import { WordEditorFormComponent } from "./word-editor/word-editor-form.componen
   templateUrl: './words.component.html',
 })
 export class WordsComponent implements OnInit, AfterViewInit {
-  private words: WordModel[];
+  public words: WordModel[];
   private componentFactory: any;
 
   @ViewChild('createWordFormContainer', { read: ViewContainerRef }) createWordFormContainer: ViewContainerRef;
@@ -16,6 +16,9 @@ export class WordsComponent implements OnInit, AfterViewInit {
 
 
   constructor(private wordsService: WordsService, private componentFactoryResolver: ComponentFactoryResolver) {
+    if (!this.words) {
+      this.words = new Array<WordModel>();
+    }
   }
 
   ngOnInit() {

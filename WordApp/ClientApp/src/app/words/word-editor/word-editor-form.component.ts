@@ -8,7 +8,7 @@ import { WordModel } from './../word.model';
 })
 
 export class WordEditorFormComponent  {
-  private wordObject: WordModel;
+  public wordObject: WordModel;
   @Output() notifyAboutConfirm: EventEmitter<WordModel> = new EventEmitter<WordModel>();
   @Output() notifyAboutCancel = new EventEmitter();
 
@@ -20,11 +20,11 @@ export class WordEditorFormComponent  {
     this.wordObject = new WordModel(word.word, word.transcription, word.translation, word.id, word.rowVersion);
   }
   
-  private onConfirm() {
+  public onConfirm() {
     this.notifyAboutConfirm.emit(this.wordObject);
   }
 
-  private onCancel(): void {
+  public onCancel(): void {
     this.notifyAboutCancel.emit();
   };
 }

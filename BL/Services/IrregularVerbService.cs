@@ -35,6 +35,10 @@ namespace BL.Services
             var wordVerbs = this._context.WordVerbs.Where(wv => wv.VerbId == entity.Id).ToList();
             this._context.WordVerbs.RemoveRange(wordVerbs);
 
+            //var e = this.GetEntity(entity.Id);
+            //e.WordVerbs = new List<WordVerbEntity>(entity.WordVerbs);
+            //e.CommonWord = entity.CommonWord;
+            
             this._context.IrregularVerbs.Update(entity);
             this._context.SaveChanges();
 

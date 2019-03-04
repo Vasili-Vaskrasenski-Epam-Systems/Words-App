@@ -1,15 +1,23 @@
+using System.IO;
+using System.Reflection;
 using AutoMapper;
 using BL.Services;
 using DAL.Entities;
+using DAL.Helpers;
 using DAL.Infrastructure;
+using log4net;
+using log4net.Config;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IIS;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using WordApp.Infrastructure;
 
 
@@ -29,6 +37,10 @@ namespace WordApp
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            #region Auth
+            services.AddAuthentication(IISServerDefaults.AuthenticationScheme);
+            #endregion
+
             #region AutoMapper
             var mappingConfig = new MapperConfiguration(mc => mc.AddProfile(new MappingRules()));
             IMapper mapper = mappingConfig.CreateMapper();
@@ -36,8 +48,8 @@ namespace WordApp
             #endregion
 
             #region DbContext
-            services.AddDbContext<WordsDbContext>(opts =>
-                opts.UseSqlServer(this.Configuration.GetConnectionString("WordsDbConnectionString")));
+            var connectionString = Encrypters.Decrypt(this.Configuration.GetConnectionString("WordsDbConnectionString"));
+            services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer(connectionString));
             #endregion
 
             #region Business Services
@@ -53,7 +65,7 @@ namespace WordApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -66,9 +78,13 @@ namespace WordApp
                 app.UseHsts();
             }
 
+            loggerFactory.AddLog4Net();
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

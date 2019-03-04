@@ -39,14 +39,13 @@ namespace DAL.Migrations
                 name: "WordVerbs",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
                     WordId = table.Column<Guid>(nullable: false),
-                    VerbId = table.Column<Guid>(nullable: false)
+                    VerbId = table.Column<Guid>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WordVerbs", x => x.Id);
+                    table.PrimaryKey("PK_WordVerbs", x => new { x.VerbId, x.WordId });
                     table.ForeignKey(
                         name: "FK_WordVerbs_IrregularVerbs_VerbId",
                         column: x => x.VerbId,
@@ -60,11 +59,6 @@ namespace DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WordVerbs_VerbId",
-                table: "WordVerbs",
-                column: "VerbId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WordVerbs_WordId",

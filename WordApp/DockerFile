@@ -1,0 +1,6 @@
+FROM microsoft/dotnet
+WORKDIR /app
+ADD . /app
+EXPOSE 88/tcp
+
+ENTRYPOINT ["dotnet", "run"]

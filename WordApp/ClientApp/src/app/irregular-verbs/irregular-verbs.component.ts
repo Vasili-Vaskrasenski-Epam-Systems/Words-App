@@ -14,7 +14,7 @@ import { IrregularVerbEditorFormComponent } from "./irregular-verb-editor/irregu
   templateUrl: './irregular-verbs.component.html',
 })
 export class IrregularVerbsComponent implements OnInit, AfterViewInit {
-  private irregularVerbs: Array<IrregularVerbModel>;
+  public irregularVerbs: Array<IrregularVerbModel>;
   private availableWords: Array<WordModel>;
 
   private componentFactory: any;
@@ -22,6 +22,9 @@ export class IrregularVerbsComponent implements OnInit, AfterViewInit {
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
   
   constructor(private irregularVerbsService: IrregularVerbsService, private wordsService: WordsService, private factoryResolver: ComponentFactoryResolver) {
+    if (!this.irregularVerbs) {
+      this.irregularVerbs = new Array<IrregularVerbModel>();
+    }
   }
 
   ngOnInit(): void {
@@ -38,7 +41,7 @@ export class IrregularVerbsComponent implements OnInit, AfterViewInit {
     this.componentFactory = this.factoryResolver.resolveComponentFactory(IrregularVerbEditorFormComponent);
   }
 
-  onShowVerbCreateForm(): void {
+  public onShowVerbCreateForm(): void {
    this.showFormBtn.nativeElement.disabled = true;
       var ref = this.editVerbFormContainer.createComponent(this.componentFactory);
       var instance = <IrregularVerbEditorFormComponent>ref.instance;
@@ -57,7 +60,7 @@ export class IrregularVerbsComponent implements OnInit, AfterViewInit {
       });
   }
 
-  onVerbEdit(verb: IrregularVerbModel): void {
+  public onVerbEdit(verb: IrregularVerbModel): void {
     this.irregularVerbsService.updateIrregularVerb(verb).subscribe(result => {
       var instance = <IrregularVerbModel>result;
       var verbToUpdate = this.irregularVerbs.find(w => w.id === instance.id);
@@ -69,7 +72,7 @@ export class IrregularVerbsComponent implements OnInit, AfterViewInit {
     }, error => console.error(error));
   }
 
-  onVerbDelete(verb: IrregularVerbModel): void {
+  public onVerbDelete(verb: IrregularVerbModel): void {
     this.irregularVerbsService.deleteIrregularVerb(verb).subscribe(e => {
       var index = this.irregularVerbs.findIndex(w => w.id === e.id);
       this.irregularVerbs.splice(index, 1);

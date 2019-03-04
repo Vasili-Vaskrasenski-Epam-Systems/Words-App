@@ -8,10 +8,10 @@ import { IrregularVerbModel } from "./../irregular-verb.model";
 })
 
 export class IrregularVerbEditorFormComponent implements OnInit {
-  private irregularVerbObject: IrregularVerbModel;
-  private firstForm: WordModel;
-  private secondForm: WordModel;
-  private thirdForm: WordModel;
+  public irregularVerbObject: IrregularVerbModel;
+  public firstForm: WordModel;
+  public secondForm: WordModel;
+  public thirdForm: WordModel;
 
   @Input() existingWords: Array<WordModel>;
   @Output() notifyAboutConfirm: EventEmitter<IrregularVerbModel> = new EventEmitter<IrregularVerbModel>();
@@ -36,16 +36,16 @@ export class IrregularVerbEditorFormComponent implements OnInit {
     this.thirdForm = this.existingWords.find(e => e.id === this.irregularVerbObject.words[2].id);;
   }
 
-  private onConfirm() {
+  public onConfirm() : void {
     this.irregularVerbObject.words = [this.firstForm, this.secondForm, this.thirdForm];
     this.notifyAboutConfirm.emit(this.irregularVerbObject);
   }
 
-  private onCancel() {
+  public onCancel(): void {
     this.notifyAboutCancel.emit();
   }
 
-  private setSelectValue(wordId: string, model: WordModel) {
+  public setSelectValue(wordId: string, model: WordModel) {
     var elementToSelect = this.existingWords.find(e => e.id === wordId);
     model = elementToSelect;
   }

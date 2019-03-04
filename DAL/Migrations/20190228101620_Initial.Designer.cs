@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(WordsDbContext))]
-    [Migration("20190221150643_Initial")]
+    [Migration("20190228101620_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,20 +59,15 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Entities.WordVerbEntity", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<Guid>("VerbId");
+
+                    b.Property<Guid>("WordId");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
-                    b.Property<Guid>("VerbId");
-
-                    b.Property<Guid>("WordId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VerbId");
+                    b.HasKey("VerbId", "WordId");
 
                     b.HasIndex("WordId");
 
