@@ -48,7 +48,10 @@ namespace WordApp
             #endregion
 
             #region DbContext
-            var connectionString = Encrypters.Decrypt(this.Configuration.GetConnectionString("WordsDbConnectionString"));
+
+            //var connectionString = Encrypters.Decrypt(this.Configuration.GetConnectionString("WordsDbConnectionString"));
+            var connectionString =
+                "Server=10.9.212.240,49172;Database=wordsDatabase; User Id=sa;password=qweasdzxc_123;Trusted_Connection=False;MultipleActiveResultSets=true;";
             services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer(connectionString));
             #endregion
 
