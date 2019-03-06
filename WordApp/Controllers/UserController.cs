@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using BL.Infrastructure.Builder;
 using BL.Services;
+using Entities.Enums;
 using Entities.Instances;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models;
@@ -18,10 +19,11 @@ namespace WordApp.Controllers
             this._service = service;
         }
 
-        [HttpGet("[action]")]
-        public UserModel RegisterUser([FromBody] UserModel model)
+        [HttpPost("[action]")]
+        public UserModel Register([FromBody] UserModel model)
         {
             var userToCreate = base.Mapper.Map<UserEntity>(model);
+            userToCreate.UserType = UserType.Pupil;
             var createdUser = this._service.CreateEntity(userToCreate);
             return base.Mapper.Map<UserModel>(createdUser);
         }

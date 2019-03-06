@@ -11,6 +11,6 @@ export class AppComponent {
   public currentUser : UserModel;
 
   constructor(authSvc: AuthService) {
-    this.currentUser = authSvc.currentUser;
+    authSvc.currentUser.subscribe(e => this.currentUser = e);
   }
 }

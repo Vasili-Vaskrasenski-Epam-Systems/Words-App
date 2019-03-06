@@ -15,7 +15,9 @@ namespace BL.Services
         }
         public override UserEntity CreateEntity(UserEntity entity)
         {
-            throw new NotImplementedException();
+            base.DbContext.Users.Add(entity);
+            base.DbContext.SaveChanges();
+            return entity;
         }
 
         public override UserEntity DeleteEntity(UserEntity entity)
