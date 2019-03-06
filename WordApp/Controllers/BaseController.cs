@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WordApp.Controllers
 {
-    public class BaseController: Controller
+    [Route("api/[controller]")]
+    public abstract class BaseController: Controller
     {
         protected IMapper Mapper;
         

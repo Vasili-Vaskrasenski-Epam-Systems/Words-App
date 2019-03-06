@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DAL.Entities;
+﻿using Entities.Instances;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Infrastructure
@@ -16,6 +13,10 @@ namespace DAL.Infrastructure
         public DbSet<WordEntity> Words { get; set; }
         public DbSet<IrregularVerbEntity> IrregularVerbs { get; set; }
         public DbSet<WordVerbEntity> WordVerbs { get; set; }
+        public DbSet<TaskEntity> Tasks { get; set; }
+        public DbSet<TaskWordEntity> TaskWords { get; set; }
+        public DbSet<AssignedTaskEntity> AssignedTasks { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +25,10 @@ namespace DAL.Infrastructure
             modelBuilder.ApplyConfiguration(new WordConfigurator());
             modelBuilder.ApplyConfiguration(new IrregularVerbConfigurator());
             modelBuilder.ApplyConfiguration(new VerbWordConfigurator());
+            modelBuilder.ApplyConfiguration(new TaskConfigurator());
+            modelBuilder.ApplyConfiguration(new TaskWordConfigurator());
+            modelBuilder.ApplyConfiguration(new AssignedTaskConfigurator());
+            modelBuilder.ApplyConfiguration(new UserConfigurator());
         }
     }
 }

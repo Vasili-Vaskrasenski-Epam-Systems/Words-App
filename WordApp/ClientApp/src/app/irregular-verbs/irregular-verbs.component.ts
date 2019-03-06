@@ -52,7 +52,6 @@ export class IrregularVerbsComponent implements OnInit, AfterViewInit {
       });
 
       instance.notifyAboutConfirm.subscribe(e => {
-        console.log(e);
         this.irregularVerbsService.createIrregularVerb(e).subscribe(result => {
           this.irregularVerbs.push(result);
           this.clearForm();

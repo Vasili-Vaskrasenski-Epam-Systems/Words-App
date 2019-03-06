@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using AutoMapper;
 using BL.Services;
-using DAL.Entities;
+using Entities.Instances;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models;
 
 namespace WordApp.Controllers
 {
-    [Route("api/[controller]")]
     public class WordController : BaseController
     {
         private readonly IEntityService<WordEntity> _service;

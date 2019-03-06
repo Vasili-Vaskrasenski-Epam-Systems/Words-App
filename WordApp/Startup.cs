@@ -1,16 +1,9 @@
-using System.IO;
-using System.Reflection;
 using AutoMapper;
 using BL.Services;
-using DAL.Entities;
-using DAL.Helpers;
 using DAL.Infrastructure;
-using log4net;
-using log4net.Config;
-using Microsoft.AspNetCore.Authentication;
+using Entities.Instances;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.IIS;
 using Microsoft.AspNetCore.SpaServices.AngularCli;

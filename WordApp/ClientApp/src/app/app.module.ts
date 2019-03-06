@@ -14,7 +14,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
+    NavMenuComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -23,7 +23,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
     AppRoutingModule,
     WordsModule,
     HomeModule,
-    IrregularVerbsModule,
+    IrregularVerbsModule
   ],
   bootstrap: [AppComponent]
 })

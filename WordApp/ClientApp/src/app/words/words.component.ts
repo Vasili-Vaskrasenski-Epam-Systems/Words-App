@@ -39,7 +39,6 @@ export class WordsComponent implements OnInit, AfterViewInit {
   }
 
   onWordDelete(word: WordModel): void {
-    console.log(word);
     this.wordsService.deleteWord(word).subscribe(result => {
       var index = this.words.findIndex(w => w.id === result.id);
       this.words.splice(index, 1);

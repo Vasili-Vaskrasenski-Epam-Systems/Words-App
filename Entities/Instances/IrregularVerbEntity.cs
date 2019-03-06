@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Entities.Instances.Base;
 
-namespace DAL.Entities
+namespace Entities.Instances
 {
     public class IrregularVerbEntity: BaseEntity
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DAL.Entities
+namespace Entities.Instances.Base
 {
     public abstract class BaseEntity: BaseVersionEntity
     {

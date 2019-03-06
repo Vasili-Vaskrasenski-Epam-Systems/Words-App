@@ -1,8 +1,9 @@
 ﻿using System;
+using Entities.Instances.Base;
 
-namespace DAL.Entities
+namespace Entities.Instances
 {
-    public class WordVerbEntity: BaseVersionEntity
+    public class WordVerbEntity: BaseEntity
     {
         public Guid WordId { get; set; }
         public Guid VerbId { get; set; }
