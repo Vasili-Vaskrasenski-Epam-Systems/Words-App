@@ -1,61 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using DAL.Infrastructure;
 using Entities.Instances;
 using Microsoft.EntityFrameworkCore;
 
 namespace BL.Services
 {
-    public class IrregularVerbService: IEntityService<IrregularVerbEntity>
+    public class IrregularVerbService : BaseEntityService<IrregularVerbEntity>
     {
-        private readonly WordsDbContext _context;
-
-        public IrregularVerbService(WordsDbContext context)
+        public IrregularVerbService(WordsDbContext context) : base(context)
         {
-            this._context = context;
         }
-        public IrregularVerbEntity CreateEntity(IrregularVerbEntity entity)
+        public override IrregularVerbEntity CreateEntity(IrregularVerbEntity entity)
         {
-            this._context.IrregularVerbs.Add(entity);
-            this._context.SaveChanges();
+            base.DbContext.IrregularVerbs.Add(entity);
+            base.DbContext.SaveChanges();
             return this.GetEntity(entity.Id);
         }
 
-        public IrregularVerbEntity DeleteEntity(IrregularVerbEntity entity)
+        public override IrregularVerbEntity DeleteEntity(IrregularVerbEntity entity)
         {
-            this._context.IrregularVerbs.Remove(entity);
-            this._context.SaveChanges();
+            base.DbContext.IrregularVerbs.Remove(entity);
+            base.DbContext.SaveChanges();
             return entity;
         }
 
-        public IrregularVerbEntity UpdateEntity(IrregularVerbEntity entity)
+        public override IrregularVerbEntity UpdateEntity(IrregularVerbEntity entity)
         {
-            var wordVerbs = this._context.WordVerbs.Where(wv => wv.VerbId == entity.Id).ToList();
-            this._context.WordVerbs.RemoveRange(wordVerbs);
+            var wordVerbs = base.DbContext.WordVerbs.Where(wv => wv.VerbId == entity.Id).ToList();
+            base.DbContext.WordVerbs.RemoveRange(wordVerbs);
 
             //var e = this.GetEntity(entity.Id);
             //e.WordVerbs = new List<WordVerbEntity>(entity.WordVerbs);
             //e.CommonWord = entity.CommonWord;
-            
-            this._context.IrregularVerbs.Update(entity);
-            this._context.SaveChanges();
+
+            base.DbContext.IrregularVerbs.Update(entity);
+            base.DbContext.SaveChanges();
 
             return GetEntity(entity.Id);
         }
 
-        public IrregularVerbEntity GetEntity(Guid id)
-        {           
-            return this._context.IrregularVerbs
+        public override IrregularVerbEntity GetEntity(Guid id)
+        {
+            return base.DbContext.IrregularVerbs
                 .Include(iv => iv.WordVerbs)
                 .ThenInclude(w => w.Word).FirstOrDefault(e => e.Id == id);
         }
 
-        public List<IrregularVerbEntity> GetEntities()
+        public override List<IrregularVerbEntity> GetEntities()
         {
-            return this._context.IrregularVerbs
+            return base.DbContext.IrregularVerbs
                 .Include(iv => iv.WordVerbs)
                 .ThenInclude(w => w.Word).ToList();
+        }
+
+        public override List<IrregularVerbEntity> GetEntities(Expression<Func<IrregularVerbEntity, bool>> expression)
+        {
+            throw new NotImplementedException();
         }
     }
 }

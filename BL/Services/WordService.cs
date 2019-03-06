@@ -1,48 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using DAL.Infrastructure;
 using Entities.Instances;
 
 namespace BL.Services
 {
-    public class WordService: IEntityService<WordEntity>
+    public class WordService: BaseEntityService<WordEntity>
     {
-        private readonly WordsDbContext _wordContext;
-
-        public WordService(WordsDbContext context)
+        public WordService(WordsDbContext context): base(context)
         {
-            this._wordContext = context;
+            
         }
-        public WordEntity CreateEntity(WordEntity entity)
+        public override WordEntity CreateEntity(WordEntity entity)
         {
-            this._wordContext.Words.Add(entity);
-            this._wordContext.SaveChanges();
+            base.DbContext.Words.Add(entity);
+            base.DbContext.SaveChanges();
             return entity;
         }
 
-        public WordEntity DeleteEntity(WordEntity entity)
+        public override WordEntity DeleteEntity(WordEntity entity)
         {
-            this._wordContext.Words.Remove(entity);
-            this._wordContext.SaveChanges();
+            base.DbContext.Words.Remove(entity);
+            base.DbContext.SaveChanges();
             return entity;
         }
 
-        public WordEntity UpdateEntity(WordEntity entity)
+        public override WordEntity UpdateEntity(WordEntity entity)
         {
-            this._wordContext.Words.Update(entity);
-            this._wordContext.SaveChanges();
+            base.DbContext.Words.Update(entity);
+            base.DbContext.SaveChanges();
             return entity;
         }
 
-        public WordEntity GetEntity(Guid id)
+        public override WordEntity GetEntity(Guid id)
         {
-            return this._wordContext.Words.FirstOrDefault(w => w.Id == id);
+            return base.DbContext.Words.FirstOrDefault(w => w.Id == id);
         }
 
-        public List<WordEntity> GetEntities()
+        public override List<WordEntity> GetEntities()
         {
-            return this._wordContext.Words.ToList();
+            return base.DbContext.Words.ToList();
+        }
+
+        public override List<WordEntity> GetEntities(Expression<Func<WordEntity, bool>> expression)
+        {
+            return base.DbContext.Words.Where(expression).ToList();
         }
     }
 }

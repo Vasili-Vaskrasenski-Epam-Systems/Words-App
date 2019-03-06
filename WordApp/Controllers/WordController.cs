@@ -9,10 +9,10 @@ namespace WordApp.Controllers
 {
     public class WordController : BaseController
     {
-        private readonly IEntityService<WordEntity> _service;
+        private readonly BaseEntityService<WordEntity> _service;
         private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(WordController));
 
-        public WordController(IEntityService<WordEntity> service, IMapper mapper): base(mapper)
+        public WordController(BaseEntityService<WordEntity> service, IMapper mapper): base(mapper)
         {
             this._service = service;
         }

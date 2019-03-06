@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth/auth.service';
+import { UserModel } from './users/user.model';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  public currentUser : UserModel;
+
+  constructor(authSvc: AuthService) {
+    this.currentUser = authSvc.currentUser;
+  }
 }

@@ -1,4 +1,4 @@
-export class WordModel {
+export class WordModel  {
   id: string;
   word: string;
   transcription: string;

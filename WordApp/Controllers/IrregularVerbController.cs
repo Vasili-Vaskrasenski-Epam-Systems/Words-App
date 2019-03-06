@@ -9,8 +9,8 @@ namespace WordApp.Controllers
 {
     public class IrregularVerbController: BaseController
     {
-        private readonly IEntityService<IrregularVerbEntity> _irregularVerbService;
-        public IrregularVerbController(IMapper mapper, IEntityService<IrregularVerbEntity> irregularVerbService) : base(mapper)
+        private readonly BaseEntityService<IrregularVerbEntity> _irregularVerbService;
+        public IrregularVerbController(IMapper mapper, BaseEntityService<IrregularVerbEntity> irregularVerbService) : base(mapper)
         {
             this._irregularVerbService = irregularVerbService;
         }
