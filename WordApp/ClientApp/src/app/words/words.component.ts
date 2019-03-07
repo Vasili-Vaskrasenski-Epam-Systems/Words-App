@@ -9,15 +9,16 @@ import { WordEditorFormComponent } from "./word-editor/word-editor-form.componen
 })
 export class WordsComponent implements OnInit, AfterViewInit {
   public words: WordModel[];
+  public displayContent: boolean;
   private componentFactory: any;
 
   @ViewChild('createWordFormContainer', { read: ViewContainerRef }) createWordFormContainer: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
-
-
+  
   constructor(private wordsService: WordsService, private componentFactoryResolver: ComponentFactoryResolver) {
     if (!this.words) {
       this.words = new Array<WordModel>();
+      this.displayContent = true;
     }
   }
 
@@ -54,6 +55,7 @@ export class WordsComponent implements OnInit, AfterViewInit {
 
   onShowWordCreateForm(): void {
     this.showFormBtn.nativeElement.disabled = true;
+    this.displayContent = false;
     var ref = this.createWordFormContainer.createComponent(this.componentFactory);
     var instance = <WordEditorFormComponent>ref.instance;
 
@@ -69,5 +71,6 @@ export class WordsComponent implements OnInit, AfterViewInit {
   private clearForm() {
     this.createWordFormContainer.clear();
     this.showFormBtn.nativeElement.disabled = false;
+    this.displayContent = true;
   }
 }

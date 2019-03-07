@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthService, private alertService: AlertService) {
-    // redirect to home if already logged in
     if (this.authenticationService.currentUser) {
       this.router.navigate(['/']);
     }
@@ -27,11 +26,9 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
   onSubmit() {

@@ -7,7 +7,7 @@
 <p></p>
 
 <p *ngIf="!words"><em>Loading...</em></p>
-<table class='table table-striped' *ngIf="words">
+<table class='table table-striped' *ngIf="words && displayContent" #wordsTable>
   <thead>
     <tr>
       <th>Word</th>
