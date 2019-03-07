@@ -22,7 +22,7 @@
       <td>{{ word.transcription}}</td>
       <td>{{ word.translation }}</td>
       <td>
-        <app-word-editor [wordObject]="word" (notifyAboutEdit)="onWordEdit($event)" (notifyAboutDelete)="onWordDelete($event)"></app-word-editor>
+        <app-word-editor [wordObject]="word" (notifyAboutEdit)="onShowWordEdit($event)" (notifyAboutDelete)="onWordDelete($event)"></app-word-editor>
       </td>
     </tr>
   </tbody>

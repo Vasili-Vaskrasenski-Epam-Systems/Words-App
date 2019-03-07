@@ -1,59 +1,22 @@
-import { Component, Input, ViewChild, ViewContainerRef, ElementRef, ComponentFactoryResolver, AfterViewInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { WordModel } from './../word.model';
-import { WordEditorFormComponent } from './word-editor-form.component';
 
 @Component({
   selector: "app-word-editor",
   templateUrl: "./word-editor.component.html",
 })
 
-export class WordEditorComponent implements AfterViewInit {
-  private componentFactory: any;
+export class WordEditorComponent {
+
   @Input() wordObject: WordModel;
   @Output() notifyAboutEdit: EventEmitter<WordModel> = new EventEmitter<WordModel>();
   @Output() notifyAboutDelete: EventEmitter<WordModel> = new EventEmitter<WordModel>();
 
-  @ViewChild('editWordFormContainer', { read: ViewContainerRef }) editWordFormContainer: ViewContainerRef;
-  @ViewChild('editBtn') editBtn: ElementRef<HTMLButtonElement>;
-  @ViewChild('deleteBtn') deleteBtn: ElementRef<HTMLButtonElement>;
-
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
-  }
-
-  ngAfterViewInit(): void {
-    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordEditorFormComponent);
-  }
-
-  onShowWordEditForm(): void {
-    this.actWithButtons(true);
-    var ref = this.editWordFormContainer.createComponent(this.componentFactory);
-    var instance = <WordEditorFormComponent>ref.instance;
-    instance.setWord(this.wordObject);
-
-    instance.notifyAboutCancel.subscribe(e => {
-      this.editWordFormContainer.clear();
-      this.actWithButtons(false);
-    });
-
-    instance.notifyAboutConfirm.subscribe(e => {
-      var instance = <WordModel>e;
-
-      this.wordObject.word = instance.word; 
-      this.wordObject.transcription = instance.transcription;
-      this.wordObject.translation = instance.translation;
-
-      this.editWordFormContainer.clear();
-      this.actWithButtons(false);
-      this.notifyAboutEdit.emit(e);
-    });
+  onWordEdit(): void {
+    this.notifyAboutEdit.emit(this.wordObject);
   }
 
   onWordDelete(): void {
     this.notifyAboutDelete.emit(this.wordObject);
-  }
-
-  private actWithButtons(what: boolean) {
-    this.editBtn.nativeElement.disabled = what;
-    this.deleteBtn.nativeElement.disabled = what;
   }
 }

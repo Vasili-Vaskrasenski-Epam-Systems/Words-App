@@ -34,8 +34,9 @@ export class WordsComponent implements OnInit, AfterViewInit {
 
   onWordEdit(word: WordModel): void {
     this.wordsService.updateWord(word).subscribe(result => {
-      var wordToUpdate = this.words.find(w => w.id === result.id);
-      wordToUpdate.rowVersion = result.rowVersion;
+      var index = this.words.findIndex(w => w.id === result.id);
+      this.words.splice(index, 1, result);
+      this.clearForm();
     }, error => console.error(error));
   }
 
@@ -43,7 +44,7 @@ export class WordsComponent implements OnInit, AfterViewInit {
     this.wordsService.deleteWord(word).subscribe(result => {
       var index = this.words.findIndex(w => w.id === result.id);
       this.words.splice(index, 1);
-    }, error => console.error(error));
+      }, error => console.error(error));
   }
 
   onWordCreate(word: WordModel): void {
@@ -65,6 +66,24 @@ export class WordsComponent implements OnInit, AfterViewInit {
 
     instance.notifyAboutConfirm.subscribe(e => {
       this.onWordCreate(e);
+    });
+  }
+
+  onShowWordEdit(word: WordModel): void {
+    this.displayContent = false;
+    this.showFormBtn.nativeElement.disabled = true;
+    
+    var ref = this.createWordFormContainer.createComponent(this.componentFactory);
+    var instance = <WordEditorFormComponent>ref.instance;
+
+    instance.setWord(word);
+
+    instance.notifyAboutCancel.subscribe(e => {
+      this.clearForm();
+    });
+
+    instance.notifyAboutConfirm.subscribe(e => {
+      this.onWordEdit(e);
     });
   }
 
