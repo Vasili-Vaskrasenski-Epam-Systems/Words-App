@@ -20,14 +20,12 @@ namespace WordApp.Controllers
         [HttpGet("[action]")]
         public IEnumerable<WordModel> GetWords()
         {
-            _log.Info("Get");
             return base.Mapper.Map<List<WordModel>>(this._service.GetEntities());
         }
 
         [HttpPost("[action]")]
         public WordModel CreateWord([FromBody] WordEntity wordEntity)
         {
-            _log.Info("Create");
             return base.Mapper.Map<WordModel>(this._service.CreateEntity(wordEntity));
         }
 

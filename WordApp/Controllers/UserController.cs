@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using AutoMapper;
 using BL.Infrastructure.Builder;
 using BL.Services;
@@ -29,7 +30,7 @@ namespace WordApp.Controllers
         }
 
         [HttpPost("[action]")]
-        public UserModel Login(string userName, string password)
+        public IActionResult Login(string userName, string password)
         {
             var expression = ExpressionBuilder.BuildExpression<UserEntity>(new Tuple<string, string, ExpressionMethod>[]
             {
@@ -41,9 +42,10 @@ namespace WordApp.Controllers
 
             if (result.Any())
             {
-                return base.Mapper.Map<UserModel>(result.First());
+                return Ok(base.Mapper.Map<UserModel>(result.First()));
             }
-            else throw new KeyNotFoundException("Пользователь с таким логином и паролем не найден");
+
+            return Unauthorized("Current login or password does not exist");
         }
     }
 }

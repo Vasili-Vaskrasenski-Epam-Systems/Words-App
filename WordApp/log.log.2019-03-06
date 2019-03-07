@@ -1,0 +1,591 @@
+2019-03-06 17:41:34,028  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:41:34,071  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 36350.3098ms 101 
+ 2019-03-06 17:41:34,084  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 55.913ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:34,979  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1042.5857ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:41:34,989  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1045.3878ms 304 
+ 2019-03-06 17:41:35,008  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1072.5755ms 304 
+ 2019-03-06 17:41:35,051  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:41:35,053  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:41:35,073  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 19.1047ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:35,087  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 28.2076ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:35,634  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:41:35,635  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:41:35,687  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 26.8796ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:35,727  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883295697  
+ 2019-03-06 17:41:35,759  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 39.0549ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:35,786  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/413/ejcxlm24/websocket  
+ 2019-03-06 17:41:35,808  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 175.256ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:36,501  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/413/sqff2ynk/xhr_streaming?t=1551883296493  0
+ 2019-03-06 17:41:48,399  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 50011.271ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:41:54,944  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: i ∩╜ówdm∩╜ú: Compiling...
+
+ 2019-03-06 17:41:55,462  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: Date: 2019-03-06T14:41:55.412Z - Hash: 40adc048bc8275e0c98f - Time: 276ms
+4 unchanged chunks
+chunk {main} main.js, main.js.map (main) 108 kB [initial] [rendered]
+i ∩╜ówdm∩╜ú: Compiled successfully.
+
+ 2019-03-06 17:41:55,501  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/  
+ 2019-03-06 17:41:56,526  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1027.5005ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:41:56,554  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:41:56,559  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:41:56,568  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:41:56,583  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:41:56,591  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:41:56,609  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 42.2172ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:41:56,623  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 72.3977ms 304 
+ 2019-03-06 17:41:56,634  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 66.0066ms 304 
+ 2019-03-06 17:41:56,659  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:41:56,664  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:41:56,692  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 32.1713ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:56,706  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 20919.5845ms 101 
+ 2019-03-06 17:41:57,589  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1042.2899ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:41:57,624  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1040.9549ms 304 
+ 2019-03-06 17:41:57,693  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1025.0612ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:58,257  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:41:58,259  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:41:58,264  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:41:58,297  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 27.1436ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:58,328  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 47.588ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:58,343  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883318307  
+ 2019-03-06 17:41:58,360  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 20.9241ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:58,396  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/470/0z3yknvx/websocket  
+ 2019-03-06 17:41:58,441  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 183.2822ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:41:59,074  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/470/bnjnt0lv/xhr_streaming?t=1551883319066  0
+ 2019-03-06 17:42:01,511  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 25010.743ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:42:26,618  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: i ∩╜ówdm∩╜ú: Compiling...
+
+ 2019-03-06 17:42:27,137  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: Date: 2019-03-06T14:42:27.123Z - Hash: dc6edf01ca4875d8a0ca - Time: 308ms
+4 unchanged chunks
+chunk {main} main.js, main.js.map (main) 108 kB [initial] [rendered]
+i ∩╜ówdm∩╜ú: Compiled successfully.
+
+ 2019-03-06 17:42:27,161  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/  
+ 2019-03-06 17:42:28,177  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1016.1266ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:42:28,211  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:42:28,221  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:42:28,230  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:42:28,240  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:42:28,245  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:42:28,279  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 78.9417ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:42:28,317  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:42:28,338  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 21.5147ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:28,390  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 30000.091ms 101 
+ 2019-03-06 17:42:29,254  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1038.545ms 304 
+ 2019-03-06 17:42:29,268  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1048.872ms 304 
+ 2019-03-06 17:42:29,280  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1064.1688ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:42:29,297  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1050.3423ms 304 
+ 2019-03-06 17:42:29,327  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:42:29,329  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:42:29,347  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 16.0037ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:29,367  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 37.9197ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:29,398  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:42:29,558  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 159.0126ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:30,043  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:42:30,057  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 13.8728ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:30,102  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883350086  
+ 2019-03-06 17:42:30,113  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 13.3083ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:30,138  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/459/xuvrtctr/websocket  
+ 2019-03-06 17:42:30,791  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/459/ptmdwdwe/xhr_streaming?t=1551883350777  0
+ 2019-03-06 17:42:44,486  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: i ∩╜ówdm∩╜ú: Compiling...
+
+ 2019-03-06 17:42:44,496  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 45422.6156ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:42:44,894  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: Date: 2019-03-06T14:42:44.885Z - Hash: e81139d5f4264f1efcec - Time: 210ms
+4 unchanged chunks
+chunk {main} main.js, main.js.map (main) 108 kB [initial] [rendered]
+i ∩╜ówdm∩╜ú: Compiled successfully.
+
+ 2019-03-06 17:42:44,917  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/  
+ 2019-03-06 17:42:45,931  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1015.7027ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:42:45,964  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:42:45,968  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:42:45,974  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:42:45,985  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:42:45,998  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:42:46,010  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 49.5221ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:42:46,025  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 26.1606ms 304 
+ 2019-03-06 17:42:46,028  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 15883.9291ms 101 
+ 2019-03-06 17:42:46,070  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:42:46,094  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 20.7992ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:47,004  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1037.0493ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:42:47,023  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1047.1913ms 304 
+ 2019-03-06 17:42:47,029  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:42:47,026  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1040.2971ms 304 
+ 2019-03-06 17:42:47,047  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 15.5185ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:47,673  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:42:47,676  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:42:47,683  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:42:47,757  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 45.4202ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:47,760  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 51.3774ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:47,804  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883367780  
+ 2019-03-06 17:42:47,822  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 18.9124ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:47,849  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/106/pmhe4htb/websocket  
+ 2019-03-06 17:42:47,886  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 214.0029ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:48,514  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/106/o5dajbwz/xhr_streaming?t=1551883368506  0
+ 2019-03-06 17:42:51,795  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: i ∩╜ówdm∩╜ú: Compiling...
+
+ 2019-03-06 17:42:51,816  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 21022.8737ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:42:52,305  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: Date: 2019-03-06T14:42:52.296Z - Hash: dc6edf01ca4875d8a0ca - Time: 298ms
+4 unchanged chunks
+chunk {main} main.js, main.js.map (main) 108 kB [initial] [rendered]
+i ∩╜ówdm∩╜ú: Compiled successfully.
+
+ 2019-03-06 17:42:52,327  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/login?returnUrl=%2F  
+ 2019-03-06 17:42:52,344  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 11.2506ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:42:52,388  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:42:52,399  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:42:52,422  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 4562.1153ms 101 
+ 2019-03-06 17:42:52,430  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:42:52,437  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 67.0336ms 304 
+ 2019-03-06 17:42:52,442  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:42:52,460  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:42:52,485  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:42:52,489  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 91.5333ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:42:52,526  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 106.9789ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:42:52,528  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 70.6762ms 304 
+ 2019-03-06 17:42:52,552  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:42:52,542  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 128.6239ms 304 
+ 2019-03-06 17:42:52,567  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 33.1966ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:52,617  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 74.4178ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:53,248  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:42:53,251  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:42:53,257  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:42:53,301  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 46.6568ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:53,394  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883373358  
+ 2019-03-06 17:42:53,421  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 32.9434ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:53,448  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/155/2ajwllg5/websocket  
+ 2019-03-06 17:42:53,484  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 233.3505ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:42:54,159  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/155/rzi5qyyv/xhr_streaming?t=1551883374151  0
+ 2019-03-06 17:42:54,291  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1042.6479ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:43:13,529  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 25015.5698ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:45:47,473  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: i ∩╜ówdm∩╜ú: Compiling...
+
+ 2019-03-06 17:45:47,938  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: Date: 2019-03-06T14:45:47.928Z - Hash: 474c2fcd9ff1e5ba447d - Time: 240ms
+4 unchanged chunks
+chunk {main} main.js, main.js.map (main) 108 kB [initial] [rendered]
+i ∩╜ówdm∩╜ú: Compiled successfully.
+
+ 2019-03-06 17:45:48,561  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/  
+ 2019-03-06 17:45:49,593  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1016.2946ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:45:49,648  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:45:49,660  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:45:49,665  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:45:49,652  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:45:49,671  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:45:49,693  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 63.11ms 304 
+ 2019-03-06 17:45:49,706  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 51.8388ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:45:49,818  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 176371.9357ms 101 
+ 2019-03-06 17:45:50,698  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1044.5307ms 304 
+ 2019-03-06 17:45:50,714  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1062.6042ms 304 
+ 2019-03-06 17:45:50,725  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1096.0015ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:45:51,446  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:45:51,449  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:45:51,452  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:45:51,457  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:45:51,515  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 55.119ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:45:51,530  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 58.5911ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:45:51,559  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 54.1876ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:45:51,568  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883551545  
+ 2019-03-06 17:45:51,574  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:45:51,611  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 34.058ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:45:51,623  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 62.306ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:45:51,651  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/215/5clg45bq/websocket  
+ 2019-03-06 17:45:51,708  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 256.5934ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:45:52,329  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/215/xya3uak1/xhr_streaming?t=1551883552318  0
+ 2019-03-06 17:46:14,177  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 200018.6164ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:46:46,740  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: i ∩╜ówdm∩╜ú: Compiling...
+
+ 2019-03-06 17:46:47,225  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: Date: 2019-03-06T14:46:47.213Z - Hash: 60fff4108690a323bf18 - Time: 279ms
+4 unchanged chunks
+chunk {main} main.js, main.js.map (main) 108 kB [initial] [rendered]
+i ∩╜ówdm∩╜ú: Compiled successfully.
+
+ 2019-03-06 17:46:47,559  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/  
+ 2019-03-06 17:46:48,570  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1010.1907ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:46:48,596  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:46:48,599  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:46:48,613  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:46:48,617  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:46:48,640  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:46:48,650  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 52.2442ms 304 
+ 2019-03-06 17:46:48,659  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 57.9237ms 304 
+ 2019-03-06 17:46:48,792  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 57137.6571ms 101 
+ 2019-03-06 17:46:49,631  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1029.2384ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:46:49,683  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1062.3493ms 304 
+ 2019-03-06 17:46:49,691  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1064.6945ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:46:49,715  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:46:49,729  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 12.8174ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:46:50,046  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:46:50,047  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:46:50,084  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 35.6195ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:46:50,181  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 135.123ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:46:50,741  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:46:50,749  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 7.7518ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:46:50,825  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:46:50,844  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 18.1923ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:46:51,551  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883611543  
+ 2019-03-06 17:46:51,559  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 6.9176ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:46:51,589  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/967/veexfqbh/websocket  
+ 2019-03-06 17:47:06,875  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: i ∩╜ówdm∩╜ú: Compiling...
+
+ 2019-03-06 17:47:06,890  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 74561.7542ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:47:07,329  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: Date: 2019-03-06T14:47:07.317Z - Hash: 93254444e34a0b2398a9 - Time: 248ms
+4 unchanged chunks
+chunk {main} main.js, main.js.map (main) 108 kB [initial] [rendered]
+i ∩╜ówdm∩╜ú: Compiled successfully.
+
+ 2019-03-06 17:47:07,559  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/  
+ 2019-03-06 17:47:08,588  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1025.2234ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:47:08,637  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:47:08,641  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:47:08,659  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:47:08,698  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:47:08,724  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:47:08,778  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 160.5116ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:47:08,781  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 17189.8867ms 101 
+ 2019-03-06 17:47:09,699  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1061.0758ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:47:09,744  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1099.4609ms 304 
+ 2019-03-06 17:47:09,786  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1158.5699ms 304 
+ 2019-03-06 17:47:09,792  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1169.2254ms 304 
+ 2019-03-06 17:47:10,381  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:47:10,384  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:47:10,387  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:47:10,393  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:47:10,424  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 28.2608ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:47:10,428  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 39.7607ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:47:10,446  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 38.3943ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:47:10,556  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 172.9797ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:47:10,652  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:47:10,681  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 27.9178ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:47:11,554  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883631544  
+ 2019-03-06 17:47:11,562  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 9.8087ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:47:11,588  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/563/a1e5wn4z/websocket  
+ 2019-03-06 17:47:18,893  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/api/User/Login?userName=admin&password=admin1  0
+ 2019-03-06 17:47:18,904  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executing endpoint 'WordApp.Controllers.UserController.Login (WordApp)'
+ 2019-03-06 17:47:18,945  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Route matched with {action = "Login", controller = "User", page = ""}. Executing action WordApp.Controllers.UserController.Login (WordApp)
+ 2019-03-06 17:47:19,295  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executing action method WordApp.Controllers.UserController.Login (WordApp) with arguments (admin, admin1) - Validation state: Valid
+ 2019-03-06 17:47:19,528  INFO Microsoft.EntityFrameworkCore.Infrastructure.? [?] - MESSAGE: Entity Framework Core 2.2.2-servicing-10034 initialized 'WordsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+ 2019-03-06 17:47:19,727  INFO Microsoft.EntityFrameworkCore.Database.Command.? [?] - MESSAGE: Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [exp].[Id], [exp].[Name], [exp].[Password], [exp].[RowVersion], [exp].[UserType]
+FROM [Users] AS [exp]
+WHERE (CASE
+    WHEN [exp].[Name] = N'admin'
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END | CASE
+    WHEN [exp].[Password] = N'admin1'
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END) = 1
+ 2019-03-06 17:47:19,800  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executed action method WordApp.Controllers.UserController.Login (WordApp), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 497.6827ms.
+ 2019-03-06 17:47:19,814  INFO Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.? [?] - MESSAGE: Executing ObjectResult, writing value of type 'WordApp.Models.UserModel'.
+ 2019-03-06 17:47:19,870  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executed action WordApp.Controllers.UserController.Login (WordApp) in 918.6653ms
+ 2019-03-06 17:47:19,875  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executed endpoint 'WordApp.Controllers.UserController.Login (WordApp)'
+ 2019-03-06 17:47:19,880  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 989.447ms 200 application/json; charset=utf-8
+ 2019-03-06 17:47:28,256  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/api/User/Login?userName=admin&password=admin1  0
+ 2019-03-06 17:47:28,267  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executing endpoint 'WordApp.Controllers.UserController.Login (WordApp)'
+ 2019-03-06 17:47:28,274  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Route matched with {action = "Login", controller = "User", page = ""}. Executing action WordApp.Controllers.UserController.Login (WordApp)
+ 2019-03-06 17:47:28,280  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executing action method WordApp.Controllers.UserController.Login (WordApp) with arguments (admin, admin1) - Validation state: Valid
+ 2019-03-06 17:47:28,288  INFO Microsoft.EntityFrameworkCore.Infrastructure.? [?] - MESSAGE: Entity Framework Core 2.2.2-servicing-10034 initialized 'WordsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+ 2019-03-06 17:47:28,297  INFO Microsoft.EntityFrameworkCore.Database.Command.? [?] - MESSAGE: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [exp].[Id], [exp].[Name], [exp].[Password], [exp].[RowVersion], [exp].[UserType]
+FROM [Users] AS [exp]
+WHERE (CASE
+    WHEN [exp].[Name] = N'admin'
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END | CASE
+    WHEN [exp].[Password] = N'admin1'
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END) = 1
+ 2019-03-06 17:47:28,306  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executed action method WordApp.Controllers.UserController.Login (WordApp), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 18.3144ms.
+ 2019-03-06 17:47:28,312  INFO Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.? [?] - MESSAGE: Executing ObjectResult, writing value of type 'WordApp.Models.UserModel'.
+ 2019-03-06 17:47:28,319  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executed action WordApp.Controllers.UserController.Login (WordApp) in 39.2022ms
+ 2019-03-06 17:47:28,325  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executed endpoint 'WordApp.Controllers.UserController.Login (WordApp)'
+ 2019-03-06 17:47:28,331  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 74.648ms 200 application/json; charset=utf-8
+ 2019-03-06 17:47:33,436  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:47:33,473  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:47:33,479  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:47:33,484  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:47:33,490  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:47:34,450  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1012.2262ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:47:34,490  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:47:34,499  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1025.0184ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:47:34,556  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1040.3334ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:47:34,575  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1100.454ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:47:34,612  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 95.4323ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:47:34,697  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1222.8938ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:08,610  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: i ∩╜ówdm∩╜ú: Compiling...
+
+ 2019-03-06 17:48:09,077  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: Date: 2019-03-06T14:48:09.066Z - Hash: e0d0cba734835449d8e4 - Time: 261ms
+4 unchanged chunks
+chunk {main} main.js, main.js.map (main) 108 kB [initial] [rendered]
+i ∩╜ówdm∩╜ú: Compiled successfully.
+
+ 2019-03-06 17:48:09,186  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/  
+ 2019-03-06 17:48:10,199  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1014.0226ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:48:10,225  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:48:10,232  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:48:10,234  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:48:10,241  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:48:10,247  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:48:10,303  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 81.9309ms 304 
+ 2019-03-06 17:48:10,314  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 84.2634ms 304 
+ 2019-03-06 17:48:10,378  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 58790.4553ms 101 
+ 2019-03-06 17:48:11,278  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1049.3565ms 304 
+ 2019-03-06 17:48:11,280  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1050.4965ms 304 
+ 2019-03-06 17:48:11,298  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1070.5828ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:48:11,398  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:48:11,401  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:48:11,408  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:48:11,425  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 22.6618ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:11,440  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:48:11,456  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 38.4588ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:11,513  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 73.627ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:11,611  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 206.9823ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:12,017  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:48:12,029  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 11.9531ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:12,080  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883692062  
+ 2019-03-06 17:48:12,089  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 14.2701ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:12,117  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/016/vdfqmbgu/websocket  
+ 2019-03-06 17:48:12,773  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/016/uv3hbkme/xhr_streaming?t=1551883692764  0
+ 2019-03-06 17:48:32,591  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: i ∩╜ówdm∩╜ú: Compiling...
+
+ 2019-03-06 17:48:33,048  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: Date: 2019-03-06T14:48:32.985Z - Hash: 89535281a08f31e02f52 - Time: 196ms
+4 unchanged chunks
+chunk {main} main.js, main.js.map (main) 108 kB [initial] [rendered]
+i ∩╜ówdm∩╜ú: Compiled successfully.
+
+ 2019-03-06 17:48:33,086  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/  
+ 2019-03-06 17:48:34,105  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1019.1329ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:48:34,130  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:48:34,135  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:48:34,140  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:48:34,171  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:48:34,197  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 59.9304ms 304 
+ 2019-03-06 17:48:34,183  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 22053.2538ms 101 
+ 2019-03-06 17:48:34,208  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:48:34,234  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 95.3609ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:48:35,156  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1030.2472ms 304 
+ 2019-03-06 17:48:35,216  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1089.4442ms 304 
+ 2019-03-06 17:48:35,256  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1118.7115ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:48:35,835  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:48:35,838  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:48:35,844  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:48:35,849  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:48:35,880  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 30.2663ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:35,904  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 61.4331ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:35,912  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 67.8008ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:35,965  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:48:36,014  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 40.2415ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:36,056  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883716037  
+ 2019-03-06 17:48:36,061  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 218.1389ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:36,082  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 20.6521ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:36,101  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/615/wgkgfygf/websocket  
+ 2019-03-06 17:48:36,785  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/615/ve10apiz/xhr_streaming?t=1551883716777  0
+ 2019-03-06 17:48:37,785  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 25012.5992ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:48:51,793  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: i ∩╜ówdm∩╜ú: Compiling...
+
+ 2019-03-06 17:48:52,236  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: Date: 2019-03-06T14:48:52.224Z - Hash: 90220af7719506fde06e - Time: 231ms
+4 unchanged chunks
+chunk {main} main.js, main.js.map (main) 108 kB [initial] [rendered]
+i ∩╜ówdm∩╜ú: Compiled successfully.
+
+ 2019-03-06 17:48:52,253  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/  
+ 2019-03-06 17:48:53,264  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1010.8675ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:48:53,288  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:48:53,291  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:48:53,299  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:48:53,308  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:48:53,315  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:48:53,329  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 45.0871ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:48:53,337  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 27.6779ms 304 
+ 2019-03-06 17:48:53,390  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:48:53,418  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 17312.0837ms 101 
+ 2019-03-06 17:48:53,422  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 27.1103ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:54,319  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1031.6332ms 304 
+ 2019-03-06 17:48:54,327  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:48:54,329  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1036.0121ms 304 
+ 2019-03-06 17:48:54,345  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 14.1547ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:54,352  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1063.1688ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:48:54,452  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:48:54,455  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:48:54,483  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 19.7471ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:54,615  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 161.7003ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:55,083  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:48:55,099  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 9.885ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:55,147  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883735134  
+ 2019-03-06 17:48:55,158  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 9.6039ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:48:55,181  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/619/pzhttxzh/websocket  
+ 2019-03-06 17:48:55,822  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/619/xjdtstjh/xhr_streaming?t=1551883735815  0
+ 2019-03-06 17:49:01,797  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 25012.2146ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:50:00,072  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: i ∩╜ówdm∩╜ú: Compiling...
+
+ 2019-03-06 17:50:00,453  INFO Microsoft.AspNetCore.SpaServices.? [?] - MESSAGE: Date: 2019-03-06T14:50:00.444Z - Hash: bba1112b520edb37b1c9 - Time: 171ms
+4 unchanged chunks
+chunk {main} main.js, main.js.map (main) 108 kB [initial] [rendered]
+i ∩╜ówdm∩╜ú: Compiled successfully.
+
+ 2019-03-06 17:50:00,473  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/login  
+ 2019-03-06 17:50:01,489  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1016.6059ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:50:01,508  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:50:01,521  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:50:01,528  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:50:01,550  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 31.6376ms 304 
+ 2019-03-06 17:50:01,579  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 38.509ms 304 
+ 2019-03-06 17:50:01,587  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:50:01,604  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 66421.696ms 101 
+ 2019-03-06 17:50:01,611  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:50:01,616  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 83.7006ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:50:01,631  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 25.9758ms 304 
+ 2019-03-06 17:50:01,667  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:50:01,669  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:50:01,684  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 16.4089ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:01,710  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:50:01,736  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 21.5041ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:01,798  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:50:01,932  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 134.7704ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:02,618  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1056.0483ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:50:02,687  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1019.2644ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:03,145  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:50:03,155  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 10.7932ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:03,219  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883803211  
+ 2019-03-06 17:50:03,228  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 7.6668ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:03,258  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/345/niup02uc/websocket  
+ 2019-03-06 17:50:03,876  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/345/4yqw2tbo/xhr_streaming?t=1551883803869  0
+ 2019-03-06 17:50:07,610  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/api/User/Login?userName=admin&password=admin1  0
+ 2019-03-06 17:50:07,616  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executing endpoint 'WordApp.Controllers.UserController.Login (WordApp)'
+ 2019-03-06 17:50:07,623  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Route matched with {action = "Login", controller = "User", page = ""}. Executing action WordApp.Controllers.UserController.Login (WordApp)
+ 2019-03-06 17:50:07,628  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executing action method WordApp.Controllers.UserController.Login (WordApp) with arguments (admin, admin1) - Validation state: Valid
+ 2019-03-06 17:50:07,635  INFO Microsoft.EntityFrameworkCore.Infrastructure.? [?] - MESSAGE: Entity Framework Core 2.2.2-servicing-10034 initialized 'WordsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+ 2019-03-06 17:50:07,643  INFO Microsoft.EntityFrameworkCore.Database.Command.? [?] - MESSAGE: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [exp].[Id], [exp].[Name], [exp].[Password], [exp].[RowVersion], [exp].[UserType]
+FROM [Users] AS [exp]
+WHERE (CASE
+    WHEN [exp].[Name] = N'admin'
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END | CASE
+    WHEN [exp].[Password] = N'admin1'
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END) = 1
+ 2019-03-06 17:50:07,649  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executed action method WordApp.Controllers.UserController.Login (WordApp), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 14.9245ms.
+ 2019-03-06 17:50:07,656  INFO Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.? [?] - MESSAGE: Executing ObjectResult, writing value of type 'WordApp.Models.UserModel'.
+ 2019-03-06 17:50:07,662  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executed action WordApp.Controllers.UserController.Login (WordApp) in 33.4773ms
+ 2019-03-06 17:50:07,668  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executed endpoint 'WordApp.Controllers.UserController.Login (WordApp)'
+ 2019-03-06 17:50:07,674  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 63.9993ms 200 application/json; charset=utf-8
+ 2019-03-06 17:50:10,835  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 75013.2303ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:50:14,916  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/home  
+ 2019-03-06 17:50:15,929  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1015.3868ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:50:15,959  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:50:15,964  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:50:15,971  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:50:15,993  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:50:15,989  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:50:16,020  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 58.2584ms 304 
+ 2019-03-06 17:50:16,036  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 70.6641ms 304 
+ 2019-03-06 17:50:16,039  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 57.3689ms 304 
+ 2019-03-06 17:50:16,072  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:50:16,087  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 12832.1015ms 101 
+ 2019-03-06 17:50:16,100  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 24.498ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:16,163  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:50:16,166  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:50:16,177  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 14.4276ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:17,001  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1044.3676ms 304 
+ 2019-03-06 17:50:17,017  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1023.9131ms 304 
+ 2019-03-06 17:50:17,062  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:50:17,191  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1025.9662ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:17,219  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 150.1351ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:17,626  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:50:17,636  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 9.0998ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:17,678  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883817661  
+ 2019-03-06 17:50:17,688  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 10.0684ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:50:17,710  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/936/ixhjoxkx/websocket  
+ 2019-03-06 17:50:18,358  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/936/n25gfcyj/xhr_streaming?t=1551883818349  0
+ 2019-03-06 17:50:28,887  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 25011.631ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:50:59,511  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/  
+ 2019-03-06 17:51:00,522  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1011.5563ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:51:00,549  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:51:00,562  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:51:00,570  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:51:00,578  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:51:00,596  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:51:00,617  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 59.1821ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:51:00,636  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 41.6475ms 304 
+ 2019-03-06 17:51:00,666  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:51:00,696  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 26.3768ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:00,723  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 43012.2884ms 101 
+ 2019-03-06 17:51:01,592  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1039.8884ms 304 
+ 2019-03-06 17:51:01,610  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1054.6074ms 304 
+ 2019-03-06 17:51:01,617  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1041.0278ms 304 
+ 2019-03-06 17:51:01,727  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:51:01,729  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:51:01,733  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:51:01,759  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 27.9617ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:01,766  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 28.9619ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:01,870  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 143.3153ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:02,294  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:51:02,303  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 9.0533ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:02,372  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883862362  
+ 2019-03-06 17:51:02,383  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 9.9608ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:02,408  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/694/1mmby0iz/websocket  
+ 2019-03-06 17:51:03,041  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/694/thttbsfr/xhr_streaming?t=1551883863032  0
+ 2019-03-06 17:51:08,368  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 50010.8536ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:51:14,676  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/words  
+ 2019-03-06 17:51:15,697  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1012.4802ms 200 text/html; charset=UTF-8
+ 2019-03-06 17:51:15,736  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js  
+ 2019-03-06 17:51:15,744  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js  
+ 2019-03-06 17:51:15,748  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css  
+ 2019-03-06 17:51:15,759  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js  
+ 2019-03-06 17:51:15,765  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js  
+ 2019-03-06 17:51:15,785  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 57.5271ms 304 
+ 2019-03-06 17:51:15,797  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 61.8658ms 304 
+ 2019-03-06 17:51:15,878  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 13469.9837ms 101 
+ 2019-03-06 17:51:16,792  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1057.785ms 200 text/css; charset=UTF-8
+ 2019-03-06 17:51:16,804  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1065.0269ms 304 
+ 2019-03-06 17:51:16,810  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 1074.3941ms 304 
+ 2019-03-06 17:51:16,829  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/runtime.js.map  
+ 2019-03-06 17:51:16,840  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 9.1563ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:16,860  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/styles.css.map  
+ 2019-03-06 17:51:16,879  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 18.1247ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:17,441  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/polyfills.js.map  
+ 2019-03-06 17:51:17,444  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/main.js.map  
+ 2019-03-06 17:51:17,451  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/vendor.js.map  
+ 2019-03-06 17:51:17,482  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 25.1587ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:17,486  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 31.8858ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:17,594  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/info?t=1551883877579  
+ 2019-03-06 17:51:17,611  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 17.5671ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:17,648  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 197.9954ms 200 application/json; charset=UTF-8
+ 2019-03-06 17:51:17,654  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/sockjs-node/816/zvjvmcha/websocket  
+ 2019-03-06 17:51:18,379  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/sockjs-node/816/cmnfsvrn/xhr_streaming?t=1551883878371  0
+ 2019-03-06 17:51:22,854  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 POST http://localhost:44345/api/User/Login?userName=admin&password=admin1  0
+ 2019-03-06 17:51:22,860  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executing endpoint 'WordApp.Controllers.UserController.Login (WordApp)'
+ 2019-03-06 17:51:22,865  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Route matched with {action = "Login", controller = "User", page = ""}. Executing action WordApp.Controllers.UserController.Login (WordApp)
+ 2019-03-06 17:51:22,873  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executing action method WordApp.Controllers.UserController.Login (WordApp) with arguments (admin, admin1) - Validation state: Valid
+ 2019-03-06 17:51:22,881  INFO Microsoft.EntityFrameworkCore.Infrastructure.? [?] - MESSAGE: Entity Framework Core 2.2.2-servicing-10034 initialized 'WordsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+ 2019-03-06 17:51:22,890  INFO Microsoft.EntityFrameworkCore.Database.Command.? [?] - MESSAGE: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [exp].[Id], [exp].[Name], [exp].[Password], [exp].[RowVersion], [exp].[UserType]
+FROM [Users] AS [exp]
+WHERE (CASE
+    WHEN [exp].[Name] = N'admin'
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END | CASE
+    WHEN [exp].[Password] = N'admin1'
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END) = 1
+ 2019-03-06 17:51:22,897  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executed action method WordApp.Controllers.UserController.Login (WordApp), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 16.6023ms.
+ 2019-03-06 17:51:22,905  INFO Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.? [?] - MESSAGE: Executing ObjectResult, writing value of type 'WordApp.Models.UserModel'.
+ 2019-03-06 17:51:22,912  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executed action WordApp.Controllers.UserController.Login (WordApp) in 40.1318ms
+ 2019-03-06 17:51:22,918  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executed endpoint 'WordApp.Controllers.UserController.Login (WordApp)'
+ 2019-03-06 17:51:22,927  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 71.9407ms 200 application/json; charset=utf-8
+ 2019-03-06 17:51:25,682  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:44345/api/Word/GetWords  
+ 2019-03-06 17:51:25,694  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executing endpoint 'WordApp.Controllers.WordController.GetWords (WordApp)'
+ 2019-03-06 17:51:25,702  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Route matched with {action = "GetWords", controller = "Word", page = ""}. Executing action WordApp.Controllers.WordController.GetWords (WordApp)
+ 2019-03-06 17:51:25,713  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executing action method WordApp.Controllers.WordController.GetWords (WordApp) - Validation state: Valid
+ 2019-03-06 17:51:29,905  INFO WordApp.Controllers.WordController.? [?] - MESSAGE: Get
+ 2019-03-06 17:51:29,912  INFO Microsoft.EntityFrameworkCore.Infrastructure.? [?] - MESSAGE: Entity Framework Core 2.2.2-servicing-10034 initialized 'WordsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+ 2019-03-06 17:51:29,919  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 26878.0848ms 200 application/javascript; charset=UTF-8
+ 2019-03-06 17:51:29,932  INFO Microsoft.EntityFrameworkCore.Database.Command.? [?] - MESSAGE: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [w].[Id], [w].[RowVersion], [w].[Transcription], [w].[Translation], [w].[Word]
+FROM [Words] AS [w]
+ 2019-03-06 17:51:29,950  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executed action method WordApp.Controllers.WordController.GetWords (WordApp), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 4230.1856ms.
+ 2019-03-06 17:51:29,956  INFO Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.? [?] - MESSAGE: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[WordApp.Models.WordModel, WordApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+ 2019-03-06 17:51:29,964  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executed action WordApp.Controllers.WordController.GetWords (WordApp) in 4255.0953ms
+ 2019-03-06 17:51:29,971  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executed endpoint 'WordApp.Controllers.WordController.GetWords (WordApp)'
+ 2019-03-06 17:51:29,977  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 4297.2737ms 200 application/json; charset=utf-8
+ 

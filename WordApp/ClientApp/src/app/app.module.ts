@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,13 +13,16 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LoginComponent } from './auth/login.component';
 import { RegistrationComponent } from './auth/registration.component';
+import { AlertComponent } from './alert/alert.component';
+import { ErrorInterceptor } from './app-error-interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -31,6 +34,9 @@ import { RegistrationComponent } from './auth/registration.component';
     HomeModule,
     IrregularVerbsModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    ]
 })
 export class AppModule { }

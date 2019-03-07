@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-//import { AlertService, AuthenticationService } from '@/_services';
+import { AlertService } from './../alert/alert.service';
 import { AuthService } from './auth.service';
 
 @Component({ templateUrl: 'login.component.html' })
@@ -14,13 +14,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthService
-    //private alertService: AlertService
-  ) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthService, private alertService: AlertService) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUser) {
       this.router.navigate(['/']);
@@ -48,9 +42,6 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    console.log(this.f);
-    console.log(this.f.username.value);
-
     this.loading = true;
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .pipe(first())
@@ -59,7 +50,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          //this.alertService.error(error);
+          this.alertService.error(error);
+          console.log(error);
           this.loading = false;
         });
   }

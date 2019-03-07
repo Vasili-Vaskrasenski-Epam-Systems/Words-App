@@ -22,21 +22,14 @@ export class AuthService {
 
   public login(userName: string, password: string){
 
-    var params = new HttpParams({
-      fromObject: {
-        userName: userName,
-        password: password
-      }
-    });
+    var params = new HttpParams({fromObject: {userName: userName, password: password}});
 
     return this.http.post<any>(this.baseUrl + '/Login', null, { params: params })
       .pipe(map(user => {
         if (user) {
           console.log(user);
           var typedUser = <UserModel>user;
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
-          //this.currentUser = user
           this.currentUserSubject.next(typedUser);
         }
 
