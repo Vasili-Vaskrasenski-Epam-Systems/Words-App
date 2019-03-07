@@ -1,6 +1,11 @@
 .navbar {
   background:#222222;
 }
+
+img.navbar-brand {
+  height: 50px;
+}
+
 .nav-item::after {
   content: '';
   display: block;

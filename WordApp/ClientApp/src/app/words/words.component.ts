@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ComponentFactoryResolver, 
 import { WordsService } from "./words.service";
 import { WordModel } from "./word.model";
 import { WordEditorFormComponent } from "./word-editor/word-editor-form.component";
+import { AlertService } from './../alert/alert.service';
 
 @Component({
   selector: 'app-words',
@@ -15,7 +16,7 @@ export class WordsComponent implements OnInit, AfterViewInit {
   @ViewChild('createWordFormContainer', { read: ViewContainerRef }) createWordFormContainer: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
   
-  constructor(private wordsService: WordsService, private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private wordsService: WordsService, private componentFactoryResolver: ComponentFactoryResolver, private alertService: AlertService) {
     if (!this.words) {
       this.words = new Array<WordModel>();
       this.displayContent = true;
@@ -51,7 +52,8 @@ export class WordsComponent implements OnInit, AfterViewInit {
     this.wordsService.createWord(word).subscribe(result => {
       this.words.push(result);
       this.clearForm();
-    }, error => console.error(error));
+      this.alertService.success("Word created!");
+    }, error => this.alertService.error(error));
   }
 
   onShowWordCreateForm(): void {
