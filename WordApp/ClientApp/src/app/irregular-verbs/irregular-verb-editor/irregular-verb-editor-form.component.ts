@@ -41,17 +41,18 @@ export class IrregularVerbEditorFormComponent implements OnInit {
   public onSubmit(): void {
     this.submitted = true;
 
-    //if (this.verbEditorForm.invalid) {
-    //  return;
-    //} else {
-    //  var wordsArray = <Array<WordModel>>[this.f.firstForm.value, this.f.secondForm.value, this.thirdForm.value];
-    //  var model = new IrregularVerbModel(
-    //    this.f.commonWord.value,
-    //    wordsArray,
-    //    this.editableVerb ? this.editableVerb.id : "00000000-0000-0000-0000-000000000000",
-    //    this.editableVerb ? this.editableVerb.rowVersion : null);
-    //  this.notifyAboutConfirm.emit(model);
-    //}
+    if (this.verbEditorForm.invalid) {
+      return;
+    }
+    else {
+      var wordsArray = <Array<WordModel>>[this.f.firstForm.value, this.f.secondForm.value, this.f.thirdForm.value];
+      var model = new IrregularVerbModel(
+        this.f.commonWord.value,
+        wordsArray,
+        this.editableVerb ? this.editableVerb.id : "00000000-0000-0000-0000-000000000000",
+        this.editableVerb ? this.editableVerb.rowVersion : null);
+      this.notifyAboutConfirm.emit(model);
+    }
   }
 
   public onCancel(): void {

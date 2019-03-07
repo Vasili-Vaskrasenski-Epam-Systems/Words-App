@@ -59,6 +59,7 @@ export class IrregularVerbsComponent implements OnInit, AfterViewInit {
         this.irregularVerbsService.createIrregularVerb(e).subscribe(result => {
           this.irregularVerbs.push(result);
           this.clearForm();
+          this.displayContent = true;
         });
       });
   }
