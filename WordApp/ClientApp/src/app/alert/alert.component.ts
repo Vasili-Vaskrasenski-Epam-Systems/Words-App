@@ -20,7 +20,7 @@ export class AlertComponent implements OnInit, OnDestroy {
     });
   }
 
-  removeAlert(obj: any) {
+  removeAlert() {
     this.message = null;
   }
 

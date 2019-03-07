@@ -15,8 +15,7 @@ export class WordEditorFormComponent implements OnInit  {
   @Output() notifyAboutConfirm: EventEmitter<WordModel> = new EventEmitter<WordModel>();
   @Output() notifyAboutCancel = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder) {
-    }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.wordEditorForm = this.formBuilder.group({

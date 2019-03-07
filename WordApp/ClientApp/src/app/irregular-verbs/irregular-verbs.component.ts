@@ -16,6 +16,7 @@ import { IrregularVerbEditorFormComponent } from "./irregular-verb-editor/irregu
 export class IrregularVerbsComponent implements OnInit, AfterViewInit {
   public irregularVerbs: Array<IrregularVerbModel>;
   private availableWords: Array<WordModel>;
+  public displayContent: boolean;
 
   private componentFactory: any;
   @ViewChild('editVerbFormContainer', { read: ViewContainerRef }) editVerbFormContainer: ViewContainerRef;
@@ -25,6 +26,7 @@ export class IrregularVerbsComponent implements OnInit, AfterViewInit {
     if (!this.irregularVerbs) {
       this.irregularVerbs = new Array<IrregularVerbModel>();
     }
+    this.displayContent = true;
   }
 
   ngOnInit(): void {
@@ -42,13 +44,15 @@ export class IrregularVerbsComponent implements OnInit, AfterViewInit {
   }
 
   public onShowVerbCreateForm(): void {
-   this.showFormBtn.nativeElement.disabled = true;
+    this.showFormBtn.nativeElement.disabled = true;
+    this.displayContent = false;
       var ref = this.editVerbFormContainer.createComponent(this.componentFactory);
       var instance = <IrregularVerbEditorFormComponent>ref.instance;
       instance.existingWords = this.availableWords;
 
       instance.notifyAboutCancel.subscribe(e => {
         this.clearForm();
+        this.displayContent = true;
       });
 
       instance.notifyAboutConfirm.subscribe(e => {

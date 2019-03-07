@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { IrregularVerbsService } from "./irregular-verbs.service"
@@ -14,7 +14,7 @@ import { IrregularVerbEditorFormComponent } from "./irregular-verb-editor/irregu
     IrregularVerbEditorComponent,
     IrregularVerbEditorFormComponent
   ],
-  imports: [FormsModule, BrowserModule],
+  imports: [FormsModule, ReactiveFormsModule, BrowserModule],
   providers: [IrregularVerbsService],
   exports: [IrregularVerbsComponent],
   entryComponents: [IrregularVerbEditorFormComponent]
