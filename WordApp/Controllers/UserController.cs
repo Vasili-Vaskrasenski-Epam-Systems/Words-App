@@ -45,7 +45,7 @@ namespace WordApp.Controllers
                 return Ok(base.Mapper.Map<UserModel>(result.First()));
             }
 
-            return Unauthorized("Current login or password does not exist");
+            return Ok("Wrong login or password");
         }
     }
 }

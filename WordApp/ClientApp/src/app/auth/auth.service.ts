@@ -27,7 +27,6 @@ export class AuthService {
     return this.http.post<any>(this.baseUrl + '/Login', null, { params: params })
       .pipe(map(user => {
         if (user) {
-          console.log(user);
           var typedUser = <UserModel>user;
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(typedUser);
@@ -38,7 +37,6 @@ export class AuthService {
   }
 
   public register(user: UserModel) {
-    console.log("reg");
     return this.http.post(this.baseUrl + '/Register', user);
   }
 
@@ -46,7 +44,6 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.currentUser = null;
-    console.log('logout', this.currentUser, this.currentUserSubject);
   }
 }
 

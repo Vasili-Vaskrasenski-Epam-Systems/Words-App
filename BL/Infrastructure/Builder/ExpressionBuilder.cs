@@ -16,10 +16,10 @@ namespace BL.Infrastructure.Builder
 
             foreach (var propertyGroup in propValues)
             {
-                var expression = PrepareExpression<T>(pe, propertyGroup, ExpressionKey.And);
+                var expression = PrepareExpression<T>(pe, propertyGroup);
                 if (!isFirstElement)
                 {
-                    finalExpression = GetExpressionMethod<T>(ExpressionKey.Or, finalExpression, expression);
+                    finalExpression = GetExpressionMethod<T>(ExpressionKey.And, finalExpression, expression);
                 }
                 else
                 {
@@ -113,13 +113,10 @@ namespace BL.Infrastructure.Builder
             return expression;
         }
 
-        private static Expression PrepareExpression<T>(ParameterExpression pe, Tuple<string, string, ExpressionMethod> prop, ExpressionKey key)
+        private static Expression PrepareExpression<T>(ParameterExpression pe, Tuple<string, string, ExpressionMethod> prop)
         {
             var type = typeof(T);
             var typeProperties = type.GetProperties();
-
-            //Expression finalExpression = null;
-            //bool isFirstElelement = true;
 
             var requiredProperty = typeProperties.FirstOrDefault(tp => tp.Name.ToLower() == prop.Item1.ToLower());
             if (requiredProperty == null)
@@ -133,18 +130,6 @@ namespace BL.Infrastructure.Builder
             Expression expression = null;
 
             expression = GetExpressionMethod<T>(prop.Item3, left, right);
-
-            //if (!isFirstElelement)
-            //{
-            //    finalExpression = GetExpressionMethod<T>(key, finalExpression, expression);
-            //}
-            //else
-            //{
-            //    finalExpression = expression;
-            //    isFirstElelement = false;
-            //}
-
-
             return expression;
         }
     }
