@@ -13,40 +13,5 @@ namespace BL.Services
         {
             
         }
-        public override WordEntity CreateEntity(WordEntity entity)
-        {
-            base.DbContext.Words.Add(entity);
-            base.DbContext.SaveChanges();
-            return entity;
-        }
-
-        public override WordEntity DeleteEntity(WordEntity entity)
-        {
-            base.DbContext.Words.Remove(entity);
-            base.DbContext.SaveChanges();
-            return entity;
-        }
-
-        public override WordEntity UpdateEntity(WordEntity entity)
-        {
-            base.DbContext.Words.Update(entity);
-            base.DbContext.SaveChanges();
-            return entity;
-        }
-
-        public override WordEntity GetEntity(Guid id)
-        {
-            return base.DbContext.Words.FirstOrDefault(w => w.Id == id);
-        }
-
-        public override List<WordEntity> GetEntities()
-        {
-            return base.DbContext.Words.ToList();
-        }
-
-        public override List<WordEntity> GetEntities(Expression<Func<WordEntity, bool>> expression)
-        {
-            return base.DbContext.Words.Where(expression).ToList();
-        }
     }
 }

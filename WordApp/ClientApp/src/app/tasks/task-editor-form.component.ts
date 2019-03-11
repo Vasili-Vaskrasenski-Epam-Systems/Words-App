@@ -1,34 +1,33 @@
 import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { UserModel } from "./user.model";
+import { TaskModel } from "./task.model";
 
 import { Enums } from './../app-enums';
 import { EnumToArrayPipe } from './../helpers/enum-to-array.pipe';
 
 @Component({
-  selector: 'user-editor-form',
-  templateUrl: './user-editor-form.component.html',
+  selector: 'task-editor-form',
+  templateUrl: './task-editor-form.component.html',
 })
 
-export class UserEditorFormComponent implements OnInit {
+export class TaskEditorFormComponent implements OnInit {
   public editorForm: FormGroup;
-  private editableObject: UserModel;
+  private editableObject: TaskModel;
   submitted = false;
-  userTypes: Array<string>;
+  taskTypes: Array<string>;
 
-  @Output() notifyAboutConfirm: EventEmitter<UserModel> = new EventEmitter<UserModel>();
+  @Output() notifyAboutConfirm: EventEmitter<TaskModel> = new EventEmitter<TaskModel>();
   @Output() notifyAboutCancel = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private pipe: EnumToArrayPipe) {
-    this.userTypes = pipe.transform(Enums.EUserType);
+    this.taskTypes = pipe.transform(Enums.ETaskType);
   }
 
   ngOnInit(): void {
     this.editorForm = this.formBuilder.group({
-      userName: [this.editableObject ? this.editableObject.name : '', Validators.required],
-      password: [this.editableObject ? this.editableObject.password : '', Validators.required],
-      userType: [this.editableObject ? this.userTypes.find(ut => ut === this.editableObject.userType.toString()) : this.userTypes[0], Validators.required],
+      name: [this.editableObject ? this.editableObject.name : '', Validators.required],
+      taskType: [this.editableObject ? this.taskTypes.find(ut => ut === this.editableObject.taskType.toString()) : this.taskTypes[0], Validators.required],
     });
   }
 
@@ -36,8 +35,8 @@ export class UserEditorFormComponent implements OnInit {
     return this.editorForm.controls;
   }
 
-  setEditableObject(user: UserModel) {
-    this.editableObject = new UserModel(user.name, user.password, user.userType, user.id, user.rowVersion);
+  setEditableObject(task: TaskModel) {
+    this.editableObject = new TaskModel(task.name, task.taskType, task.id, task.rowVersion);
   }
 
   public onSubmit(): void {
@@ -46,10 +45,9 @@ export class UserEditorFormComponent implements OnInit {
       return;
     }
     else {
-      var model = new UserModel(
-        this.f.userName.value,
-        this.f.password.value,
-        this.f.userType.value,
+      var model = new TaskModel(
+        this.f.name.value,
+        this.f.taskType.value,
         this.editableObject ? this.editableObject.id : "00000000-0000-0000-0000-000000000000",
         this.editableObject ? this.editableObject.rowVersion : null);
 
@@ -61,3 +59,8 @@ export class UserEditorFormComponent implements OnInit {
     this.notifyAboutCancel.emit();
   }
 };
+
+
+
+
+

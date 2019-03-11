@@ -11,6 +11,7 @@ import { HomeModule } from './home/home.module';
 import { WordsModule } from './words/words.module';
 import { IrregularVerbsModule } from './irregular-verbs/irregular-verbs.module';
 import { UsersModule } from './users/users.module';
+import { TaskModule } from './tasks/task.module';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -33,7 +34,8 @@ import { ErrorInterceptor } from './app-error-interceptor';
     WordsModule,
     HomeModule,
     IrregularVerbsModule,
-    UsersModule
+    UsersModule,
+    TaskModule
   ],
   declarations: [
     AppComponent,

@@ -11,6 +11,7 @@ namespace WordApp.Infrastructure
         {
             CreateMap<WordEntity, WordModel>().ReverseMap();
             CreateMap<UserEntity, UserModel>().ReverseMap();
+            CreateMap<TaskEntity, TaskModel>().ReverseMap();
 
             CreateMap<IrregularVerbEntity, IrregularVerbModel>()
                 .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.WordVerbs.Select(wv => wv.Word)));

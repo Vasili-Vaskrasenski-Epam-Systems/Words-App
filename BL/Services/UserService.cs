@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using DAL.Infrastructure;
+﻿using DAL.Infrastructure;
 using Entities.Instances;
 
 namespace BL.Services
@@ -12,41 +7,6 @@ namespace BL.Services
     {
         public UserService(WordsDbContext context) : base(context)
         {
-        }
-        public override UserEntity CreateEntity(UserEntity entity)
-        {
-            base.DbContext.Users.Add(entity);
-            base.DbContext.SaveChanges();
-            return entity;
-        }
-
-        public override UserEntity DeleteEntity(UserEntity entity)
-        {
-            this.DbContext.Users.Remove(entity);
-            this.DbContext.SaveChanges();
-            return entity;
-        }
-
-        public override UserEntity UpdateEntity(UserEntity entity)
-        {
-            this.DbContext.Users.Update(entity);
-            this.DbContext.SaveChanges();
-            return entity;
-        }
-
-        public override UserEntity GetEntity(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override List<UserEntity> GetEntities()
-        {
-            return base.DbContext.Users.ToList();
-        }
-
-        public override List<UserEntity> GetEntities(Expression<Func<UserEntity, bool>> expression)
-        {
-            return base.DbContext.Users.Where(expression).ToList();
         }
     }
 }

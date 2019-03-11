@@ -1,0 +1,27 @@
+<h1>Tasks</h1>
+
+<div class="add-form-dynamic-component-container">
+  <button #showAddFormBtn (click)="onShowCreateForm()" class="btn btn-primary">Create Task</button>
+  <ng-container #createFormContainer></ng-container>
+</div>
+<p></p>
+
+<p *ngIf="!tasks"><em>Loading...</em></p>
+<table class='table table-striped' *ngIf="tasks && displayContent">
+  <thead>
+    <tr>
+      <th>Task Name</th>
+      <th>Task Type</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.name }}</td>
+      <td>{{ task.taskType}}</td>
+      <td>
+        <common-edit-buttons [inputObject]="task" (notifyAboutEdit)="onShowEditForm($event)" (notifyAboutDelete)="onWordDelete($event)"></common-edit-buttons>
+      </td>
+    </tr>
+  </tbody>
+</table>

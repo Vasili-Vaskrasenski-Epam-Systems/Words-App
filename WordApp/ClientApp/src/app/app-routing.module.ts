@@ -10,6 +10,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoginComponent } from './auth/login.component';
 import { RegistrationComponent } from './auth/registration.component';
 import { UserListComponent } from './users/user-list.component';
+import { TaskListComponent } from './tasks/task-list.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'words', component: WordsComponent, canActivate: [AuthGuard] },
   { path: 'irregular-verbs', component: IrregularVerbsComponent, canActivate: [AuthGuard] },
   { path: 'user-management', component: UserListComponent, canActivate: [AuthGuard] },
+  { path: 'task-management', component: TaskListComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: '**', component: PageNotFoundComponent },

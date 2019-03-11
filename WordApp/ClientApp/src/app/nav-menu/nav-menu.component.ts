@@ -19,7 +19,7 @@ export class NavMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserName = this.svc.currentUserValue.name;
-    this.isAdmin = this.svc.currentUserValue.userType === Enums.EUserType.Administrator;
+    this.isAdmin = this.svc.currentUserValue.userType === Enums.EUserType[Enums.EUserType.Administrator];
   }
 
   collapse() {

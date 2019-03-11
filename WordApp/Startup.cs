@@ -43,10 +43,7 @@ namespace WordApp
 
             #region DbContext
 
-            //var connectionString = Encrypters.Decrypt(this.Configuration.GetConnectionString("WordsDbConnectionString"));
-
-            var connectionString = "Server=10.9.212.240,49172;Database=wordsDatabase; User Id=sa;password=qweasdzxc_123;Trusted_Connection=False;MultipleActiveResultSets=true;";
-
+            var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString("WordsDbConnectionString"));
             services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer(connectionString));
             
             #endregion
@@ -55,6 +52,7 @@ namespace WordApp
             services.AddScoped(typeof(BaseEntityService<WordEntity>), typeof(WordService));
             services.AddScoped(typeof(BaseEntityService<IrregularVerbEntity>), typeof(IrregularVerbService));
             services.AddScoped(typeof(BaseEntityService<UserEntity>), typeof(UserService));
+            services.AddScoped(typeof(BaseEntityService<TaskEntity>), typeof(TaskService));
             #endregion
 
             // In production, the Angular files will be served from this directory

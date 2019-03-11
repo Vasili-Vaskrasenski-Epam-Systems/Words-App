@@ -13,28 +13,11 @@ namespace BL.Services
         public IrregularVerbService(WordsDbContext context) : base(context)
         {
         }
-        public override IrregularVerbEntity CreateEntity(IrregularVerbEntity entity)
-        {
-            base.DbContext.IrregularVerbs.Add(entity);
-            base.DbContext.SaveChanges();
-            return this.GetEntity(entity.Id);
-        }
-
-        public override IrregularVerbEntity DeleteEntity(IrregularVerbEntity entity)
-        {
-            base.DbContext.IrregularVerbs.Remove(entity);
-            base.DbContext.SaveChanges();
-            return entity;
-        }
 
         public override IrregularVerbEntity UpdateEntity(IrregularVerbEntity entity)
         {
             var wordVerbs = base.DbContext.WordVerbs.Where(wv => wv.VerbId == entity.Id).ToList();
             base.DbContext.WordVerbs.RemoveRange(wordVerbs);
-
-            //var e = this.GetEntity(entity.Id);
-            //e.WordVerbs = new List<WordVerbEntity>(entity.WordVerbs);
-            //e.CommonWord = entity.CommonWord;
 
             base.DbContext.IrregularVerbs.Update(entity);
             base.DbContext.SaveChanges();
