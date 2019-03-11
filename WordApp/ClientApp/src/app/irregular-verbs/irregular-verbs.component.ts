@@ -52,16 +52,34 @@ export class IrregularVerbsComponent implements OnInit, AfterViewInit {
 
       instance.notifyAboutCancel.subscribe(e => {
         this.clearForm();
-        this.displayContent = true;
       });
 
       instance.notifyAboutConfirm.subscribe(e => {
         this.irregularVerbsService.createIrregularVerb(e).subscribe(result => {
           this.irregularVerbs.push(result);
           this.clearForm();
-          this.displayContent = true;
         });
       });
+  }
+
+  onShowVerbEdit(verb: IrregularVerbModel): void {
+    this.displayContent = false;
+    this.showFormBtn.nativeElement.disabled = true;
+
+    var ref = this.editVerbFormContainer.createComponent(this.componentFactory);
+    var instance = <IrregularVerbEditorFormComponent>ref.instance;
+
+    instance.existingWords = this.availableWords;
+    instance.setVerbs(verb);
+
+    instance.notifyAboutCancel.subscribe(e => {
+      this.clearForm();
+    });
+
+    instance.notifyAboutConfirm.subscribe(e => {
+      this.onVerbEdit(e);
+      this.clearForm();
+    });
   }
 
   public onVerbEdit(verb: IrregularVerbModel): void {
@@ -86,5 +104,6 @@ export class IrregularVerbsComponent implements OnInit, AfterViewInit {
   private clearForm(): void {
     this.editVerbFormContainer.clear();
     this.showFormBtn.nativeElement.disabled = false;
+    this.displayContent = true;
   }
 }

@@ -13,7 +13,7 @@ export class IrregularVerbEditorFormComponent implements OnInit {
   private editableVerb: IrregularVerbModel;
   submitted = false;
 
-  @Input() existingWords: Array<WordModel>;
+  existingWords: Array<WordModel>;
   @Output() notifyAboutConfirm: EventEmitter<IrregularVerbModel> = new EventEmitter<IrregularVerbModel>();
   @Output() notifyAboutCancel = new EventEmitter();
 
@@ -21,13 +21,14 @@ export class IrregularVerbEditorFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('init');
     this.verbEditorForm = this.formBuilder.group({
       commonWord: [this.editableVerb ? this.editableVerb.commonWord : '', Validators.required],
-      firstForm: [this.editableVerb ? this.editableVerb.words[0] : this.existingWords[0], Validators.required],
-      secondForm: [this.editableVerb ? this.editableVerb.words[1] : this.existingWords[0], Validators.required],
-      thirdForm: [this.editableVerb ? this.editableVerb.words[2] : this.existingWords[0], Validators.required],
+      firstForm: [this.editableVerb ? this.existingWords.find(w => w.id === this.editableVerb.words[0].id) : this.existingWords[0], Validators.required],
+      secondForm: [this.editableVerb ? this.existingWords.find(w => w.id === this.editableVerb.words[1].id) : this.existingWords[0], Validators.required],
+      thirdForm: [this.editableVerb ? this.existingWords.find(w => w.id === this.editableVerb.words[2].id) : this.existingWords[0], Validators.required],
     });
-    console.log(this.verbEditorForm.controls);
+    
   }
 
   get f() {

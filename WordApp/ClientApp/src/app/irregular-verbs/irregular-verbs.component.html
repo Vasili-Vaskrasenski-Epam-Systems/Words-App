@@ -21,7 +21,7 @@
     <tr *ngFor="let irregularVerb of irregularVerbs">
       <td>{{ irregularVerb.commonWord}}</td>
       <td *ngFor="let word of irregularVerb.words">{{ word.word}}</td>
-      <td><app-irregular-verb-editor [verbObject]="irregularVerb" [existingWords]="availableWords" (notifyAboutDelete)="onVerbDelete($event)" (notifyAboutEdit)="onVerbEdit($event)"></app-irregular-verb-editor></td>
+      <td><app-irregular-verb-editor [verbObject]="irregularVerb" (notifyAboutDelete)="onVerbDelete($event)" (notifyAboutEdit)="onShowVerbEdit($event)"></app-irregular-verb-editor></td>
     <!--</td>-->
     </tr>
   </tbody>
