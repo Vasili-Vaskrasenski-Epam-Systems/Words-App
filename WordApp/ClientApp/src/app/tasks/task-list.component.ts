@@ -1,9 +1,13 @@
 import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core';
 
 import { TaskService } from './task.service';
+import { WordsService } from './../words/words.service';
+import { IrregularVerbsService } from './../irregular-verbs/irregular-verbs.service';
 import { AlertService } from './../alert/alert.service';
 
 import { TaskModel } from './task.model';
+import { WordModel } from './../words/word.model';
+import { IrregularVerbModel } from './../irregular-verbs/irregular-verb.model';
 
 import { TaskEditorFormComponent } from './task-editor-form.component';
 
@@ -15,13 +19,16 @@ import { TaskEditorFormComponent } from './task-editor-form.component';
 export class TaskListComponent implements OnInit, AfterViewInit {
   public tasks: Array<TaskModel>;
   public displayContent: boolean;
+  private existingWords: Array<WordModel>;
+  private existingVerbs: Array<IrregularVerbModel>;
 
   private componentFactory: any;
 
   @ViewChild('createFormContainer', { read: ViewContainerRef }) createFormContainer: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
 
-  constructor(private taskService: TaskService, private componentFactoryResolver: ComponentFactoryResolver, private alertService: AlertService) {
+  constructor(private taskService: TaskService, private wordService: WordsService, private alertService: AlertService, private verbsService: IrregularVerbsService,
+    private componentFactoryResolver: ComponentFactoryResolver) {
     if (!this.tasks) {
       this.tasks = new Array<TaskModel>();
       this.displayContent = true;
@@ -30,6 +37,14 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.taskService.getTasks().subscribe(t => {
       this.tasks = t;
+    });
+
+    this.wordService.getWords().subscribe(w => {
+      this.existingWords = w;
+    });
+
+    this.verbsService.getIrregularVerbs().subscribe(v => {
+      this.existingVerbs = v;
     });
   }
 
