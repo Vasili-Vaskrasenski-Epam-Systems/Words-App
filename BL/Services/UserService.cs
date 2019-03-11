@@ -22,12 +22,16 @@ namespace BL.Services
 
         public override UserEntity DeleteEntity(UserEntity entity)
         {
-            throw new NotImplementedException();
+            this.DbContext.Users.Remove(entity);
+            this.DbContext.SaveChanges();
+            return entity;
         }
 
         public override UserEntity UpdateEntity(UserEntity entity)
         {
-            throw new NotImplementedException();
+            this.DbContext.Users.Update(entity);
+            this.DbContext.SaveChanges();
+            return entity;
         }
 
         public override UserEntity GetEntity(Guid id)

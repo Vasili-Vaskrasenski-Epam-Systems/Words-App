@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../auth/auth.service';
 import { Router } from '@angular/router';
+import { Enums } from './../app-enums';
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,13 +11,15 @@ import { Router } from '@angular/router';
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
   public currentUserName: string;
-  
+  public isAdmin: boolean;
+
   constructor(private svc: AuthService, private router: Router) {
-    
+
   }
 
   ngOnInit(): void {
     this.currentUserName = this.svc.currentUserValue.name;
+    this.isAdmin = this.svc.currentUserValue.userType === Enums.EUserType.Administrator;
   }
 
   collapse() {

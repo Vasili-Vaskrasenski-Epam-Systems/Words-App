@@ -2,7 +2,7 @@
 
 <div class="add-form-dynamic-component-container">
   <button #showAddFormBtn (click)="onShowWordCreateForm()" class="btn btn-primary">Create Word</button>
-  <ng-container #createWordFormContainer></ng-container>
+  <ng-container #createFormContainer></ng-container>
 </div>
 <p></p>
 
@@ -22,7 +22,7 @@
       <td>{{ word.transcription}}</td>
       <td>{{ word.translation }}</td>
       <td>
-        <app-word-editor [wordObject]="word" (notifyAboutEdit)="onShowWordEdit($event)" (notifyAboutDelete)="onWordDelete($event)"></app-word-editor>
+        <common-edit-buttons [inputObject]="word" (notifyAboutEdit)="onShowWordEdit($event)" (notifyAboutDelete)="onWordDelete($event)"></common-edit-buttons>
       </td>
     </tr>
   </tbody>

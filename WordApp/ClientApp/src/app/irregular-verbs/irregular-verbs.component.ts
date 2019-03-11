@@ -77,21 +77,17 @@ export class IrregularVerbsComponent implements OnInit, AfterViewInit {
     });
 
     instance.notifyAboutConfirm.subscribe(e => {
-      this.onVerbEdit(e);
+      this.irregularVerbsService.updateIrregularVerb(verb).subscribe(result => {
+        var instance = <IrregularVerbModel>result;
+        var verbToUpdate = this.irregularVerbs.find(w => w.id === instance.id);
+
+        verbToUpdate.rowVersion = instance.rowVersion;
+        verbToUpdate.words = instance.words;
+        verbToUpdate.commonWord = instance.commonWord;
+
+      }, error => console.error(error));
       this.clearForm();
     });
-  }
-
-  public onVerbEdit(verb: IrregularVerbModel): void {
-    this.irregularVerbsService.updateIrregularVerb(verb).subscribe(result => {
-      var instance = <IrregularVerbModel>result;
-      var verbToUpdate = this.irregularVerbs.find(w => w.id === instance.id);
-
-      verbToUpdate.rowVersion = instance.rowVersion;
-      verbToUpdate.words = instance.words;
-      verbToUpdate.commonWord = instance.commonWord;
-
-    }, error => console.error(error));
   }
 
   public onVerbDelete(verb: IrregularVerbModel): void {

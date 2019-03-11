@@ -21,12 +21,18 @@ namespace WordApp.Controllers
         }
 
         [HttpPost("[action]")]
-        public UserModel Register([FromBody] UserModel model)
+        public IActionResult Register([FromBody] UserModel model)
+        {
+            model.UserType = UserType.Pupil;
+            return this.CreateUser(model);
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult CreateUser([FromBody] UserModel model)
         {
             var userToCreate = base.Mapper.Map<UserEntity>(model);
-            userToCreate.UserType = UserType.Pupil;
             var createdUser = this._service.CreateEntity(userToCreate);
-            return base.Mapper.Map<UserModel>(createdUser);
+            return Ok(base.Mapper.Map<UserModel>(createdUser));
         }
 
         [HttpPost("[action]")]
@@ -47,5 +53,28 @@ namespace WordApp.Controllers
 
             return Ok("Wrong login or password");
         }
+
+        [HttpGet("[action]")]
+        public IActionResult GetUsers()
+        {
+            return Ok(this._service.GetEntities().Select(e => Mapper.Map<UserModel>(e)).ToList());
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult DeleteUser([FromBody] UserModel model)
+        {
+            var userToDelete = base.Mapper.Map<UserEntity>(model);
+            var deletedUser = this._service.DeleteEntity(userToDelete);
+            return Ok(base.Mapper.Map<UserModel>(deletedUser));
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult UpdateUser([FromBody] UserModel model)
+        {
+            var userToUpdate = base.Mapper.Map<UserEntity>(model);
+            var updatedUser = this._service.UpdateEntity(userToUpdate);
+            return Ok(base.Mapper.Map<UserModel>(updatedUser));
+        }
+
     }
 }

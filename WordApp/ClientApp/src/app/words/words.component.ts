@@ -13,7 +13,7 @@ export class WordsComponent implements OnInit, AfterViewInit {
   public displayContent: boolean;
   private componentFactory: any;
 
-  @ViewChild('createWordFormContainer', { read: ViewContainerRef }) createWordFormContainer: ViewContainerRef;
+  @ViewChild('createFormContainer', { read: ViewContainerRef }) createWordFormContainer: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
   
   constructor(private wordsService: WordsService, private componentFactoryResolver: ComponentFactoryResolver, private alertService: AlertService) {

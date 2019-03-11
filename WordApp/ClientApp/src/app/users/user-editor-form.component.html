@@ -1,0 +1,38 @@
+<form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="userName">Name</label>
+            <input type="text" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" placeholder="ex: Jerry" />
+            <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+              <div *ngIf="f.userName.errors.required">Word is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="text" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="ex: bi(ə)r" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="userType">User Type</label>
+            <select class="form-control" formControlName="userType" id="userType" name="userType" [ngClass]="{ 'is-invalid': submitted && f.userType.errors }">
+              <option *ngFor="let type of userTypes" [ngValue]="type">{{type}}</option>
+            </select>
+            <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
+              <div *ngIf="f.userType.errors.required">User type is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary">Confirm</button>
+            <button type="button" (click)="onCancel()" class="btn btn-danger">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+

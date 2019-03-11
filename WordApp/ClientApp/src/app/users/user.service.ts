@@ -23,4 +23,24 @@ export class UserService {
   public getCurrentUser(): UserModel {
     return this.currentUser;
   }
+
+  public getUsers(): any {
+    var url = this.baseUrl + '/GetUsers';
+    return this.http.get<UserModel[]>(url);
+  }
+
+  public createUser(word: UserModel): any {
+    var url = this.baseUrl + '/CreateUser';
+    return this.http.post<string>(url, word);
+  }
+
+  public updateUser(word: UserModel): any {
+    var url = this.baseUrl + '/UpdateUser';
+    return this.http.post<string>(url, word);
+  }
+
+  public deleteUser(word: UserModel): any {
+    var url = this.baseUrl + '/DeleteUser';
+    return this.http.post<string>(url, word);
+  }
 };

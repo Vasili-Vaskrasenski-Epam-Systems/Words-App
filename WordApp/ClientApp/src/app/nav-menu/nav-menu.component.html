@@ -19,7 +19,7 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]='["/task-management"]'>Tasks</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isAdmin">
         <a class="nav-link" [routerLink]='["/user-management"]'>Users</a>
       </li>
       <li class="nav-link" [routerLinkActive]='["link-active"]'>

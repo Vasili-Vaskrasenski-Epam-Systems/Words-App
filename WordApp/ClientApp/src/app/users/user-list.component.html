@@ -1,0 +1,27 @@
+<h1>Users</h1>
+
+<div class="add-form-dynamic-component-container">
+  <button #showAddFormBtn (click)="onShowCreateForm()" class="btn btn-primary">Create User</button>
+  <ng-container #createFormContainer></ng-container>
+</div>
+<p></p>
+
+<p *ngIf="!users"><em>Loading...</em></p>
+<table class='table table-striped' *ngIf="users && displayContent">
+  <thead>
+  <tr>
+    <th>User Name</th>
+    <th>User Type</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{ user.name }}</td>
+    <td>{{ user.userType}}</td>
+    <td>
+      <common-edit-buttons [inputObject]="user" (notifyAboutEdit)="onShowEditForm($event)" (notifyAboutDelete)="onWordDelete($event)"></common-edit-buttons>
+    </td>
+  </tr>
+  </tbody>
+</table>
