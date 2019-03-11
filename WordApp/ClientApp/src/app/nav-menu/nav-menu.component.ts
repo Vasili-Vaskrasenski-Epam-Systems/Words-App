@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -7,10 +7,16 @@ import { Router } from '@angular/router';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent {
+export class NavMenuComponent implements OnInit {
   isExpanded = false;
-
+  public currentUserName: string;
+  
   constructor(private svc: AuthService, private router: Router) {
+    
+  }
+
+  ngOnInit(): void {
+    this.currentUserName = this.svc.currentUserValue.name;
   }
 
   collapse() {
@@ -25,4 +31,5 @@ export class NavMenuComponent {
     this.svc.logout();
     this.router.navigate(['/login']);
   }
+
 }

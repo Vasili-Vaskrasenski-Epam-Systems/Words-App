@@ -1,4 +1,5 @@
-﻿using Entities.Instances;
+﻿using System.Runtime.CompilerServices;
+using Entities.Instances;
 using Entities.Instances.Base;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,6 +26,10 @@ namespace DAL.Infrastructure
                 .HasForeignKey(ee => ee.WordId);
 
             builder.HasMany(e => e.TaskWords)
+                .WithOne(ee => ee.Word)
+                .HasForeignKey(ee => ee.WordId);
+
+            builder.HasMany(e => e.AnsweredWord)
                 .WithOne(ee => ee.Word)
                 .HasForeignKey(ee => ee.WordId);
         }
@@ -68,18 +73,40 @@ namespace DAL.Infrastructure
         }
     }
 
+    internal class AnswerConfigurator : IdentityEntityConfigurator<AnswerEntity>
+    {
+        public override void Configure(EntityTypeBuilder<AnswerEntity> builder)
+        {
+            base.Configure(builder);
+            builder.HasMany(e => e.AnsweredWords)
+                .WithOne(ee => ee.Answer)
+                .HasForeignKey(ee => ee.AnswerId);
+        }
+    }
+
     #region relational entities
-    internal class VerbWordConfigurator : VersionEntityConfigurator<WordVerbEntity>
+    internal class VerbWordConfigurator : IdentityEntityConfigurator<WordVerbEntity>
     {
 
     }
 
-    internal class TaskWordConfigurator : VersionEntityConfigurator<TaskWordEntity>
+    internal class TaskWordConfigurator : IdentityEntityConfigurator<TaskWordEntity>
     {
 
     }
 
-    internal class AssignedTaskConfigurator : VersionEntityConfigurator<AssignedTaskEntity>
+    internal class AssignedTaskConfigurator : IdentityEntityConfigurator<AssignedTaskEntity>
+    {
+        public override void Configure(EntityTypeBuilder<AssignedTaskEntity> builder)
+        {
+            base.Configure(builder);
+            builder.HasMany(e => e.AnsweredWords)
+                .WithOne(ee => ee.AssignedTask)
+                .HasForeignKey(ee => ee.AssignedTaskId);
+        }
+    }
+
+    internal class AnsweredWordConfigurator : IdentityEntityConfigurator<AnsweredWordEntity>
     {
 
     }

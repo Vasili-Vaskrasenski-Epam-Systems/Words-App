@@ -12,22 +12,4 @@ namespace DAL.Infrastructure
             builder.Property(e => e.RowVersion).IsRowVersion();
         }
     }
-
-    //internal class VerbWordConfigurator : VersionEntityConfigurator<WordVerbEntity>
-    //{
-    //    public override void Configure(EntityTypeBuilder<WordVerbEntity> builder)
-    //    {
-    //        base.Configure(builder);
-    //        builder.HasKey(wv => new {wv.VerbId, wv.WordId});
-    //    }
-    //}
-
-    //internal class TaskWordConfigurator : VersionEntityConfigurator<TaskWordEntity>
-    //{
-    //    public override void Configure(EntityTypeBuilder<TaskWordEntity> builder)
-    //    {
-    //        base.Configure(builder);
-    //        builder.HasKey(tw => new {tw.TaskId, tw.WordId, tw.Order});
-    //    }
-    //}
 }

@@ -10,5 +10,6 @@ namespace Entities.Instances
         public string Translation { get; set; }
         public virtual List<WordVerbEntity> WordVerbEntities { get; set; }
         public virtual List<TaskWordEntity> TaskWords { get; set; }
+        public virtual List<AnsweredWordEntity> AnsweredWord { get; set; }
     }
 }

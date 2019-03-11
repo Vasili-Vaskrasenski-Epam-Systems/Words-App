@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Infrastructure
 {
-    public class WordsDbContext: DbContext
+    public class WordsDbContext : DbContext
     {
         public WordsDbContext(DbContextOptions options) : base(options)
         {
@@ -17,6 +17,9 @@ namespace DAL.Infrastructure
         public DbSet<TaskWordEntity> TaskWords { get; set; }
         public DbSet<AssignedTaskEntity> AssignedTasks { get; set; }
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<AnsweredWordEntity> AnsweredWords { get; set; }
+        public DbSet<AnswerEntity> Answers { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +32,8 @@ namespace DAL.Infrastructure
             modelBuilder.ApplyConfiguration(new TaskWordConfigurator());
             modelBuilder.ApplyConfiguration(new AssignedTaskConfigurator());
             modelBuilder.ApplyConfiguration(new UserConfigurator());
+            modelBuilder.ApplyConfiguration(new AnsweredWordConfigurator());
+            modelBuilder.ApplyConfiguration(new AnswerConfigurator());
         }
     }
 }

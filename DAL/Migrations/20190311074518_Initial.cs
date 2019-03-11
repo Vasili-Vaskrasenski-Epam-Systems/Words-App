@@ -8,6 +8,19 @@ namespace DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Answers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    Answer = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Answers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "IrregularVerbs",
                 columns: table => new
                 {
@@ -145,6 +158,54 @@ namespace DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AnsweredWords",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    AssignedTaskId = table.Column<Guid>(nullable: false),
+                    WordId = table.Column<Guid>(nullable: false),
+                    AnswerId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnsweredWords", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AnsweredWords_Answers_AnswerId",
+                        column: x => x.AnswerId,
+                        principalTable: "Answers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AnsweredWords_AssignedTasks_AssignedTaskId",
+                        column: x => x.AssignedTaskId,
+                        principalTable: "AssignedTasks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AnsweredWords_Words_WordId",
+                        column: x => x.WordId,
+                        principalTable: "Words",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AnsweredWords_AnswerId",
+                table: "AnsweredWords",
+                column: "AnswerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AnsweredWords_AssignedTaskId",
+                table: "AnsweredWords",
+                column: "AssignedTaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AnsweredWords_WordId",
+                table: "AnsweredWords",
+                column: "WordId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AssignedTasks_TaskId",
                 table: "AssignedTasks",
@@ -179,7 +240,7 @@ namespace DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AssignedTasks");
+                name: "AnsweredWords");
 
             migrationBuilder.DropTable(
                 name: "TaskWords");
@@ -188,16 +249,22 @@ namespace DAL.Migrations
                 name: "WordVerbs");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Answers");
 
             migrationBuilder.DropTable(
-                name: "Tasks");
+                name: "AssignedTasks");
 
             migrationBuilder.DropTable(
                 name: "IrregularVerbs");
 
             migrationBuilder.DropTable(
                 name: "Words");
+
+            migrationBuilder.DropTable(
+                name: "Tasks");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

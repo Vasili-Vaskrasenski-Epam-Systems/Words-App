@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Entities.Enums;
 using Entities.Instances.Base;
 
@@ -11,5 +12,6 @@ namespace Entities.Instances
         public TaskStatus TaskStatus { get; set; }
         public virtual UserEntity User { get; set; }
         public virtual TaskEntity Task { get; set; }
+        public virtual List<AnsweredWordEntity> AnsweredWords { get; set; }
     }
 }

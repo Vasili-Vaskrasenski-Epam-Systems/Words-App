@@ -43,16 +43,16 @@ export class RegistrationComponent implements OnInit {
     this.alertService.success('Registration successful', true);
     this.router.navigate(['/login']);
     
-    //this.authenticationService.register(this.registerForm.value)
-    //  .pipe(first())
-    //  .subscribe(
-    //    data => {
-    //      this.alertService.success('Registration successful', true);
-    //      this.router.navigate(['/login']);
-    //    },
-    //    error => {
-    //      this.alertService.error(error);
-    //      this.loading = false;
-    //    });
+    this.authenticationService.register(this.registerForm.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.alertService.success('Registration successful', true);
+          this.router.navigate(['/login']);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        });
   }
 }

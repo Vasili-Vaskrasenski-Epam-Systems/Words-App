@@ -19,6 +19,48 @@ namespace DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Entities.Instances.AnswerEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Answer");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Answers");
+                });
+
+            modelBuilder.Entity("Entities.Instances.AnsweredWordEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AnswerId");
+
+                    b.Property<Guid>("AssignedTaskId");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<Guid>("WordId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnswerId");
+
+                    b.HasIndex("AssignedTaskId");
+
+                    b.HasIndex("WordId");
+
+                    b.ToTable("AnsweredWords");
+                });
+
             modelBuilder.Entity("Entities.Instances.AssignedTaskEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -163,6 +205,24 @@ namespace DAL.Migrations
                     b.HasIndex("WordId");
 
                     b.ToTable("WordVerbs");
+                });
+
+            modelBuilder.Entity("Entities.Instances.AnsweredWordEntity", b =>
+                {
+                    b.HasOne("Entities.Instances.AnswerEntity", "Answer")
+                        .WithMany("AnsweredWords")
+                        .HasForeignKey("AnswerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.AssignedTaskEntity", "AssignedTask")
+                        .WithMany("AnsweredWords")
+                        .HasForeignKey("AssignedTaskId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.WordEntity", "Word")
+                        .WithMany("AnsweredWord")
+                        .HasForeignKey("WordId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Entities.Instances.AssignedTaskEntity", b =>

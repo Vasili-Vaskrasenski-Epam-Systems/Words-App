@@ -1,8 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark ">
-  <img src="https://ui-ex.com/images/book-transparent-black-and-white-6.png" class="navbar-brand"/>
+  <img src="https://ui-ex.com/images/book-transparent-black-and-white-6.png" class="navbar-brand" />
   <button class="navbar-toggler" type="button" data-target="#navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <p class="text-light">Hello, {{currentUserName}}</p>
 
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav">
@@ -14,6 +15,12 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]='["/irregular-verbs"]'>Irregular Verbs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]='["/task-management"]'>Tasks</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]='["/user-management"]'>Users</a>
       </li>
       <li class="nav-link" [routerLinkActive]='["link-active"]'>
         <button class="btn-dark" (click)="logout()">Logout</button>

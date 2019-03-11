@@ -11,7 +11,6 @@ namespace Entities.Instances
         public Guid WordId { get; set; }
         public bool IsTranslation { get; set; }
         public int Order { get; set; }
-
         public virtual TaskEntity Task { get; set; }
         public virtual WordEntity Word { get; set; }
     }
