@@ -76,5 +76,12 @@ namespace WordApp.Controllers
             return Ok(base.Mapper.Map<UserModel>(updatedUser));
         }
 
+        [HttpGet("[action]")]
+        public IActionResult GetUsersByType(UserType userType)
+        {
+            var foundUsers = this._service.GetEntities(u => u.UserType == userType);
+            return Ok(foundUsers.Select(fu => base.Mapper.Map<UserModel>(fu)).ToList());
+        }
+
     }
 }

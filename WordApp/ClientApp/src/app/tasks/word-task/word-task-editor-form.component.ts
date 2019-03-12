@@ -5,8 +5,8 @@ import { WordTaskModel } from "./../models/word-task.model";
 import { WordModel } from "./../../words/word.model";
 import { CommonSelectModel } from './../../common/select.component';
 
-import { Enums } from './../../app-enums';
 import { EnumToArrayPipe } from './../../helpers/enum-to-array.pipe';
+import { AlertService } from './../../alert/alert.service';
 
 @Component({
   selector: 'word-task-editor-form',
@@ -20,11 +20,11 @@ export class WordTaskEditorFormComponent implements OnInit {
   private editableObject: WordTaskModel;
   public showSelect = false;
   public submitted = false;
-  
+
   @Output() notifyAboutConfirm: EventEmitter<WordTaskModel> = new EventEmitter<WordTaskModel>();
   @Output() notifyAboutCancel = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, private pipe: EnumToArrayPipe) {
+  constructor(private formBuilder: FormBuilder, private pipe: EnumToArrayPipe, private alertService: AlertService) {
     this.assignedWords = new Array<WordModel>();
   }
 
@@ -48,6 +48,10 @@ export class WordTaskEditorFormComponent implements OnInit {
     if (this.editorForm.invalid) {
       return;
     }
+    else if (this.assignedWords.length == 0) {
+      this.alertService.error("At least one word should be assigned to the task");
+      return;
+    }
     else {
       var model = new WordTaskModel(
         this.f.name.value,
@@ -60,8 +64,6 @@ export class WordTaskEditorFormComponent implements OnInit {
   }
 
   public onCancel(): void {
-    console.log('task', this.editableObject.words);
-    console.log('assigned', this.assignedWords);
     this.notifyAboutCancel.emit();
   }
 

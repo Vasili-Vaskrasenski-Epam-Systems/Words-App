@@ -4,13 +4,18 @@ import { WordTaskService } from './../services/word-task.service';
 import { WordsService } from './../../words/words.service';
 import { IrregularVerbsService } from './../../irregular-verbs/irregular-verbs.service';
 import { AlertService } from './../../alert/alert.service';
+import { UserService } from './../../users/user.service';
 
 import { WordTaskModel } from './../models/word-task.model';
 import { WordModel } from './../../words/word.model';
 import { IrregularVerbModel } from './../../irregular-verbs/irregular-verb.model';
 import { CommonSelectModel } from './../../common/select.component';
+import { UserModel } from './../../users/user.model';
 
 import { WordTaskEditorFormComponent } from './word-task-editor-form.component';
+import { AssignTaskComponent } from './../common/assign-task.component';
+
+import { Enums } from './../../app-enums';
 
 @Component(
   {
@@ -18,10 +23,11 @@ import { WordTaskEditorFormComponent } from './word-task-editor-form.component';
     templateUrl: './word-task-list.component.html',
   })
 export class WordTaskListComponent implements OnInit, AfterViewInit {
-  public tasks: Array<WordTaskModel>;
+  public existingWordTasks: Array<WordTaskModel>;
   public displayContent: boolean;
   private existingWords: Array<WordModel>;
-  private existingVerbs: Array<IrregularVerbModel>;
+  private existingUsers: Array<UserModel>;
+  //private existingVerbs: Array<IrregularVerbModel>;
 
   private componentFactory: any;
 
@@ -29,31 +35,35 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
 
   constructor(private taskService: WordTaskService, private wordService: WordsService, private alertService: AlertService, private verbsService: IrregularVerbsService,
-    private componentFactoryResolver: ComponentFactoryResolver) {
-    if (!this.tasks) {
-      this.tasks = new Array<WordTaskModel>();
+    private userService: UserService, private componentFactoryResolver: ComponentFactoryResolver) {
+    if (!this.existingWordTasks) {
+      this.existingWordTasks = new Array<WordTaskModel>();
       this.displayContent = true;
     }
   }
   ngOnInit(): void {
     this.taskService.getTasks().subscribe(t => {
-      this.tasks = t;
+      this.existingWordTasks = t;
     });
 
     this.wordService.getWords().subscribe(w => {
       this.existingWords = w;
     });
 
-    this.verbsService.getIrregularVerbs().subscribe(v => {
-      this.existingVerbs = v;
+    //this.verbsService.getIrregularVerbs().subscribe(v => {
+    //  this.existingVerbs = v;
+    //});
+    this.userService.getUsersByType(Enums.EUserType[Enums.EUserType.Pupil]).subscribe(u => {
+      this.existingUsers = u;
     });
   }
 
   ngAfterViewInit(): void {
-    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordTaskEditorFormComponent);
+    
   }
 
   onShowCreateForm(): void {
+    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordTaskEditorFormComponent);
     this.showFormBtn.nativeElement.disabled = true;
     this.displayContent = false;
 
@@ -68,7 +78,7 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
 
     instance.notifyAboutConfirm.subscribe(e => {
       this.taskService.createTask(e).subscribe(result => {
-        this.tasks.push(result);
+        this.existingWordTasks.push(result);
         console.log(result);
         this.clearForm();
       }, error => {
@@ -78,6 +88,7 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
   }
 
   onShowEditForm(task: WordTaskModel): void {
+    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordTaskEditorFormComponent);
     this.displayContent = false;
     this.showFormBtn.nativeElement.disabled = true;
 
@@ -92,17 +103,35 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
 
     instance.notifyAboutConfirm.subscribe(e => {
       this.taskService.updateTask(e).subscribe(result => {
-        var index = this.tasks.findIndex(w => w.id === result.id);
-        this.tasks.splice(index, 1, result);
+        var index = this.existingWordTasks.findIndex(w => w.id === result.id);
+        this.existingWordTasks.splice(index, 1, result);
         this.clearForm();
       }, error => console.error(error));
     });
   }
 
-  onWordDelete(task: WordTaskModel): void {
+  onShowAssignForm(task: WordTaskModel): void {
+    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(AssignTaskComponent);
+    this.showFormBtn.nativeElement.disabled = true;
+    this.displayContent = false;
+
+    var ref = this.createFormContainer.createComponent(this.componentFactory);
+    var instance = <AssignTaskComponent>ref.instance;
+    instance.userList = this.existingUsers;
+
+    instance.notifyAboutCancel.subscribe(e => {
+      this.clearForm();
+    });
+
+    instance.notifyAboutConfirm.subscribe(e => {
+      console.log('wordtasklist',e);
+    });
+  }
+
+  onDelete(task: WordTaskModel): void {
     this.taskService.deleteTask(task).subscribe(result => {
-      var index = this.tasks.findIndex(w => w.id === result.id);
-      this.tasks.splice(index, 1);
+      var index = this.existingWordTasks.findIndex(w => w.id === result.id);
+      this.existingWordTasks.splice(index, 1);
     }, error => {
       console.error(error);
     });

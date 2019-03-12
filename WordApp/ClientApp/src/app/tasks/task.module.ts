@@ -9,16 +9,17 @@ import { HelpersModule } from './../helpers/helpers.module';
 
 import { WordTaskEditorFormComponent } from './word-task/word-task-editor-form.component';
 import { WordTaskListComponent } from './word-task/word-task-list.component';
+import { AssignTaskComponent } from './common/assign-task.component';
 
 
 @NgModule({
   declarations: [
-    WordTaskEditorFormComponent, WordTaskListComponent
+    WordTaskEditorFormComponent, WordTaskListComponent, AssignTaskComponent
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule],
   exports: [],
   providers: [WordTaskService],
-  entryComponents: [WordTaskEditorFormComponent]
+  entryComponents: [WordTaskEditorFormComponent, AssignTaskComponent]
 })
 
 export class TaskModule {
