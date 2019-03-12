@@ -47,18 +47,18 @@ namespace DAL.Infrastructure
         }
     }
 
-    internal class TaskConfigurator : IdentityEntityConfigurator<TaskEntity>
+    internal class WordTaskConfigurator : IdentityEntityConfigurator<WordTaskEntity>
     {
-        public override void Configure(EntityTypeBuilder<TaskEntity> builder)
+        public override void Configure(EntityTypeBuilder<WordTaskEntity> builder)
         {
             base.Configure(builder);
             builder.HasMany(e => e.TaskWords)
-                .WithOne(tw => tw.Task)
+                .WithOne(tw => tw.WordTask)
                 .HasForeignKey(tw => tw.TaskId);
 
-            builder.HasMany(e => e.AssignedTasks)
-                .WithOne(ee => ee.Task)
-                .HasForeignKey(ee => ee.TaskId);
+            builder.HasMany(e => e.AssignedWordTasks)
+                .WithOne(ee => ee.WordTask)
+                .HasForeignKey(ee => ee.WordTaskId);
         }
     }
 
@@ -95,13 +95,13 @@ namespace DAL.Infrastructure
 
     }
 
-    internal class AssignedTaskConfigurator : IdentityEntityConfigurator<AssignedTaskEntity>
+    internal class AssignedWordTaskConfigurator : IdentityEntityConfigurator<AssignedWordTaskEntity>
     {
-        public override void Configure(EntityTypeBuilder<AssignedTaskEntity> builder)
+        public override void Configure(EntityTypeBuilder<AssignedWordTaskEntity> builder)
         {
             base.Configure(builder);
             builder.HasMany(e => e.AnsweredWords)
-                .WithOne(ee => ee.AssignedTask)
+                .WithOne(ee => ee.AssignedWordTask)
                 .HasForeignKey(ee => ee.AssignedTaskId);
         }
     }

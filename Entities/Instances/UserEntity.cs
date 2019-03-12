@@ -9,6 +9,6 @@ namespace Entities.Instances
         public string Name { get; set; }
         public string Password { get; set; }
         public UserType UserType { get; set; }
-        public List<AssignedTaskEntity> AssignedTasks { get; set; }
+        public List<AssignedWordTaskEntity> AssignedTasks { get; set; }
     }
 }

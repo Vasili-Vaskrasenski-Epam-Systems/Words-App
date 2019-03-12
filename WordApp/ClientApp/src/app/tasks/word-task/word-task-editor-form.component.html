@@ -10,7 +10,7 @@
               <div *ngIf="f.name.errors.required">Task name is required</div>
             </div>
           </div>
-          <div class="form-group">
+          <!--<div class="form-group">
             <label for="userType">Task Type</label>
             <select class="form-control" formControlName="taskType" id="taskType" name="taskType" [ngClass]="{ 'is-invalid': submitted && f.taskType.errors }">
               <option *ngFor="let type of taskTypes" [ngValue]="type">{{type}}</option>
@@ -18,6 +18,19 @@
             <div *ngIf="submitted && f.taskType.errors" class="invalid-feedback">
               <div *ngIf="f.taskType.errors.required">Task type is required</div>
             </div>
+          </div>-->
+          <div class="form-row">
+            <div class="form-group col-md-11">
+              <label class="col-md-8">Assigned Words</label>
+              <button type="button" class="btn btn-sm btn-primary col-md-4" (click)="showAddWordForm()">Add Word</button>
+            </div>
+          </div>
+          <div class="form-group" *ngFor="let word of assignedWords">
+            {{word.word}}
+            <button type="button" class="btn btn-danger" (click)="removeAssignedWord(word)">&times;</button>
+          </div>
+          <div class="form-group">
+            <common-select [inputObjectArray]="existingWords" *ngIf="showSelect" (notifyAboutConfirm)="getSelectedValue($event)" (notifyAboutCancel)="onCancelSelect()"></common-select>
           </div>
           <div class="form-group">
             <button class="btn btn-primary">Confirm</button>

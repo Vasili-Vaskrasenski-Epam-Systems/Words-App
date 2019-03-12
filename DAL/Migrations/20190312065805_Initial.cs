@@ -34,20 +34,6 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tasks",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    TaskType = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tasks", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -78,58 +64,15 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AssignedTasks",
+                name: "WordTasks",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    UserId = table.Column<Guid>(nullable: false),
-                    TaskId = table.Column<Guid>(nullable: false),
-                    TaskStatus = table.Column<int>(nullable: false)
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AssignedTasks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AssignedTasks_Tasks_TaskId",
-                        column: x => x.TaskId,
-                        principalTable: "Tasks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AssignedTasks_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TaskWords",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    TaskId = table.Column<Guid>(nullable: false),
-                    WordId = table.Column<Guid>(nullable: false),
-                    IsTranslation = table.Column<bool>(nullable: false),
-                    Order = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TaskWords", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TaskWords_Tasks_TaskId",
-                        column: x => x.TaskId,
-                        principalTable: "Tasks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TaskWords_Words_WordId",
-                        column: x => x.WordId,
-                        principalTable: "Words",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_WordTasks", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -159,6 +102,62 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AssignedWordTasks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    UserId = table.Column<Guid>(nullable: false),
+                    WordTaskId = table.Column<Guid>(nullable: false),
+                    TaskStatus = table.Column<int>(nullable: false),
+                    Deadline = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssignedWordTasks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AssignedWordTasks_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AssignedWordTasks_WordTasks_WordTaskId",
+                        column: x => x.WordTaskId,
+                        principalTable: "WordTasks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TaskWords",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    TaskId = table.Column<Guid>(nullable: false),
+                    WordId = table.Column<Guid>(nullable: false),
+                    IsTranslation = table.Column<bool>(nullable: false),
+                    Order = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TaskWords", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TaskWords_WordTasks_TaskId",
+                        column: x => x.TaskId,
+                        principalTable: "WordTasks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TaskWords_Words_WordId",
+                        column: x => x.WordId,
+                        principalTable: "Words",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AnsweredWords",
                 columns: table => new
                 {
@@ -178,9 +177,9 @@ namespace DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AnsweredWords_AssignedTasks_AssignedTaskId",
+                        name: "FK_AnsweredWords_AssignedWordTasks_AssignedTaskId",
                         column: x => x.AssignedTaskId,
-                        principalTable: "AssignedTasks",
+                        principalTable: "AssignedWordTasks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -207,14 +206,14 @@ namespace DAL.Migrations
                 column: "WordId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AssignedTasks_TaskId",
-                table: "AssignedTasks",
-                column: "TaskId");
+                name: "IX_AssignedWordTasks_UserId",
+                table: "AssignedWordTasks",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AssignedTasks_UserId",
-                table: "AssignedTasks",
-                column: "UserId");
+                name: "IX_AssignedWordTasks_WordTaskId",
+                table: "AssignedWordTasks",
+                column: "WordTaskId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskWords_TaskId",
@@ -252,7 +251,7 @@ namespace DAL.Migrations
                 name: "Answers");
 
             migrationBuilder.DropTable(
-                name: "AssignedTasks");
+                name: "AssignedWordTasks");
 
             migrationBuilder.DropTable(
                 name: "IrregularVerbs");
@@ -261,10 +260,10 @@ namespace DAL.Migrations
                 name: "Words");
 
             migrationBuilder.DropTable(
-                name: "Tasks");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "WordTasks");
         }
     }
 }

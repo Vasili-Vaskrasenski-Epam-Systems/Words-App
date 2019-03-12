@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(WordsDbContext))]
-    [Migration("20190311074518_Initial")]
-    partial class Initial
+    [Migration("20190312070500_TaskName")]
+    partial class TaskName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,28 +63,30 @@ namespace DAL.Migrations
                     b.ToTable("AnsweredWords");
                 });
 
-            modelBuilder.Entity("Entities.Instances.AssignedTaskEntity", b =>
+            modelBuilder.Entity("Entities.Instances.AssignedWordTaskEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Deadline");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
-                    b.Property<Guid>("TaskId");
-
                     b.Property<int>("TaskStatus");
 
                     b.Property<Guid>("UserId");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("WordTaskId");
 
-                    b.HasIndex("TaskId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AssignedTasks");
+                    b.HasIndex("WordTaskId");
+
+                    b.ToTable("AssignedWordTasks");
                 });
 
             modelBuilder.Entity("Entities.Instances.IrregularVerbEntity", b =>
@@ -101,24 +103,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("IrregularVerbs");
-                });
-
-            modelBuilder.Entity("Entities.Instances.TaskEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<int>("TaskType");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("Entities.Instances.TaskWordEntity", b =>
@@ -187,6 +171,22 @@ namespace DAL.Migrations
                     b.ToTable("Words");
                 });
 
+            modelBuilder.Entity("Entities.Instances.WordTaskEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WordTasks");
+                });
+
             modelBuilder.Entity("Entities.Instances.WordVerbEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -216,7 +216,7 @@ namespace DAL.Migrations
                         .HasForeignKey("AnswerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Entities.Instances.AssignedTaskEntity", "AssignedTask")
+                    b.HasOne("Entities.Instances.AssignedWordTaskEntity", "AssignedWordTask")
                         .WithMany("AnsweredWords")
                         .HasForeignKey("AssignedTaskId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -227,22 +227,22 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Entities.Instances.AssignedTaskEntity", b =>
+            modelBuilder.Entity("Entities.Instances.AssignedWordTaskEntity", b =>
                 {
-                    b.HasOne("Entities.Instances.TaskEntity", "Task")
-                        .WithMany("AssignedTasks")
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Entities.Instances.UserEntity", "User")
                         .WithMany("AssignedTasks")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.WordTaskEntity", "WordTask")
+                        .WithMany("AssignedWordTasks")
+                        .HasForeignKey("WordTaskId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Entities.Instances.TaskWordEntity", b =>
                 {
-                    b.HasOne("Entities.Instances.TaskEntity", "Task")
+                    b.HasOne("Entities.Instances.WordTaskEntity", "WordTask")
                         .WithMany("TaskWords")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -3,22 +3,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonComponentsModule } from './../common/common-components.module';
 
-import { TaskService } from './task.service';
+import { WordTaskService } from './services/word-task.service';
 
 import { HelpersModule } from './../helpers/helpers.module';
 
-import { TaskEditorFormComponent } from './task-editor-form.component';
-import { TaskListComponent } from './task-list.component';
+import { WordTaskEditorFormComponent } from './word-task/word-task-editor-form.component';
+import { WordTaskListComponent } from './word-task/word-task-list.component';
 
 
 @NgModule({
   declarations: [
-    TaskEditorFormComponent, TaskListComponent
+    WordTaskEditorFormComponent, WordTaskListComponent
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule],
   exports: [],
-  providers: [TaskService],
-  entryComponents: [TaskEditorFormComponent]
+  providers: [WordTaskService],
+  entryComponents: [WordTaskEditorFormComponent]
 })
 
 export class TaskModule {

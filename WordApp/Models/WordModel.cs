@@ -1,4 +1,6 @@
-﻿namespace WordApp.Models
+﻿using WordApp.Models.Base;
+
+namespace WordApp.Models
 {
     public class WordModel:BaseModel
     {

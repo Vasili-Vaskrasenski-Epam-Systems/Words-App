@@ -3,9 +3,8 @@ using WordApp.Models.Base;
 
 namespace WordApp.Models
 {
-    public class IrregularVerbModel: BaseModel
+    public class WordTaskModel : BaseTaskModel
     {
-        public string CommonWord { get; set; }
         public List<WordModel> Words { get; set; }
     }
 }

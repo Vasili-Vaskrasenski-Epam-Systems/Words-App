@@ -11,14 +11,14 @@
   <thead>
     <tr>
       <th>Task Name</th>
-      <th>Task Type</th>
+      <th>Words Count</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let task of tasks">
       <td>{{ task.name }}</td>
-      <td>{{ task.taskType}}</td>
+      <td>{{ task.words ? task.words.length : 0}}</td>
       <td>
         <common-edit-buttons [inputObject]="task" (notifyAboutEdit)="onShowEditForm($event)" (notifyAboutDelete)="onWordDelete($event)"></common-edit-buttons>
       </td>

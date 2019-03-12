@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WordApp.Models
+namespace WordApp.Models.Base
 {
     public abstract class BaseModel
     {

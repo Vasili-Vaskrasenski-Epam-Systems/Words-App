@@ -1,23 +1,24 @@
 import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core';
 
-import { TaskService } from './task.service';
-import { WordsService } from './../words/words.service';
-import { IrregularVerbsService } from './../irregular-verbs/irregular-verbs.service';
-import { AlertService } from './../alert/alert.service';
+import { WordTaskService } from './../services/word-task.service';
+import { WordsService } from './../../words/words.service';
+import { IrregularVerbsService } from './../../irregular-verbs/irregular-verbs.service';
+import { AlertService } from './../../alert/alert.service';
 
-import { TaskModel } from './task.model';
-import { WordModel } from './../words/word.model';
-import { IrregularVerbModel } from './../irregular-verbs/irregular-verb.model';
+import { WordTaskModel } from './../models/word-task.model';
+import { WordModel } from './../../words/word.model';
+import { IrregularVerbModel } from './../../irregular-verbs/irregular-verb.model';
+import { CommonSelectModel } from './../../common/select.component';
 
-import { TaskEditorFormComponent } from './task-editor-form.component';
+import { WordTaskEditorFormComponent } from './word-task-editor-form.component';
 
 @Component(
   {
-    selector: 'task-list',
-    templateUrl: './task-list.component.html',
+    selector: 'word-task-list',
+    templateUrl: './word-task-list.component.html',
   })
-export class TaskListComponent implements OnInit, AfterViewInit {
-  public tasks: Array<TaskModel>;
+export class WordTaskListComponent implements OnInit, AfterViewInit {
+  public tasks: Array<WordTaskModel>;
   public displayContent: boolean;
   private existingWords: Array<WordModel>;
   private existingVerbs: Array<IrregularVerbModel>;
@@ -27,10 +28,10 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   @ViewChild('createFormContainer', { read: ViewContainerRef }) createFormContainer: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
 
-  constructor(private taskService: TaskService, private wordService: WordsService, private alertService: AlertService, private verbsService: IrregularVerbsService,
+  constructor(private taskService: WordTaskService, private wordService: WordsService, private alertService: AlertService, private verbsService: IrregularVerbsService,
     private componentFactoryResolver: ComponentFactoryResolver) {
     if (!this.tasks) {
-      this.tasks = new Array<TaskModel>();
+      this.tasks = new Array<WordTaskModel>();
       this.displayContent = true;
     }
   }
@@ -49,7 +50,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(TaskEditorFormComponent);
+    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordTaskEditorFormComponent);
   }
 
   onShowCreateForm(): void {
@@ -57,7 +58,9 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     this.displayContent = false;
 
     var ref = this.createFormContainer.createComponent(this.componentFactory);
-    var instance = <TaskEditorFormComponent>ref.instance;
+    var instance = <WordTaskEditorFormComponent>ref.instance;
+
+    instance.existingWords = this.existingWords.map(word => new CommonSelectModel(word, word.word));
 
     instance.notifyAboutCancel.subscribe(e => {
       this.clearForm();
@@ -66,6 +69,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     instance.notifyAboutConfirm.subscribe(e => {
       this.taskService.createTask(e).subscribe(result => {
         this.tasks.push(result);
+        console.log(result);
         this.clearForm();
       }, error => {
         this.alertService.error(error);
@@ -73,13 +77,13 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onShowEditForm(task: TaskModel): void {
+  onShowEditForm(task: WordTaskModel): void {
     this.displayContent = false;
     this.showFormBtn.nativeElement.disabled = true;
 
     var ref = this.createFormContainer.createComponent(this.componentFactory);
-    var instance = <TaskEditorFormComponent>ref.instance;
-
+    var instance = <WordTaskEditorFormComponent>ref.instance;
+    instance.existingWords = this.existingWords.map(word => new CommonSelectModel(word, word.word));
     instance.setEditableObject(task);
 
     instance.notifyAboutCancel.subscribe(e => {
@@ -89,15 +93,13 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     instance.notifyAboutConfirm.subscribe(e => {
       this.taskService.updateTask(e).subscribe(result => {
         var index = this.tasks.findIndex(w => w.id === result.id);
-
         this.tasks.splice(index, 1, result);
         this.clearForm();
-
       }, error => console.error(error));
     });
   }
 
-  onWordDelete(task: TaskModel): void {
+  onWordDelete(task: WordTaskModel): void {
     this.taskService.deleteTask(task).subscribe(result => {
       var index = this.tasks.findIndex(w => w.id === result.id);
       this.tasks.splice(index, 1);

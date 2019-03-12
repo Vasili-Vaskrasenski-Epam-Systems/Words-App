@@ -8,7 +8,7 @@ namespace Entities.Instances
         public Guid AssignedTaskId { get; set; }
         public Guid WordId { get; set; }
         public Guid AnswerId { get; set; }
-        public virtual AssignedTaskEntity AssignedTask { get; set; }
+        public virtual AssignedWordTaskEntity AssignedWordTask { get; set; }
         public virtual AnswerEntity Answer { get; set; }
         public virtual WordEntity Word { get; set; }
     }

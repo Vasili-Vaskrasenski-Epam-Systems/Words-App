@@ -13,13 +13,12 @@ namespace DAL.Infrastructure
         public DbSet<WordEntity> Words { get; set; }
         public DbSet<IrregularVerbEntity> IrregularVerbs { get; set; }
         public DbSet<WordVerbEntity> WordVerbs { get; set; }
-        public DbSet<TaskEntity> Tasks { get; set; }
+        public DbSet<WordTaskEntity> WordTasks { get; set; }
         public DbSet<TaskWordEntity> TaskWords { get; set; }
-        public DbSet<AssignedTaskEntity> AssignedTasks { get; set; }
+        public DbSet<AssignedWordTaskEntity> AssignedWordTasks { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<AnsweredWordEntity> AnsweredWords { get; set; }
         public DbSet<AnswerEntity> Answers { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,9 +27,9 @@ namespace DAL.Infrastructure
             modelBuilder.ApplyConfiguration(new WordConfigurator());
             modelBuilder.ApplyConfiguration(new IrregularVerbConfigurator());
             modelBuilder.ApplyConfiguration(new VerbWordConfigurator());
-            modelBuilder.ApplyConfiguration(new TaskConfigurator());
+            modelBuilder.ApplyConfiguration(new WordTaskConfigurator());
             modelBuilder.ApplyConfiguration(new TaskWordConfigurator());
-            modelBuilder.ApplyConfiguration(new AssignedTaskConfigurator());
+            modelBuilder.ApplyConfiguration(new AssignedWordTaskConfigurator());
             modelBuilder.ApplyConfiguration(new UserConfigurator());
             modelBuilder.ApplyConfiguration(new AnsweredWordConfigurator());
             modelBuilder.ApplyConfiguration(new AnswerConfigurator());

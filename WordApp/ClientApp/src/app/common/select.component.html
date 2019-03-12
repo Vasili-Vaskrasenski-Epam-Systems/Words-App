@@ -1,0 +1,13 @@
+<div [formGroup]="selectWordForm" class="form-row">
+  <div class="form-group col-md-8">
+    <select class="form-control" formControlName="selectCtrl" id="selectCtrl" name="selectCtrl">
+      <option *ngFor="let inputObject  of inputObjectArray" [ngValue]="inputObject">{{inputObject.text}}</option>
+    </select>
+  </div>
+  <div class="form-group col-md-4">
+    <button type="button" (click)="onConfirm()" class="btn btn-success">+</button>
+    <button type="button" (click)="onCancel()" class="btn btn-danger">&times;</button>
+  </div>
+</div>
+
+
