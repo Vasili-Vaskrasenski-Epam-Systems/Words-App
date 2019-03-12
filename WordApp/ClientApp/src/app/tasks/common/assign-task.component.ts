@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Output, EventEmitter, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserModel } from "./../../users/user.model";
 import { WordTaskModel } from "./../models/word-task.model";
@@ -20,7 +21,8 @@ export class AssignTaskComponent implements OnInit {
   submitted = false;
 
   @Output()notifyAboutConfirm: EventEmitter<Array<UserModel>> = new EventEmitter<Array<UserModel>>();
-  @Output()notifyAboutCancel = new EventEmitter();
+  @Output() notifyAboutCancel = new EventEmitter();
+  @ViewChild('datePicker', { read: ViewContainerRef }) datePicker: ViewContainerRef;
 
 
   constructor(private formBuilder: FormBuilder) {
@@ -31,7 +33,7 @@ export class AssignTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.userList.map((o, i) => {
-      const control = new FormControl(i === 0); // if first item set to true, else false
+      const control = new FormControl(); // if first item set to true, else false
       (this.userSelectionForm.controls.userList as FormArray).push(control);
     });
   }
@@ -50,11 +52,16 @@ export class AssignTaskComponent implements OnInit {
         pupils.push(this.userList[i]);
       };
     }
-    this.notifyAboutConfirm.emit(pupils);
+    console.log(this.datePicker);
+    //this.notifyAboutConfirm.emit(pupils);
   }
 
   onCancel() {
     this.notifyAboutCancel.emit();
+  }
+
+  setDeadline(setDate: NgbDateStruct) {
+    console.log(new Date(setDate.year, setDate.month, setDate.day));
   }
 }
 
