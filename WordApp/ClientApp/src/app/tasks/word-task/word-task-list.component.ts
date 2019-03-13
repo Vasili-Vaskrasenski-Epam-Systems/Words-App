@@ -5,6 +5,7 @@ import { WordsService } from './../../words/words.service';
 import { IrregularVerbsService } from './../../irregular-verbs/irregular-verbs.service';
 import { AlertService } from './../../alert/alert.service';
 import { UserService } from './../../users/user.service';
+import { AssignWordTaskService } from './../services/assign-word-task.service';
 
 import { WordTaskModel } from './../models/word-task.model';
 import { WordModel } from './../../words/word.model';
@@ -35,7 +36,7 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
 
   constructor(private taskService: WordTaskService, private wordService: WordsService, private alertService: AlertService, private verbsService: IrregularVerbsService,
-    private userService: UserService, private componentFactoryResolver: ComponentFactoryResolver) {
+    private userService: UserService, private assignWordTaskService: AssignWordTaskService, private componentFactoryResolver: ComponentFactoryResolver) {
     if (!this.existingWordTasks) {
       this.existingWordTasks = new Array<WordTaskModel>();
       this.displayContent = true;
@@ -118,13 +119,17 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
     var ref = this.createFormContainer.createComponent(this.componentFactory);
     var instance = <AssignTaskComponent>ref.instance;
     instance.userList = this.existingUsers;
+    instance.task = task;
 
     instance.notifyAboutCancel.subscribe(e => {
       this.clearForm();
     });
 
     instance.notifyAboutConfirm.subscribe(e => {
-      console.log('wordtasklist',e);
+      this.assignWordTaskService.assignTask(e).subscribe(s => {
+          this.clearForm();
+        },
+        error => this.alertService.error(error));
     });
   }
 

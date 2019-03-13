@@ -24,6 +24,14 @@ namespace BL.Services
             return this.GetEntity(entity.Id);
         }
 
+        public virtual List<T> CreateEntities(List<T> entities)
+        {
+            var dbSet = this.DbContext.Set<T>();
+            dbSet.AddRange(entities);
+            this.DbContext.SaveChanges();
+            return entities;
+        }
+
         public virtual T DeleteEntity(T entity)
         {
             var dbSet = this.DbContext.Set<T>();

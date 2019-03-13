@@ -1,14 +1,10 @@
 import { Component, Output, EventEmitter, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
-import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserModel } from "./../../users/user.model";
 import { WordTaskModel } from "./../models/word-task.model";
-import { WordModel } from "./../../words/word.model";
-import { CommonSelectModel } from './../../common/select.component';
-
-import { EnumToArrayPipe } from './../../helpers/enum-to-array.pipe';
-import { AlertService } from './../../alert/alert.service';
+import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
 
 @Component({
   selector: 'assign-task-component',
@@ -16,18 +12,18 @@ import { AlertService } from './../../alert/alert.service';
 })
 export class AssignTaskComponent implements OnInit {
   public userList: Array<UserModel>;
-  userSelectionForm: FormGroup;
-
-  submitted = false;
-
-  @Output()notifyAboutConfirm: EventEmitter<Array<UserModel>> = new EventEmitter<Array<UserModel>>();
+  public userSelectionForm: FormGroup;
+  public task: WordTaskModel;
+  public submitted = false;
+  public deadline: Date;
+  
+  @Output() notifyAboutConfirm: EventEmitter<Array<AssignableWordTaskModel>> = new EventEmitter<Array<AssignableWordTaskModel>>();
   @Output() notifyAboutCancel = new EventEmitter();
-  @ViewChild('datePicker', { read: ViewContainerRef }) datePicker: ViewContainerRef;
-
-
+  
   constructor(private formBuilder: FormBuilder) {
     this.userSelectionForm = this.formBuilder.group({
-      userList: new FormArray([], minSelectedCheckboxes(1))
+      userList: new FormArray([], minSelectedCheckboxes(1)),
+      //datePicker: ['', Validators.required]
     });
   }
 
@@ -41,19 +37,20 @@ export class AssignTaskComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if (!this.userSelectionForm.valid) {
+    if (!this.userSelectionForm.valid || !this.deadline) {
+      console.log(this.userSelectionForm.value, this.deadline);
       return;
     }
 
     var formArray = this.userSelectionForm.controls.userList as FormArray;
-    var pupils = new Array<UserModel>();
+    var assignableTasks = new Array<AssignableWordTaskModel>();
     for (var i = 0; i < formArray.value.length; i++) {
       if (formArray.value[i]) {
-        pupils.push(this.userList[i]);
+        assignableTasks.push(new AssignableWordTaskModel(this.task, this.userList[i], null, this.deadline, '00000000-0000-0000-0000-000000000000', null ));
       };
     }
-    console.log(this.datePicker);
-    //this.notifyAboutConfirm.emit(pupils);
+    
+    this.notifyAboutConfirm.emit(assignableTasks);
   }
 
   onCancel() {
@@ -61,7 +58,7 @@ export class AssignTaskComponent implements OnInit {
   }
 
   setDeadline(setDate: NgbDateStruct) {
-    console.log(new Date(setDate.year, setDate.month, setDate.day));
+    this.deadline = new Date(setDate.year, setDate.month, setDate.day);
   }
 }
 

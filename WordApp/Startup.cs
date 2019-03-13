@@ -53,6 +53,7 @@ namespace WordApp
             services.AddScoped(typeof(BaseEntityService<IrregularVerbEntity>), typeof(IrregularVerbService));
             services.AddScoped(typeof(BaseEntityService<UserEntity>), typeof(UserService));
             services.AddScoped(typeof(BaseEntityService<WordTaskEntity>), typeof(WordTaskService));
+            services.AddScoped(typeof(BaseEntityService<AssignedWordTaskEntity>), typeof(AssignedWordTaskService));
             #endregion
 
             // In production, the Angular files will be served from this directory

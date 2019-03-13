@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
+using Entities.Enums;
+using Entities.Instances;
 using WordApp.Models.Base;
 
 namespace WordApp.Models
 {
     public class AssignableWordTaskModel: BaseModel
     {
-        public WordTaskModel Task { get; set; }
-        public List<UserModel> Users { get; set; }
+        public TaskStatus TaskStatus { get; set; }
         public DateTime Deadline { get; set; }
+        public virtual UserEntity User { get; set; }
+        public virtual WordTaskEntity WordTask { get; set; }
     }
 }

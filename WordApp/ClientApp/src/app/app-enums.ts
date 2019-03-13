@@ -5,9 +5,10 @@ export module Enums {
     Administrator = 2,
   }
 
-  export enum ETaskType {
+  export enum ETaskStatus {
     Unknown = 0,
-    Word = 1,
-    IrregularVerb = 2,
+    Open = 1,
+    InProgress = 2,
+    Done = 3,
   }
 }

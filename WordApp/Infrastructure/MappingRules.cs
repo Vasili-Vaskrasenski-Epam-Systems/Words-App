@@ -11,8 +11,7 @@ namespace WordApp.Infrastructure
         {
             CreateMap<WordEntity, WordModel>().ReverseMap();
             CreateMap<UserEntity, UserModel>().ReverseMap();
-            //CreateMap<WordTaskEntity, WordTaskModel>().ReverseMap();
-
+            CreateMap<AssignedWordTaskEntity, AssignableWordTaskModel>();
 
             #region Irregular Verb
             CreateMap<IrregularVerbEntity, IrregularVerbModel>()
@@ -37,7 +36,16 @@ namespace WordApp.Infrastructure
                     WordId = w.Id,
                 })));
 
+            CreateMap<AssignableWordTaskModel, AssignedWordTaskEntity>()
+                //.ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id))
+                //.ForMember(dest => dest.WordTaskId, opt => opt.MapFrom(src => src.WordTask.Id))
+                //.ForAllOtherMembers(dest => dest.MapFrom(src => src));
+                .ForMember(dest => dest.User, opt => opt.Ignore())
+                .ForMember(dest => dest.WordTask, opt => opt.Ignore());
+
             #endregion
+
+
 
         }
     }

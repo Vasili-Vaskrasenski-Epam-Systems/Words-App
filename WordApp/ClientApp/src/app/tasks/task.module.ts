@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonComponentsModule } from './../common/common-components.module';
 
 import { WordTaskService } from './services/word-task.service';
+import { AssignWordTaskService } from './services/assign-word-task.service';
 
 import { HelpersModule } from './../helpers/helpers.module';
 
@@ -18,7 +19,7 @@ import { AssignTaskComponent } from './common/assign-task.component';
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule],
   exports: [],
-  providers: [WordTaskService],
+  providers: [WordTaskService, AssignWordTaskService],
   entryComponents: [WordTaskEditorFormComponent, AssignTaskComponent]
 })
 
