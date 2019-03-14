@@ -23,7 +23,6 @@ export class AssignTaskComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     this.userSelectionForm = this.formBuilder.group({
       userList: new FormArray([], minSelectedCheckboxes(1)),
-      //datePicker: ['', Validators.required]
     });
   }
 

@@ -11,6 +11,8 @@ import { LoginComponent } from './auth/login.component';
 import { RegistrationComponent } from './auth/registration.component';
 import { UserListComponent } from './users/user-list.component';
 import { WordTaskListComponent } from './tasks/word-task/word-task-list.component';
+import { WordTaskDetailsComponent } from './tasks/word-task/word-task-details.component';
+import { PupilTaskListComponent } from './tasks/pupil-tasks-list.component';
 
 
 const routes: Routes = [
@@ -19,6 +21,8 @@ const routes: Routes = [
   { path: 'irregular-verbs', component: IrregularVerbsComponent, canActivate: [AuthGuard] },
   { path: 'user-management', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'task-management', component: WordTaskListComponent, canActivate: [AuthGuard] },
+  { path: 'word-task-details/:id', component: WordTaskDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'my-tasks', component: PupilTaskListComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: '**', component: PageNotFoundComponent },

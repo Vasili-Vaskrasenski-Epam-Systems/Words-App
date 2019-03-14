@@ -28,8 +28,7 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
   public displayContent: boolean;
   private existingWords: Array<WordModel>;
   private existingUsers: Array<UserModel>;
-  //private existingVerbs: Array<IrregularVerbModel>;
-
+  
   private componentFactory: any;
 
   @ViewChild('createFormContainer', { read: ViewContainerRef }) createFormContainer: ViewContainerRef;

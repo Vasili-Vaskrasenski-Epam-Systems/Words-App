@@ -12,7 +12,6 @@
     <tr>
       <th class="text-center">Task Name</th>
       <th class="text-center">Words Count</th>
-      <th class="text-center">Assignee Count</th>
       <th class="text-center">Actions</th>
     </tr>
   </thead>
@@ -20,13 +19,13 @@
     <tr *ngFor="let task of existingWordTasks">
       <td class="text-center">{{ task.name }}</td>
       <td class="text-center">{{ task.words ? task.words.length : 0}}</td>
-      <td class="text-center">{{task.users ? task.users.length : 0}}</td>
       <td class="text-center">
         <div class="btn-group">
           <button (click)="onShowEditForm(task)" class="btn btn-info">Edit</button>
           <button (click)="onDelete(task)" class="btn btn-danger">Delete</button>
           <button (click)="onShowAssignForm(task)" class="btn btn-warning">Assign</button>
-          <button class="btn btn-primary">Details</button>
+          <button class="btn btn-primary" [routerLink]='["/word-task-details", task.id]'>Details</button>
+          
         </div>
       </td>
     </tr>

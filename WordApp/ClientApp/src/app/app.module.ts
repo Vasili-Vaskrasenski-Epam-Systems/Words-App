@@ -18,7 +18,6 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LoginComponent } from './auth/login.component';
 import { RegistrationComponent } from './auth/registration.component';
 import { AlertComponent } from './alert/alert.component';
-
 import { ErrorInterceptor } from './app-error-interceptor';
 
 @NgModule({
@@ -42,12 +41,10 @@ import { ErrorInterceptor } from './app-error-interceptor';
     NavMenuComponent,
     LoginComponent,
     RegistrationComponent,
-    AlertComponent,
+    AlertComponent
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-    ]
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }]
 })
 export class AppModule { }

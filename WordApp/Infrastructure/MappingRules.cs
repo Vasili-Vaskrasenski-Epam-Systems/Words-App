@@ -2,6 +2,7 @@
 using AutoMapper;
 using Entities.Instances;
 using WordApp.Models;
+using WordApp.Models.TaskModels.WordTaskModels;
 
 namespace WordApp.Infrastructure
 {
@@ -11,8 +12,7 @@ namespace WordApp.Infrastructure
         {
             CreateMap<WordEntity, WordModel>().ReverseMap();
             CreateMap<UserEntity, UserModel>().ReverseMap();
-            CreateMap<AssignedWordTaskEntity, AssignableWordTaskModel>();
-
+            
             #region Irregular Verb
             CreateMap<IrregularVerbEntity, IrregularVerbModel>()
                 .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.WordVerbs.Select(wv => wv.Word)));
@@ -27,7 +27,6 @@ namespace WordApp.Infrastructure
             #endregion
 
             #region Word Task
-
             CreateMap<WordTaskEntity, WordTaskModel>()
                 .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.TaskWords.Select(tw => tw.Word)));
             CreateMap<WordTaskModel, WordTaskEntity>()
@@ -37,16 +36,16 @@ namespace WordApp.Infrastructure
                 })));
 
             CreateMap<AssignableWordTaskModel, AssignedWordTaskEntity>()
-                //.ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id))
-                //.ForMember(dest => dest.WordTaskId, opt => opt.MapFrom(src => src.WordTask.Id))
-                //.ForAllOtherMembers(dest => dest.MapFrom(src => src));
                 .ForMember(dest => dest.User, opt => opt.Ignore())
                 .ForMember(dest => dest.WordTask, opt => opt.Ignore());
+            CreateMap<AssignedWordTaskEntity, AssignableWordTaskModel>();
+
+            CreateMap<WordTaskEntity, WordTaskDetailsModel>()
+                .ForMember(dest => dest.WordTask, opt => opt.MapFrom(src => src))
+                .ForMember(dest => dest.Assignees, opt => opt.MapFrom(src => src.AssignedWordTasks))
+                .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.TaskWords));
 
             #endregion
-
-
-
         }
     }
 }

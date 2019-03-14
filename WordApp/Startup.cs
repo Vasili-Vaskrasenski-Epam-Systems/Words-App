@@ -1,5 +1,6 @@
 using AutoMapper;
 using BL.Services;
+using BL.Services.Task.WordTask;
 using DAL.Helpers;
 using DAL.Infrastructure;
 using Entities.Instances;

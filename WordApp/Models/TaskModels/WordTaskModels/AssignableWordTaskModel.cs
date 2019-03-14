@@ -1,15 +1,18 @@
 ﻿using System;
 using Entities.Enums;
 using Entities.Instances;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using WordApp.Models.Base;
 
-namespace WordApp.Models
+namespace WordApp.Models.TaskModels.WordTaskModels
 {
     public class AssignableWordTaskModel: BaseModel
     {
+        [JsonConverter(typeof(StringEnumConverter))]
         public TaskStatus TaskStatus { get; set; }
         public DateTime Deadline { get; set; }
-        public virtual UserEntity User { get; set; }
-        public virtual WordTaskEntity WordTask { get; set; }
+        public UserModel User { get; set; }
+        public WordTaskModel WordTask { get; set; }
     }
 }

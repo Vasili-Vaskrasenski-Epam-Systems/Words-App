@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using BL.Services;
 using Entities.Instances;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models;
+using WordApp.Models.TaskModels.WordTaskModels;
 
 namespace WordApp.Controllers
 {
@@ -43,6 +46,15 @@ namespace WordApp.Controllers
             var entityToAct = base.Mapper.Map<WordTaskEntity>(model);
             var actedEntity = this._service.UpdateEntity(entityToAct);
             return Ok(base.Mapper.Map<WordTaskModel>(actedEntity));
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetTaskDetails(Guid taskId)
+        {
+            var taskEntity = this._service.GetQueryableEntity(taskId, new []{"TaskWords","TaskWords.Word", "AssignedWordTasks", "AssignedWordTasks.User"});
+
+            var foo = base.Mapper.Map<WordTaskDetailsModel>(taskEntity);
+            return Ok(foo);
         }
     }
 }

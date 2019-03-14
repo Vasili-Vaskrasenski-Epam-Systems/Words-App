@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { WordTaskModel } from './../models/word-task.model';
+import { WordTaskDetailModel } from './../models/word-task-detail.model';
 
 @Injectable()
 export class WordTaskService {
@@ -28,5 +29,11 @@ export class WordTaskService {
   public deleteTask(task: WordTaskModel): any {
     var url = this.baseUrl + '/DeleteWordTask';
     return this.http.post<string>(url, task);
+  }
+
+  public getTaskDetails(id: string): any {
+    var params = new HttpParams({ fromObject: { taskId: id} });
+    var url = this.baseUrl + '/GetTaskDetails';
+    return this.http.get<WordTaskDetailModel>(url, { params: params });
   }
 }

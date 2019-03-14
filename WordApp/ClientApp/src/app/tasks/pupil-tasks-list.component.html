@@ -1,0 +1,38 @@
+<p *ngIf="!assignedWordTasks"><em>Loading...</em></p>
+
+<div class="content" *ngIf="assignedWordTasks">
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <h1 type="text" class="form-control-plaintext">Assigned Tasks</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="table-responsive">
+        <h3>Word Tasks:</h3>
+        <table class='table table-striped'>
+          <thead>
+            <tr>
+              <th class="text-center">Task Name</th>
+              <th class="text-center">Deadline</th>
+              <th class="text-center">Words Count</th>
+              <th class="text-center">Task Status</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let wordTask of assignedWordTasks">
+              <td class="text-center">{{ wordTask.wordTask.name}}</td>
+              <td class="text-center">{{ wordTask.assignees[0].deadline | date}}</td>
+              <td class="text-center">{{ wordTask.wordTask.words.length}}</td>
+              <td class="text-center">{{ wordTask.assignees[0].taskStatus}}</td>
+              <td class="text-center">
+                <div class="btn-group">
+                  <button (click)="onDeleteWord(word)" class="btn btn-success">Start</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>

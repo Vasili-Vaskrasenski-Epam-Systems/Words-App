@@ -5,7 +5,7 @@ using DAL.Infrastructure;
 using Entities.Instances;
 using Microsoft.EntityFrameworkCore;
 
-namespace BL.Services
+namespace BL.Services.Task.WordTask
 {
     public class WordTaskService : BaseEntityService<WordTaskEntity>
     {

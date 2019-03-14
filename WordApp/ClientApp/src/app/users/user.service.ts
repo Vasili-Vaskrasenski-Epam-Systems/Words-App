@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { UserModel } from './user.model';
-import { Enums } from './../app-enums';
 
 @Injectable()
 export class UserService {

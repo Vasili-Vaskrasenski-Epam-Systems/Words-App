@@ -1,4 +1,5 @@
 ﻿using WordApp.Models.Base;
+using WordApp.Models.TaskModels.WordTaskModels;
 
 namespace WordApp.Models
 {

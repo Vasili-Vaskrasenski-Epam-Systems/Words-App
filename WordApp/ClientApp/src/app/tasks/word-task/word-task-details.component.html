@@ -1,0 +1,65 @@
+<p *ngIf="!task"><em>Loading...</em></p>
+
+<div class="content" *ngIf="task">
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <h1 type="text" class="form-control-plaintext">{{task.wordTask.name}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-5 col-md-6 col-sm-6 col-xs-6">
+      <div class="table-responsive">
+        <h3>Words:</h3>
+        <table class='table table-striped'>
+          <thead>
+          <tr>
+            <th class="text-center">Word</th>
+            <th class="text-center">Order</th>
+            <th class="text-center">Is Translation</th>
+            <th class="text-center">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let orderedWord of task.words">
+            <td class="text-center">{{ orderedWord.word.word }}</td>
+            <td class="text-center">{{ orderedWord.order }}</td>
+            <td class="text-center">{{orderedWord.isTranslation}}</td>
+            <td class="text-center">
+              <div class="btn-group">
+                <button (click)="onDeleteWord(word)" class="btn btn-danger">Remove word</button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-lg-7 col-md-6 col-sm-6 col-xs-6">
+      <div class="table-responsive">
+        <h3>Assigned Pupils:</h3>
+        <table class='table table-striped'>
+          <thead>
+          <tr>
+            <th class="text-center">User Name</th>
+            <th class="text-center">Deadline</th>
+            <th class="text-center">Task Status </th>
+            <th class="text-center">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let assignee of task.assignees">
+              <td class="text-center">{{ assignee.user.name}}</td>
+              <td class="text-center">{{ assignee.deadline | date }}</td>
+              <td class="text-center">{{ assignee.taskStatus }}</td>
+              <td class="text-center">
+                <div class="btn-group">
+                  <button (click)="onUnAssign(assignee)" class="btn btn-danger">Unassign</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

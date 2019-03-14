@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using DAL.Infrastructure;
 using Entities.Instances;
 using Microsoft.EntityFrameworkCore;
 
-namespace BL.Services
+namespace BL.Services.Task.WordTask
 {
     public class AssignedWordTaskService: BaseEntityService<AssignedWordTaskEntity>
     {
