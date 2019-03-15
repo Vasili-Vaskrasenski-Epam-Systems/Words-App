@@ -21,6 +21,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.alertSerevice.error("Ooops, it looks like resource not found");
       }
 
+      if (err.status === 500) {
+        this.alertSerevice.error("Ooops, something went wrong and server felt bad");
+      }
+
       console.log(err.error.text);
       const error = err.error.text || err.error.message || err.error;
       return throwError(error);

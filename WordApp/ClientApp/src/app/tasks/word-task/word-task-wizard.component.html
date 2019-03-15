@@ -1,0 +1,35 @@
+<p *ngIf="!assignedWordTask"><em>Loading...</em></p>
+
+<div class="form-group" *ngIf="assignedWordTask">
+  <h2>{{assignedWordTask.wordTask.name}}</h2>
+
+  <form [formGroup]="wizardForm" (ngSubmit)="onSubmit()">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group">
+              <span>Word {{wordIndex + 1}} of {{assignedWordTask.words.length}}</span>
+            </div>
+            <div class="form-group">
+              <label for="answer">{{assignedWordTask.words[wordIndex].word.word}}</label>
+              <input type="text" formControlName="answer" class="form-control" [ngClass]="{ 'is-invalid': submitted && wizardForm.controls.answer.errors }" placeholder="Type your answer" />
+              <div *ngIf="submitted && wizardForm.controls.answer.errors" class="invalid-feedback">
+                <div *ngIf="wizardForm.controls.answer.errors.required">Answer is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="btn-group col-md-9">
+                <button type="button" (click)="onBack()" class="btn btn-primary" [disabled]="wordIndex==0">Back</button>
+                <button type="button" (click)="onNext()" class="btn btn-primary" [disabled]="wordIndex==assignedWordTask.words.length-1">Next</button>
+              </div>
+              <div class="btn-group align-content-lg-end align-content-end">
+                <button type="button" (click)="onSubmit()" class="btn btn-danger" [disabled]="wordIndex!=assignedWordTask.words.length-1">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

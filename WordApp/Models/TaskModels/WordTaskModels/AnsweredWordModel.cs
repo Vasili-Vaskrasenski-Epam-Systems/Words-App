@@ -1,11 +1,9 @@
 ﻿using WordApp.Models.Base;
-using WordApp.Models.TaskModels.WordTaskModels;
 
-namespace WordApp.Models
+namespace WordApp.Models.TaskModels.WordTaskModels
 {
     public class AnsweredWordModel: BaseModel
     {
-        public virtual AssignableWordTaskModel AssignedWordTask { get; set; }
         public virtual AnswerModel Answer { get; set; }
         public virtual WordModel Word { get; set; }
     }

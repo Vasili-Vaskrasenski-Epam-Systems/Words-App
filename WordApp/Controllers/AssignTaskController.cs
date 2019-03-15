@@ -5,6 +5,7 @@ using AutoMapper;
 using BL.Services;
 using Entities.Instances;
 using Microsoft.AspNetCore.Mvc;
+using WordApp.Models;
 using WordApp.Models.TaskModels.WordTaskModels;
 
 namespace WordApp.Controllers
@@ -36,12 +37,20 @@ namespace WordApp.Controllers
         [HttpGet("[action]")]
         public IActionResult GetPupilTasks(Guid userId)
         {
-            var includeProperties = new[] {"WordTask", "WordTask.TaskWords", "WordTask.TaskWords.Word"};
+            var includeProperties = new[] {"WordTask", "User", "WordTask.TaskWords", "WordTask.TaskWords.Word"};
             var entities = this._service.GetQueryableEntities(e => e.UserId == userId, includeProperties);
             var entitiesToMap = new List<WordTaskEntity>(entities.Select(e => e.WordTask));
             var mappedEntities = base.Mapper.Map<List<WordTaskDetailsModel>>(entitiesToMap);
 
             return Ok(mappedEntities);
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult CompleteWordTask([FromBody] AssignableWordTaskModel model)
+        {
+            var entityToUpdate = base.Mapper.Map<AssignedWordTaskEntity>(model);
+            this._service.UpdateEntity(entityToUpdate);
+            return Ok();
         }
     }
 }

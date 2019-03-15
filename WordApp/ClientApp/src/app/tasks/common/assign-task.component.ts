@@ -45,7 +45,7 @@ export class AssignTaskComponent implements OnInit {
     var assignableTasks = new Array<AssignableWordTaskModel>();
     for (var i = 0; i < formArray.value.length; i++) {
       if (formArray.value[i]) {
-        assignableTasks.push(new AssignableWordTaskModel(this.task, this.userList[i], null, this.deadline, '00000000-0000-0000-0000-000000000000', null ));
+        assignableTasks.push(new AssignableWordTaskModel(this.task, this.userList[i], null, this.deadline, null, '00000000-0000-0000-0000-000000000000', null ));
       };
     }
     

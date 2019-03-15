@@ -27,7 +27,7 @@
               <td class="text-center">{{ wordTask.assignees[0].taskStatus}}</td>
               <td class="text-center">
                 <div class="btn-group">
-                  <button (click)="onDeleteWord(word)" class="btn btn-success">Start</button>
+                  <button [routerLink]='["/word-task-wizard"]' (click)="onStartTask(wordTask)" class="btn btn-success">Start</button>
                 </div>
               </td>
             </tr>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Entities.Enums;
 using Entities.Instances;
 using Newtonsoft.Json;
@@ -14,5 +15,6 @@ namespace WordApp.Models.TaskModels.WordTaskModels
         public DateTime Deadline { get; set; }
         public UserModel User { get; set; }
         public WordTaskModel WordTask { get; set; }
+        public List<AnsweredWordModel> AnsweredWords { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Entities.Instances;
 using WordApp.Models;
@@ -12,7 +13,9 @@ namespace WordApp.Infrastructure
         {
             CreateMap<WordEntity, WordModel>().ReverseMap();
             CreateMap<UserEntity, UserModel>().ReverseMap();
-            
+            CreateMap<AnswerEntity, AnswerModel>().ReverseMap();
+            CreateMap<AnsweredWordEntity, AnsweredWordModel>().ReverseMap();
+
             #region Irregular Verb
             CreateMap<IrregularVerbEntity, IrregularVerbModel>()
                 .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.WordVerbs.Select(wv => wv.Word)));
@@ -44,6 +47,19 @@ namespace WordApp.Infrastructure
                 .ForMember(dest => dest.WordTask, opt => opt.MapFrom(src => src))
                 .ForMember(dest => dest.Assignees, opt => opt.MapFrom(src => src.AssignedWordTasks))
                 .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.TaskWords));
+
+            //CreateMap<AnsweredWordTaskModel, List<AnsweredWordEntity>>()
+            //.ForMember(dest => dest.., opt => opt.MapFrom(src => src.WordTask));
+            ////.ForMember(dest => dest.AnsweredWords, opt => opt.MapFrom(src => src.AnsweredWords.Select(e =>
+            ////    new AnsweredWordEntity()
+            ////    {
+            ////        AssignedTaskId = src.WordTask.Id,
+            ////        WordId = e.Word.Id,
+            ////        Answer = new AnswerEntity()
+            ////        {
+            ////            Answer = e.Answer.Answer,
+            ////        }
+            ////    })));
 
             #endregion
         }
