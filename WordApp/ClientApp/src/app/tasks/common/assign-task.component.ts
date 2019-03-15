@@ -6,73 +6,75 @@ import { UserModel } from "./../../users/user.model";
 import { WordTaskModel } from "./../models/word-task.model";
 import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
 
+import { AlertService } from './../../alert/alert.service';
+
 @Component({
   selector: 'assign-task-component',
   templateUrl: './assign-task.component.html',
 })
 export class AssignTaskComponent implements OnInit {
-  public userList: Array<UserModel>;
-  public userSelectionForm: FormGroup;
+  public availableUsers: Array<UserModel>;
+  public assignedUsers: Array<AssignableWordTaskModel>;
+  public userAssignmentForm: FormGroup;
   public task: WordTaskModel;
   public submitted = false;
-  public deadline: Date;
-  
+
   @Output() notifyAboutConfirm: EventEmitter<Array<AssignableWordTaskModel>> = new EventEmitter<Array<AssignableWordTaskModel>>();
   @Output() notifyAboutCancel = new EventEmitter();
   
-  constructor(private formBuilder: FormBuilder) {
-    this.userSelectionForm = this.formBuilder.group({
-      userList: new FormArray([], minSelectedCheckboxes(1)),
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService) {
+    this.userAssignmentForm = this.formBuilder.group({
+      userList: ['', Validators.required],
+      datepicker: ['', Validators.required]
     });
+
+    this.assignedUsers = new Array<AssignableWordTaskModel>();
+  }
+
+  onAddAssignment() {
+    this.submitted = true;
+    if (this.userAssignmentForm.valid) {
+      var user = <UserModel>this.userAssignmentForm.controls.userList.value;
+      var date = <NgbDateStruct>this.userAssignmentForm.controls.datepicker.value;
+      this.assignedUsers.push(new AssignableWordTaskModel(this.task,
+        user,
+        null,
+        new Date(date.year, date.month, date.day),
+        null,
+        null,
+        '00000000-0000-0000-0000-000000000000',
+        null));
+
+      var assignedUserIndex = this.availableUsers.findIndex(u => u.id === user.id);
+      this.availableUsers.splice(assignedUserIndex, 1);
+      this.userAssignmentForm.reset();
+      this.submitted = false;
+    }
+  }
+
+  onRemoveAssignment(assignment: AssignableWordTaskModel) {
+    var assignmentIndex = this.assignedUsers.findIndex(a => a.id === assignment.id);
+    this.assignedUsers.splice(assignmentIndex, 1);
+    this.availableUsers.push(assignment.user);
   }
 
   ngOnInit(): void {
-    this.userList.map((o, i) => {
-      const control = new FormControl(); // if first item set to true, else false
-      (this.userSelectionForm.controls.userList as FormArray).push(control);
-    });
+    if (this.availableUsers) {
+      this.userAssignmentForm.controls.userList.setValue(this.availableUsers[0]);
+    }
   }
 
   onSubmit() {
-    this.submitted = true;
-
-    if (!this.userSelectionForm.valid || !this.deadline) {
-      console.log(this.userSelectionForm.value, this.deadline);
+    if (this.assignedUsers.length === 0) {
+      this.alertService.error("You need to add at least one user for task assignment");
       return;
     }
 
-    var formArray = this.userSelectionForm.controls.userList as FormArray;
-    var assignableTasks = new Array<AssignableWordTaskModel>();
-    for (var i = 0; i < formArray.value.length; i++) {
-      if (formArray.value[i]) {
-        assignableTasks.push(new AssignableWordTaskModel(this.task, this.userList[i], null, this.deadline, null, null, '00000000-0000-0000-0000-000000000000', null ));
-      };
-    }
-    
-    this.notifyAboutConfirm.emit(assignableTasks);
+   this.notifyAboutConfirm.emit(this.assignedUsers);
   }
 
   onCancel() {
     this.notifyAboutCancel.emit();
   }
-
-  setDeadline(setDate: NgbDateStruct) {
-    this.deadline = new Date(setDate.year, setDate.month, setDate.day);
-  }
-}
-
-function minSelectedCheckboxes(min = 1) {
-  const validator: ValidatorFn = (formArray: FormArray) => {
-    const totalSelected = formArray.controls
-      // get a list of checkbox values (boolean)
-      .map(control => control.value)
-      // total up the number of checked checkboxes
-      .reduce((prev, next) => next ? prev + next : prev, 0);
-
-    // if the total is not greater than the minimum, return the error message
-    return totalSelected >= min ? null : { required: true };
-  };
-
-  return validator;
 }
 

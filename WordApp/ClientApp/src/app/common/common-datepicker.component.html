@@ -1,13 +1,15 @@
-<form [formGroup]="datepickerForm">
+<form [formGroup]="parentForm">
   <div class="form-group">
     <div class="input-group">
-      <input class="form-control" formControlName="datepicker" name="datepicker" placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker" (ngModelChange)="onDateChanged()">
+      <input class="form-control" formControlName="datepicker" name="datepicker" placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker"
+             [ngClass]="{ 'is-invalid': submitted && parentForm.controls.datepicker.errors}">
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"
+                [ngClass]="{ 'border-danger': submitted && parentForm.controls.datepicker.errors}"></button>
+      </div>
+      <div class="form-group text-danger invalid-feedback">
+        <div *ngIf="!parentForm.valid && submitted">Invalid date</div>
       </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div *ngIf="!datepickerForm.valid && submitted" class="text-danger">Pick me!</div>
   </div>
 </form>

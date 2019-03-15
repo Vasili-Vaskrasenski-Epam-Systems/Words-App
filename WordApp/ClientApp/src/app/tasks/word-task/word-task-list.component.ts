@@ -50,9 +50,6 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
       this.existingWords = w;
     });
 
-    //this.verbsService.getIrregularVerbs().subscribe(v => {
-    //  this.existingVerbs = v;
-    //});
     this.userService.getUsersByType(Enums.EUserType[Enums.EUserType.Pupil]).subscribe(u => {
       this.existingUsers = u;
     });
@@ -117,7 +114,8 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
 
     var ref = this.createFormContainer.createComponent(this.componentFactory);
     var instance = <AssignTaskComponent>ref.instance;
-    instance.userList = this.existingUsers;
+    instance.availableUsers = new Array<UserModel>(...this.existingUsers);
+
     instance.task = task;
 
     instance.notifyAboutCancel.subscribe(e => {

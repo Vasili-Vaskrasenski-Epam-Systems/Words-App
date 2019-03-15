@@ -1,31 +1,61 @@
-<form [formGroup]="userSelectionForm" (ngSubmit)="onSubmit()">
-  <div class="row justify-content-center align-items-center">
-    <div class="col-5">
-      <div class="card">
-        <div class="card-body">
-          <div class="form-group">
-            <h2>Task Assignment</h2>
+<div class="row justify-content-center align-items-center">
+  <div class="col-5">
+    <div class="card">
+      <div class="card-header">
+        <h2>Task Assignment</h2>
+      </div>
+      <div class="card-body">
+        <h5>Assigned Pupils:</h5>
+        <table class='table table-striped'>
+          <thead>
+            <tr>
+              <th class="text-center">Name</th>
+              <th class="text-center">Deadline</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of this.assignedUsers">
+              <td class="text-center">{{ user.user.name}}</td>
+              <td class="text-center">{{ user.deadline | date}}</td>
+              <td class="text-center">
+                <button class="btn btn-sm btn-danger" (click)="onRemoveAssignment(user)">&times;</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="form-group">
+          <h5>Add Pupil:</h5>
+        </div>
+        <div class="form-group">
+          <div [formGroup]="userAssignmentForm">
+            <div>
+              <p>Select User:</p>
+              <select class="form-control" formControlName="userList" id="userList" name="userList" [ngClass]="{ 'is-invalid': submitted && userAssignmentForm.controls.userList.errors }">
+                <option *ngFor="let user  of availableUsers" [ngValue]="user">{{user.name}}</option>
+              </select>
+              <div *ngIf="submitted && userAssignmentForm.controls.userList.errors" class="invalid-feedback">
+                <div *ngIf="submitted && userAssignmentForm.controls.userList.errors.required">Selected pupil required</div>
+              </div>
+            </div>
+            <div>
+              <p>Set Deadline:</p>
+              <common-datepicker [submitted]="submitted" [parentForm]="userAssignmentForm"></common-datepicker>
+
+            </div>
           </div>
-          <div class="form-group row">
-            <p class="col-sm-5">Set Deadline</p>
-            <common-datepicker  [submitted]="submitted" (notifyWhenDateChanged)="setDeadline($event)"></common-datepicker>
-          </div>
-          <p>Available pupils:</p>
-          <div class="form-check form-group" formArrayName="userList" *ngFor="let user of userSelectionForm.controls.userList.controls; let i = index">
-            <input class="form-check-input" type="checkbox" [formControlName]="i" [name]="i" [id]="i">
-            <label class="form-check-label" [for]="i">{{userList[i].name}}</label>
-          </div>
-          <div class="form-group">
-            <div *ngIf="!userSelectionForm.valid && submitted" class="text-danger">At least one user must be selected</div>
-          </div>
-          <div>
-            <button class="btn btn-primary">Confirm</button>
-            <button type="button" (click)="onCancel()" class="btn btn-danger">Cancel</button>
+        </div>
+        <div class="form-group row">
+          <button type="button" class="btn btn-success" (click)="onAddAssignment()">Add</button>
+          <div class="col-lg-10">
+            <div class="float-right">
+              <button type="button" class="btn btn-success" (click)="onSubmit()">Confirm</button>
+              <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</form>
-
-
+</div>
