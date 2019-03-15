@@ -11,6 +11,7 @@ namespace Entities.Instances
         public Guid WordTaskId { get; set; }
         public TaskStatus TaskStatus { get; set; }
         public DateTime Deadline { get; set; }
+        public DateTime? CompleteDate { get; set; }
         public virtual UserEntity User { get; set; }
         public virtual WordTaskEntity WordTask { get; set; }
         public virtual List<AnsweredWordEntity> AnsweredWords { get; set; }

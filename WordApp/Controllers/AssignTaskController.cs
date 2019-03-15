@@ -45,9 +45,20 @@ namespace WordApp.Controllers
             return Ok(mappedEntities);
         }
 
+        [HttpGet("[action]")]
+        public IActionResult GetCompletedTask(Guid taskId)
+        {
+            var includeProperties = new[] {"AnsweredWords", "AnsweredWords.Answer", "AnsweredWords.Word" };
+            var entity = this._service.GetQueryableEntity(taskId, includeProperties);
+            var mappedEntity = base.Mapper.Map<AssignableWordTaskModel>(entity);
+
+            return Ok(mappedEntity);
+        }
+
         [HttpPost("[action]")]
         public IActionResult CompleteWordTask([FromBody] AssignableWordTaskModel model)
         {
+            model.CompleteDate = DateTime.UtcNow;
             var entityToUpdate = base.Mapper.Map<AssignedWordTaskEntity>(model);
             this._service.UpdateEntity(entityToUpdate);
             return Ok();

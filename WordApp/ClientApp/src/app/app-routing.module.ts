@@ -14,7 +14,7 @@ import { WordTaskListComponent } from './tasks/word-task/word-task-list.componen
 import { WordTaskDetailsComponent } from './tasks/word-task/word-task-details.component';
 import { PupilTaskListComponent } from './tasks/pupil-tasks-list.component';
 import { WordTaskWizardComponent } from './tasks/word-task/word-task-wizard.component';
-
+import { WordTaskResultsComponent } from './tasks/word-task/word-task-results.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
@@ -25,6 +25,7 @@ const routes: Routes = [
   { path: 'word-task-details/:id', component: WordTaskDetailsComponent, canActivate: [AuthGuard] },
   { path: 'pupil-tasks', component: PupilTaskListComponent, canActivate: [AuthGuard] },
   { path: 'word-task-wizard', component: WordTaskWizardComponent, canActivate: [AuthGuard] },
+  {path:  'word-task-results/:id', component: WordTaskResultsComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: '**', component: PageNotFoundComponent },

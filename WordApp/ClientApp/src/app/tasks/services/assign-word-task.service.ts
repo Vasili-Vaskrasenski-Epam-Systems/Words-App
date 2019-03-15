@@ -21,8 +21,8 @@ export class AssignWordTaskService {
     return this.http.post<AssignableWordTaskModel>(url, model);
   }
 
-  public getPupilTasks(id: string) {
-    var params = new HttpParams({ fromObject: { userId: id } });
+  public getPupilTasks(userId: string) {
+    var params = new HttpParams({ fromObject: { userId: userId } });
     var url = this.baseUrl + '/GetPupilTasks';
     return this.http.get<any>(url, { params: params });
   }
@@ -30,6 +30,12 @@ export class AssignWordTaskService {
   public completeWordTask(model: AssignableWordTaskModel) {
     var url = this.baseUrl + '/CompleteWordTask';
     return this.http.post<AssignableWordTaskModel>(url, model);
+  }
+
+  public getCompletedTask(taskId: string) {
+    var params = new HttpParams({ fromObject: { taskId: taskId } });
+    var url = this.baseUrl + '/GetCompletedTask';
+    return this.http.get<any>(url, { params: params });
   }
 
 }

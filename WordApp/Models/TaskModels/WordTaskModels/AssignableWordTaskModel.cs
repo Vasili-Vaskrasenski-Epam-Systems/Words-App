@@ -13,6 +13,7 @@ namespace WordApp.Models.TaskModels.WordTaskModels
         [JsonConverter(typeof(StringEnumConverter))]
         public TaskStatus TaskStatus { get; set; }
         public DateTime Deadline { get; set; }
+        public DateTime? CompleteDate { get; set; }
         public UserModel User { get; set; }
         public WordTaskModel WordTask { get; set; }
         public List<AnsweredWordModel> AnsweredWords { get; set; }

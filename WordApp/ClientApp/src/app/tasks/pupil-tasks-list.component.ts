@@ -14,7 +14,7 @@ import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word
   })
 export class PupilTaskListComponent implements OnInit {
   public assignedWordTasks: Array<WordTaskDetailModel>;
-
+  a: string;
   constructor(private authService: AuthService, private assignService: AssignWordTaskService, private  wordTaskDetailsProvider: CustomWordTaskDetailsProvider) {
 
   }

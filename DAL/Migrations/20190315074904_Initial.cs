@@ -68,7 +68,8 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,7 +111,8 @@ namespace DAL.Migrations
                     UserId = table.Column<Guid>(nullable: false),
                     WordTaskId = table.Column<Guid>(nullable: false),
                     TaskStatus = table.Column<int>(nullable: false),
-                    Deadline = table.Column<DateTime>(nullable: false)
+                    Deadline = table.Column<DateTime>(nullable: false),
+                    CompleteDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

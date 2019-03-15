@@ -66,6 +66,8 @@ namespace DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime?>("CompleteDate");
+
                     b.Property<DateTime>("Deadline");
 
                     b.Property<byte[]>("RowVersion")

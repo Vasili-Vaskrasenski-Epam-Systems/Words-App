@@ -53,7 +53,8 @@
               <td class="text-center">{{ assignee.taskStatus }}</td>
               <td class="text-center">
                 <div class="btn-group">
-                  <button (click)="onUnAssign(assignee)" class="btn btn-danger">Unassign</button>
+                  <button (click)="onUnAssign(assignee)" class="btn btn-danger" [disabled]="assignee.completeDate">Unassign</button>
+                  <button class="btn btn-success" [routerLink]='["/word-task-results", assignee.id]' [disabled]="!assignee.completeDate">Results</button>
                 </div>
               </td>
             </tr>

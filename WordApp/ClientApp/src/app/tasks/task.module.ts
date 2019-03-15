@@ -15,12 +15,14 @@ import { AssignTaskComponent } from './common/assign-task.component';
 import { WordTaskDetailsComponent } from './word-task/word-task-details.component';
 import { PupilTaskListComponent } from './pupil-tasks-list.component';
 import { WordTaskWizardComponent } from './word-task/word-task-wizard.component';
+import { WordTaskResultsComponent } from './word-task/word-task-results.component';
 
 import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word-task-details.provider';
 
 @NgModule({
   declarations: [
-    WordTaskEditorFormComponent, WordTaskListComponent, AssignTaskComponent, WordTaskDetailsComponent, PupilTaskListComponent, WordTaskWizardComponent
+    WordTaskEditorFormComponent, WordTaskListComponent, AssignTaskComponent, WordTaskDetailsComponent, PupilTaskListComponent, WordTaskWizardComponent,
+    WordTaskResultsComponent
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule],
   exports: [],

@@ -38,28 +38,21 @@ namespace WordApp.Infrastructure
                     WordId = w.Id,
                 })));
 
+            #region AssignableWordTaskModel <-> AssignedWordTaskEntity
             CreateMap<AssignableWordTaskModel, AssignedWordTaskEntity>()
                 .ForMember(dest => dest.User, opt => opt.Ignore())
                 .ForMember(dest => dest.WordTask, opt => opt.Ignore());
             CreateMap<AssignedWordTaskEntity, AssignableWordTaskModel>();
+            #endregion
+
+            #region WordTaskEntity -> WordTaskDetailsModel
 
             CreateMap<WordTaskEntity, WordTaskDetailsModel>()
                 .ForMember(dest => dest.WordTask, opt => opt.MapFrom(src => src))
                 .ForMember(dest => dest.Assignees, opt => opt.MapFrom(src => src.AssignedWordTasks))
                 .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.TaskWords));
+            #endregion
 
-            //CreateMap<AnsweredWordTaskModel, List<AnsweredWordEntity>>()
-            //.ForMember(dest => dest.., opt => opt.MapFrom(src => src.WordTask));
-            ////.ForMember(dest => dest.AnsweredWords, opt => opt.MapFrom(src => src.AnsweredWords.Select(e =>
-            ////    new AnsweredWordEntity()
-            ////    {
-            ////        AssignedTaskId = src.WordTask.Id,
-            ////        WordId = e.Word.Id,
-            ////        Answer = new AnswerEntity()
-            ////        {
-            ////            Answer = e.Answer.Answer,
-            ////        }
-            ////    })));
 
             #endregion
         }
