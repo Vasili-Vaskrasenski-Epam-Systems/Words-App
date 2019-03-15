@@ -67,7 +67,7 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
     var ref = this.createFormContainer.createComponent(this.componentFactory);
     var instance = <WordTaskEditorFormComponent>ref.instance;
 
-    instance.existingWords = this.existingWords.map(word => new CommonSelectModel(word, word.word));
+    instance.availableWords = new Array<WordModel>(...this.existingWords);
 
     instance.notifyAboutCancel.subscribe(e => {
       this.clearForm();
@@ -91,7 +91,7 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
 
     var ref = this.createFormContainer.createComponent(this.componentFactory);
     var instance = <WordTaskEditorFormComponent>ref.instance;
-    instance.existingWords = this.existingWords.map(word => new CommonSelectModel(word, word.word));
+    instance.availableWords = new Array<WordModel>(...this.existingWords);
     instance.setEditableObject(task);
 
     instance.notifyAboutCancel.subscribe(e => {

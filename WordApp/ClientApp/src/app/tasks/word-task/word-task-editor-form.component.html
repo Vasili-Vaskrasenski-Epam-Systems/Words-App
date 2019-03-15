@@ -1,36 +1,66 @@
-<form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
-  <div class="row justify-content-center align-items-center">
-    <div class="col-4">
-      <div class="card">
-        <div class="card-body">
+<div class="row justify-content-center align-items-center">
+  <div class="col-5">
+    <div class="card">
+      <div class="card-header">
+        <h2>Word Task Editor</h2>
+      </div>
+      <div class="card-body">
+        <div [formGroup]="wordAssignmentForm">
           <div class="form-group">
             <label for="userName">Name</label>
-            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="ex: Kill Kenny" />
-            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-              <div *ngIf="f.name.errors.required">Task name is required</div>
+            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && wordAssignmentForm.controls.name.errors }" placeholder="ex: Kill Kenny" />
+            <div *ngIf="submitted && wordAssignmentForm.controls.name.errors" class="invalid-feedback">
+              <div *ngIf="wordAssignmentForm.controls.name.errors.required">Task name is required</div>
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-11">
-              <label class="col-md-8">Assigned Words</label>
-              <button type="button" class="btn btn-sm btn-primary col-md-4" (click)="showAddWordForm()">Add Word</button>
+        <h5>Words:</h5>
+        <table class='table table-striped'>
+          <thead>
+          <tr>
+            <th class="text-center">Name</th>
+            <th class="text-center">Translation</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let word of this.assignedWords">
+            <td class="text-center">{{ word.word}}</td>
+            <td class="text-center">{{ word.translation}}</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-danger" (click)="onRemoveWord(word)">&times;</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="form-group">
+          <h5>Add Word:</h5>
+        </div>
+        <div class="form-group">
+          <div>
+            <p>Select Word:</p>
+            <select class="form-control" formControlName="wordList" id="wordList" name="wordList" [ngClass]="{ 'is-invalid': submitted && wordAssignmentForm.controls.wordList.errors }">
+              <option *ngFor="let word  of this.availableWords" [ngValue]="word">{{word.word}}</option>
+            </select>
+            <div *ngIf="submitted && wordAssignmentForm.controls.wordList.errors" class="invalid-feedback">
+              <div *ngIf="submitted && wordAssignmentForm.controls.wordList.errors.required">Selected word required</div>
             </div>
           </div>
-          <div class="form-group" *ngFor="let word of assignedWords">
-            {{word.word}}
-            <button type="button" class="btn btn-danger" (click)="removeAssignedWord(word)">&times;</button>
-          </div>
-          <div class="form-group">
-            <common-select [inputObjectArray]="existingWords" *ngIf="showSelect" (notifyAboutConfirm)="getSelectedValue($event)" (notifyAboutCancel)="onCancelSelect()"></common-select>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-primary">Confirm</button>
-            <button type="button" (click)="onCancel()" class="btn btn-danger">Cancel</button>
+        </div>
+      </div>
+        <div class="form-group row">
+          <button type="button" class="btn btn-success" (click)="onAddWord()">Add</button>
+          <div class="col-lg-10">
+            <div class="float-right">
+              <button type="button" class="btn btn-success" (click)="onSubmit()">Confirm</button>
+              <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</form>
+</div>
+
 
 

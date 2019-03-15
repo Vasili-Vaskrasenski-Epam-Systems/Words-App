@@ -1,5 +1,5 @@
-import { Component, Output, EventEmitter, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
-import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserModel } from "./../../users/user.model";
@@ -21,14 +21,16 @@ export class AssignTaskComponent implements OnInit {
 
   @Output() notifyAboutConfirm: EventEmitter<Array<AssignableWordTaskModel>> = new EventEmitter<Array<AssignableWordTaskModel>>();
   @Output() notifyAboutCancel = new EventEmitter();
-  
+
   constructor(private formBuilder: FormBuilder, private alertService: AlertService) {
+    this.assignedUsers = new Array<AssignableWordTaskModel>();
+  }
+
+  ngOnInit() {
     this.userAssignmentForm = this.formBuilder.group({
-      userList: ['', Validators.required],
+      userList: [this.availableUsers ? this.availableUsers[0]:  '', Validators.required],
       datepicker: ['', Validators.required]
     });
-
-    this.assignedUsers = new Array<AssignableWordTaskModel>();
   }
 
   onAddAssignment() {
@@ -58,19 +60,13 @@ export class AssignTaskComponent implements OnInit {
     this.availableUsers.push(assignment.user);
   }
 
-  ngOnInit(): void {
-    if (this.availableUsers) {
-      this.userAssignmentForm.controls.userList.setValue(this.availableUsers[0]);
-    }
-  }
-
   onSubmit() {
     if (this.assignedUsers.length === 0) {
       this.alertService.error("You need to add at least one user for task assignment");
       return;
     }
 
-   this.notifyAboutConfirm.emit(this.assignedUsers);
+    this.notifyAboutConfirm.emit(this.assignedUsers);
   }
 
   onCancel() {
