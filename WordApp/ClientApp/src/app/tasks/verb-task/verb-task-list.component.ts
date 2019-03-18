@@ -5,19 +5,19 @@ import { WordsService } from './../../words/words.service';
 import { VerbService } from './../../verbs/verb.service';
 import { AlertService } from './../../alert/alert.service';
 import { UserService } from './../../users/user.service';
-import { AssignWordTaskService } from './../services/assign-word-task.service';
+import { AssignVerbTaskService } from './../services/assign-verb-task.service';
 
-import { WordTaskModel } from './../models/word-task.model';
 import { VerbTaskModel } from './../models/verb-task.model';
-import { WordModel } from './../../words/word.model';
 import { VerbModel } from './../../verbs/verb.model';
 import { UserModel } from './../../users/user.model';
+import { AssignableVerbTaskModel } from './../models/assignable-verb-task.model';
 
 import { VerbTaskEditorFormComponent } from './verb-task-editor-form.component';
 
-import { AssignTaskComponent } from './../common/assign-task.component';
+import { AssignTaskComponent, AssignableUserModel } from './../common/assign-task.component';
 
 import { Enums } from './../../app-enums';
+import { Constants } from './../../app-constants';
 
 @Component(
   {
@@ -27,6 +27,7 @@ import { Enums } from './../../app-enums';
 export class VerbTaskListComponent implements OnInit, AfterViewInit {
   public existingVerbTasks: Array<VerbTaskModel>;
   public availableVerbs: Array<VerbModel>;
+  public availableUsers: Array<UserModel>;
   public displayContent: boolean;
   
   private componentFactory: any;
@@ -35,7 +36,7 @@ export class VerbTaskListComponent implements OnInit, AfterViewInit {
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
 
   constructor(private verbTaskService: VerbTaskService, private wordService: WordsService, private alertService: AlertService, private verbsService: VerbService,
-    private userService: UserService, private assignWordTaskService: AssignWordTaskService, private componentFactoryResolver: ComponentFactoryResolver) {
+    private userService: UserService, private assignVerbTaskService: AssignVerbTaskService, private componentFactoryResolver: ComponentFactoryResolver) {
     if (!this.existingVerbTasks) {
       this.existingVerbTasks = new Array<VerbTaskModel>();
       this.displayContent = true;
@@ -49,6 +50,10 @@ export class VerbTaskListComponent implements OnInit, AfterViewInit {
 
     this.verbsService.getVerbs().subscribe(e => {
       this.availableVerbs = e;
+    });
+
+    this.userService.getUsersByType(Enums.EUserType[Enums.EUserType.Pupil]).subscribe(e => {
+      this.availableUsers = e;
     });
   }
 
@@ -105,7 +110,38 @@ export class VerbTaskListComponent implements OnInit, AfterViewInit {
   }
 
   onShowAssignForm(task: VerbTaskModel): void {
-    
+    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(AssignTaskComponent);
+    this.showFormBtn.nativeElement.disabled = true;
+    this.displayContent = false;
+
+    var ref = this.createFormContainer.createComponent(this.componentFactory);
+    var instance = <AssignTaskComponent>ref.instance;
+    instance.availableUsers = new Array<UserModel>(...this.availableUsers);
+
+    instance.notifyAboutCancel.subscribe(e => {
+      this.clearForm();
+    });
+
+    instance.notifyAboutConfirm.subscribe(e => {
+      var assignees = <Array<AssignableUserModel>>e;
+      var assignObjects = new Array<AssignableVerbTaskModel>();
+
+      for (var i = 0; i < assignees.length; i++) {
+        assignObjects.push(new AssignableVerbTaskModel(task,
+          assignees[i].user,
+          null,
+          assignees[i].deadline,
+          null,
+          null,
+          Constants.guidEmpty,
+          null));
+      }
+
+      this.assignVerbTaskService.assignTask(assignObjects).subscribe(s => {
+          this.clearForm();
+        },
+        error => this.alertService.error(error));
+    });
   }
 
   onDelete(task: VerbTaskModel): void {

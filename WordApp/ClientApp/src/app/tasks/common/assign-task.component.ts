@@ -14,16 +14,15 @@ import { AlertService } from './../../alert/alert.service';
 })
 export class AssignTaskComponent implements OnInit {
   public availableUsers: Array<UserModel>;
-  public assignedUsers: Array<AssignableWordTaskModel>;
+  public assignedUsers: Array<AssignableUserModel>;
   public userAssignmentForm: FormGroup;
-  public task: WordTaskModel;
   public submitted = false;
 
-  @Output() notifyAboutConfirm: EventEmitter<Array<AssignableWordTaskModel>> = new EventEmitter<Array<AssignableWordTaskModel>>();
+  @Output() notifyAboutConfirm: EventEmitter<Array<AssignableUserModel>> = new EventEmitter<Array<AssignableUserModel>>();
   @Output() notifyAboutCancel = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private alertService: AlertService) {
-    this.assignedUsers = new Array<AssignableWordTaskModel>();
+    this.assignedUsers = new Array<AssignableUserModel>();
   }
 
   ngOnInit() {
@@ -38,14 +37,7 @@ export class AssignTaskComponent implements OnInit {
     if (this.userAssignmentForm.valid) {
       var user = <UserModel>this.userAssignmentForm.controls.userList.value;
       var date = <NgbDateStruct>this.userAssignmentForm.controls.datepicker.value;
-      this.assignedUsers.push(new AssignableWordTaskModel(this.task,
-        user,
-        null,
-        new Date(date.year, date.month, date.day),
-        null,
-        null,
-        '00000000-0000-0000-0000-000000000000',
-        null));
+      this.assignedUsers.push(new AssignableUserModel(user, new Date(date.year, date.month, date.day)));
 
       var assignedUserIndex = this.availableUsers.findIndex(u => u.id === user.id);
       this.availableUsers.splice(assignedUserIndex, 1);
@@ -54,8 +46,8 @@ export class AssignTaskComponent implements OnInit {
     }
   }
 
-  onRemoveAssignment(assignment: AssignableWordTaskModel) {
-    var assignmentIndex = this.assignedUsers.findIndex(a => a.id === assignment.id);
+  onRemoveAssignment(assignment: AssignableUserModel) {
+    var assignmentIndex = this.assignedUsers.findIndex(a => a.user.id === assignment.user.id);
     this.assignedUsers.splice(assignmentIndex, 1);
     this.availableUsers.push(assignment.user);
   }
@@ -71,6 +63,16 @@ export class AssignTaskComponent implements OnInit {
 
   onCancel() {
     this.notifyAboutCancel.emit();
+  }
+}
+
+export class AssignableUserModel {
+  public user: UserModel;
+  public deadline: Date;
+
+  constructor(user: UserModel, deadline: Date) {
+    this.user = user;
+    this.deadline = deadline;
   }
 }
 

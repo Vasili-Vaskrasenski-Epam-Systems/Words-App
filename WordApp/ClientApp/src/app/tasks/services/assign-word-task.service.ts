@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
-//import { AnsweredWordTaskModel } from './../models/answered-word-task.model';
 
 @Injectable()
 export class AssignWordTaskService {
@@ -37,5 +36,4 @@ export class AssignWordTaskService {
     var url = this.baseUrl + '/GetCompletedTask';
     return this.http.get<any>(url, { params: params });
   }
-
 }

@@ -8,7 +8,7 @@ using Entities.Instances.Task.WordTask;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
 using WordApp.Models;
-using WordApp.Models.TaskModels.VerbModels;
+using WordApp.Models.TaskModels.VerbTaskModels;
 using WordApp.Models.TaskModels.WordTaskModels;
 
 namespace WordApp.Infrastructure
@@ -70,6 +70,14 @@ namespace WordApp.Infrastructure
                 {
                     VerbId = w.Id,
                 })));
+
+            #region AssignableVerbTaskModel <-> AssignedVerbTaskEntity
+            CreateMap<AssignVerbTaskModel, AssignedVerbTaskEntity>()
+                .ForMember(dest => dest.User, opt => opt.Ignore())
+                .ForMember(dest => dest.VerbTask, opt => opt.Ignore());
+            CreateMap<AssignedVerbTaskEntity, AssignVerbTaskModel>();
+            #endregion
+
             #endregion
         }
     }

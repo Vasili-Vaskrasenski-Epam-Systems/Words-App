@@ -10,13 +10,14 @@ import { AssignWordTaskService } from './../services/assign-word-task.service';
 import { WordTaskModel } from './../models/word-task.model';
 import { WordModel } from './../../words/word.model';
 import { VerbModel } from './../../verbs/verb.model';
-import { CommonSelectModel } from './../../common/select.component';
+import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
 import { UserModel } from './../../users/user.model';
 
 import { WordTaskEditorFormComponent } from './word-task-editor-form.component';
-import { AssignTaskComponent } from './../common/assign-task.component';
+import { AssignTaskComponent, AssignableUserModel } from './../common/assign-task.component';
 
 import { Enums } from './../../app-enums';
+import { Constants } from './../../app-constants';
 
 @Component(
   {
@@ -28,19 +29,27 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
   public displayContent: boolean;
   private existingWords: Array<WordModel>;
   private existingUsers: Array<UserModel>;
-  
+
   private componentFactory: any;
 
-  @ViewChild('createFormContainer', { read: ViewContainerRef }) createFormContainer: ViewContainerRef;
-  @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
+  @ViewChild('createFormContainer', { read: ViewContainerRef })
+  createFormContainer: ViewContainerRef;
+  @ViewChild('showAddFormBtn')
+  showFormBtn: ElementRef<HTMLButtonElement>;
 
-  constructor(private taskService: WordTaskService, private wordService: WordsService, private alertService: AlertService, private verbsService: VerbService,
-    private userService: UserService, private assignWordTaskService: AssignWordTaskService, private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private taskService: WordTaskService,
+    private wordService: WordsService,
+    private alertService: AlertService,
+    private verbsService: VerbService,
+    private userService: UserService,
+    private assignWordTaskService: AssignWordTaskService,
+    private componentFactoryResolver: ComponentFactoryResolver) {
     if (!this.existingWordTasks) {
       this.existingWordTasks = new Array<WordTaskModel>();
       this.displayContent = true;
     }
   }
+
   ngOnInit(): void {
     this.taskService.getTasks().subscribe(t => {
       this.existingWordTasks = t;
@@ -56,7 +65,7 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    
+
   }
 
   onShowCreateForm(): void {
@@ -75,12 +84,13 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
 
     instance.notifyAboutConfirm.subscribe(e => {
       this.taskService.createTask(e).subscribe(result => {
-        this.existingWordTasks.push(result);
-        console.log(result);
-        this.clearForm();
-      }, error => {
-        this.alertService.error(error);
-      });
+          this.existingWordTasks.push(result);
+          console.log(result);
+          this.clearForm();
+        },
+        error => {
+          this.alertService.error(error);
+        });
     });
   }
 
@@ -100,10 +110,11 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
 
     instance.notifyAboutConfirm.subscribe(e => {
       this.taskService.updateTask(e).subscribe(result => {
-        var index = this.existingWordTasks.findIndex(w => w.id === result.id);
-        this.existingWordTasks.splice(index, 1, result);
-        this.clearForm();
-      }, error => console.error(error));
+          var index = this.existingWordTasks.findIndex(w => w.id === result.id);
+          this.existingWordTasks.splice(index, 1, result);
+          this.clearForm();
+        },
+        error => console.error(error));
     });
   }
 
@@ -116,20 +127,32 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
     var instance = <AssignTaskComponent>ref.instance;
     instance.availableUsers = new Array<UserModel>(...this.existingUsers);
 
-    instance.task = task;
-
     instance.notifyAboutCancel.subscribe(e => {
       this.clearForm();
     });
 
     instance.notifyAboutConfirm.subscribe(e => {
-      this.assignWordTaskService.assignTask(e).subscribe(s => {
-          this.clearForm();
-        },
-        error => this.alertService.error(error));
+      var assignees = <Array<AssignableUserModel>>e;
+      var assignObjects = new Array<AssignableWordTaskModel>();
+
+      for (var i = 0; i < assignees.length; i++) {
+        assignObjects.push(new AssignableWordTaskModel(task,
+          assignees[i].user,
+          null,
+          assignees[i].deadline,
+          null,
+          null,
+          Constants.guidEmpty,
+          null));
+
+        this.assignWordTaskService.assignTask(assignObjects).subscribe(s => {
+            this.clearForm();
+          },
+          error => this.alertService.error(error));
+      }
     });
   }
-
+  
   onDelete(task: WordTaskModel): void {
     this.taskService.deleteTask(task).subscribe(result => {
       var index = this.existingWordTasks.findIndex(w => w.id === result.id);

@@ -4,7 +4,7 @@ using AutoMapper;
 using BL.Services;
 using Entities.Instances.Task.VerbTask;
 using Microsoft.AspNetCore.Mvc;
-using WordApp.Models.TaskModels.VerbModels;
+using WordApp.Models.TaskModels.VerbTaskModels;
 
 namespace WordApp.Controllers.Verbs
 {

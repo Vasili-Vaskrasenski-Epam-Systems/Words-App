@@ -7,6 +7,7 @@ import { CommonComponentsModule } from './../common/common-components.module';
 import { WordTaskService } from './services/word-task.service';
 import { AssignWordTaskService } from './services/assign-word-task.service';
 import { VerbTaskService } from './services/verb-task.service';
+import { AssignVerbTaskService } from './services/assign-verb-task.service';
 
 import { HelpersModule } from './../helpers/helpers.module';
 
@@ -31,7 +32,7 @@ import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule],
   exports: [],
-  providers: [WordTaskService, AssignWordTaskService, CustomWordTaskDetailsProvider, VerbTaskService],
+  providers: [WordTaskService, AssignWordTaskService, CustomWordTaskDetailsProvider, VerbTaskService, AssignVerbTaskService],
   entryComponents: [WordTaskEditorFormComponent, AssignTaskComponent, VerbTaskEditorFormComponent]
 })
 
