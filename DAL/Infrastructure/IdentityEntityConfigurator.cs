@@ -1,6 +1,11 @@
 ﻿using System.Runtime.CompilerServices;
 using Entities.Instances;
 using Entities.Instances.Base;
+using Entities.Instances.Task;
+using Entities.Instances.Task.VerbTask;
+using Entities.Instances.Task.WordTask;
+using Entities.Instances.Verb;
+using Entities.Instances.Word;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DAL.Infrastructure
@@ -35,9 +40,9 @@ namespace DAL.Infrastructure
         }
     }
 
-    internal class IrregularVerbConfigurator : IdentityEntityConfigurator<IrregularVerbEntity>
+    internal class VerbConfigurator : IdentityEntityConfigurator<VerbEntity>
     {
-        public override void Configure(EntityTypeBuilder<IrregularVerbEntity> builder)
+        public override void Configure(EntityTypeBuilder<VerbEntity> builder)
         {
             base.Configure(builder);
 
@@ -73,9 +78,9 @@ namespace DAL.Infrastructure
         }
     }
 
-    internal class AnswerConfigurator : IdentityEntityConfigurator<AnswerEntity>
+    internal class WordAnswerConfigurator : IdentityEntityConfigurator<WordAnswerEntity>
     {
-        public override void Configure(EntityTypeBuilder<AnswerEntity> builder)
+        public override void Configure(EntityTypeBuilder<WordAnswerEntity> builder)
         {
             base.Configure(builder);
             builder.HasMany(e => e.AnsweredWords)
@@ -84,13 +89,39 @@ namespace DAL.Infrastructure
         }
     }
 
+    internal class VerbTaskConfigurator : IdentityEntityConfigurator<VerbTaskEntity>
+    {
+        public override void Configure(EntityTypeBuilder<VerbTaskEntity> builder)
+        {
+            base.Configure(builder);
+            builder.HasMany(e => e.VerbTasks)
+                .WithOne(ee => ee.VerbTask)
+                .HasForeignKey(ee => ee.VerbTaskId);
+
+            builder.HasMany(e => e.AssignedVerbs)
+                .WithOne(ee => ee.VerbTask)
+                .HasForeignKey(ee => ee.VerbTaskId);
+        }
+    }
+
+    internal class VerbAnswerConfigurator : IdentityEntityConfigurator<VerbAnswerEntity>
+    {
+        public override void Configure(EntityTypeBuilder<VerbAnswerEntity> builder)
+        {
+            base.Configure(builder);
+            builder.HasMany(e => e.AnsweredVerbs)
+                .WithOne(ee => ee.Answer)
+                .HasForeignKey(ee => ee.AnswerId);
+        }
+    }
+
     #region relational entities
-    internal class VerbWordConfigurator : IdentityEntityConfigurator<WordVerbEntity>
+    internal class VerbWordConfigurator : IdentityEntityConfigurator<RelWordVerbEntity>
     {
 
     }
 
-    internal class TaskWordConfigurator : IdentityEntityConfigurator<TaskWordEntity>
+    internal class TaskWordConfigurator : IdentityEntityConfigurator<RelTaskWordEntity>
     {
 
     }
@@ -106,9 +137,21 @@ namespace DAL.Infrastructure
         }
     }
 
-    internal class AnsweredWordConfigurator : IdentityEntityConfigurator<AnsweredWordEntity>
-    {
+    internal class AnsweredWordConfigurator : IdentityEntityConfigurator<RelAnswerWordEntity>{}
 
+    internal class AnsweredVerbConfigurator: IdentityEntityConfigurator<RelAnsweredVerbEntity> { }
+
+    internal class AssignedVerbTaskConfigurator : IdentityEntityConfigurator<AssignedVerbTaskEntity>
+    {
+        public override void Configure(EntityTypeBuilder<AssignedVerbTaskEntity> builder)
+        {
+            base.Configure(builder);
+            builder.HasMany(e => e.AnsweredVerbs)
+                .WithOne(ee => ee.AssignedVerbTask)
+                .HasForeignKey(ee => ee.AssignedVerbTaskId);
+        }
     }
+
+    internal class RelVerbTaskConfigurator: IdentityEntityConfigurator<RelVerbTaskEntity> { }
     #endregion
 }

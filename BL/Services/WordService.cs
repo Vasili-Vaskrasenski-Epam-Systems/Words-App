@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using DAL.Infrastructure;
 using Entities.Instances;
+using Entities.Instances.Word;
 
 namespace BL.Services
 {

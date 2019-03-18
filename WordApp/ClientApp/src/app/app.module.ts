@@ -9,7 +9,7 @@ import { HelpersModule } from './helpers/helpers.module';
 
 import { HomeModule } from './home/home.module';
 import { WordsModule } from './words/words.module';
-import { IrregularVerbsModule } from './irregular-verbs/irregular-verbs.module';
+import { VerbModule } from './verbs/verb.module';
 import { UsersModule } from './users/users.module';
 import { TaskModule } from './tasks/task.module';
 
@@ -32,7 +32,7 @@ import { ErrorInterceptor } from './app-error-interceptor';
 
     WordsModule,
     HomeModule,
-    IrregularVerbsModule,
+    VerbModule,
     UsersModule,
     TaskModule
   ],

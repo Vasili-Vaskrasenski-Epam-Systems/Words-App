@@ -2,14 +2,14 @@ import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryRes
 
 import { WordTaskService } from './../services/word-task.service';
 import { WordsService } from './../../words/words.service';
-import { IrregularVerbsService } from './../../irregular-verbs/irregular-verbs.service';
+import { VerbService } from './../../verbs/verb.service';
 import { AlertService } from './../../alert/alert.service';
 import { UserService } from './../../users/user.service';
 import { AssignWordTaskService } from './../services/assign-word-task.service';
 
 import { WordTaskModel } from './../models/word-task.model';
 import { WordModel } from './../../words/word.model';
-import { IrregularVerbModel } from './../../irregular-verbs/irregular-verb.model';
+import { VerbModel } from './../../verbs/verb.model';
 import { CommonSelectModel } from './../../common/select.component';
 import { UserModel } from './../../users/user.model';
 
@@ -34,7 +34,7 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
   @ViewChild('createFormContainer', { read: ViewContainerRef }) createFormContainer: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
 
-  constructor(private taskService: WordTaskService, private wordService: WordsService, private alertService: AlertService, private verbsService: IrregularVerbsService,
+  constructor(private taskService: WordTaskService, private wordService: WordsService, private alertService: AlertService, private verbsService: VerbService,
     private userService: UserService, private assignWordTaskService: AssignWordTaskService, private componentFactoryResolver: ComponentFactoryResolver) {
     if (!this.existingWordTasks) {
       this.existingWordTasks = new Array<WordTaskModel>();

@@ -1,21 +1,20 @@
 <h1>Tasks</h1>
-
-<div class="add-form-dynamic-component-container">
-  <button #showAddFormBtn (click)="onShowCreateForm()" class="btn btn-primary">Create Task</button>
-  <ng-container #createFormContainer></ng-container>
-</div>
-<p></p>
-
 <p *ngIf="!existingWordTasks"><em>Loading...</em></p>
-<table class='table table-striped' *ngIf="existingWordTasks && displayContent">
-  <thead>
+
+<div class="form-group mt-lg-2">
+  <h5>Word Tasks</h5>
+  <button #showAddFormBtn (click)="onShowCreateForm()" class="btn btn-primary">Create Word Task</button>
+  <ng-container #createFormContainer></ng-container>
+
+  <table class='table table-striped mt-lg-2' *ngIf="existingWordTasks && displayContent">
+    <thead>
     <tr>
       <th class="text-center">Task Name</th>
       <th class="text-center">Words Count</th>
       <th class="text-center">Actions</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr *ngFor="let task of existingWordTasks">
       <td class="text-center">{{ task.name }}</td>
       <td class="text-center">{{ task.words ? task.words.length : 0}}</td>
@@ -25,9 +24,9 @@
           <button (click)="onDelete(task)" class="btn btn-danger">Delete</button>
           <button (click)="onShowAssignForm(task)" class="btn btn-warning">Assign</button>
           <button class="btn btn-primary" [routerLink]='["/word-task-details", task.id]'>Details</button>
-          
         </div>
       </td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

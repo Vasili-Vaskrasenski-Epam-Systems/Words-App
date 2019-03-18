@@ -19,49 +19,97 @@ namespace DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Entities.Instances.AnswerEntity", b =>
+            modelBuilder.Entity("Entities.Instances.RelWordVerbEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Answer");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Answers");
-                });
-
-            modelBuilder.Entity("Entities.Instances.AnsweredWordEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("AnswerId");
-
-                    b.Property<Guid>("AssignedTaskId");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<Guid>("VerbId");
 
                     b.Property<Guid>("WordId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnswerId");
-
-                    b.HasIndex("AssignedTaskId");
+                    b.HasIndex("VerbId");
 
                     b.HasIndex("WordId");
 
-                    b.ToTable("AnsweredWords");
+                    b.ToTable("RelWordVerbs");
                 });
 
-            modelBuilder.Entity("Entities.Instances.AssignedWordTaskEntity", b =>
+            modelBuilder.Entity("Entities.Instances.Task.VerbTask.AssignedVerbTaskEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("CompleteDate");
+
+                    b.Property<DateTime>("Deadline");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<int>("TaskStatus");
+
+                    b.Property<Guid>("UserId");
+
+                    b.Property<Guid>("VerbTaskId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VerbTaskId");
+
+                    b.ToTable("AssignedVerbTasks");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Task.VerbTask.RelVerbTaskEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Order");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<Guid>("VerbId");
+
+                    b.Property<Guid>("VerbTaskId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VerbId");
+
+                    b.HasIndex("VerbTaskId");
+
+                    b.ToTable("RelVerbTasks");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Task.VerbTask.VerbTaskEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VerbTasks");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Task.WordTask.AssignedWordTaskEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -89,23 +137,7 @@ namespace DAL.Migrations
                     b.ToTable("AssignedWordTasks");
                 });
 
-            modelBuilder.Entity("Entities.Instances.IrregularVerbEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CommonWord");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IrregularVerbs");
-                });
-
-            modelBuilder.Entity("Entities.Instances.TaskWordEntity", b =>
+            modelBuilder.Entity("Entities.Instances.Task.WordTask.RelTaskWordEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -128,7 +160,23 @@ namespace DAL.Migrations
 
                     b.HasIndex("WordId");
 
-                    b.ToTable("TaskWords");
+                    b.ToTable("RelWordTasks");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Task.WordTask.WordTaskEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WordTasks");
                 });
 
             modelBuilder.Entity("Entities.Instances.UserEntity", b =>
@@ -151,7 +199,105 @@ namespace DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Entities.Instances.WordEntity", b =>
+            modelBuilder.Entity("Entities.Instances.Verb.RelAnsweredVerbEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AnswerId");
+
+                    b.Property<Guid>("AssignedVerbTaskId");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<Guid>("VerbId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnswerId");
+
+                    b.HasIndex("AssignedVerbTaskId");
+
+                    b.HasIndex("VerbId");
+
+                    b.ToTable("RelAnswerVerb");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Verb.VerbAnswerEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Answer");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VerbAnswers");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Verb.VerbEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CommonWord");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Verbs");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Word.RelAnswerWordEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AnswerId");
+
+                    b.Property<Guid>("AssignedTaskId");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<Guid>("WordId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnswerId");
+
+                    b.HasIndex("AssignedTaskId");
+
+                    b.HasIndex("WordId");
+
+                    b.ToTable("RelAnsweredWords");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Word.WordAnswerEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Answer");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WordAnswers");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Word.WordEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -171,97 +317,103 @@ namespace DAL.Migrations
                     b.ToTable("Words");
                 });
 
-            modelBuilder.Entity("Entities.Instances.WordTaskEntity", b =>
+            modelBuilder.Entity("Entities.Instances.RelWordVerbEntity", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("WordTasks");
-                });
-
-            modelBuilder.Entity("Entities.Instances.WordVerbEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<Guid>("VerbId");
-
-                    b.Property<Guid>("WordId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VerbId");
-
-                    b.HasIndex("WordId");
-
-                    b.ToTable("WordVerbs");
-                });
-
-            modelBuilder.Entity("Entities.Instances.AnsweredWordEntity", b =>
-                {
-                    b.HasOne("Entities.Instances.AnswerEntity", "Answer")
-                        .WithMany("AnsweredWords")
-                        .HasForeignKey("AnswerId")
+                    b.HasOne("Entities.Instances.Verb.VerbEntity", "Verb")
+                        .WithMany("WordVerbs")
+                        .HasForeignKey("VerbId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Entities.Instances.AssignedWordTaskEntity", "AssignedWordTask")
-                        .WithMany("AnsweredWords")
-                        .HasForeignKey("AssignedTaskId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Entities.Instances.WordEntity", "Word")
-                        .WithMany("AnsweredWord")
+                    b.HasOne("Entities.Instances.Word.WordEntity", "Word")
+                        .WithMany("WordVerbEntities")
                         .HasForeignKey("WordId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Entities.Instances.AssignedWordTaskEntity", b =>
+            modelBuilder.Entity("Entities.Instances.Task.VerbTask.AssignedVerbTaskEntity", b =>
+                {
+                    b.HasOne("Entities.Instances.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.Task.VerbTask.VerbTaskEntity", "VerbTask")
+                        .WithMany("AssignedVerbs")
+                        .HasForeignKey("VerbTaskId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Entities.Instances.Task.VerbTask.RelVerbTaskEntity", b =>
+                {
+                    b.HasOne("Entities.Instances.Verb.VerbEntity", "Verb")
+                        .WithMany("VerbTasks")
+                        .HasForeignKey("VerbId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.Task.VerbTask.VerbTaskEntity", "VerbTask")
+                        .WithMany("VerbTasks")
+                        .HasForeignKey("VerbTaskId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Entities.Instances.Task.WordTask.AssignedWordTaskEntity", b =>
                 {
                     b.HasOne("Entities.Instances.UserEntity", "User")
                         .WithMany("AssignedTasks")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Entities.Instances.WordTaskEntity", "WordTask")
+                    b.HasOne("Entities.Instances.Task.WordTask.WordTaskEntity", "WordTask")
                         .WithMany("AssignedWordTasks")
                         .HasForeignKey("WordTaskId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Entities.Instances.TaskWordEntity", b =>
+            modelBuilder.Entity("Entities.Instances.Task.WordTask.RelTaskWordEntity", b =>
                 {
-                    b.HasOne("Entities.Instances.WordTaskEntity", "WordTask")
+                    b.HasOne("Entities.Instances.Task.WordTask.WordTaskEntity", "WordTask")
                         .WithMany("TaskWords")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Entities.Instances.WordEntity", "Word")
+                    b.HasOne("Entities.Instances.Word.WordEntity", "Word")
                         .WithMany("TaskWords")
                         .HasForeignKey("WordId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Entities.Instances.WordVerbEntity", b =>
+            modelBuilder.Entity("Entities.Instances.Verb.RelAnsweredVerbEntity", b =>
                 {
-                    b.HasOne("Entities.Instances.IrregularVerbEntity", "Verb")
-                        .WithMany("WordVerbs")
-                        .HasForeignKey("VerbId")
+                    b.HasOne("Entities.Instances.Verb.VerbAnswerEntity", "Answer")
+                        .WithMany("AnsweredVerbs")
+                        .HasForeignKey("AnswerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Entities.Instances.WordEntity", "Word")
-                        .WithMany("WordVerbEntities")
+                    b.HasOne("Entities.Instances.Task.VerbTask.AssignedVerbTaskEntity", "AssignedVerbTask")
+                        .WithMany("AnsweredVerbs")
+                        .HasForeignKey("AssignedVerbTaskId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.Verb.VerbEntity", "Verb")
+                        .WithMany()
+                        .HasForeignKey("VerbId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Entities.Instances.Word.RelAnswerWordEntity", b =>
+                {
+                    b.HasOne("Entities.Instances.Word.WordAnswerEntity", "Answer")
+                        .WithMany("AnsweredWords")
+                        .HasForeignKey("AnswerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.Task.WordTask.AssignedWordTaskEntity", "AssignedWordTask")
+                        .WithMany("AnsweredWords")
+                        .HasForeignKey("AssignedTaskId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.Word.WordEntity", "Word")
+                        .WithMany("AnsweredWord")
                         .HasForeignKey("WordId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

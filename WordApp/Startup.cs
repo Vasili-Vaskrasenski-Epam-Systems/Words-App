@@ -1,9 +1,15 @@
 using AutoMapper;
 using BL.Services;
-using BL.Services.Task.WordTask;
+using BL.Services.Task.VerbTaskServices;
+using BL.Services.Task.WordTaskServices;
 using DAL.Helpers;
 using DAL.Infrastructure;
 using Entities.Instances;
+using Entities.Instances.Task;
+using Entities.Instances.Task.VerbTask;
+using Entities.Instances.Task.WordTask;
+using Entities.Instances.Verb;
+using Entities.Instances.Word;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -51,10 +57,11 @@ namespace WordApp
 
             #region Business Services
             services.AddScoped(typeof(BaseEntityService<WordEntity>), typeof(WordService));
-            services.AddScoped(typeof(BaseEntityService<IrregularVerbEntity>), typeof(IrregularVerbService));
+            services.AddScoped(typeof(BaseEntityService<VerbEntity>), typeof(VerbService));
             services.AddScoped(typeof(BaseEntityService<UserEntity>), typeof(UserService));
             services.AddScoped(typeof(BaseEntityService<WordTaskEntity>), typeof(WordTaskService));
             services.AddScoped(typeof(BaseEntityService<AssignedWordTaskEntity>), typeof(AssignedWordTaskService));
+            services.AddScoped(typeof(BaseEntityService<VerbTaskEntity>), typeof(VerbTaskService));
             #endregion
 
             // In production, the Angular files will be served from this directory

@@ -1,0 +1,29 @@
+<div class="form-group mt-lg-2">
+  <h5>Verb Tasks</h5>
+  <button #showAddFormBtn (click)="onShowCreateForm()" class="btn btn-primary">Create Verb Task</button>
+  <ng-container #createFormContainer></ng-container>
+
+  <table class='table table-striped mt-lg-2' *ngIf="existingVerbTasks && displayContent">
+    <thead>
+    <tr>
+      <th class="text-center">Task Name</th>
+      <th class="text-center">Verbs Count</th>
+      <th class="text-center">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let task of existingVerbTasks">
+      <td class="text-center">{{ task.name }}</td>
+      <td class="text-center">{{ task.verbs ? task.verbs.length : 0}}</td>
+      <td class="text-center">
+        <div class="btn-group">
+          <button (click)="onShowEditForm(task)" class="btn btn-info">Edit</button>
+          <button (click)="onDelete(task)" class="btn btn-danger">Delete</button>
+          <button (click)="onShowAssignForm(task)" class="btn btn-warning">Assign</button>
+          <button class="btn btn-primary" [routerLink]='["/verb-task-details", task.id]'>Details</button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

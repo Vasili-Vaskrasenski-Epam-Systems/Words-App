@@ -2,7 +2,13 @@
 using System.Linq;
 using AutoMapper;
 using Entities.Instances;
+using Entities.Instances.Task;
+using Entities.Instances.Task.VerbTask;
+using Entities.Instances.Task.WordTask;
+using Entities.Instances.Verb;
+using Entities.Instances.Word;
 using WordApp.Models;
+using WordApp.Models.TaskModels.VerbModels;
 using WordApp.Models.TaskModels.WordTaskModels;
 
 namespace WordApp.Infrastructure
@@ -13,16 +19,16 @@ namespace WordApp.Infrastructure
         {
             CreateMap<WordEntity, WordModel>().ReverseMap();
             CreateMap<UserEntity, UserModel>().ReverseMap();
-            CreateMap<AnswerEntity, AnswerModel>().ReverseMap();
-            CreateMap<AnsweredWordEntity, AnsweredWordModel>().ReverseMap();
+            CreateMap<WordAnswerEntity, AnswerModel>().ReverseMap();
+            CreateMap<RelAnswerWordEntity, AnsweredWordModel>().ReverseMap();
 
-            #region Irregular Verb
-            CreateMap<IrregularVerbEntity, IrregularVerbModel>()
+            #region Verb
+            CreateMap<VerbEntity, VerbModel>()
                 .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.WordVerbs.Select(wv => wv.Word)));
 
-            CreateMap<IrregularVerbModel, IrregularVerbEntity>()
+            CreateMap<VerbModel, VerbEntity>()
                 .ForMember(dest => dest.WordVerbs,
-                    opt => opt.MapFrom(src => src.Words.Select(w => new WordVerbEntity()
+                    opt => opt.MapFrom(src => src.Words.Select(w => new RelWordVerbEntity()
                     {
                         //VerbId = src.Id != Guid.Empty ? src.Id : Guid.Empty,
                         WordId = w.Id,
@@ -33,7 +39,7 @@ namespace WordApp.Infrastructure
             CreateMap<WordTaskEntity, WordTaskModel>()
                 .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.TaskWords.Select(tw => tw.Word)));
             CreateMap<WordTaskModel, WordTaskEntity>()
-                .ForMember(dest => dest.TaskWords, opt => opt.MapFrom(src => src.Words.Select(w => new TaskWordEntity()
+                .ForMember(dest => dest.TaskWords, opt => opt.MapFrom(src => src.Words.Select(w => new RelTaskWordEntity()
                 {
                     WordId = w.Id,
                 })));
@@ -54,6 +60,16 @@ namespace WordApp.Infrastructure
             #endregion
 
 
+            #endregion
+
+            #region Verb Task
+            CreateMap<VerbTaskEntity, VerbTaskModel>()
+                .ForMember(dest => dest.Verbs, opt => opt.MapFrom(src => src.VerbTasks.Select(tw => tw.Verb)));
+            CreateMap<VerbTaskModel, VerbTaskEntity>()
+                .ForMember(dest => dest.VerbTasks, opt => opt.MapFrom(src => src.Verbs.Select(w => new RelVerbTaskEntity()
+                {
+                    VerbId = w.Id,
+                })));
             #endregion
         }
     }

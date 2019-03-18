@@ -1,5 +1,4 @@
-﻿using Entities.Instances;
-using Entities.Instances.Base;
+﻿using Entities.Instances.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -65,6 +65,16 @@ namespace BL.Services
             return query.FirstOrDefault(e => e.Id == entityId);
         }
 
+        public virtual List<T> GetQueryableEntities(params string[] properties)
+        {
+            var query = this.DbContext.Set<T>().AsQueryable();
+
+            foreach (string include in properties)
+                query = query.Include(include);
+
+            return query.ToList();
+        }
+
         public virtual List<T> GetQueryableEntities(Expression<Func<T, bool>> expression, params string[] properties)
         {
             var query = this.DbContext.Set<T>().AsQueryable().Where(expression);

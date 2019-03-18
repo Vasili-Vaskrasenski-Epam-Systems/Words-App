@@ -4,6 +4,8 @@ using System.Linq;
 using AutoMapper;
 using BL.Services;
 using Entities.Instances;
+using Entities.Instances.Task;
+using Entities.Instances.Task.WordTask;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Internal;
 using WordApp.Models;

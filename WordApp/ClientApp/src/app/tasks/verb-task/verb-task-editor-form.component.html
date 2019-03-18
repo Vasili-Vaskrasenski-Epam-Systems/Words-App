@@ -1,0 +1,66 @@
+<div class="row justify-content-center align-items-center">
+  <div class="col-5">
+    <div class="card">
+      <div class="card-header">
+        <h2>Verb Task Editor</h2>
+      </div>
+      <div class="card-body">
+        <div [formGroup]="verbAssignmentForm">
+          <div class="form-group">
+            <label for="userName">Name</label>
+            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && verbAssignmentForm.controls.name.errors }" placeholder="ex: Kill Kenny" />
+            <div *ngIf="submitted && verbAssignmentForm.controls.name.errors" class="invalid-feedback">
+              <div *ngIf="verbAssignmentForm.controls.name.errors.required">Task name is required</div>
+            </div>
+          </div>
+          <h5>Verbs:</h5>
+          <table class='table table-striped'>
+            <thead>
+              <tr>
+                <th class="text-center">Name</th>
+                <th class="text-center">Words Count</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let verb of this.assignedVerbs">
+                <td class="text-center">{{ verb.commonWord}}</td>
+                <td class="text-center">{{ verb.words.length}}</td>
+                <td class="text-center">
+                  <button class="btn btn-sm btn-danger" (click)="onRemoveVerb(verb)">&times;</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="form-group">
+            <h5>Add Word:</h5>
+          </div>
+          <div class="form-group">
+            <div>
+              <p>Select Word:</p>
+              <select class="form-control" formControlName="verbList" id="verbList" name="verbList" [ngClass]="{ 'is-invalid': submitted && verbAssignmentForm.controls.verbList.errors }">
+                <option *ngFor="let verb  of this.availableVerbs" [ngValue]="verb">{{verb.commonWord}}</option>
+              </select>
+              <div *ngIf="submitted && verbAssignmentForm.controls.verbList.errors" class="invalid-feedback">
+                <div *ngIf="submitted && verbAssignmentForm.controls.verbList.errors.required">Selected word required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <button type="button" class="btn btn-success" (click)="onAddVerb()">Add</button>
+          <div class="col-lg-10">
+            <div class="float-right">
+              <button type="button" class="btn btn-success" (click)="onSubmit()">Confirm</button>
+              <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

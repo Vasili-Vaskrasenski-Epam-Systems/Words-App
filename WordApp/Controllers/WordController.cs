@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using BL.Services;
 using Entities.Instances;
+using Entities.Instances.Word;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models;
 
