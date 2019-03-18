@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AssignWordTaskService } from './services/assign-word-task.service';
+import { AssignVerbTaskService } from './services/assign-verb-task.service';
 import { AuthService } from './../auth/auth.service';
 
+import { AssignableVerbTaskModel } from './models/assignable-verb-task.model';
 import { WordTaskDetailModel } from './models/word-task-detail.model';
 
 import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word-task-details.provider';
@@ -14,19 +16,30 @@ import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word
   })
 export class PupilTaskListComponent implements OnInit {
   public assignedWordTasks: Array<WordTaskDetailModel>;
-  a: string;
-  constructor(private authService: AuthService, private assignService: AssignWordTaskService, private  wordTaskDetailsProvider: CustomWordTaskDetailsProvider) {
+  public assignedVerbTasks: Array<AssignableVerbTaskModel>;
+
+  constructor(private authService: AuthService, private assignWordTaskService: AssignWordTaskService, private assignVerbTaskService: AssignVerbTaskService,
+    private wordTaskDetailsProvider: CustomWordTaskDetailsProvider) {
 
   }
 
   ngOnInit(): void {
     var currentUserId = this.authService.currentUserValue.id;
-    this.assignService.getPupilTasks(currentUserId).subscribe(e => {
+
+    this.assignWordTaskService.getPupilTasks(currentUserId).subscribe(e => {
       this.assignedWordTasks = e;
+    });
+
+    this.assignVerbTaskService.getPupilTasks(currentUserId).subscribe(e => {
+      this.assignedVerbTasks = e;
     });
   }
 
-  public onStartTask(wordTask: WordTaskDetailModel) {
+  public onStartWordTask(wordTask: WordTaskDetailModel) {
     this.wordTaskDetailsProvider.storage = wordTask;
+  }
+
+  public onStartVerbTask(verbTask: AssignableVerbTaskModel) {
+    this.wordTaskDetailsProvider.storage = verbTask;
   }
 }

@@ -18,14 +18,12 @@
             <thead>
               <tr>
                 <th class="text-center">Name</th>
-                <th class="text-center">Words Count</th>
-                <th></th>
+                <th class="text-center">&times;</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let verb of this.assignedVerbs">
                 <td class="text-center">{{ verb.commonWord}}</td>
-                <td class="text-center">{{ verb.words.length}}</td>
                 <td class="text-center">
                   <button class="btn btn-sm btn-danger" (click)="onRemoveVerb(verb)">&times;</button>
                 </td>

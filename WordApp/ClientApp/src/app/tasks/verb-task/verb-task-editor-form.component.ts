@@ -36,14 +36,12 @@ export class VerbTaskEditorFormComponent implements OnInit {
   }
 
   setEditableObject(task: VerbTaskModel) {
+    console.log(task);
     this.editableObject = new VerbTaskModel(task.name, task.verbs, task.id, task.rowVersion);
     this.assignedVerbs = task.verbs ? new Array<VerbModel>(...task.verbs) : this.assignedVerbs;
-
-    console.log(task);
-    console.log(this.assignedVerbs);
-
+    
     if (this.assignedVerbs) {
-      for (var i = 0; i < this.availableVerbs.length; i++) {
+      for (var i = 0; i < this.assignedVerbs.length; i++) {
         var index = this.availableVerbs.findIndex(aw => aw.id === this.assignedVerbs[i].id);
         if (index !== -1) {
           this.availableVerbs.splice(index, 1);

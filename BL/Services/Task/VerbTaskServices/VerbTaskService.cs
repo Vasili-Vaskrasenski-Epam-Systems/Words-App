@@ -14,7 +14,7 @@ namespace BL.Services.Task.VerbTaskServices
 
         public override VerbTaskEntity UpdateEntity(VerbTaskEntity entity)
         {
-            var taskWordsToRemove = base.DbContext.RelVerbTasks.Where(wt => wt.VerbTaskId == entity.Id);
+            var taskWordsToRemove = base.DbContext.RelVerbTasks.Where(wt => wt.TaskVerbId == entity.Id);
             base.DbContext.RelVerbTasks.RemoveRange(taskWordsToRemove);
             base.DbContext.VerbTasks.Update(entity);
             base.DbContext.SaveChanges();
@@ -24,7 +24,7 @@ namespace BL.Services.Task.VerbTaskServices
         public override VerbTaskEntity GetEntity(Guid id)
         {
             return DbContext.VerbTasks
-                .Include(t => t.VerbTasks).ThenInclude(tw => tw.Verb)
+                .Include(t => t.TaskVerbs).ThenInclude(tw => tw.Verb)
                 .FirstOrDefault(wt => wt.Id == id);
         }
     }

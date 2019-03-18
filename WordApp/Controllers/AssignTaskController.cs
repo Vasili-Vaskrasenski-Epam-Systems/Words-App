@@ -42,8 +42,8 @@ namespace WordApp.Controllers
         {
             var includeProperties = new[] {"WordTask", "User", "WordTask.TaskWords", "WordTask.TaskWords.Word"};
             var entities = this._service.GetQueryableEntities(e => e.UserId == userId, includeProperties);
-            var entitiesToMap = new List<WordTaskEntity>(entities.Select(e => e.WordTask));
-            var mappedEntities = base.Mapper.Map<List<WordTaskDetailsModel>>(entitiesToMap);
+            //var entitiesToMap = new List<WordTaskEntity>(entities.Select(e => e.WordTask));
+            var mappedEntities = base.Mapper.Map<List<AssignableWordTaskModel>>(entities);
 
             return Ok(mappedEntities);
         }

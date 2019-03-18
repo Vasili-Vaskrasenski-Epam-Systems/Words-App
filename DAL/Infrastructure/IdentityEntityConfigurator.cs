@@ -94,9 +94,9 @@ namespace DAL.Infrastructure
         public override void Configure(EntityTypeBuilder<VerbTaskEntity> builder)
         {
             base.Configure(builder);
-            builder.HasMany(e => e.VerbTasks)
-                .WithOne(ee => ee.VerbTask)
-                .HasForeignKey(ee => ee.VerbTaskId);
+            builder.HasMany(e => e.TaskVerbs)
+                .WithOne(ee => ee.TaskVerb)
+                .HasForeignKey(ee => ee.TaskVerbId);
 
             builder.HasMany(e => e.AssignedVerbs)
                 .WithOne(ee => ee.VerbTask)

@@ -13,7 +13,7 @@
           <div class="form-group">
             <label for="firstForm">First Form</label>
             <select class="form-control" formControlName="firstForm" id="firstForm" name="firstForm" [ngClass]="{ 'is-invalid': submitted && this.verbEditorForm.controls.firstForm.errors }">
-              <option *ngFor="let word of existingWords" [ngValue]="word">{{word.word}}</option>
+              <option *ngFor="let word of existingWords" [ngValue]="word"  title="{{word.translation}}">{{word.word}}</option>
             </select>
             <div *ngIf="submitted && f.firstForm.errors" class="invalid-feedback">
               <div *ngIf="f.firstForm.errors.required">First form is required</div>
@@ -22,7 +22,7 @@
           <div class="form-group">
             <label for="secondForm">Second Form</label>
             <select class="form-control" formControlName="secondForm" id="secondForm" name="secondForm" [ngClass]="{ 'is-invalid': submitted && this.verbEditorForm.controls.secondForm.errors }">
-              <option *ngFor="let word of existingWords" [ngValue]="word">{{word.word}}</option>
+              <option *ngFor="let word of existingWords" [ngValue]="word" title="{{word.translation}}">{{word.word}}</option>
             </select>
             <div *ngIf="submitted && this.verbEditorForm.controls.secondForm.errors" class="invalid-feedback">
               <div *ngIf="this.verbEditorForm.controls.secondForm.errors.required">Second form is required</div>
@@ -31,7 +31,7 @@
           <div class="form-group">
             <label for="thirdForm">Third Form</label>
             <select class="form-control" formControlName="thirdForm" id="thirdForm" name="thirdForm" [ngClass]="{ 'is-invalid': submitted && this.verbEditorForm.controls.thirdForm.errors }">
-              <option *ngFor="let word of existingWords" [ngValue]="word">{{word.word}}</option>
+              <option *ngFor="let word of existingWords" [ngValue]="word"  title="{{word.translation}}">{{word.word}}</option>
             </select>
             <div *ngIf="submitted && f.thirdForm.errors" class="invalid-feedback">
               <div *ngIf="this.verbEditorForm.controls.thirdForm.errors.required">Third form is required</div>

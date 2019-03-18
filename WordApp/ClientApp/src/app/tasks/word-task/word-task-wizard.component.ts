@@ -17,7 +17,7 @@ import { Enums } from './../../app-enums';
 
 @Component(
   {
-    selector: 'pupil-task-list',
+    selector: 'word-task-wizard',
     templateUrl: './word-task-wizard.component.html',
   })
 export class WordTaskWizardComponent implements OnInit {

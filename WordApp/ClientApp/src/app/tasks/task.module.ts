@@ -22,13 +22,16 @@ import { WordTaskResultsComponent } from './word-task/word-task-results.componen
 
 import { VerbTaskEditorFormComponent } from './verb-task/verb-task-editor-form.component';
 import { VerbTaskListComponent } from './verb-task/verb-task-list.component';
+import { VerbTaskDetailsComponent } from './verb-task/verb-task-details.component';
+import { VerbTaskWizardComponent } from './verb-task/verb-task-wizard.component';
+import { VerbTaskResultsComponent } from './verb-task/verb-task-results.component';
 
 import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word-task-details.provider';
 
 @NgModule({
   declarations: [
     WordTaskEditorFormComponent, WordTaskListComponent, AssignTaskComponent, WordTaskDetailsComponent, PupilTaskListComponent, WordTaskWizardComponent,
-    WordTaskResultsComponent, VerbTaskEditorFormComponent, VerbTaskListComponent
+    WordTaskResultsComponent, VerbTaskEditorFormComponent, VerbTaskListComponent, VerbTaskDetailsComponent, VerbTaskWizardComponent, VerbTaskResultsComponent
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule],
   exports: [],

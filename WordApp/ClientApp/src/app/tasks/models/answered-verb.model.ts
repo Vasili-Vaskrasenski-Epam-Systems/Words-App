@@ -1,11 +1,11 @@
 import { VerbModel } from './../../verbs/verb.model';
-import { TaskAnswerModel } from './task-answer.model';
+import { VerbTaskAnswerModel } from './verb-task-answer.model';
 
 export class AnsweredVerbModel {
   verb: VerbModel;
-  answer: TaskAnswerModel;
+  answer: VerbTaskAnswerModel;
 
-  constructor(verb: VerbModel, answer: TaskAnswerModel) {
+  constructor(verb: VerbModel, answer: VerbTaskAnswerModel) {
     this.verb = verb;
     this.answer = answer;
   }

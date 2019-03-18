@@ -8,32 +8,64 @@
   </div>
   <div class="row">
     <div class="table-responsive">
-        <h3>Word Tasks:</h3>
-        <table class='table table-striped'>
-          <thead>
-            <tr>
-              <th class="text-center">Task Name</th>
-              <th class="text-center">Deadline</th>
-              <th class="text-center">Words Count</th>
-              <th class="text-center">Task Status</th>
-              <th class="text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let wordTask of assignedWordTasks">
-              <td class="text-center">{{ wordTask.wordTask.name}}</td>
-              <td class="text-center">{{ wordTask.assignees[0].deadline | date}}</td>
-              <td class="text-center">{{ wordTask.wordTask.words.length}}</td>
-              <td class="text-center">{{ wordTask.assignees[0].taskStatus}}</td>
-              <td class="text-center">
-                <div class="btn-group">
-                  <button [routerLink]='["/word-task-wizard"]' [disabled]="wordTask.assignees[0].completeDate" (click)="onStartTask(wordTask)" class="btn btn-success">Start</button>
-                  <button [routerLink]='["/word-task-results", wordTask.assignees[0].id]' [disabled]="!wordTask.assignees[0].completeDate"  class="btn btn-warning">Results</button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <h3>Word Tasks:</h3>
+      <table class='table table-striped'>
+        <thead>
+        <tr>
+          <th class="text-center">Task Name</th>
+          <th class="text-center">Deadline</th>
+          <th class="text-center">Words Count</th>
+          <th class="text-center">Task Status</th>
+          <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let assignee of assignedWordTasks">
+          <td class="text-center">{{ assignee.wordTask.name}}</td>
+          <td class="text-center">{{ assignee.deadline | date}}</td>
+          <td class="text-center">{{ assignee.wordTask.words.length}}</td>
+          <td class="text-center">{{ assignee.taskStatus}}</td>
+          <td class="text-center">
+            <div class="btn-group">
+              <button [routerLink]='["/word-task-wizard"]' [disabled]="assignee.completeDate" (click)="onStartWordTask(assignee.wordTask)" class="btn btn-success">Start</button>
+              <button [routerLink]='["/word-task-results", assignee.id]' [disabled]="!assignee.completeDate"  class="btn btn-warning">Results</button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="table-responsive">
+      <h3>Verb Tasks:</h3>
+      <table class='table table-striped'>
+        <thead>
+        <tr>
+          <th class="text-center">Task Name</th>
+          <th class="text-center">Deadline</th>
+          <th class="text-center">Verbs Count</th>
+          <th class="text-center">Task Status</th>
+          <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let assignee of assignedVerbTasks">
+          <td class="text-center">{{ assignee.verbTask.name}}</td>
+          <td class="text-center">{{ assignee.deadline | date}}</td>
+          <td class="text-center">{{ assignee.verbTask.verbs.length}}</td>
+          <td class="text-center">{{ assignee.taskStatus}}</td>
+          <td class="text-center">
+            <div class="btn-group">
+              <button [routerLink]='["/verb-task-wizard"]' [disabled]="assignee.completeDate" (click)="onStartVerbTask(assignee)" class="btn btn-success">Start</button>
+              <button [routerLink]='["/verb-task-results", assignee.id]' [disabled]="!assignee.completeDate"  class="btn btn-warning">Results</button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+

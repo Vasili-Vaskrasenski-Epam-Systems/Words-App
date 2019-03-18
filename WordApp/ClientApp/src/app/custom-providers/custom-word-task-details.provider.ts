@@ -4,7 +4,7 @@ import { WordTaskDetailModel } from './../tasks/models/word-task-detail.model';
 @Injectable()
 export class CustomWordTaskDetailsProvider {
 
-  public storage: WordTaskDetailModel;
+  public storage: any;
 
   public flush() {
     this.storage = null;

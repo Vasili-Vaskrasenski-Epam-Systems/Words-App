@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+using TaskStatus = Entities.Enums.TaskStatus;
 
 namespace Entities.Instances.Base
 {
-    public abstract class BaseAssignedTaskEntity: BaseEntity
+    public abstract class BaseAssignedTaskEntity : BaseEntity
     {
         public Guid UserId { get; set; }
         public TaskStatus TaskStatus { get; set; }

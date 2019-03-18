@@ -16,6 +16,9 @@ import { PupilTaskListComponent } from './tasks/pupil-tasks-list.component';
 import { WordTaskWizardComponent } from './tasks/word-task/word-task-wizard.component';
 import { WordTaskResultsComponent } from './tasks/word-task/word-task-results.component';
 import { VerbTaskListComponent } from './tasks/verb-task/verb-task-list.component';
+import { VerbTaskDetailsComponent } from './tasks/verb-task/verb-task-details.component';
+import { VerbTaskWizardComponent } from './tasks/verb-task/verb-task-wizard.component';
+import { VerbTaskResultsComponent } from './tasks/verb-task/verb-task-results.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
@@ -25,9 +28,12 @@ const routes: Routes = [
   { path: 'word-task-management', component: WordTaskListComponent, canActivate: [AuthGuard] },
   { path: 'verb-task-management', component: VerbTaskListComponent, canActivate: [AuthGuard] },
   { path: 'word-task-details/:id', component: WordTaskDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'verb-task-details/:id', component: VerbTaskDetailsComponent, canActivate: [AuthGuard] },
   { path: 'pupil-tasks', component: PupilTaskListComponent, canActivate: [AuthGuard] },
   { path: 'word-task-wizard', component: WordTaskWizardComponent, canActivate: [AuthGuard] },
   { path: 'word-task-results/:id', component: WordTaskResultsComponent, canActivate: [AuthGuard] },
+  { path: 'verb-task-wizard', component: VerbTaskWizardComponent, canActivate: [AuthGuard] },
+  { path: 'verb-task-results/:id', component: VerbTaskResultsComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: '**', component: PageNotFoundComponent },

@@ -25,6 +25,7 @@ export class WordTaskDetailsComponent implements OnInit {
     });
   }
 
+
   onUnAssign(wordModel: AssignableWordTaskModel) {
     this.assignTaskService.unassignWordTask(wordModel).subscribe(e => {
       var index = this.task.assignees.findIndex(t => t.id === e.id);

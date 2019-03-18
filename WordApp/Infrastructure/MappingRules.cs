@@ -13,14 +13,17 @@ using WordApp.Models.TaskModels.WordTaskModels;
 
 namespace WordApp.Infrastructure
 {
-    internal class MappingRules: Profile
+    internal class MappingRules : Profile
     {
         public MappingRules()
         {
+            #region Word
+
             CreateMap<WordEntity, WordModel>().ReverseMap();
-            CreateMap<UserEntity, UserModel>().ReverseMap();
             CreateMap<WordAnswerEntity, AnswerModel>().ReverseMap();
             CreateMap<RelAnswerWordEntity, AnsweredWordModel>().ReverseMap();
+
+            #endregion
 
             #region Verb
             CreateMap<VerbEntity, VerbModel>()
@@ -33,6 +36,15 @@ namespace WordApp.Infrastructure
                         //VerbId = src.Id != Guid.Empty ? src.Id : Guid.Empty,
                         WordId = w.Id,
                     })));
+
+            CreateMap<VerbAnswerEntity, VerbAnswerModel>().ReverseMap();
+            CreateMap<RelAnsweredVerbEntity, AnsweredVerbModel>().ReverseMap();
+            #endregion
+
+            #region User
+            CreateMap<UserEntity, UserModel>().ReverseMap();
+
+
             #endregion
 
             #region Word Task
@@ -64,9 +76,9 @@ namespace WordApp.Infrastructure
 
             #region Verb Task
             CreateMap<VerbTaskEntity, VerbTaskModel>()
-                .ForMember(dest => dest.Verbs, opt => opt.MapFrom(src => src.VerbTasks.Select(tw => tw.Verb)));
+                .ForMember(dest => dest.Verbs, opt => opt.MapFrom(src => src.TaskVerbs.Select(tw => tw.Verb)));
             CreateMap<VerbTaskModel, VerbTaskEntity>()
-                .ForMember(dest => dest.VerbTasks, opt => opt.MapFrom(src => src.Verbs.Select(w => new RelVerbTaskEntity()
+                .ForMember(dest => dest.TaskVerbs, opt => opt.MapFrom(src => src.Verbs.Select(w => new RelVerbTaskEntity()
                 {
                     VerbId = w.Id,
                 })));
@@ -78,6 +90,14 @@ namespace WordApp.Infrastructure
             CreateMap<AssignedVerbTaskEntity, AssignVerbTaskModel>();
             #endregion
 
+            #region VerbTaskEntity -> VerbTaskDetailsModel
+
+            CreateMap<VerbTaskEntity, VerbTaskDetailsModel>()
+                .ForMember(dest => dest.VerbTask, opt => opt.MapFrom(src => src))
+                .ForMember(dest => dest.Assignees, opt => opt.MapFrom(src => src.AssignedVerbs))
+                .ForMember(dest => dest.Verbs, opt => opt.MapFrom(src => src.TaskVerbs))
+                ;
+            #endregion
             #endregion
         }
     }
