@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { VerbTaskModel } from "./../models/verb-task.model";
@@ -6,9 +6,7 @@ import { VerbModel } from "./../../verbs/verb.model";
 import { OrderedVerbTaskModel } from "./../models/ordered-verb-task.model";
 import { CommonDraggableListModel } from './../../common/common-draggable-list.component';
 
-import { EnumToArrayPipe } from './../../helpers/enum-to-array.pipe';
 import { AlertService } from './../../alert/alert.service';
-
 import { Constants } from './../../app-constants';
 
 @Component({
@@ -19,7 +17,7 @@ import { Constants } from './../../app-constants';
 export class VerbTaskEditorFormComponent implements OnInit {
   public verbAssignmentForm: FormGroup;
 
-  public draggableModels: Array<CommonDraggableListModel>;
+  public assignedVerbs: Array<CommonDraggableListModel>;
   public availableVerbs: Array<VerbModel>;
   private editableObject: VerbTaskModel;
   public submitted = false;
@@ -28,7 +26,7 @@ export class VerbTaskEditorFormComponent implements OnInit {
   @Output() notifyAboutCancel = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private alertService: AlertService) {
-    this.draggableModels = new Array<CommonDraggableListModel>();
+    this.assignedVerbs = new Array<CommonDraggableListModel>();
   }
 
   ngOnInit(): void {
@@ -42,14 +40,15 @@ export class VerbTaskEditorFormComponent implements OnInit {
     this.editableObject = new VerbTaskModel(task.name, task.verbs, task.id, task.rowVersion);
 
     if (task.verbs) {
-      this.draggableModels =
+      this.assignedVerbs =
         new Array<CommonDraggableListModel>(
-          ...task.verbs.map(e => new CommonDraggableListModel(e.order, e.verb, e.verb.commonWord)));
+          ...task.verbs.map(e => new CommonDraggableListModel(e.order, e, e.verb.commonWord)));
     }
 
-    if (this.draggableModels) {
-      for (var i = 0; i < this.draggableModels.length; i++) {
-        var index = this.availableVerbs.findIndex(aw => aw.id === this.draggableModels[i].key.verb.id);
+    if (this.assignedVerbs) {
+      for (var i = 0; i < this.assignedVerbs.length; i++) {
+        var tmpInstance = this.assignedVerbs[i].key as OrderedVerbTaskModel;
+        var index = this.availableVerbs.findIndex(aw => aw.id === tmpInstance.id);
         if (index !== -1) {
           this.availableVerbs.splice(index, 1);
         }
@@ -62,15 +61,14 @@ export class VerbTaskEditorFormComponent implements OnInit {
       this.submitted = true;
       return;
     }
-    if (this.draggableModels.length === 0) {
+    if (this.assignedVerbs.length === 0) {
       this.alertService.error("At least one word should be assigned to the task");
       return;
     }
     else {
-      console.log(this.draggableModels);
       var model = new VerbTaskModel(
         this.verbAssignmentForm.controls.name.value,
-        this.draggableModels.map(mod => mod.key),
+        this.assignedVerbs.map(mod => mod.key),
         this.editableObject ? this.editableObject.id : Constants.guidEmpty,
         this.editableObject ? this.editableObject.rowVersion : null);
 
@@ -90,12 +88,11 @@ export class VerbTaskEditorFormComponent implements OnInit {
     }
     else {
       var verb = <VerbModel>this.verbAssignmentForm.controls.verbList.value;
-      //this.assignedVerbs.push(new OrderedVerbTaskModel(this.assignedVerbs.length, verb, Constants.guidEmpty, null));
-
+      
       var index = this.availableVerbs.findIndex(aw => aw.id === verb.id);
       this.availableVerbs.splice(index, 1);
 
-      this.draggableModels.push(new CommonDraggableListModel(0, new OrderedVerbTaskModel(this.draggableModels.length, verb, Constants.guidEmpty, null), verb.commonWord));
+      this.assignedVerbs.push(new CommonDraggableListModel(0, new OrderedVerbTaskModel(this.assignedVerbs.length, verb, Constants.guidEmpty, null), verb.commonWord));
 
       this.submitted = false;
       this.setVerbListValue();
@@ -107,10 +104,10 @@ export class VerbTaskEditorFormComponent implements OnInit {
     this.availableVerbs.push(removedInstance.verb);
     this.setVerbListValue();
 
-    for (var i = 0; i < this.draggableModels.length; i++) {
-      var instance = this.draggableModels[i].key as OrderedVerbTaskModel;
+    for (var i = 0; i < this.assignedVerbs.length; i++) {
+      var instance = this.assignedVerbs[i].key as OrderedVerbTaskModel;
       instance.order = i;
-      this.draggableModels[i].order = i;
+      this.assignedVerbs[i].order = i;
     }
   }
 

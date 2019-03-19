@@ -13,26 +13,10 @@
               <div *ngIf="wordAssignmentForm.controls.name.errors.required">Task name is required</div>
             </div>
           </div>
-        <h5>Words:</h5>
-        <table class='table table-striped'>
-          <thead>
-          <tr>
-            <th class="text-center">Name</th>
-            <th class="text-center">Translation</th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let word of this.assignedWords">
-            <td class="text-center">{{ word.word}}</td>
-            <td class="text-center">{{ word.translation}}</td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-danger" (click)="onRemoveWord(word)">&times;</button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-
+          <div class="form-group" *ngIf="assignedWords.length > 0">
+            <h5>Assigned Words:</h5>
+            <common-draggable-list [inputObjectArray]="assignedWords" (notifyAboutDelete)="onDeleteWord($event)"></common-draggable-list>
+          </div>
         <div class="form-group">
           <h5>Add Word:</h5>
         </div>

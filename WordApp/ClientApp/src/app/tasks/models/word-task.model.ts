@@ -1,12 +1,12 @@
-import { WordModel } from './../../words/word.model';
+import { OrderedWordTaskModel } from './ordered-word-task.model';
 
 export class WordTaskModel {
   name: string;
-  words: Array<WordModel>;
+  words: Array<OrderedWordTaskModel>;
   id: string;
   rowVersion: string;
 
-  constructor(name: string, words: Array<WordModel>, id: string, rowVersion: string) {
+  constructor(name: string, words: Array<OrderedWordTaskModel>, id: string, rowVersion: string) {
     this.name = name;
     this.words = words;
     this.id = id;

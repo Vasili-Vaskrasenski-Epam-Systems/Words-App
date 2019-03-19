@@ -12,7 +12,7 @@
               <span>Word {{wordIndex + 1}} of {{assignedWordTask.words.length}}</span>
             </div>
             <div class="form-group">
-              <label for="answer">{{assignedWordTask.words[wordIndex].word}}</label>
+              <label for="answer">{{assignedWordTask.words[wordIndex].word.word}}</label>
               <input type="text" formControlName="answer" class="form-control" [ngClass]="{ 'is-invalid': submitted && wizardForm.controls.answer.errors }" placeholder="Type your answer" />
               <div *ngIf="submitted && wizardForm.controls.answer.errors" class="invalid-feedback">
                 <div *ngIf="wizardForm.controls.answer.errors.required">Answer is required</div>

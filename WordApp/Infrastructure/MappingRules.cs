@@ -51,11 +51,13 @@ namespace WordApp.Infrastructure
 
             #region Word Task
             CreateMap<WordTaskEntity, WordTaskModel>()
-                .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.TaskWords.Select(tw => tw.Word)));
+                .ForMember(dest => dest.Words, opt => opt.MapFrom(src => src.TaskWords));
             CreateMap<WordTaskModel, WordTaskEntity>()
                 .ForMember(dest => dest.TaskWords, opt => opt.MapFrom(src => src.Words.Select(w => new RelTaskWordEntity()
                 {
-                    WordId = w.Id,
+                    WordId = w.Word.Id,
+                    Order = w.Order,
+                    IsTranslation = w.IsTranslation
                 })));
 
             #region AssignableWordTaskModel <-> AssignedWordTaskEntity

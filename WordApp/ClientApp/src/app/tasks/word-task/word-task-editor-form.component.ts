@@ -1,12 +1,13 @@
-import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { OrderedWordTaskModel } from "./../models/ordered-word-task.model";
 import { WordTaskModel } from "./../models/word-task.model";
 import { WordModel } from "./../../words/word.model";
-import { CommonSelectModel } from './../../common/select.component';
+import { CommonDraggableListModel } from './../../common/common-draggable-list.component';
 
-import { EnumToArrayPipe } from './../../helpers/enum-to-array.pipe';
 import { AlertService } from './../../alert/alert.service';
+import { Constants } from './../../app-constants';
 
 @Component({
   selector: 'word-task-editor-form',
@@ -15,7 +16,7 @@ import { AlertService } from './../../alert/alert.service';
 
 export class WordTaskEditorFormComponent implements OnInit {
   public wordAssignmentForm: FormGroup;
-  public assignedWords: Array<WordModel>;
+  public assignedWords: Array<CommonDraggableListModel>;
   public availableWords: Array<WordModel>;
   private editableObject: WordTaskModel;
   public submitted = false;
@@ -23,8 +24,8 @@ export class WordTaskEditorFormComponent implements OnInit {
   @Output() notifyAboutConfirm: EventEmitter<WordTaskModel> = new EventEmitter<WordTaskModel>();
   @Output() notifyAboutCancel = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, private pipe: EnumToArrayPipe, private alertService: AlertService) {
-    this.assignedWords = new Array<WordModel>();
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService) {
+    this.assignedWords = new Array<CommonDraggableListModel>();
   }
 
   ngOnInit(): void {
@@ -36,17 +37,18 @@ export class WordTaskEditorFormComponent implements OnInit {
 
   setEditableObject(task: WordTaskModel) {
     this.editableObject = new WordTaskModel(task.name, task.words, task.id, task.rowVersion);
-    this.assignedWords = task.words ? Object.assign([], task.words) : this.assignedWords;
+    this.assignedWords = new Array<CommonDraggableListModel>(
+      ...task.words.map(e => new CommonDraggableListModel(e.order, e, e.word.word)));
 
     if (this.assignedWords) {
       for (var i = 0; i < this.assignedWords.length; i++) {
-        var index = this.availableWords.findIndex(aw => aw.id === this.assignedWords[i].id);
+        var tmpInstance = this.assignedWords[i].key as OrderedWordTaskModel;
+        var index = this.availableWords.findIndex(aw => aw.id === tmpInstance.word.id);
         if (index !== -1) {
           this.availableWords.splice(index, 1);
         }
       }
     }
-
   }
 
   public onSubmit(): void {
@@ -61,8 +63,8 @@ export class WordTaskEditorFormComponent implements OnInit {
     else {
       var model = new WordTaskModel(
         this.wordAssignmentForm.controls.name.value,
-        this.assignedWords,
-        this.editableObject ? this.editableObject.id : "00000000-0000-0000-0000-000000000000",
+        this.assignedWords.map(w => w.key),
+        this.editableObject ? this.editableObject.id : Constants.guidEmpty,
         this.editableObject ? this.editableObject.rowVersion : null);
 
       this.submitted = false;
@@ -76,23 +78,39 @@ export class WordTaskEditorFormComponent implements OnInit {
 
   public onAddWord() {
     this.submitted = true;
-    if (this.wordAssignmentForm.valid) {
+    if (this.wordAssignmentForm.controls.wordList.invalid) {
+      this.submitted = true;
+      return;
+    }
+    else {
       var word = <WordModel>this.wordAssignmentForm.controls.wordList.value;
-      this.assignedWords.push(word);
+      this.assignedWords.push(new CommonDraggableListModel(0, new OrderedWordTaskModel(this.assignedWords.length, word, false, Constants.guidEmpty, null), word.word.concat('-', word.transcription)));
 
       var index = this.availableWords.findIndex(aw => aw.id === word.id);
       this.availableWords.splice(index, 1);
       this.submitted = false;
+      this.setWordListValue();
     }
   }
 
-  public onRemoveWord(word: WordModel) {
-    var index = this.assignedWords.findIndex(w => w.id === word.id);
-    this.assignedWords.splice(index, 1);
-    this.availableWords.push(word);
+  public onDeleteWord(obj: CommonDraggableListModel) {
+    var removedInstance = obj.key as OrderedWordTaskModel;
+    this.availableWords.push(removedInstance.word);
+    this.setWordListValue();
 
-    if (this.availableWords.length === 1) {
+    for (var i = 0; i < this.assignedWords.length; i++) {
+      var instance = this.assignedWords[i].key as OrderedWordTaskModel;
+      instance.order = i;
+      this.assignedWords[i].order = i;
+    }
+  }
+
+  private setWordListValue() {
+    if (this.availableWords.length > 0) {
       this.wordAssignmentForm.controls.wordList.setValue(this.availableWords[0]);
+    }
+    else {
+      this.wordAssignmentForm.controls.wordList.setValue(null);
     }
   }
 };

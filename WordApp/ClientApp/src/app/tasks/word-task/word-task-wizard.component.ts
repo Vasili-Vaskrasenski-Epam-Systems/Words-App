@@ -34,12 +34,17 @@ export class WordTaskWizardComponent implements OnInit {
     private alertService: AlertService,
     private router: Router) {
     this.wordIndex = 0;
-    this.assignedWordTask = this.wordTaskDetailsProvider.storage.wordTask;
-  }
+
+    if (this.wordTaskDetailsProvider.storage)
+      this.assignedWordTask = this.wordTaskDetailsProvider.storage.wordTask;
+
+    }
 
   ngOnInit(): void {
     if (this.assignedWordTask) {
+      console.log(this.assignedWordTask);
       this.answeredWordTask = this.wordTaskDetailsProvider.storage;
+      this.assignedWordTask.words.sort((f, s) => f.order - s.order);
     } else {
       this.alertService.error("Looks like this page has been refreshed. Try to pass this task again from tasks page");
     }
@@ -93,7 +98,7 @@ export class WordTaskWizardComponent implements OnInit {
   }
 
   private handleAnswer() {
-    var answeredWord = new AnsweredWordModel(this.assignedWordTask.words[this.wordIndex],
+    var answeredWord = new AnsweredWordModel(this.assignedWordTask.words[this.wordIndex].word,
       new TaskAnswerModel(this.wizardForm.controls.answer.value, Constants.guidEmpty, null));
     var existingAnswerIndex = this.answeredWordTask.answeredWords.findIndex(e => e.word.id === answeredWord.word.id);
     if (existingAnswerIndex !== -1) {
