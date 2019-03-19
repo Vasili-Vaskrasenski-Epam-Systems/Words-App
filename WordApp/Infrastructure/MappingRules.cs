@@ -78,11 +78,12 @@ namespace WordApp.Infrastructure
 
             #region Verb Task
             CreateMap<VerbTaskEntity, VerbTaskModel>()
-                .ForMember(dest => dest.Verbs, opt => opt.MapFrom(src => src.TaskVerbs.Select(tw => tw.Verb)));
+                .ForMember(dest => dest.Verbs, opt => opt.MapFrom(src => src.TaskVerbs));
             CreateMap<VerbTaskModel, VerbTaskEntity>()
                 .ForMember(dest => dest.TaskVerbs, opt => opt.MapFrom(src => src.Verbs.Select(w => new RelVerbTaskEntity()
                 {
-                    VerbId = w.Id,
+                    VerbId = w.Verb.Id,
+                    Order = w.Order,
                 })));
 
             #region AssignableVerbTaskModel <-> AssignedVerbTaskEntity

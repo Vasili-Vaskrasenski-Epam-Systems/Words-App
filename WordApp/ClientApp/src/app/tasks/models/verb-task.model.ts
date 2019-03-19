@@ -1,12 +1,12 @@
-import { VerbModel } from './../../verbs/verb.model';
+import { OrderedVerbTaskModel } from './ordered-verb-task.model';
 
 export class VerbTaskModel {
   name: string;
-  verbs: Array<VerbModel>;
+  verbs: Array<OrderedVerbTaskModel>;
   id: string;
   rowVersion: string;
 
-  constructor(name: string, verbs: Array<VerbModel>, id: string, rowVersion: string) {
+  constructor(name: string, verbs: Array<OrderedVerbTaskModel>, id: string, rowVersion: string) {
     this.name = name;
     this.verbs = verbs;
     this.id = id;

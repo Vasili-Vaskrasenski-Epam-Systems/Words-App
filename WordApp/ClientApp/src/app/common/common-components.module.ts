@@ -5,18 +5,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonEditButtonsComponent } from './edit-buttons.component';
 import { SelectComponent } from './select.component';
 import { CommonDatepickerComponent } from './common-datepicker.component';
+import { CommonDraggableListComponent } from './common-draggable-list.component';
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
     CommonEditButtonsComponent,
     SelectComponent,
-    CommonDatepickerComponent
+    CommonDatepickerComponent,
+    CommonDraggableListComponent
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, NgbModule],
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, NgbModule, DragDropModule],
   exports: [
     CommonEditButtonsComponent,
     SelectComponent,
-    CommonDatepickerComponent
+    CommonDatepickerComponent,
+    CommonDraggableListComponent
   ],
   providers: [],
   entryComponents: []

@@ -13,26 +13,12 @@
               <div *ngIf="verbAssignmentForm.controls.name.errors.required">Task name is required</div>
             </div>
           </div>
-          <h5>Verbs:</h5>
-          <table class='table table-striped'>
-            <thead>
-              <tr>
-                <th class="text-center">Name</th>
-                <th class="text-center">&times;</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let verb of this.assignedVerbs">
-                <td class="text-center">{{ verb.commonWord}}</td>
-                <td class="text-center">
-                  <button class="btn btn-sm btn-danger" (click)="onRemoveVerb(verb)">&times;</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
+          <div class="form-group" *ngIf="draggableModels.length > 0">
+            <h5>AssignedVerbs:</h5>
+            <common-draggable-list [inputObjectArray]="draggableModels" (notifyAboutDelete)="onDeleteVerb($event)"></common-draggable-list>
+          </div>
           <div class="form-group">
-            <h5>Add Word:</h5>
+            <h5>Add Verb:</h5>
           </div>
           <div class="form-group">
             <div>
@@ -59,6 +45,3 @@
     </div>
   </div>
 </div>
-
-
-

@@ -5,6 +5,6 @@ namespace WordApp.Models.TaskModels.VerbTaskModels
 {
     public class VerbTaskModel: BaseTaskModel
     {
-        public List<VerbModel> Verbs { get; set; }
+        public List<OrderedTaskVerbModel> Verbs { get; set; }
     }
 }

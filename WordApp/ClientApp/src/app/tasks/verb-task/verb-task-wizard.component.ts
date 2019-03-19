@@ -33,13 +33,15 @@ export class VerbTaskWizardComponent implements OnInit {
     private alertService: AlertService,
     private router: Router) {
     this.verbIndex = 0;
-    this.assignedVerbTask = this.wordTaskDetailsProvider.storage.verbTask;
+
+    if (this.wordTaskDetailsProvider.storage)
+      this.assignedVerbTask = this.wordTaskDetailsProvider.storage.verbTask;
   }
 
   ngOnInit(): void {
     if (this.assignedVerbTask) {
       this.answeredVerbTask = this.wordTaskDetailsProvider.storage;
-
+      this.assignedVerbTask.verbs.sort((f, s) => f.order - s.order);
     } else {
       this.alertService.error("Looks like this page has been refreshed. Try to pass this task again from tasks page");
     }
@@ -97,7 +99,7 @@ export class VerbTaskWizardComponent implements OnInit {
   }
 
   private handleAnswer() {
-    var answeredVerb = new AnsweredVerbModel(this.assignedVerbTask.verbs[this.verbIndex],
+    var answeredVerb = new AnsweredVerbModel(this.assignedVerbTask.verbs[this.verbIndex].verb,
       new VerbTaskAnswerModel(this.wizardForm.controls.firstForm.value, this.wizardForm.controls.secondForm.value, this.wizardForm.controls.thirdForm.value, Constants.guidEmpty, null));
     var existingAnswerIndex = this.answeredVerbTask.answeredVerbs.findIndex(e => e.verb.id === answeredVerb.verb.id);
     if (existingAnswerIndex !== -1) {

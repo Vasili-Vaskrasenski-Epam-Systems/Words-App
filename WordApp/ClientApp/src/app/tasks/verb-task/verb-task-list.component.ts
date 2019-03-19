@@ -76,12 +76,13 @@ export class VerbTaskListComponent implements OnInit, AfterViewInit {
     });
 
     instance.notifyAboutConfirm.subscribe(e => {
-      this.verbTaskService.createTask(e).subscribe(result => {
-        this.existingVerbTasks.push(result);
-        this.clearForm();
-      }, error => {
-        this.alertService.error(error);
-      });
+      console.log(e);
+      //this.verbTaskService.createTask(e).subscribe(result => {
+      //  this.existingVerbTasks.push(result);
+      //  this.clearForm();
+      //}, error => {
+      //  this.alertService.error(error);
+      //});
     });
   }
 
