@@ -13,25 +13,29 @@
               <div *ngIf="wordAssignmentForm.controls.name.errors.required">Task name is required</div>
             </div>
           </div>
+          <div class="form-group row">
+            <label for="userName">Is Translation</label>
+            <input type="checkbox" formControlName="isTranslation" class="form-control form-check-input" />
+          </div>
           <div class="form-group" *ngIf="assignedWords.length > 0">
             <h5>Assigned Words:</h5>
             <common-draggable-list [inputObjectArray]="assignedWords" (notifyAboutDelete)="onDeleteWord($event)"></common-draggable-list>
           </div>
-        <div class="form-group">
-          <h5>Add Word:</h5>
-        </div>
-        <div class="form-group">
-          <div>
-            <p>Select Word:</p>
-            <select class="form-control" formControlName="wordList" id="wordList" name="wordList" [ngClass]="{ 'is-invalid': submitted && wordAssignmentForm.controls.wordList.errors }">
-              <option *ngFor="let word  of this.availableWords" [ngValue]="word">{{word.word}}</option>
-            </select>
-            <div *ngIf="submitted && wordAssignmentForm.controls.wordList.errors" class="invalid-feedback">
-              <div *ngIf="submitted && wordAssignmentForm.controls.wordList.errors.required">Selected word required</div>
+          <div class="form-group">
+            <h5>Add Word:</h5>
+          </div>
+          <div class="form-group">
+            <div>
+              <p>Select Word:</p>
+              <select class="form-control" formControlName="wordList" id="wordList" name="wordList" [ngClass]="{ 'is-invalid': submitted && wordAssignmentForm.controls.wordList.errors }">
+                <option *ngFor="let word  of this.availableWords" [ngValue]="word">{{word.word}}</option>
+              </select>
+              <div *ngIf="submitted && wordAssignmentForm.controls.wordList.errors" class="invalid-feedback">
+                <div *ngIf="submitted && wordAssignmentForm.controls.wordList.errors.required">Selected word required</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
         <div class="form-group row">
           <button type="button" class="btn btn-success" (click)="onAddWord()">Add</button>
           <div class="col-lg-10">

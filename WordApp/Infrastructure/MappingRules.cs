@@ -57,7 +57,6 @@ namespace WordApp.Infrastructure
                 {
                     WordId = w.Word.Id,
                     Order = w.Order,
-                    IsTranslation = w.IsTranslation
                 })));
 
             #region AssignableWordTaskModel <-> AssignedWordTaskEntity

@@ -2,10 +2,9 @@
 
 namespace WordApp.Models.TaskModels.WordTaskModels
 {
-    public class OrderedTaskWordModel: BaseModel
+    public class OrderedWordTaskModel: BaseModel
     {
         public int Order { get; set; }
-        public bool IsTranslation { get; set; }
         public WordModel Word { get; set; }
     }
 }

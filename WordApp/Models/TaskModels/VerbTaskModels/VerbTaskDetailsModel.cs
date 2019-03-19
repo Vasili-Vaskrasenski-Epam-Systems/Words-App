@@ -7,6 +7,6 @@ namespace WordApp.Models.TaskModels.VerbTaskModels
     {
         public VerbTaskModel VerbTask { get; set; }
         public List<AssignVerbTaskModel> Assignees { get; set; }
-        public List<OrderedTaskVerbModel> Verbs { get; set; }
+        public List<OrderedVerbTaskModel> Verbs { get; set; }
     }
 }

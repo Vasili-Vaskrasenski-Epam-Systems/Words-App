@@ -5,6 +5,7 @@ namespace WordApp.Models.TaskModels.WordTaskModels
 {
     public class WordTaskModel : BaseTaskModel
     {
-        public List<OrderedTaskWordModel> Words { get; set; }
+        public List<OrderedWordTaskModel> Words { get; set; }
+        public bool IsTranslationTask { get; set; }
     }
 }

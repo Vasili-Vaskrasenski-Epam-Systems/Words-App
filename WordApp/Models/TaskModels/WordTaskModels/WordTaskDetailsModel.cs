@@ -7,6 +7,6 @@ namespace WordApp.Models.TaskModels.WordTaskModels
     {
         public WordTaskModel WordTask { get; set; }
         public List<AssignableWordTaskModel> Assignees { get; set; }
-        public List<OrderedTaskWordModel> Words { get; set; }
+        public List<OrderedWordTaskModel> Words { get; set; }
     }
 }

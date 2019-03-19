@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { WordsComponent } from './words.component';
+import { WordListComponent } from './word-list.component';
 import { WordEditorFormComponent } from './word-editor-form.component';
 import { WordsService } from './words.service';
 import { CommonComponentsModule } from './../common/common-components.module';
@@ -9,12 +9,12 @@ import { CommonComponentsModule } from './../common/common-components.module';
 
 @NgModule({
   declarations: [
-    WordsComponent,
+    WordListComponent,
     WordEditorFormComponent
     ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule ],
   exports: [
-    WordsComponent
+    WordListComponent
   ],
   providers:[WordsService],
   entryComponents: [WordEditorFormComponent]

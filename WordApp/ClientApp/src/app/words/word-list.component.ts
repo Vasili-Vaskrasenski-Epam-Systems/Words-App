@@ -5,10 +5,10 @@ import { WordEditorFormComponent } from "./word-editor-form.component";
 import { AlertService } from './../alert/alert.service';
 
 @Component({
-  selector: 'app-words',
-  templateUrl: './words.component.html',
+  selector: 'word-list',
+  templateUrl: './word-list.component.html',
 })
-export class WordsComponent implements OnInit, AfterViewInit {
+export class WordListComponent implements OnInit, AfterViewInit {
   public words: WordModel[];
   public displayContent: boolean;
   private componentFactory: any;

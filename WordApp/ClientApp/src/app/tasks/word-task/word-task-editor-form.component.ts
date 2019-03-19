@@ -31,15 +31,17 @@ export class WordTaskEditorFormComponent implements OnInit {
   ngOnInit(): void {
     this.wordAssignmentForm = this.formBuilder.group({
       name: [this.editableObject ? this.editableObject.name : '', Validators.required],
+      isTranslation:[this.editableObject ? this.editableObject.isTranslationTask : false],
       wordList: [this.availableWords ? this.availableWords[0] : '', Validators.required],
     });
-  }
+    }
 
   setEditableObject(task: WordTaskModel) {
-    this.editableObject = new WordTaskModel(task.name, task.words, task.id, task.rowVersion);
+    this.editableObject = new WordTaskModel(task.name, task.isTranslationTask, task.words, task.id, task.rowVersion);
     this.assignedWords = new Array<CommonDraggableListModel>(
       ...task.words.map(e => new CommonDraggableListModel(e.order, e, e.word.word)));
 
+    console.log(this.wordAssignmentForm, task);
     if (this.assignedWords) {
       for (var i = 0; i < this.assignedWords.length; i++) {
         var tmpInstance = this.assignedWords[i].key as OrderedWordTaskModel;
@@ -63,6 +65,7 @@ export class WordTaskEditorFormComponent implements OnInit {
     else {
       var model = new WordTaskModel(
         this.wordAssignmentForm.controls.name.value,
+        this.wordAssignmentForm.controls.isTranslation.value,
         this.assignedWords.map(w => w.key),
         this.editableObject ? this.editableObject.id : Constants.guidEmpty,
         this.editableObject ? this.editableObject.rowVersion : null);
@@ -84,7 +87,7 @@ export class WordTaskEditorFormComponent implements OnInit {
     }
     else {
       var word = <WordModel>this.wordAssignmentForm.controls.wordList.value;
-      this.assignedWords.push(new CommonDraggableListModel(0, new OrderedWordTaskModel(this.assignedWords.length, word, false, Constants.guidEmpty, null), word.word.concat('-', word.transcription)));
+      this.assignedWords.push(new CommonDraggableListModel(0, new OrderedWordTaskModel(this.assignedWords.length, word, Constants.guidEmpty, null), word.word.concat('-', word.transcription)));
 
       var index = this.availableWords.findIndex(aw => aw.id === word.id);
       this.availableWords.splice(index, 1);
