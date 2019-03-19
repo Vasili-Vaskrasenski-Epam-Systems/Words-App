@@ -5,6 +5,7 @@ import { UserModel } from "./user.model";
 
 import { Enums } from './../app-enums';
 import { EnumToArrayPipe } from './../helpers/enum-to-array.pipe';
+import { Constants } from './../app-constants';
 
 @Component({
   selector: 'user-editor-form',
@@ -21,7 +22,7 @@ export class UserEditorFormComponent implements OnInit {
   @Output() notifyAboutCancel = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private pipe: EnumToArrayPipe) {
-    this.userTypes = pipe.transform(Enums.EUserType);
+    this.userTypes = this.pipe.transform(Enums.EUserType);
   }
 
   ngOnInit(): void {
@@ -30,10 +31,6 @@ export class UserEditorFormComponent implements OnInit {
       password: [this.editableObject ? this.editableObject.password : '', Validators.required],
       userType: [this.editableObject ? this.userTypes.find(ut => ut === this.editableObject.userType.toString()) : this.userTypes[0], Validators.required],
     });
-  }
-
-  get f() {
-    return this.editorForm.controls;
   }
 
   setEditableObject(user: UserModel) {
@@ -47,10 +44,10 @@ export class UserEditorFormComponent implements OnInit {
     }
     else {
       var model = new UserModel(
-        this.f.userName.value,
-        this.f.password.value,
-        this.f.userType.value,
-        this.editableObject ? this.editableObject.id : "00000000-0000-0000-0000-000000000000",
+        this.editorForm.controls.userName.value,
+        this.editorForm.controls.password.value,
+        this.editorForm.controls.userType.value,
+        this.editableObject ? this.editableObject.id : Constants.guidEmpty,
         this.editableObject ? this.editableObject.rowVersion : null);
 
       this.notifyAboutConfirm.emit(model);

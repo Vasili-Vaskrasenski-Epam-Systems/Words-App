@@ -1,21 +1,22 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { WordModel } from './../word.model';
+import { WordModel } from './word.model';
+import { Constants } from './../app-constants';
 
 @Component({
   selector: "app-word-editor-form",
   templateUrl: "./word-editor-form.component.html",
 })
 
-export class WordEditorFormComponent implements OnInit  {
+export class WordEditorFormComponent implements OnInit {
   public wordEditorForm: FormGroup;
   private editableWord: WordModel;
-  submitted = false;
+  public submitted = false;
 
   @Output() notifyAboutConfirm: EventEmitter<WordModel> = new EventEmitter<WordModel>();
   @Output() notifyAboutCancel = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.wordEditorForm = this.formBuilder.group({
@@ -36,7 +37,7 @@ export class WordEditorFormComponent implements OnInit  {
       var wordObject = new WordModel(this.f.word.value,
         this.f.transcription.value,
         this.f.translation.value,
-        this.editableWord ? this.editableWord.id : "00000000-0000-0000-0000-000000000000",
+        this.editableWord ? this.editableWord.id : Constants.guidEmpty,
         this.editableWord ? this.editableWord.rowVersion : null);
       this.notifyAboutConfirm.emit(wordObject);
     }
@@ -48,7 +49,7 @@ export class WordEditorFormComponent implements OnInit  {
 
   setWord(word: WordModel) {
     this.editableWord = word;
-  } 
+  }
 }
 
 

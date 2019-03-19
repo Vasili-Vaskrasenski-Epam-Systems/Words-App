@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using BL.Services;
-using Entities.Instances;
-using Entities.Instances.Task;
 using Entities.Instances.Task.WordTask;
 using Microsoft.AspNetCore.Mvc;
-using WordApp.Models;
 using WordApp.Models.TaskModels.WordTaskModels;
 
-namespace WordApp.Controllers
+namespace WordApp.Controllers.Words
 {
     public class WordTaskController: BaseController
     {

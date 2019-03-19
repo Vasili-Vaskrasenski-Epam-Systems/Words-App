@@ -22,6 +22,7 @@ export class VerbService {
   }
 
   public updateVerb(verbModel: VerbModel): any {
+    console.log('svc', verbModel);
     var url = this.baseUrl + '/UpdateVerb';
     return this.http.post<VerbModel>(url, verbModel);
   }

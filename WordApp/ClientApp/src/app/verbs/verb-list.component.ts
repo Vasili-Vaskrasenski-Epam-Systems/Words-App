@@ -7,14 +7,14 @@ import { VerbService } from './verb.service';
 
 import { WordsService } from "./../words/words.service";
 
-import { VerbEditorFormComponent } from "./verb-editor/verb-editor-form.component";
+import { VerbEditorFormComponent } from "./verb-editor-form.component";
 
 @Component({
   selector: 'verb-list',
   templateUrl: './verb-list.component.html',
 })
 export class VerbListComponent implements OnInit, AfterViewInit {
-  public irregularVerbs: Array<VerbModel>;
+  public verbs: Array<VerbModel>;
   private availableWords: Array<WordModel>;
   public displayContent: boolean;
 
@@ -23,8 +23,8 @@ export class VerbListComponent implements OnInit, AfterViewInit {
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
   
   constructor(private irregularVerbsService: VerbService, private wordsService: WordsService, private factoryResolver: ComponentFactoryResolver) {
-    if (!this.irregularVerbs) {
-      this.irregularVerbs = new Array<VerbModel>();
+    if (!this.verbs) {
+      this.verbs = new Array<VerbModel>();
     }
     this.displayContent = true;
   }
@@ -35,7 +35,7 @@ export class VerbListComponent implements OnInit, AfterViewInit {
     });
 
     this.irregularVerbsService.getVerbs().subscribe(result => {
-      this.irregularVerbs = result;
+      this.verbs = result;
     }, error => console.error(error));
   }
 
@@ -56,7 +56,7 @@ export class VerbListComponent implements OnInit, AfterViewInit {
 
       instance.notifyAboutConfirm.subscribe(e => {
         this.irregularVerbsService.createVerb(e).subscribe(result => {
-          this.irregularVerbs.push(result);
+          this.verbs.push(result);
           this.clearForm();
         });
       });
@@ -77,9 +77,9 @@ export class VerbListComponent implements OnInit, AfterViewInit {
     });
 
     instance.notifyAboutConfirm.subscribe(e => {
-      this.irregularVerbsService.updateVerb(verb).subscribe(result => {
+      this.irregularVerbsService.updateVerb(e).subscribe(result => {
         var instance = <VerbModel>result;
-        var verbToUpdate = this.irregularVerbs.find(w => w.id === instance.id);
+        var verbToUpdate = this.verbs.find(w => w.id === instance.id);
 
         verbToUpdate.rowVersion = instance.rowVersion;
         verbToUpdate.words = instance.words;
@@ -92,8 +92,8 @@ export class VerbListComponent implements OnInit, AfterViewInit {
 
   public onVerbDelete(verb: VerbModel): void {
     this.irregularVerbsService.deleteVerb(verb).subscribe(e => {
-      var index = this.irregularVerbs.findIndex(w => w.id === e.id);
-      this.irregularVerbs.splice(index, 1);
+      var index = this.verbs.findIndex(w => w.id === e.id);
+      this.verbs.splice(index, 1);
     }, error => console.error(error));
   }
 

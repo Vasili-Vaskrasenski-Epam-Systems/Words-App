@@ -7,7 +7,7 @@ export class AssignWordTaskService {
   private baseUrl: string;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = baseUrl + 'api/AssignTask';
+    this.baseUrl = baseUrl + 'api/AssignWordTask';
   }
 
   public assignTask(models: Array<AssignableWordTaskModel>) {

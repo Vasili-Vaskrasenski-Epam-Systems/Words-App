@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { VerbService } from "./verb.service"
 
 import { VerbListComponent } from './verb-list.component';
-import { VerbEditorFormComponent } from "./verb-editor/verb-editor-form.component";
+import { VerbEditorFormComponent } from "./verb-editor-form.component";
 import { CommonComponentsModule } from './../common/common-components.module';
 
 @NgModule({

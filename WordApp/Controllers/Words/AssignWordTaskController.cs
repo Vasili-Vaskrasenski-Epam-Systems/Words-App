@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using BL.Services;
-using Entities.Instances;
-using Entities.Instances.Task;
 using Entities.Instances.Task.WordTask;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
-using WordApp.Models;
 using WordApp.Models.TaskModels.WordTaskModels;
 
-namespace WordApp.Controllers
+namespace WordApp.Controllers.Words
 {
-    public class AssignTaskController: BaseController
+    public class AssignWordTaskController: BaseController
     {
         public readonly BaseEntityService<AssignedWordTaskEntity> _service;
-        public AssignTaskController(IMapper mapper, BaseEntityService<AssignedWordTaskEntity> service) : base(mapper)
+        public AssignWordTaskController(IMapper mapper, BaseEntityService<AssignedWordTaskEntity> service) : base(mapper)
         {
             this._service = service;
         }

@@ -22,7 +22,10 @@
       <td>{{ word.transcription}}</td>
       <td>{{ word.translation }}</td>
       <td>
-        <common-edit-buttons [inputObject]="word" (notifyAboutEdit)="onShowWordEdit($event)" (notifyAboutDelete)="onWordDelete($event)"></common-edit-buttons>
+        <div class="btn-group">
+          <button (click)="onShowWordEdit(word)" class="btn btn-info">Edit</button>
+          <button (click)="onWordDelete(word)" class="btn btn-danger">Delete</button>
+        </div>
       </td>
     </tr>
   </tbody>

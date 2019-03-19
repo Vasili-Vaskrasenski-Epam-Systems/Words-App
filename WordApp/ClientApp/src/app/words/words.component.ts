@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ComponentFactoryResolver, ViewContainerRef, ElementRef } from "@angular/core";
 import { WordsService } from "./words.service";
 import { WordModel } from "./word.model";
-import { WordEditorFormComponent } from "./word-editor/word-editor-form.component";
+import { WordEditorFormComponent } from "./word-editor-form.component";
 import { AlertService } from './../alert/alert.service';
 
 @Component({

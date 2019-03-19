@@ -20,7 +20,10 @@
     <td>{{ user.name }}</td>
     <td>{{ user.userType}}</td>
     <td>
-      <common-edit-buttons [inputObject]="user" (notifyAboutEdit)="onShowEditForm($event)" (notifyAboutDelete)="onWordDelete($event)"></common-edit-buttons>
+      <div class="btn-group">
+        <button (click)="onShowEditForm(user)" class="btn btn-info">Edit</button>
+        <button (click)="onDeleteUser(user)" class="btn btn-danger">Delete</button>
+      </div>
     </td>
   </tr>
   </tbody>

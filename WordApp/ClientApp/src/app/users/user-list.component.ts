@@ -85,7 +85,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onWordDelete(user: UserModel): void {
+  onUserDelete(user: UserModel): void {
     this.userService.deleteUser(user).subscribe(result => {
       var index = this.users.findIndex(w => w.id === result.id);
       this.users.splice(index, 1);

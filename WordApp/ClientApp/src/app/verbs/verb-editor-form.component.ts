@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
-import { WordModel } from "./../../words/word.model";
-import { VerbModel } from "./../verb.model";
+import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { WordModel } from "./../words/word.model";
+import { VerbModel } from "./verb.model";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Constants } from './../../app-constants';
+import { Constants } from './../app-constants';
 
 @Component({
   selector: 'verb-editor-form',
@@ -12,7 +12,7 @@ import { Constants } from './../../app-constants';
 export class VerbEditorFormComponent implements OnInit {
   public verbEditorForm: FormGroup;
   private editableVerb: VerbModel;
-  submitted = false;
+  public submitted = false;
 
   existingWords: Array<WordModel>;
   @Output() notifyAboutConfirm: EventEmitter<VerbModel> = new EventEmitter<VerbModel>();

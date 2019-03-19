@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { WordsComponent } from './words.component';
-import { WordEditorFormComponent } from './word-editor/word-editor-form.component';
+import { WordEditorFormComponent } from './word-editor-form.component';
 import { WordsService } from './words.service';
 import { CommonComponentsModule } from './../common/common-components.module';
 

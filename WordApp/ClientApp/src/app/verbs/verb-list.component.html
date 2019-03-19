@@ -5,9 +5,9 @@
   <ng-container #editVerbFormContainer></ng-container>
 </div>
 <p></p>
-<p *ngIf="!irregularVerbs"><em>Loading...</em></p>
+<p *ngIf="!verbs"><em>Loading...</em></p>
 
-<table class='table table-striped' *ngIf="irregularVerbs && displayContent">
+<table class='table table-striped' *ngIf="verbs && displayContent">
   <thead>
     <tr>
       <th>Word</th>
@@ -18,11 +18,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let irregularVerb of irregularVerbs">
-      <td>{{ irregularVerb.commonWord}}</td>
-      <td *ngFor="let word of irregularVerb.words">{{ word.word}}</td>
-      <td><common-edit-buttons [inputObject]="irregularVerb" (notifyAboutDelete)="onVerbDelete($event)" (notifyAboutEdit)="onShowVerbEdit($event)"></common-edit-buttons></td>
-    <!--</td>-->
+    <tr *ngFor="let verb of verbs">
+      <td>{{ verb.commonWord}}</td>
+      <td *ngFor="let word of verb.words">{{ word.word}}</td>
+      <td>
+        <div class="btn-group">
+          <button (click)="onShowVerbEdit(verb)" class="btn btn-info">Edit</button>
+          <button (click)="onVerbDelete(verb)" class="btn btn-danger">Delete</button>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -1,18 +1,16 @@
 using System.Collections.Generic;
 using AutoMapper;
 using BL.Services;
-using Entities.Instances;
 using Entities.Instances.Word;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models;
 
-namespace WordApp.Controllers
+namespace WordApp.Controllers.Words
 {
     public class WordController : BaseController
     {
         private readonly BaseEntityService<WordEntity> _service;
-        private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(WordController));
-
+        
         public WordController(BaseEntityService<WordEntity> service, IMapper mapper): base(mapper)
         {
             this._service = service;
