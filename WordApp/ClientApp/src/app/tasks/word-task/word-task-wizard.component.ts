@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AssignWordTaskService } from './../services/assign-word-task.service';
 import { AlertService } from './../../alert/alert.service';
 
-import { WordTaskDetailModel } from './../models/word-task-detail.model';
+import { WordTaskModel } from './../models/word-task.model';
 import { AnsweredWordModel } from './../models/answered-word.model';
 import { TaskAnswerModel } from './../models/task-answer.model';
 import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
@@ -14,6 +14,7 @@ import { Router } from "@angular/router";
 
 
 import { Enums } from './../../app-enums';
+import { Constants } from './../../app-constants';
 
 @Component(
   {
@@ -21,14 +22,11 @@ import { Enums } from './../../app-enums';
     templateUrl: './word-task-wizard.component.html',
   })
 export class WordTaskWizardComponent implements OnInit {
-  public assignedWordTask: WordTaskDetailModel;
+  public assignedWordTask: WordTaskModel;
   public answeredWordTask: AssignableWordTaskModel;
   public wizardForm: FormGroup;
   public wordIndex: number;
   public submitted: boolean;
-
-  @Input()
-  taskDetailModel: WordTaskDetailModel;
 
   constructor(private formBuilder: FormBuilder,
     private assignService: AssignWordTaskService,
@@ -36,12 +34,12 @@ export class WordTaskWizardComponent implements OnInit {
     private alertService: AlertService,
     private router: Router) {
     this.wordIndex = 0;
-    this.assignedWordTask = this.wordTaskDetailsProvider.storage;
+    this.assignedWordTask = this.wordTaskDetailsProvider.storage.wordTask;
   }
 
   ngOnInit(): void {
     if (this.assignedWordTask) {
-      this.answeredWordTask = this.wordTaskDetailsProvider.storage.assignees[0];
+      this.answeredWordTask = this.wordTaskDetailsProvider.storage;
     } else {
       this.alertService.error("Looks like this page has been refreshed. Try to pass this task again from tasks page");
     }
@@ -76,7 +74,6 @@ export class WordTaskWizardComponent implements OnInit {
       this.handleAnswer();
     }
     this.answeredWordTask.taskStatus = Enums.ETaskStatus.Done;
-    console.log(this.answeredWordTask);
     this.assignService.completeWordTask(this.answeredWordTask).subscribe(e => {
       this.router.navigate(['/pupil-tasks']);
     });
@@ -87,7 +84,7 @@ export class WordTaskWizardComponent implements OnInit {
 
     var existingAnswerIndex =
       this.answeredWordTask.answeredWords.findIndex(
-        aw => aw.word.id === this.assignedWordTask.words[this.wordIndex].word.id && aw.answer !== null);
+        aw => aw.word.id === this.assignedWordTask.words[this.wordIndex].id && aw.answer !== null);
     if (existingAnswerIndex === -1) {
       this.wizardForm.reset();
     } else {
@@ -96,8 +93,8 @@ export class WordTaskWizardComponent implements OnInit {
   }
 
   private handleAnswer() {
-    var answeredWord = new AnsweredWordModel(this.assignedWordTask.words[this.wordIndex].word,
-      new TaskAnswerModel(this.wizardForm.controls.answer.value, "00000000-0000-0000-0000-000000000000", null));
+    var answeredWord = new AnsweredWordModel(this.assignedWordTask.words[this.wordIndex],
+      new TaskAnswerModel(this.wizardForm.controls.answer.value, Constants.guidEmpty, null));
     var existingAnswerIndex = this.answeredWordTask.answeredWords.findIndex(e => e.word.id === answeredWord.word.id);
     if (existingAnswerIndex !== -1) {
       this.answeredWordTask.answeredWords.splice(existingAnswerIndex, 1, answeredWord);

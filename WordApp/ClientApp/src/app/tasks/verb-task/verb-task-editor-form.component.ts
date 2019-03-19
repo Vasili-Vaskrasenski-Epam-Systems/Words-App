@@ -36,7 +36,6 @@ export class VerbTaskEditorFormComponent implements OnInit {
   }
 
   setEditableObject(task: VerbTaskModel) {
-    console.log(task);
     this.editableObject = new VerbTaskModel(task.name, task.verbs, task.id, task.rowVersion);
     this.assignedVerbs = task.verbs ? new Array<VerbModel>(...task.verbs) : this.assignedVerbs;
     
@@ -84,6 +83,9 @@ export class VerbTaskEditorFormComponent implements OnInit {
       var index = this.availableVerbs.findIndex(aw => aw.id === verb.id);
       this.availableVerbs.splice(index, 1);
       this.submitted = false;
+      if (this.availableVerbs.length > 0) {
+        this.verbAssignmentForm.controls.verbList.setValue(this.availableVerbs[0]);
+      }
     }
   }
 

@@ -5,6 +5,7 @@ import { AssignVerbTaskService } from './services/assign-verb-task.service';
 import { AuthService } from './../auth/auth.service';
 
 import { AssignableVerbTaskModel } from './models/assignable-verb-task.model';
+import { AssignableWordTaskModel } from './models/assignable-word-task.model';
 import { WordTaskDetailModel } from './models/word-task-detail.model';
 
 import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word-task-details.provider';
@@ -35,7 +36,7 @@ export class PupilTaskListComponent implements OnInit {
     });
   }
 
-  public onStartWordTask(wordTask: WordTaskDetailModel) {
+  public onStartWordTask(wordTask: AssignableWordTaskModel) {
     this.wordTaskDetailsProvider.storage = wordTask;
   }
 

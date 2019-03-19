@@ -22,7 +22,6 @@ export class VerbEditorFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('init');
     this.verbEditorForm = this.formBuilder.group({
       commonWord: [this.editableVerb ? this.editableVerb.commonWord : '', Validators.required],
       firstForm: [this.editableVerb ? this.existingWords.find(w => w.id === this.editableVerb.words[0].id) : this.existingWords[0], Validators.required],
@@ -38,7 +37,7 @@ export class VerbEditorFormComponent implements OnInit {
 
   public onSubmit(): void {
     this.submitted = true;
-
+    
     if (this.verbEditorForm.invalid) {
       return;
     }

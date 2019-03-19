@@ -40,8 +40,6 @@ export class VerbTaskWizardComponent implements OnInit {
     if (this.assignedVerbTask) {
       this.answeredVerbTask = this.wordTaskDetailsProvider.storage;
 
-      console.log(this.answeredVerbTask, this.assignedVerbTask);
-
     } else {
       this.alertService.error("Looks like this page has been refreshed. Try to pass this task again from tasks page");
     }

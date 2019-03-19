@@ -85,7 +85,6 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
     instance.notifyAboutConfirm.subscribe(e => {
       this.taskService.createTask(e).subscribe(result => {
           this.existingWordTasks.push(result);
-          console.log(result);
           this.clearForm();
         },
         error => {

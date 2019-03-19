@@ -27,7 +27,7 @@
           <td class="text-center">{{ assignee.taskStatus}}</td>
           <td class="text-center">
             <div class="btn-group">
-              <button [routerLink]='["/word-task-wizard"]' [disabled]="assignee.completeDate" (click)="onStartWordTask(assignee.wordTask)" class="btn btn-success">Start</button>
+              <button [routerLink]='["/word-task-wizard"]' [disabled]="assignee.completeDate" (click)="onStartWordTask(assignee)" class="btn btn-success">Start</button>
               <button [routerLink]='["/word-task-results", assignee.id]' [disabled]="!assignee.completeDate"  class="btn btn-warning">Results</button>
             </div>
           </td>

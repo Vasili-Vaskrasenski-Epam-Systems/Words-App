@@ -25,7 +25,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.alertSerevice.error("Ooops, something went wrong and server felt bad");
       }
 
-      console.log(err.error.text);
       const error = err.error.text || err.error.message || err.error;
       return throwError(error);
     }));
