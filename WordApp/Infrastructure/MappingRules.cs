@@ -38,7 +38,9 @@ namespace WordApp.Infrastructure
                     })));
 
             CreateMap<VerbAnswerEntity, VerbAnswerModel>().ReverseMap();
-            CreateMap<RelAnsweredVerbEntity, AnsweredVerbModel>().ReverseMap();
+
+            CreateMap<RelAnsweredVerbEntity, AnsweredVerbModel>();
+            CreateMap<AnsweredVerbModel, RelAnsweredVerbEntity>().ForMember(dest => dest.Verb, opt => opt.Ignore());
             #endregion
 
             #region User

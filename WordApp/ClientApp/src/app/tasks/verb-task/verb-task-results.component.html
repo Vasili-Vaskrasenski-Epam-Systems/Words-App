@@ -2,17 +2,24 @@
 
 <div *ngIf="completedTask">
   <h3>Task Results</h3>
-  <div class="card mt-lg-4" *ngFor="let answeredVerb of completedTask.answeredVerbs" [ngClass]="{
-       'border-danger': answeredVerb.word.translation.toLowerCase() !== answeredWord.answer.answer.toLowerCase(),
-       'border-success': answeredWord.word.translation.toLowerCase() === answeredWord.answer.answer.toLowerCase()
+  <div class="card mt-lg-4" *ngFor="let answeredVerb of completedTask.answeredVerbs"
+       [ngClass]="{
+       'border-danger':
+            answeredVerb.answer.firstForm.toLowerCase() !== answeredVerb.verb.words[0].word.toLowerCase() ||
+            answeredVerb.answer.secondForm.toLowerCase() !== answeredVerb.verb.words[1].word.toLowerCase() ||
+            answeredVerb.answer.thirdForm.toLowerCase() !== answeredVerb.verb.words[2].word.toLowerCase(),
+       'border-success':
+            answeredVerb.answer.firstForm.toLowerCase() === answeredVerb.verb.words[0].word.toLowerCase() &&
+            answeredVerb.answer.secondForm.toLowerCase() === answeredVerb.verb.words[1].word.toLowerCase() &&
+            answeredVerb.answer.thirdForm.toLowerCase() === answeredVerb.verb.words[2].word.toLowerCase()
        }">
     <div class="card-header">
-      {{answeredVerb.word.word}}
+      {{answeredVerb.verb.commonWord}}
     </div>
     <div class="card-body">
       <blockquote class="blockquote mb-0">
-        <p>Answer: {{answeredVerb.answer.answer}}</p>
-        <footer class="blockquote-footer">Correct answer: <cite title="Source Title">{{answeredVerb.verb.translation}}</cite></footer>
+        <p>Answer: {{answeredVerb.answer.firstForm}} / {{answeredVerb.answer.secondForm}} / {{answeredVerb.answer.thirdForm}}</p>
+        <footer class="blockquote-footer">Correct answer: <cite>{{answeredVerb.verb.words[0].word}} / {{answeredVerb.verb.words[1].word}} / {{answeredVerb.verb.words[0].word}}</cite></footer>
       </blockquote>
     </div>
   </div>
