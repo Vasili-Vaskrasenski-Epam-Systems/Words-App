@@ -1,62 +1,66 @@
-<p *ngIf="!task"><em>Loading...</em></p>
-
-<div class="content" *ngIf="task">
-  <div class="form-group row">
+<div class="d-flex justify-content-center" *ngIf="!task">
+  <mat-spinner></mat-spinner>
+</div>
+<div mat-elevation-z8 mt-lg-2>
+  <div class="form-group row" *ngIf="task">
     <div class="col-sm-10">
       <h1 type="text" class="form-control-plaintext">{{task.verbTask.name}}</h1>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-5 col-md-6 col-sm-6 col-xs-6">
-      <div class="table-responsive">
-        <h3>Words:</h3>
-        <table class='table table-striped'>
-          <thead>
-            <tr>
-              <th class="text-center">Verb</th>
-              <th class="text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let verb of task.verbTask.verbs">
-              <td class="text-center">{{ verb.commonWord}}</td>
-              <td class="text-center">
-                <div class="btn-group">
-                  <button (click)="onDeleteWord(word)" class="btn btn-danger" disabled="disabled">Remove word</button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+  <div class="form-group row">
+    <div class="col-md-5">
+      <p>Verbs:</p>
+      <table mat-table [dataSource]="verbsDataSource" class="w-100" *ngIf="task">
+        <ng-container matColumnDef="verb">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Verb </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{element.verb.commonWord}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="order">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Order </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{element.order}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['verb', 'order']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['verb', 'order'];"></tr>
+      </table>
+      <mat-paginator #verbsPaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
-    <div class="col-lg-7 col-md-6 col-sm-6 col-xs-6">
-      <div class="table-responsive">
-        <h3>Assigned Pupils:</h3>
-        <table class='table table-striped'>
-          <thead>
-            <tr>
-              <th class="text-center">User Name</th>
-              <th class="text-center">Deadline</th>
-              <th class="text-center">Task Status </th>
-              <th class="text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let assignee of task.assignees">
-              <td class="text-center">{{ assignee.user.name}}</td>
-              <td class="text-center">{{ assignee.deadline | date }}</td>
-              <td class="text-center">{{ assignee.taskStatus }}</td>
-              <td class="text-center">
-                <div class="btn-group">
-                  <button (click)="onUnAssign(assignee)" class="btn btn-danger" [disabled]="assignee.completeDate">Unassign</button>
-                  <button class="btn btn-success" [routerLink]='["/word-task-results", assignee.id]' [disabled]="!assignee.completeDate">Results</button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="col-md-7">
+      <p>Assignees:</p>
+      <table mat-table [dataSource]="assigneeDataSource" class="w-100" *ngIf="task">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> User Name </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{element.user.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deadline">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Deadline </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{element.deadline | date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="taskStatus">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Task Status </th>
+          <td mat-cell *matCellDef="let element" class="text-center"> {{element.taskStatus}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Actions </th>
+          <td mat-cell *matCellDef="let element" class="text-center">
+            <div class="btn-group">
+              <button (click)="onUnAssign(element)" class="btn btn-danger btn-sm" [disabled]="element.completeDate">Unassign</button>
+              <button class="btn btn-success  btn-sm" [routerLink]='["/verb-task-results", element.id]' [disabled]="!element.completeDate">Results</button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'deadline', 'taskStatus', 'actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'deadline', 'taskStatus', 'actions'];"></tr>
+      </table>
+      <mat-paginator #assigneePaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
+
   </div>
 </div>
