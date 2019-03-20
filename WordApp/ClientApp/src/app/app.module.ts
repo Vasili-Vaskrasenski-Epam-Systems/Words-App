@@ -4,8 +4,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material';
+import { MatPaginatorModule, MatMenuModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HelpersModule } from './helpers/helpers.module';
@@ -31,6 +32,10 @@ import { ErrorInterceptor } from './app-error-interceptor';
     FormsModule,
     ReactiveFormsModule,
 
+    MatTableModule,
+    MatPaginatorModule,
+    MatMenuModule,
+
     AppRoutingModule,
     HelpersModule,
 
@@ -39,8 +44,6 @@ import { ErrorInterceptor } from './app-error-interceptor';
     VerbModule,
     UsersModule,
     TaskModule,
-    MatTableModule,
-    MatPaginatorModule
   ],
   declarations: [
     AppComponent,

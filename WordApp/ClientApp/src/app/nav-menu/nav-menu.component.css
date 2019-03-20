@@ -1,5 +1,13 @@
-.navbar {
-  background:#222222;
+.navbar, .mat-menu-panel {
+  background: #222222;
+}
+
+.mat-menu-content .nav-link:hover {
+  color: #fff;
+}
+
+.mat-menu-content .nav-link {
+  color: rgba(255, 255, 255, .5);
 }
 
 img.navbar-brand {

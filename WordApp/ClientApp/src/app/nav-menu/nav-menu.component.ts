@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from './../auth/auth.service';
 import { Router } from '@angular/router';
 import { Enums } from './../app-enums';
@@ -6,7 +6,8 @@ import { Enums } from './../app-enums';
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
-  styleUrls: ['./nav-menu.component.css']
+  styleUrls: ['./nav-menu.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class NavMenuComponent implements OnInit {
   isExpanded = false;

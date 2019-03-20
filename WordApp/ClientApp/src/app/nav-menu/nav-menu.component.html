@@ -16,14 +16,21 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]='["/irregular-verbs"]'>Verbs</a>
       </li>
-      <li class="nav-item">
+      <!--<li class="nav-item">
         <a class="nav-link" [routerLink]='isAdmin? ["/word-task-management"] : ["/pupil-tasks"]'>Word tasks</a>
       </li>
       <li class="nav-item" *ngIf="isAdmin">
         <a class="nav-link" [routerLink]='["/verb-task-management"]'>Verb tasks</a>
-      </li>
+      </li>-->
       <li class="nav-item" *ngIf="isAdmin">
         <a class="nav-link" [routerLink]='["/user-management"]'>Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn nav-link" mat-button [matMenuTriggerFor]="menu">Tasks</a>
+        <mat-menu #menu="matMenu">
+          <a class="nav-link" mat-menu-item [routerLink]='isAdmin? ["/word-task-management"] : ["/pupil-tasks"]'>Word Tasks</a>
+          <a class="nav-link" mat-menu-item [routerLink]='["/verb-task-management"]'>Verb Tasks</a>
+        </mat-menu>
       </li>
       <li class="nav-link" [routerLinkActive]='["link-active"]'>
         <button class="btn-dark btn" (click)="logout()">Logout</button>
