@@ -22,8 +22,8 @@
       <li class="nav-item">
         <a class="btn nav-link" mat-button [matMenuTriggerFor]="menu">Tasks</a>
         <mat-menu #menu="matMenu">
-          <a class="nav-link" mat-menu-item [routerLink]='isAdmin? ["/word-task-management"] : ["/pupil-tasks"]'>Word Tasks</a>
-          <a class="nav-link" mat-menu-item [routerLink]='["/verb-task-management"]'>Verb Tasks</a>
+          <a class="nav-link" mat-menu-item [routerLink]='isAdmin? ["/word-task-management"] : ["/pupil-word-tasks"]'>Word Tasks</a>
+          <a class="nav-link" mat-menu-item [routerLink]='isAdmin? ["/verb-task-management"] : ["/pupil-verb-tasks"]'>Verb Tasks</a>
         </mat-menu>
       </li>
       <li class="nav-link" [routerLinkActive]='["link-active"]'>

@@ -19,7 +19,7 @@ import { AssignTaskComponent } from './common/assign-task.component';
 import { WordTaskEditorFormComponent } from './word-task/word-task-editor-form.component';
 import { WordTaskListComponent } from './word-task/word-task-list.component';
 import { WordTaskDetailsComponent } from './word-task/word-task-details.component';
-import { PupilTaskListComponent } from './pupil-tasks-list.component';
+import { PupilWordTaskListComponent } from './word-task/pupil-word-task-list.component';
 import { WordTaskWizardComponent } from './word-task/word-task-wizard.component';
 import { WordTaskResultsComponent } from './word-task/word-task-results.component';
 
@@ -28,13 +28,15 @@ import { VerbTaskListComponent } from './verb-task/verb-task-list.component';
 import { VerbTaskDetailsComponent } from './verb-task/verb-task-details.component';
 import { VerbTaskWizardComponent } from './verb-task/verb-task-wizard.component';
 import { VerbTaskResultsComponent } from './verb-task/verb-task-results.component';
+import { PupilVerbTaskListComponent } from './verb-task/pupil-verb-task-list.component';
 
 import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word-task-details.provider';
 
 @NgModule({
   declarations: [
-    WordTaskEditorFormComponent, WordTaskListComponent, AssignTaskComponent, WordTaskDetailsComponent, PupilTaskListComponent, WordTaskWizardComponent,
-    WordTaskResultsComponent, VerbTaskEditorFormComponent, VerbTaskListComponent, VerbTaskDetailsComponent, VerbTaskWizardComponent, VerbTaskResultsComponent
+    WordTaskEditorFormComponent, WordTaskListComponent, AssignTaskComponent, WordTaskDetailsComponent, PupilWordTaskListComponent, WordTaskWizardComponent,
+    WordTaskResultsComponent, VerbTaskEditorFormComponent, VerbTaskListComponent, VerbTaskDetailsComponent, VerbTaskWizardComponent, VerbTaskResultsComponent,
+    PupilVerbTaskListComponent
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule, MatCheckboxModule, MatPaginatorModule, MatTableModule],
   exports: [],
