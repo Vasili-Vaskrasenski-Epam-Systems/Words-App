@@ -30,7 +30,6 @@ export class PupilWordTaskListComponent implements OnInit {
     this.assignWordTaskService.getPupilTasks(currentUserId).subscribe(e => {
       this.dataSource = new MatTableDataSource<AssignableWordTaskModel>(e);
       this.dataSource.paginator = this.paginator;
-      console.log(this.dataSource.data);
     });
   }
 

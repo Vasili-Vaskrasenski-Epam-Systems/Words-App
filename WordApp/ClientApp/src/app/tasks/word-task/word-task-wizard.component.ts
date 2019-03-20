@@ -42,7 +42,6 @@ export class WordTaskWizardComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.assignedWordTask) {
-      console.log(this.assignedWordTask);
       this.answeredWordTask = this.wordTaskDetailsProvider.storage;
       this.assignedWordTask.words.sort((f, s) => f.order - s.order);
     } else {

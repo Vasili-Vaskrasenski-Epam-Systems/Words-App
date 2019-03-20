@@ -41,7 +41,6 @@ export class WordTaskEditorFormComponent implements OnInit {
     this.assignedWords = new Array<CommonDraggableListModel>(
       ...task.words.map(e => new CommonDraggableListModel(e.order, e, e.word.word)));
 
-    console.log(this.wordAssignmentForm, task);
     if (this.assignedWords) {
       for (var i = 0; i < this.assignedWords.length; i++) {
         var tmpInstance = this.assignedWords[i].key as OrderedWordTaskModel;
