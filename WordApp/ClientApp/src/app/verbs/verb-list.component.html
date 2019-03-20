@@ -3,11 +3,11 @@
   <button #showAddFormBtn (click)="onShowVerbCreateForm()" class="btn btn-success">+</button>
   <ng-container #editVerbFormContainer></ng-container>
 </div>
-<div class="d-flex justify-content-center" *ngIf="!verbs">
-  <mat-spinner *ngIf="!verbs"></mat-spinner>
+<div class="d-flex justify-content-center" *ngIf="!dataSource">
+  <mat-spinner></mat-spinner>
 </div>
-<div mat-elevation-z8 mt-lg-2 *ngIf="verbs">
-  <table mat-table [dataSource]="verbs" class="w-100">
+<div mat-elevation-z8 mt-lg-2 *ngIf="dataSource">
+  <table mat-table [dataSource]="dataSource" class="w-100">
     <ng-container matColumnDef="commonWord">
       <th mat-header-cell *matHeaderCellDef class="text-center"> Common Word </th>
       <td mat-cell *matCellDef="let element" class="text-center"> {{element.commonWord}} </td>

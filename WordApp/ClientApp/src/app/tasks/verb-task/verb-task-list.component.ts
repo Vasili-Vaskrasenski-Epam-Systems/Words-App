@@ -1,7 +1,6 @@
-import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, OnInit } from '@angular/core';
 
 import { VerbTaskService } from './../services/verb-task.service';
-import { WordsService } from './../../words/words.service';
 import { VerbService } from './../../verbs/verb.service';
 import { AlertService } from './../../alert/alert.service';
 import { UserService } from './../../users/user.service';
@@ -16,6 +15,8 @@ import { VerbTaskEditorFormComponent } from './verb-task-editor-form.component';
 
 import { AssignTaskComponent, AssignableUserModel } from './../common/assign-task.component';
 
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+
 import { Enums } from './../../app-enums';
 import { Constants } from './../../app-constants';
 
@@ -24,8 +25,8 @@ import { Constants } from './../../app-constants';
     selector: 'verb-task-list',
     templateUrl: './verb-task-list.component.html',
   })
-export class VerbTaskListComponent implements OnInit, AfterViewInit {
-  public existingVerbTasks: Array<VerbTaskModel>;
+export class VerbTaskListComponent implements OnInit {
+  public dataSource: MatTableDataSource<VerbTaskModel>;
   public availableVerbs: Array<VerbModel>;
   public availableUsers: Array<UserModel>;
   public displayContent: boolean;
@@ -34,18 +35,17 @@ export class VerbTaskListComponent implements OnInit, AfterViewInit {
 
   @ViewChild('createFormContainer', { read: ViewContainerRef }) createFormContainer: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private verbTaskService: VerbTaskService, private wordService: WordsService, private alertService: AlertService, private verbsService: VerbService,
+  constructor(private verbTaskService: VerbTaskService, private alertService: AlertService, private verbsService: VerbService,
     private userService: UserService, private assignVerbTaskService: AssignVerbTaskService, private componentFactoryResolver: ComponentFactoryResolver) {
-    if (!this.existingVerbTasks) {
-      this.existingVerbTasks = new Array<VerbTaskModel>();
-      this.displayContent = true;
-    }
+    this.displayContent = true;
   }
 
   ngOnInit(): void {
-    this.verbTaskService.getTasks().subscribe(t => {
-      this.existingVerbTasks = t;
+    this.verbTaskService.getTasks().subscribe(result => {
+      this.dataSource = result ? new MatTableDataSource<VerbTaskModel>(result) : new MatTableDataSource<VerbTaskModel>();
+      this.dataSource.paginator = this.paginator;
     });
 
     this.verbsService.getVerbs().subscribe(e => {
@@ -55,10 +55,6 @@ export class VerbTaskListComponent implements OnInit, AfterViewInit {
     this.userService.getUsersByType(Enums.EUserType[Enums.EUserType.Pupil]).subscribe(e => {
       this.availableUsers = e;
     });
-  }
-
-  ngAfterViewInit(): void {
-
   }
 
   onShowCreateForm(): void {
@@ -76,13 +72,13 @@ export class VerbTaskListComponent implements OnInit, AfterViewInit {
     });
 
     instance.notifyAboutConfirm.subscribe(e => {
-      console.log(e);
-      //this.verbTaskService.createTask(e).subscribe(result => {
-      //  this.existingVerbTasks.push(result);
-      //  this.clearForm();
-      //}, error => {
-      //  this.alertService.error(error);
-      //});
+      this.verbTaskService.createTask(e).subscribe(result => {
+        this.dataSource.data.push(result);
+        this.resetDataSource();
+        this.clearForm();
+      }, error => {
+        this.alertService.error(error);
+      });
     });
   }
 
@@ -102,8 +98,9 @@ export class VerbTaskListComponent implements OnInit, AfterViewInit {
 
     instance.notifyAboutConfirm.subscribe(e => {
       this.verbTaskService.updateTask(e).subscribe(result => {
-        var index = this.existingVerbTasks.findIndex(w => w.id === result.id);
-        this.existingVerbTasks.splice(index, 1, result);
+        var index = this.dataSource.data.findIndex(w => w.id === result.id);
+        this.dataSource.data.splice(index, 1, result);
+        this.resetDataSource();
         this.clearForm();
       }, error => console.error(error));
     });
@@ -146,11 +143,17 @@ export class VerbTaskListComponent implements OnInit, AfterViewInit {
 
   onDelete(task: VerbTaskModel): void {
     this.verbTaskService.deleteTask(task).subscribe(result => {
-      var index = this.existingVerbTasks.findIndex(w => w.id === result.id);
-      this.existingVerbTasks.splice(index, 1);
+      var index = this.dataSource.data.findIndex(w => w.id === result.id);
+      this.dataSource.data.splice(index, 1);
+      this.resetDataSource();
     }, error => {
       console.error(error);
     });
+  }
+
+  private resetDataSource() {
+    this.dataSource = new MatTableDataSource<VerbTaskModel>(this.dataSource.data);
+    this.dataSource.paginator = this.paginator;
   }
 
   private clearForm() {

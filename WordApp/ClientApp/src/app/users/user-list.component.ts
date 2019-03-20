@@ -6,6 +6,7 @@ import { AlertService } from './../alert/alert.service';
 import { UserModel } from './user.model';
 
 import { UserEditorFormComponent } from './user-editor-form.component';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component(
   {
@@ -15,24 +16,23 @@ import { UserEditorFormComponent } from './user-editor-form.component';
 
 export class UserListComponent implements OnInit, AfterViewInit {
 
-  public users: Array<UserModel>;
+  public dataSource: MatTableDataSource<UserModel>;
   public displayContent: boolean;
 
   private componentFactory: any;
 
   @ViewChild('createFormContainer', { read: ViewContainerRef }) createFormContainer: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private userService: UserService, private componentFactoryResolver: ComponentFactoryResolver, private alertService: AlertService) {
-    if (!this.users) {
-      this.users = new Array<UserModel>();
       this.displayContent = true;
-    }
   }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(u => {
-      this.users = u;
+    this.userService.getUsers().subscribe(result => {
+      this.dataSource = result ? new MatTableDataSource<UserModel>(result) : new MatTableDataSource<UserModel>();
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -53,7 +53,8 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
     instance.notifyAboutConfirm.subscribe(e => {
       this.userService.createUser(e).subscribe(result => {
-        this.users.push(result);
+        this.dataSource.data.push(result);
+        this.resetDataSource();
         this.clearForm();
       }, error => {
         this.alertService.error(error);
@@ -76,9 +77,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
     instance.notifyAboutConfirm.subscribe(e => {
       this.userService.updateUser(e).subscribe(result => {
-        var index = this.users.findIndex(w => w.id === result.id);
-
-        this.users.splice(index, 1, result);
+        var index = this.dataSource.data.findIndex(w => w.id === result.id);
+        this.dataSource.data.splice(index, 1, result);
+        this.resetDataSource();
         this.clearForm();
 
       }, error => console.error(error));
@@ -87,11 +88,17 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
   onUserDelete(user: UserModel): void {
     this.userService.deleteUser(user).subscribe(result => {
-      var index = this.users.findIndex(w => w.id === result.id);
-      this.users.splice(index, 1);
+      var index = this.dataSource.data.findIndex(w => w.id === result.id);
+      this.dataSource.data.splice(index, 1);
+      this.resetDataSource();
     }, error => {
       console.error(error);
     });
+  }
+
+  private resetDataSource() {
+    this.dataSource = new MatTableDataSource<UserModel>(this.dataSource.data);
+    this.dataSource.paginator = this.paginator;
   }
 
   private clearForm() {

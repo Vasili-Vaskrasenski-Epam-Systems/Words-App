@@ -1,32 +1,44 @@
-<h1>Tasks</h1>
-<p *ngIf="!existingWordTasks"><em>Loading...</em></p>
-
-<div class="form-group mt-lg-2">
-  <h5>Word Tasks</h5>
-  <button #showAddFormBtn (click)="onShowCreateForm()" class="btn btn-primary">Create Word Task</button>
+<div class="form-group">
+  <h1>Word Tasks</h1>
+  <button #showAddFormBtn (click)="onShowCreateForm()" class="btn btn-success">+</button>
   <ng-container #createFormContainer></ng-container>
+</div>
 
-  <table class='table table-striped mt-lg-2' *ngIf="existingWordTasks && displayContent">
-    <thead>
-    <tr>
-      <th class="text-center">Task Name</th>
-      <th class="text-center">Words Count</th>
-      <th class="text-center">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let task of existingWordTasks">
-      <td class="text-center">{{ task.name }}</td>
-      <td class="text-center">{{ task.words ? task.words.length : 0}}</td>
-      <td class="text-center">
+<div class="d-flex justify-content-center" *ngIf="!dataSource">
+  <mat-spinner></mat-spinner>
+</div>
+<div mat-elevation-z8 mt-lg-2 *ngIf="dataSource">
+  <table mat-table [dataSource]="dataSource" class="w-100">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Word </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="isTranslationTask">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Is Translation Task </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.isTranslationTask}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="wordsCount">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Words Count </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.words.length}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Actions </th>
+      <td mat-cell *matCellDef="let element" class="text-center">
         <div class="btn-group">
-          <button (click)="onShowEditForm(task)" class="btn btn-info">Edit</button>
-          <button (click)="onDelete(task)" class="btn btn-danger">Delete</button>
-          <button (click)="onShowAssignForm(task)" class="btn btn-warning">Assign</button>
-          <button class="btn btn-primary" [routerLink]='["/word-task-details", task.id]'>Details</button>
+          <button (click)="onShowEditForm(element)" class="btn btn-info">Edit</button>
+          <button (click)="onDelete(element)" class="btn btn-danger">Delete</button>
+          <button (click)="onShowAssignForm(element)" class="btn btn-warning">Assign</button>
+          <button class="btn btn-primary" [routerLink]='["/word-task-details", element.id]'>Details</button>
         </div>
       </td>
-    </tr>
-    </tbody>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'isTranslationTask', 'wordsCount', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'isTranslationTask', 'wordsCount', 'actions'];"></tr>
   </table>
 </div>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

@@ -2,19 +2,19 @@ import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryRes
 
 import { WordTaskService } from './../services/word-task.service';
 import { WordsService } from './../../words/words.service';
-import { VerbService } from './../../verbs/verb.service';
 import { AlertService } from './../../alert/alert.service';
 import { UserService } from './../../users/user.service';
 import { AssignWordTaskService } from './../services/assign-word-task.service';
 
 import { WordTaskModel } from './../models/word-task.model';
 import { WordModel } from './../../words/word.model';
-import { VerbModel } from './../../verbs/verb.model';
 import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
 import { UserModel } from './../../users/user.model';
 
 import { WordTaskEditorFormComponent } from './word-task-editor-form.component';
 import { AssignTaskComponent, AssignableUserModel } from './../common/assign-task.component';
+
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 import { Enums } from './../../app-enums';
 import { Constants } from './../../app-constants';
@@ -25,34 +25,31 @@ import { Constants } from './../../app-constants';
     templateUrl: './word-task-list.component.html',
   })
 export class WordTaskListComponent implements OnInit, AfterViewInit {
-  public existingWordTasks: Array<WordTaskModel>;
+  public dataSource: MatTableDataSource<WordTaskModel>;
   public displayContent: boolean;
   private existingWords: Array<WordModel>;
   private existingUsers: Array<UserModel>;
 
   private componentFactory: any;
 
-  @ViewChild('createFormContainer', { read: ViewContainerRef })
-  createFormContainer: ViewContainerRef;
-  @ViewChild('showAddFormBtn')
-  showFormBtn: ElementRef<HTMLButtonElement>;
+  @ViewChild('createFormContainer', { read: ViewContainerRef }) createFormContainer: ViewContainerRef;
+  @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private taskService: WordTaskService,
     private wordService: WordsService,
     private alertService: AlertService,
-    private verbsService: VerbService,
     private userService: UserService,
     private assignWordTaskService: AssignWordTaskService,
     private componentFactoryResolver: ComponentFactoryResolver) {
-    if (!this.existingWordTasks) {
-      this.existingWordTasks = new Array<WordTaskModel>();
-      this.displayContent = true;
-    }
+
+    this.displayContent = true;
   }
 
   ngOnInit(): void {
-    this.taskService.getTasks().subscribe(t => {
-      this.existingWordTasks = t;
+    this.taskService.getTasks().subscribe(result => {
+      this.dataSource = result ? new MatTableDataSource<WordTaskModel>(result) : new MatTableDataSource<WordTaskModel>();
+      this.dataSource.paginator = this.paginator;
     });
 
     this.wordService.getWords().subscribe(w => {
@@ -84,9 +81,10 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
 
     instance.notifyAboutConfirm.subscribe(e => {
       this.taskService.createTask(e).subscribe(result => {
-          this.existingWordTasks.push(result);
-          this.clearForm();
-        },
+        this.dataSource.data.push(result);
+        this.clearForm();
+        this.resetDataSource();
+      },
         error => {
           this.alertService.error(error);
         });
@@ -109,10 +107,11 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
 
     instance.notifyAboutConfirm.subscribe(e => {
       this.taskService.updateTask(e).subscribe(result => {
-          var index = this.existingWordTasks.findIndex(w => w.id === result.id);
-          this.existingWordTasks.splice(index, 1, result);
-          this.clearForm();
-        },
+        var index = this.dataSource.data.findIndex(w => w.id === result.id);
+        this.dataSource.data.splice(index, 1, result);
+        this.clearForm();
+        this.resetDataSource();
+      },
         error => console.error(error));
     });
   }
@@ -145,20 +144,26 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
           null));
 
         this.assignWordTaskService.assignTask(assignObjects).subscribe(s => {
-            this.clearForm();
-          },
+          this.clearForm();
+        },
           error => this.alertService.error(error));
       }
     });
   }
-  
+
   onDelete(task: WordTaskModel): void {
     this.taskService.deleteTask(task).subscribe(result => {
-      var index = this.existingWordTasks.findIndex(w => w.id === result.id);
-      this.existingWordTasks.splice(index, 1);
+      var index = this.dataSource.data.findIndex(w => w.id === result.id);
+      this.dataSource.data.splice(index, 1);
+      this.resetDataSource();
     }, error => {
       console.error(error);
     });
+  }
+
+  private resetDataSource() {
+    this.dataSource = new MatTableDataSource<WordTaskModel>(this.dataSource.data);
+    this.dataSource.paginator = this.paginator;
   }
 
   private clearForm() {

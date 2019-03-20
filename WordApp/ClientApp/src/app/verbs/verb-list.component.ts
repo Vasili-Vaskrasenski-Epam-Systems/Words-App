@@ -14,7 +14,7 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
   templateUrl: './verb-list.component.html',
 })
 export class VerbListComponent implements OnInit, AfterViewInit {
-  public verbs: MatTableDataSource<VerbModel>;
+  public dataSource: MatTableDataSource<VerbModel>;
   private availableWords: Array<WordModel>;
   public displayContent: boolean;
 
@@ -32,8 +32,8 @@ export class VerbListComponent implements OnInit, AfterViewInit {
     });
 
     this.irregularVerbsService.getVerbs().subscribe(result => {
-      this.verbs = result ? new MatTableDataSource<VerbModel>(result) : new MatTableDataSource<VerbModel>();
-      this.verbs.paginator = this.paginator;
+      this.dataSource = result ? new MatTableDataSource<VerbModel>(result) : new MatTableDataSource<VerbModel>();
+      this.dataSource.paginator = this.paginator;
     }, error => console.error(error));
   }
 
@@ -54,7 +54,7 @@ export class VerbListComponent implements OnInit, AfterViewInit {
 
       instance.notifyAboutConfirm.subscribe(e => {
         this.irregularVerbsService.createVerb(e).subscribe(result => {
-          this.verbs.data.push(result);
+          this.dataSource.data.push(result);
           this.clearForm();
           this.resetDataSource();
         });
@@ -78,7 +78,7 @@ export class VerbListComponent implements OnInit, AfterViewInit {
     instance.notifyAboutConfirm.subscribe(e => {
       this.irregularVerbsService.updateVerb(e).subscribe(result => {
         var instance = <VerbModel>result;
-        var verbToUpdate = this.verbs.data.find(w => w.id === instance.id);
+        var verbToUpdate = this.dataSource.data.find(w => w.id === instance.id);
 
         verbToUpdate.rowVersion = instance.rowVersion;
         verbToUpdate.words = instance.words;
@@ -91,15 +91,15 @@ export class VerbListComponent implements OnInit, AfterViewInit {
 
   public onVerbDelete(verb: VerbModel): void {
     this.irregularVerbsService.deleteVerb(verb).subscribe(e => {
-      var index = this.verbs.data.findIndex(w => w.id === e.id);
-      this.verbs.data.splice(index, 1);
+      var index = this.dataSource.data.findIndex(w => w.id === e.id);
+      this.dataSource.data.splice(index, 1);
       this.resetDataSource();
     }, error => console.error(error));
   }
 
   private resetDataSource() {
-    this.verbs = new MatTableDataSource<VerbModel>(this.verbs.data);
-    this.verbs.paginator = this.paginator;
+    this.dataSource = new MatTableDataSource<VerbModel>(this.dataSource.data);
+    this.dataSource.paginator = this.paginator;
   }
 
   private clearForm(): void {

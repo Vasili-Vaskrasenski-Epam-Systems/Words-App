@@ -10,7 +10,7 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
   templateUrl: './word-list.component.html',
 })
 export class WordListComponent implements OnInit, AfterViewInit {
-  public words: MatTableDataSource<WordModel>;
+  public dataSource: MatTableDataSource<WordModel>;
   public displayContent: boolean;
   private componentFactory: any;
 
@@ -24,8 +24,8 @@ export class WordListComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.wordsService.getWords().subscribe(result => {
-      this.words = result ? new MatTableDataSource<WordModel>(result) : new MatTableDataSource<WordModel>();
-      this.words.paginator = this.paginator;
+      this.dataSource = result ? new MatTableDataSource<WordModel>(result) : new MatTableDataSource<WordModel>();
+      this.dataSource.paginator = this.paginator;
     }, error => console.error(error));
   };
 
@@ -35,8 +35,8 @@ export class WordListComponent implements OnInit, AfterViewInit {
 
   onWordEdit(word: WordModel): void {
     this.wordsService.updateWord(word).subscribe(result => {
-      var index = this.words.data.findIndex(w => w.id === result.id);
-      this.words.data.splice(index, 1, result);
+      var index = this.dataSource.data.findIndex(w => w.id === result.id);
+      this.dataSource.data.splice(index, 1, result);
       this.clearForm();
       this.resetDataSource();
     }, error => console.error(error));
@@ -44,15 +44,15 @@ export class WordListComponent implements OnInit, AfterViewInit {
 
   onWordDelete(word: WordModel): void {
     this.wordsService.deleteWord(word).subscribe(result => {
-      var index = this.words.data.findIndex(w => w.id === result.id);
-      this.words.data.splice(index, 1);
+      var index = this.dataSource.data.findIndex(w => w.id === result.id);
+      this.dataSource.data.splice(index, 1);
       this.resetDataSource();
       }, error => console.error(error));
   }
 
   onWordCreate(word: WordModel): void {
     this.wordsService.createWord(word).subscribe(result => {
-      this.words.data.push(result);
+      this.dataSource.data.push(result);
       this.resetDataSource();
       this.clearForm();
       }, error => this.alertService.error(error));
@@ -92,8 +92,8 @@ export class WordListComponent implements OnInit, AfterViewInit {
   }
 
   private resetDataSource() {
-    this.words = new MatTableDataSource<WordModel>(this.words.data);
-    this.words.paginator = this.paginator;
+    this.dataSource = new MatTableDataSource<WordModel>(this.dataSource.data);
+    this.dataSource.paginator = this.paginator;
   }
 
   private clearForm() {
