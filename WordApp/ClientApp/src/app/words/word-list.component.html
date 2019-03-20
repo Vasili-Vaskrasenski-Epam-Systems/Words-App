@@ -4,9 +4,10 @@
   <ng-container #createFormContainer></ng-container>
 </div>
 
-<p *ngIf="!words"><em>Loading...</em></p>
-
-<div class="mat-elevation-z8 mt-lg-2" *ngIf="words">
+<div class="d-flex justify-content-center" *ngIf="!words">
+  <mat-spinner *ngIf="!words"></mat-spinner>
+</div>
+<div mat-elevation-z8 mt-lg-2 *ngIf="words">
   <table mat-table [dataSource]="words" class="w-100">
 
     <ng-container matColumnDef="word">
@@ -28,9 +29,10 @@
       <th mat-header-cell *matHeaderCellDef class="text-center"> Actions </th>
       <td mat-cell *matCellDef="let element" class="text-center">
         <div class="btn-group">
-        <button (click)="onShowWordEdit(element)" class="btn btn-info">Edit</button>
-        <button (click)="onWordDelete(element)" class="btn btn-danger">Delete</button>
-      </div> </td>
+          <button (click)="onShowWordEdit(element)" class="btn btn-info">Edit</button>
+          <button (click)="onWordDelete(element)" class="btn btn-danger">Delete</button>
+        </div>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="['word', 'transcription', 'translation', 'actions']"></tr>
@@ -39,3 +41,4 @@
 </div>
 
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
