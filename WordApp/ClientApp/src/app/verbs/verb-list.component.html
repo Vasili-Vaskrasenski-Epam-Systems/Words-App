@@ -1,32 +1,35 @@
-<h1>Already existing irregular verbs</h1>
-
-<div class="add-form-dynamic-component-container">
-  <button #showAddFormBtn (click)="onShowVerbCreateForm()" class="btn btn-primary">Create Verb</button>
+<div class="form-group">
+  <h1>Already existing verbs</h1>
+  <button #showAddFormBtn (click)="onShowVerbCreateForm()" class="btn btn-success">+</button>
   <ng-container #editVerbFormContainer></ng-container>
 </div>
-<p></p>
-<p *ngIf="!verbs"><em>Loading...</em></p>
+<div class="d-flex justify-content-center" *ngIf="!verbs">
+  <mat-spinner *ngIf="!verbs"></mat-spinner>
+</div>
+<div mat-elevation-z8 mt-lg-2 *ngIf="verbs">
+  <table mat-table [dataSource]="verbs" class="w-100">
+    <ng-container matColumnDef="commonWord">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Common Word </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.commonWord}} </td>
+    </ng-container>
 
-<table class='table table-striped' *ngIf="verbs && displayContent">
-  <thead>
-    <tr>
-      <th>Word</th>
-      <th>First Form</th>
-      <th>Second Form</th>
-      <th>Third Form</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let verb of verbs">
-      <td>{{ verb.commonWord}}</td>
-      <td *ngFor="let word of verb.words">{{ word.word}}</td>
-      <td>
+    <ng-container matColumnDef="words">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Words </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.words[0].word}} / {{element.words[1].word}} / {{element.words[2].word}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Actions </th>
+      <td mat-cell *matCellDef="let element" class="text-center">
         <div class="btn-group">
-          <button (click)="onShowVerbEdit(verb)" class="btn btn-info">Edit</button>
-          <button (click)="onVerbDelete(verb)" class="btn btn-danger">Delete</button>
+          <button (click)="onShowVerbEdit(element)" class="btn btn-info">Edit</button>
+          <button (click)="onVerbDelete(element)" class="btn btn-danger">Delete</button>
         </div>
       </td>
-    </tr>
-  </tbody>
-</table>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['commonWord', 'words', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['commonWord', 'words', 'actions'];"></tr>
+  </table>
+</div>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

@@ -7,13 +7,15 @@ import { VerbService } from "./verb.service"
 import { VerbListComponent } from './verb-list.component';
 import { VerbEditorFormComponent } from "./verb-editor-form.component";
 import { CommonComponentsModule } from './../common/common-components.module';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material';
 
 @NgModule({
   declarations: [
     VerbListComponent,
-    VerbEditorFormComponent
+    VerbEditorFormComponent,
   ],
-  imports: [FormsModule, ReactiveFormsModule, BrowserModule, CommonComponentsModule],
+  imports: [FormsModule, ReactiveFormsModule, BrowserModule, CommonComponentsModule, MatTableModule, MatPaginatorModule],
   providers: [VerbService],
   exports: [VerbListComponent],
   entryComponents: [VerbEditorFormComponent]

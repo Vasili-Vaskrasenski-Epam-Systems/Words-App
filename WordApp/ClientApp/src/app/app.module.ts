@@ -47,7 +47,7 @@ import { ErrorInterceptor } from './app-error-interceptor';
     NavMenuComponent,
     LoginComponent,
     RegistrationComponent,
-    AlertComponent
+    AlertComponent,
   ],
   bootstrap: [AppComponent],
   providers: [

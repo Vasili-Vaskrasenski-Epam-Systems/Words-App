@@ -4,38 +4,36 @@ import { VerbModel } from './verb.model';
 import { WordModel } from './../words/word.model';
 
 import { VerbService } from './verb.service';
-
 import { WordsService } from "./../words/words.service";
 
 import { VerbEditorFormComponent } from "./verb-editor-form.component";
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'verb-list',
   templateUrl: './verb-list.component.html',
 })
 export class VerbListComponent implements OnInit, AfterViewInit {
-  public verbs: Array<VerbModel>;
+  public verbs: MatTableDataSource<VerbModel>;
   private availableWords: Array<WordModel>;
   public displayContent: boolean;
 
   private componentFactory: any;
   @ViewChild('editVerbFormContainer', { read: ViewContainerRef }) editVerbFormContainer: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   
-  constructor(private irregularVerbsService: VerbService, private wordsService: WordsService, private factoryResolver: ComponentFactoryResolver) {
-    if (!this.verbs) {
-      this.verbs = new Array<VerbModel>();
-    }
-    this.displayContent = true;
-  }
+  constructor(private irregularVerbsService: VerbService, private wordsService: WordsService, private factoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit(): void {
     this.wordsService.getWords().subscribe(result => {
       this.availableWords = result;
+
     });
 
     this.irregularVerbsService.getVerbs().subscribe(result => {
-      this.verbs = result;
+      this.verbs = result ? new MatTableDataSource<VerbModel>(result) : new MatTableDataSource<VerbModel>();
+      this.verbs.paginator = this.paginator;
     }, error => console.error(error));
   }
 
@@ -56,8 +54,9 @@ export class VerbListComponent implements OnInit, AfterViewInit {
 
       instance.notifyAboutConfirm.subscribe(e => {
         this.irregularVerbsService.createVerb(e).subscribe(result => {
-          this.verbs.push(result);
+          this.verbs.data.push(result);
           this.clearForm();
+          this.resetDataSource();
         });
       });
   }
@@ -79,12 +78,12 @@ export class VerbListComponent implements OnInit, AfterViewInit {
     instance.notifyAboutConfirm.subscribe(e => {
       this.irregularVerbsService.updateVerb(e).subscribe(result => {
         var instance = <VerbModel>result;
-        var verbToUpdate = this.verbs.find(w => w.id === instance.id);
+        var verbToUpdate = this.verbs.data.find(w => w.id === instance.id);
 
         verbToUpdate.rowVersion = instance.rowVersion;
         verbToUpdate.words = instance.words;
         verbToUpdate.commonWord = instance.commonWord;
-
+        this.resetDataSource();
       }, error => console.error(error));
       this.clearForm();
     });
@@ -92,9 +91,15 @@ export class VerbListComponent implements OnInit, AfterViewInit {
 
   public onVerbDelete(verb: VerbModel): void {
     this.irregularVerbsService.deleteVerb(verb).subscribe(e => {
-      var index = this.verbs.findIndex(w => w.id === e.id);
-      this.verbs.splice(index, 1);
+      var index = this.verbs.data.findIndex(w => w.id === e.id);
+      this.verbs.data.splice(index, 1);
+      this.resetDataSource();
     }, error => console.error(error));
+  }
+
+  private resetDataSource() {
+    this.verbs = new MatTableDataSource<VerbModel>(this.verbs.data);
+    this.verbs.paginator = this.paginator;
   }
 
   private clearForm(): void {

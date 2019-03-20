@@ -7,13 +7,11 @@ import { WordsService } from './words.service';
 import { CommonComponentsModule } from './../common/common-components.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material';
-import { MatSpinner } from '@angular/material';
 
 @NgModule({
   declarations: [
     WordListComponent,
-    WordEditorFormComponent,
-    MatSpinner
+    WordEditorFormComponent
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, MatTableModule, MatPaginatorModule],
   exports: [
