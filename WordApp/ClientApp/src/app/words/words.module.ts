@@ -6,7 +6,6 @@ import { WordEditorFormComponent } from './word-editor-form.component';
 import { WordsService } from './words.service';
 import { CommonComponentsModule } from './../common/common-components.module';
 
-
 @NgModule({
   declarations: [
     WordListComponent,

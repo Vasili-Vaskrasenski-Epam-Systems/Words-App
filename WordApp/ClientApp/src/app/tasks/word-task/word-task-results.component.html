@@ -1,18 +1,18 @@
 <p *ngIf="!completedTask"><em>Loading...</em></p>
 
 <div *ngIf="completedTask">
-  <h3>Task Results</h3>
+  <h3>{{completedTask.wordTask.name}}</h3>
   <div class="card mt-lg-4" *ngFor="let answeredWord of completedTask.answeredWords" [ngClass]="{
-       'border-danger': answeredWord.word.translation.toLowerCase() !== answeredWord.answer.answer.toLowerCase(),
-       'border-success': answeredWord.word.translation.toLowerCase() === answeredWord.answer.answer.toLowerCase()
+       'border-danger': completedTask.wordTask.isTranslationTask ? answeredWord.word.word.toLowerCase() !== answeredWord.answer.answer.toLowerCase() : answeredWord.word.translation.toLowerCase() !== answeredWord.answer.answer.toLowerCase(),
+       'border-success': completedTask.wordTask.isTranslationTask ? answeredWord.word.word.toLowerCase() === answeredWord.answer.answer.toLowerCase(): answeredWord.word.translation.toLowerCase() === answeredWord.answer.answer.toLowerCase()
        }">
     <div class="card-header">
-      {{answeredWord.word.word}}
+      {{answeredWord.word.word}} - {{answeredWord.word.translation}}
     </div>
     <div class="card-body">
       <blockquote class="blockquote mb-0">
         <p>Answer: {{answeredWord.answer.answer}}</p>
-        <footer class="blockquote-footer">Correct answer: <cite title="Source Title">{{answeredWord.word.translation}}</cite></footer>
+        <footer class="blockquote-footer">Correct answer: <cite title="Source Title">{{completedTask.wordTask.isTranslationTask ? answeredWord.word.word : answeredWord.word.translation}}</cite></footer>
       </blockquote>
     </div>
   </div>

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonComponentsModule } from './../common/common-components.module';
+import { MatCheckboxModule } from '@angular/material/checkbox'
 
 import { WordTaskService } from './services/word-task.service';
 import { AssignWordTaskService } from './services/assign-word-task.service';
@@ -33,7 +34,7 @@ import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word
     WordTaskEditorFormComponent, WordTaskListComponent, AssignTaskComponent, WordTaskDetailsComponent, PupilTaskListComponent, WordTaskWizardComponent,
     WordTaskResultsComponent, VerbTaskEditorFormComponent, VerbTaskListComponent, VerbTaskDetailsComponent, VerbTaskWizardComponent, VerbTaskResultsComponent
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule],
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule, MatCheckboxModule],
   exports: [],
   providers: [WordTaskService, AssignWordTaskService, CustomWordTaskDetailsProvider, VerbTaskService, AssignVerbTaskService],
   entryComponents: [WordTaskEditorFormComponent, AssignTaskComponent, VerbTaskEditorFormComponent]

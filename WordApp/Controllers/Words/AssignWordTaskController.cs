@@ -46,7 +46,7 @@ namespace WordApp.Controllers.Words
         [HttpGet("[action]")]
         public IActionResult GetCompletedTask(Guid taskId)
         {
-            var includeProperties = new[] {"AnsweredWords", "AnsweredWords.Answer", "AnsweredWords.Word" };
+            var includeProperties = new[] {"WordTask", "AnsweredWords", "AnsweredWords.Answer", "AnsweredWords.Word" };
             var entity = this._service.GetQueryableEntity(taskId, includeProperties);
             var mappedEntity = base.Mapper.Map<AssignableWordTaskModel>(entity);
 

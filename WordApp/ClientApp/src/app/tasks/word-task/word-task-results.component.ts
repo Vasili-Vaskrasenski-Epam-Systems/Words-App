@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WordTaskDetailModel } from './../models/word-task-detail.model';
+import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
 import { AssignWordTaskService } from './../services/assign-word-task.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class WordTaskResultsComponent implements OnInit {
-  public completedTask: WordTaskDetailModel;
+  public completedTask: AssignableWordTaskModel;
 
   constructor(private assignTaskService: AssignWordTaskService, private route: ActivatedRoute) { }
 

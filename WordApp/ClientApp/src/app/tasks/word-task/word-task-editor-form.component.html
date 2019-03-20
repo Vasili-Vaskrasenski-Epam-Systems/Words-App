@@ -13,10 +13,11 @@
               <div *ngIf="wordAssignmentForm.controls.name.errors.required">Task name is required</div>
             </div>
           </div>
-          <div class="form-group row">
-            <label for="userName">Is Translation</label>
-            <input type="checkbox" formControlName="isTranslation" class="form-control form-check-input" />
-          </div>
+          <mat-checkbox formControlName="isTranslation">Is Translation</mat-checkbox>
+          <!--<div class="form-group">
+
+
+  </div>-->
           <div class="form-group" *ngIf="assignedWords.length > 0">
             <h5>Assigned Words:</h5>
             <common-draggable-list [inputObjectArray]="assignedWords" (notifyAboutDelete)="onDeleteWord($event)"></common-draggable-list>
