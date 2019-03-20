@@ -3,29 +3,29 @@ import { WordsService } from "./words.service";
 import { WordModel } from "./word.model";
 import { WordEditorFormComponent } from "./word-editor-form.component";
 import { AlertService } from './../alert/alert.service';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'word-list',
   templateUrl: './word-list.component.html',
 })
 export class WordListComponent implements OnInit, AfterViewInit {
-  public words: WordModel[];
+  public words: MatTableDataSource<WordModel>;
   public displayContent: boolean;
   private componentFactory: any;
 
   @ViewChild('createFormContainer', { read: ViewContainerRef }) createWordFormContainer: ViewContainerRef;
   @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
-  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(private wordsService: WordsService, private componentFactoryResolver: ComponentFactoryResolver, private alertService: AlertService) {
-    if (!this.words) {
-      this.words = new Array<WordModel>();
-      this.displayContent = true;
-    }
+    this.displayContent = true;
   }
 
   ngOnInit() {
     this.wordsService.getWords().subscribe(result => {
-      this.words = result;
+      this.words = result ? new MatTableDataSource<WordModel>(result) : new MatTableDataSource<WordModel>();
+      this.words.paginator = this.paginator;
     }, error => console.error(error));
   };
 
@@ -35,25 +35,27 @@ export class WordListComponent implements OnInit, AfterViewInit {
 
   onWordEdit(word: WordModel): void {
     this.wordsService.updateWord(word).subscribe(result => {
-      var index = this.words.findIndex(w => w.id === result.id);
-      this.words.splice(index, 1, result);
+      var index = this.words.data.findIndex(w => w.id === result.id);
+      this.words.data.splice(index, 1, result);
       this.clearForm();
+      this.resetDataSource();
     }, error => console.error(error));
   }
 
   onWordDelete(word: WordModel): void {
     this.wordsService.deleteWord(word).subscribe(result => {
-      var index = this.words.findIndex(w => w.id === result.id);
-      this.words.splice(index, 1);
+      var index = this.words.data.findIndex(w => w.id === result.id);
+      this.words.data.splice(index, 1);
+      this.resetDataSource();
       }, error => console.error(error));
   }
 
   onWordCreate(word: WordModel): void {
     this.wordsService.createWord(word).subscribe(result => {
-      this.words.push(result);
+      this.words.data.push(result);
+      this.resetDataSource();
       this.clearForm();
-      this.alertService.success("Word created!");
-    }, error => this.alertService.error(error));
+      }, error => this.alertService.error(error));
   }
 
   onShowWordCreateForm(): void {
@@ -74,7 +76,7 @@ export class WordListComponent implements OnInit, AfterViewInit {
   onShowWordEdit(word: WordModel): void {
     this.displayContent = false;
     this.showFormBtn.nativeElement.disabled = true;
-    
+
     var ref = this.createWordFormContainer.createComponent(this.componentFactory);
     var instance = <WordEditorFormComponent>ref.instance;
 
@@ -87,6 +89,11 @@ export class WordListComponent implements OnInit, AfterViewInit {
     instance.notifyAboutConfirm.subscribe(e => {
       this.onWordEdit(e);
     });
+  }
+
+  private resetDataSource() {
+    this.words = new MatTableDataSource<WordModel>(this.words.data);
+    this.words.paginator = this.paginator;
   }
 
   private clearForm() {
