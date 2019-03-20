@@ -46,8 +46,8 @@ namespace WordApp.Controllers.Verbs
         public IActionResult DeleteVerbTask([FromBody] VerbTaskModel model)
         {
             var entityToDelete = base.Mapper.Map<VerbTaskEntity>(model);
-            var deletedEntity = this._service.UpdateEntity(entityToDelete);
-            return Ok(model);
+            var deletedEntity = this._service.DeleteEntity(entityToDelete);
+            return Ok(base.Mapper.Map<VerbTaskModel>(deletedEntity));
         }
 
         [HttpGet("[action]")]
