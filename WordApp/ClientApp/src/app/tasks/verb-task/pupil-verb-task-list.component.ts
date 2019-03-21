@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import { AssignVerbTaskService } from './../services/assign-verb-task.service';
 import { AuthService } from './../../auth/auth.service';
@@ -19,7 +20,7 @@ export class PupilVerbTaskListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private authService: AuthService, private assignVerbTaskService: AssignVerbTaskService,
-    private wordTaskDetailsProvider: CustomWordTaskDetailsProvider) {
+    private wordTaskDetailsProvider: CustomWordTaskDetailsProvider, private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
@@ -33,6 +34,15 @@ export class PupilVerbTaskListComponent implements OnInit {
 
   public onStartVerbTask(verbTask: AssignableVerbTaskModel) {
     this.wordTaskDetailsProvider.storage = verbTask;
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filterPredicate = (data: AssignableVerbTaskModel, filter: string) => {
+      const dataStr = data.verbTask.name.toLowerCase() + this.datePipe.transform(data.deadline, 'MMM d, y').toLowerCase() + data.verbTask.verbs.length + data.taskStatus;
+      return dataStr.indexOf(filter) !== -1;
+    }
+
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
 

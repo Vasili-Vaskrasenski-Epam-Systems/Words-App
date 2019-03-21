@@ -97,6 +97,10 @@ export class VerbListComponent implements OnInit, AfterViewInit {
     }, error => console.error(error));
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   private resetDataSource() {
     this.dataSource = new MatTableDataSource<VerbModel>(this.dataSource.data);
     this.dataSource.paginator = this.paginator;

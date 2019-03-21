@@ -151,6 +151,10 @@ export class VerbTaskListComponent implements OnInit {
     });
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   private resetDataSource() {
     this.dataSource = new MatTableDataSource<VerbTaskModel>(this.dataSource.data);
     this.dataSource.paginator = this.paginator;

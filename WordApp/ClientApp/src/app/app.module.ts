@@ -5,8 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule, MatMenuModule } from '@angular/material';
+import { MatMenuModule} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HelpersModule } from './helpers/helpers.module';
@@ -16,6 +15,8 @@ import { WordsModule } from './words/words.module';
 import { VerbModule } from './verbs/verb.module';
 import { UsersModule } from './users/users.module';
 import { TaskModule } from './tasks/task.module';
+
+import { DatePipe } from "@angular/common";
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -32,8 +33,6 @@ import { ErrorInterceptor } from './app-error-interceptor';
     FormsModule,
     ReactiveFormsModule,
 
-    MatTableModule,
-    MatPaginatorModule,
     MatMenuModule,
 
     AppRoutingModule,
@@ -54,6 +53,6 @@ import { ErrorInterceptor } from './app-error-interceptor';
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }]
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, DatePipe]
 })
 export class AppModule { }

@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonComponentsModule } from './../common/common-components.module';
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material';
+import { MatPaginatorModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 import { WordTaskService } from './services/word-task.service';
 import { AssignWordTaskService } from './services/assign-word-task.service';
@@ -38,7 +38,7 @@ import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word
     WordTaskResultsComponent, VerbTaskEditorFormComponent, VerbTaskListComponent, VerbTaskDetailsComponent, VerbTaskWizardComponent, VerbTaskResultsComponent,
     PupilVerbTaskListComponent
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule, MatCheckboxModule, MatPaginatorModule, MatTableModule],
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule, MatCheckboxModule, MatPaginatorModule, MatTableModule, MatFormFieldModule, MatInputModule],
   exports: [],
   providers: [WordTaskService, AssignWordTaskService, CustomWordTaskDetailsProvider, VerbTaskService, AssignVerbTaskService],
   entryComponents: [WordTaskEditorFormComponent, AssignTaskComponent, VerbTaskEditorFormComponent]

@@ -91,6 +91,10 @@ export class WordListComponent implements OnInit, AfterViewInit {
     });
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   private resetDataSource() {
     this.dataSource = new MatTableDataSource<WordModel>(this.dataSource.data);
     this.dataSource.paginator = this.paginator;

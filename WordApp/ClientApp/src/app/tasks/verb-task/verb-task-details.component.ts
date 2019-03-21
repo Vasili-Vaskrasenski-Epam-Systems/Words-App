@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { DatePipe } from "@angular/common";
 
 import { VerbTaskService } from './../services/verb-task.service';
 import { AssignVerbTaskService } from './../services/assign-verb-task.service';
@@ -22,7 +23,7 @@ export class VerbTaskDetailsComponent implements OnInit {
   @ViewChild('verbsPaginator') verbsPaginator: MatPaginator;
   @ViewChild('assigneePaginator') assigneePaginator: MatPaginator;
 
-  constructor(private route: ActivatedRoute, private verbTaskService: VerbTaskService, private assignTaskService: AssignVerbTaskService) { }
+  constructor(private route: ActivatedRoute, private verbTaskService: VerbTaskService, private assignTaskService: AssignVerbTaskService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(e => {
@@ -48,6 +49,23 @@ export class VerbTaskDetailsComponent implements OnInit {
       error => {
 
       });
+  }
+
+  applyVerbsFilter(filterValue: string) {
+    this.verbsDataSource.filterPredicate = (data: OrderedVerbTaskModel, filter: string) => {
+      const dataStr = data.verb.commonWord.toLowerCase() + data.order;
+      return dataStr.indexOf(filter) !== -1; 
+    };
+    this.verbsDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyAssigneeFilter(filterValue: string) {
+    this.assigneeDataSource.filterPredicate = (data: AssignableVerbTaskModel, filter: string) => {
+      const dataStr = data.user.name.toLowerCase() + this.datePipe.transform(data.deadline, 'MMM d, y').toLowerCase() + data.taskStatus;
+      return dataStr.indexOf(filter) !== -1;
+    }
+
+    this.assigneeDataSource.filter = filterValue.trim().toLowerCase();
   }
 }
 

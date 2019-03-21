@@ -11,6 +11,9 @@
   <div class="form-group row">
     <div class="col-md-5">
       <p>Verbs:</p>
+      <mat-form-field>
+        <input matInput (keyup)="applyVerbsFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
       <table mat-table [dataSource]="verbsDataSource" class="w-100" *ngIf="task">
         <ng-container matColumnDef="verb">
           <th mat-header-cell *matHeaderCellDef class="text-center"> Verb </th>
@@ -29,6 +32,9 @@
     </div>
     <div class="col-md-7">
       <p>Assignees:</p>
+      <mat-form-field>
+        <input matInput (keyup)="applyAssigneeFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
       <table mat-table [dataSource]="assigneeDataSource" class="w-100" *ngIf="task">
 
         <ng-container matColumnDef="name">

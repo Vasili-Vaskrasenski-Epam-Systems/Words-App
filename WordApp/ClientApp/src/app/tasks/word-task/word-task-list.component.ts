@@ -161,6 +161,10 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
     });
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   private resetDataSource() {
     this.dataSource = new MatTableDataSource<WordTaskModel>(this.dataSource.data);
     this.dataSource.paginator = this.paginator;

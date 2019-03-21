@@ -10,7 +10,7 @@ import { UserEditorFormComponent } from './user-editor-form.component';
 import { HelpersModule } from './../helpers/helpers.module';
 
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material';
+import { MatPaginatorModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 
 
@@ -19,7 +19,7 @@ import { MatPaginatorModule } from '@angular/material';
     UserListComponent,
     UserEditorFormComponent
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, MatTableModule, MatPaginatorModule ],
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule ],
   exports: [],
   providers:[UserService],
   entryComponents: [UserEditorFormComponent]
