@@ -23,8 +23,8 @@
     </ng-container>
 
     <ng-container matColumnDef="wordsCount">
-      <th mat-header-cell *matHeaderCellDef class="text-center"> Words Count</th>
-      <td mat-cell *matCellDef="let element" class="text-center"> {{element.wordTask.words.length}} </td>
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Is Translation Task</th>
+      <td mat-cell *matCellDef="let element" class="text-center"><mat-checkbox disabled [checked]="element.wordTask.isTranslationTask"></mat-checkbox></td>
     </ng-container>
 
     <ng-container matColumnDef="taskStatus">
@@ -36,7 +36,7 @@
       <th mat-header-cell *matHeaderCellDef class="text-center"> Actions </th>
       <td mat-cell *matCellDef="let element" class="text-center">
         <div class="btn-group">
-          <button [routerLink]='["/word-task-wizard"]' [disabled]="element.completeDate" (click)="onStartWordTask(element)" class="btn btn-success">Start</button>
+          <button [routerLink]='["/word-task-wizard", element.id]' [disabled]="element.completeDate" (click)="onStartWordTask(element)" class="btn btn-success">Start</button>
           <button [routerLink]='["/word-task-results", element.id]' [disabled]="!element.completeDate" class="btn btn-warning">Results</button>
         </div>
       </td>

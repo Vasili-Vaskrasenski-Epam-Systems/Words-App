@@ -2,16 +2,15 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AssignWordTaskService } from './../services/assign-word-task.service';
-import { AlertService } from './../../alert/alert.service';
+import { AuthService } from './../../auth/auth.service';
 
 import { WordTaskModel } from './../models/word-task.model';
 import { AnsweredWordModel } from './../models/answered-word.model';
 import { TaskAnswerModel } from './../models/task-answer.model';
 import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
+import { UserModel } from './../../users/user.model';
 
-import { CustomWordTaskDetailsProvider } from './../../custom-providers/custom-word-task-details.provider';
-import { Router } from "@angular/router";
-
+import { Router, ActivatedRoute } from "@angular/router";
 
 import { Enums } from './../../app-enums';
 import { Constants } from './../../app-constants';
@@ -30,23 +29,22 @@ export class WordTaskWizardComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private assignService: AssignWordTaskService,
-    private wordTaskDetailsProvider: CustomWordTaskDetailsProvider,
-    private alertService: AlertService,
-    private router: Router) {
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute) {
     this.wordIndex = 0;
-
-    if (this.wordTaskDetailsProvider.storage)
-      this.assignedWordTask = this.wordTaskDetailsProvider.storage.wordTask;
-
-    }
+  }
 
   ngOnInit(): void {
-    if (this.assignedWordTask) {
-      this.answeredWordTask = this.wordTaskDetailsProvider.storage;
-      this.assignedWordTask.words.sort((f, s) => f.order - s.order);
-    } else {
-      this.alertService.error("Looks like this page has been refreshed. Try to pass this task again from tasks page");
-    }
+    this.route.params.subscribe(e => {
+      this.assignService.getPupilTask(this.authService.currentUserValue.id, e["id"]).subscribe(task => {
+        var taskInstance = (<AssignableWordTaskModel>task);
+        this.assignedWordTask = taskInstance.wordTask;
+        this.answeredWordTask = task;
+        this.answeredWordTask.user = new UserModel(null, null, Enums.EUserType[Enums.EUserType.Pupil], this.authService.currentUserValue.id, null);
+        this.assignedWordTask.words.sort((f, s) => f.order - s.order);
+      });
+    });
 
     this.wizardForm = this.formBuilder.group({
       answer: ['', Validators.required],

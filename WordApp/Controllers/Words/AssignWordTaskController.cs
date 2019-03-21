@@ -42,6 +42,14 @@ namespace WordApp.Controllers.Words
             return Ok(mappedEntities);
         }
 
+        [HttpGet("[action]")]
+        public IActionResult GetPupilTask(Guid userId, Guid assignedTaskId)
+        {
+            var includeProperties = new[] { "WordTask", "WordTask.TaskWords", "WordTask.TaskWords.Word" };
+            var entity = this._service.GetQueryableEntity(e => e.UserId == userId && e.Id == assignedTaskId, includeProperties);
+            var mappedEntity = base.Mapper.Map<AssignableWordTaskModel>(entity);
+            return Ok(mappedEntity);
+        }
 
 
         [HttpGet("[action]")]

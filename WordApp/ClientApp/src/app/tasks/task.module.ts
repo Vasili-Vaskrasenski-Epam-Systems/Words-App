@@ -30,8 +30,6 @@ import { VerbTaskWizardComponent } from './verb-task/verb-task-wizard.component'
 import { VerbTaskResultsComponent } from './verb-task/verb-task-results.component';
 import { PupilVerbTaskListComponent } from './verb-task/pupil-verb-task-list.component';
 
-import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word-task-details.provider';
-
 @NgModule({
   declarations: [
     WordTaskEditorFormComponent, WordTaskListComponent, AssignTaskComponent, WordTaskDetailsComponent, PupilWordTaskListComponent, WordTaskWizardComponent,
@@ -40,7 +38,7 @@ import { CustomWordTaskDetailsProvider } from './../custom-providers/custom-word
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule, MatCheckboxModule, MatPaginatorModule, MatTableModule, MatFormFieldModule, MatInputModule],
   exports: [],
-  providers: [WordTaskService, AssignWordTaskService, CustomWordTaskDetailsProvider, VerbTaskService, AssignVerbTaskService],
+  providers: [WordTaskService, AssignWordTaskService, VerbTaskService, AssignVerbTaskService],
   entryComponents: [WordTaskEditorFormComponent, AssignTaskComponent, VerbTaskEditorFormComponent]
 })
 

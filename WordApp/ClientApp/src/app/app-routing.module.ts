@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'verb-task-details/:id', component: VerbTaskDetailsComponent, canActivate: [AuthGuard] },
   { path: 'pupil-word-tasks', component: PupilWordTaskListComponent, canActivate: [AuthGuard] },
   { path: 'pupil-verb-tasks', component: PupilVerbTaskListComponent, canActivate: [AuthGuard] },
-  { path: 'word-task-wizard', component: WordTaskWizardComponent, canActivate: [AuthGuard] },
+  { path: 'word-task-wizard/:id', component: WordTaskWizardComponent, canActivate: [AuthGuard] },
   { path: 'word-task-results/:id', component: WordTaskResultsComponent, canActivate: [AuthGuard] },
   { path: 'verb-task-wizard/:id', component: VerbTaskWizardComponent, canActivate: [AuthGuard] },
   { path: 'verb-task-results/:id', component: VerbTaskResultsComponent, canActivate: [AuthGuard] },

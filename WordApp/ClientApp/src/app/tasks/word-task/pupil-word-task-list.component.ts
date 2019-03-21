@@ -6,8 +6,6 @@ import { AuthService } from './../../auth/auth.service';
 
 import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
 
-import { CustomWordTaskDetailsProvider } from './../../custom-providers/custom-word-task-details.provider';
-
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component(
@@ -19,8 +17,7 @@ export class PupilWordTaskListComponent implements OnInit {
   public dataSource: MatTableDataSource<AssignableWordTaskModel>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private authService: AuthService, private assignWordTaskService: AssignWordTaskService,
-    private wordTaskDetailsProvider: CustomWordTaskDetailsProvider, private  datePipe: DatePipe) {
+  constructor(private authService: AuthService, private assignWordTaskService: AssignWordTaskService, private datePipe: DatePipe) {
 
   }
 
@@ -40,9 +37,5 @@ export class PupilWordTaskListComponent implements OnInit {
     }
 
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  public onStartWordTask(wordTask: AssignableWordTaskModel) {
-    this.wordTaskDetailsProvider.storage = wordTask;
   }
 }

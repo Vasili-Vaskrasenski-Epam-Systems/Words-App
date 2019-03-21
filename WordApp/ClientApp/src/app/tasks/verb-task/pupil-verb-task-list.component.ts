@@ -6,7 +6,6 @@ import { AuthService } from './../../auth/auth.service';
 
 import { AssignableVerbTaskModel } from './../models/assignable-verb-task.model';
 
-import { CustomWordTaskDetailsProvider } from './../../custom-providers/custom-word-task-details.provider';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component(
@@ -19,8 +18,7 @@ export class PupilVerbTaskListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private authService: AuthService, private assignVerbTaskService: AssignVerbTaskService,
-    private wordTaskDetailsProvider: CustomWordTaskDetailsProvider, private datePipe: DatePipe) {
+  constructor(private authService: AuthService, private assignVerbTaskService: AssignVerbTaskService, private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
@@ -30,10 +28,6 @@ export class PupilVerbTaskListComponent implements OnInit {
       this.dataSource = new MatTableDataSource<AssignableVerbTaskModel>(e);
       this.dataSource.paginator = this.paginator;
     });
-  }
-
-  public onStartVerbTask(verbTask: AssignableVerbTaskModel) {
-    this.wordTaskDetailsProvider.storage = verbTask;
   }
 
   applyFilter(filterValue: string) {
