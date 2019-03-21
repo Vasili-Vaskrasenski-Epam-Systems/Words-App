@@ -38,12 +38,20 @@ namespace WordApp.Controllers.Verbs
         [HttpGet("[action]")]
         public IActionResult GetPupilTasks(Guid userId)
         {
-            var includeProperties = new[] { "VerbTask", "User", "VerbTask.TaskVerbs", "VerbTask.TaskVerbs.Verb", "VerbTask.TaskVerbs.Verb.WordVerbs", "VerbTask.TaskVerbs.Verb.WordVerbs.Word" };
+            var includeProperties = new[] { "VerbTask"};
             var entities = this._service.GetQueryableEntities(e => e.UserId == userId, includeProperties);
-            //var entitiesToMap = new List<VerbTaskEntity>(entities.Select(e => e.VerbTask));
             var mappedEntities = base.Mapper.Map<List<AssignVerbTaskModel>>(entities);
 
             return Ok(mappedEntities);
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetPupilTask(Guid userId, Guid assignedTaskId)
+        {
+            var includeProperties = new[] { "VerbTask", "VerbTask.TaskVerbs", "VerbTask.TaskVerbs.Verb", "VerbTask.TaskVerbs.Verb.WordVerbs", "VerbTask.TaskVerbs.Verb.WordVerbs.Word" };
+            var entity = this._service.GetQueryableEntity(e => e.UserId == userId && e.Id == assignedTaskId, includeProperties);
+            var mappedEntity = base.Mapper.Map<AssignVerbTaskModel>(entity);
+            return Ok(mappedEntity);
         }
 
         [HttpGet("[action]")]

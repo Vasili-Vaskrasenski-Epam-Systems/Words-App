@@ -79,7 +79,7 @@ export class WordTaskWizardComponent implements OnInit {
     }
     this.answeredWordTask.taskStatus = Enums.ETaskStatus.Done;
     this.assignService.completeWordTask(this.answeredWordTask).subscribe(e => {
-      this.router.navigate(['/pupil-tasks']);
+      this.router.navigate(['/pupil-word-tasks']);
     });
   }
 

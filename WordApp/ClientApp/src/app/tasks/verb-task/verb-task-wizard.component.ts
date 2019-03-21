@@ -2,15 +2,15 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AssignVerbTaskService } from './../services/assign-verb-task.service';
-import { AlertService } from './../../alert/alert.service';
+import { AuthService } from './../../auth/auth.service';
 
 import { VerbTaskModel } from './../models/verb-task.model';
 import { AnsweredVerbModel } from './../models/answered-verb.model';
 import { VerbTaskAnswerModel } from './../models/verb-task-answer.model';
 import { AssignableVerbTaskModel } from './../models/assignable-verb-task.model';
+import { UserModel } from './../../users/user.model';
 
-import { CustomWordTaskDetailsProvider } from './../../custom-providers/custom-word-task-details.provider';
-import { Router } from "@angular/router";
+import { Router,ActivatedRoute } from "@angular/router";
 
 import { Constants } from './../../app-constants';
 import { Enums } from './../../app-enums';
@@ -29,22 +29,23 @@ export class VerbTaskWizardComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private assignService: AssignVerbTaskService,
-    private wordTaskDetailsProvider: CustomWordTaskDetailsProvider,
-    private alertService: AlertService,
-    private router: Router) {
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute) {
     this.verbIndex = 0;
-
-    if (this.wordTaskDetailsProvider.storage)
-      this.assignedVerbTask = this.wordTaskDetailsProvider.storage.verbTask;
   }
 
   ngOnInit(): void {
-    if (this.assignedVerbTask) {
-      this.answeredVerbTask = this.wordTaskDetailsProvider.storage;
-      this.assignedVerbTask.verbs.sort((f, s) => f.order - s.order);
-    } else {
-      this.alertService.error("Looks like this page has been refreshed. Try to pass this task again from tasks page");
-    }
+    this.route.params.subscribe(e => {
+      this.assignService.getPupilTask(this.authService.currentUserValue.id, e["id"]).subscribe(task => {
+        var taskInstance = (<AssignableVerbTaskModel>task);
+        this.assignedVerbTask = taskInstance.verbTask;
+        this.answeredVerbTask = task;
+        this.answeredVerbTask.user = new UserModel(null, null, Enums.EUserType[Enums.EUserType.Pupil], this.authService.currentUserValue.id, null);
+        this.assignedVerbTask.verbs.sort((f, s) => f.order - s.order);
+      });
+    });
+   
 
     this.wizardForm = this.formBuilder.group({
       firstForm: ['', Validators.required],
@@ -79,7 +80,7 @@ export class VerbTaskWizardComponent implements OnInit {
     }
     this.answeredVerbTask.taskStatus = Enums.ETaskStatus.Done;
     this.assignService.completeWordTask(this.answeredVerbTask).subscribe(e => {
-      this.router.navigate(['/pupil-tasks']);
+      this.router.navigate(['/pupil-verb-tasks']);
     });
   }
 

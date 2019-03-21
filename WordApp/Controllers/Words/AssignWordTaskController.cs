@@ -35,13 +35,14 @@ namespace WordApp.Controllers.Words
         [HttpGet("[action]")]
         public IActionResult GetPupilTasks(Guid userId)
         {
-            var includeProperties = new[] {"WordTask", "User", "WordTask.TaskWords", "WordTask.TaskWords.Word"};
+            var includeProperties = new[] {"WordTask"};
             var entities = this._service.GetQueryableEntities(e => e.UserId == userId, includeProperties);
-            //var entitiesToMap = new List<WordTaskEntity>(entities.Select(e => e.WordTask));
             var mappedEntities = base.Mapper.Map<List<AssignableWordTaskModel>>(entities);
 
             return Ok(mappedEntities);
         }
+
+
 
         [HttpGet("[action]")]
         public IActionResult GetCompletedTask(Guid taskId)

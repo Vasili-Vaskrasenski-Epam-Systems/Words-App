@@ -26,6 +26,12 @@ export class AssignVerbTaskService {
     return this.http.get<any>(url, { params: params });
   }
 
+  public getPupilTask(userId: string, assignedTaskId: string) {
+    var params = new HttpParams({ fromObject: { userId: userId, assignedTaskId: assignedTaskId} });
+    var url = this.baseUrl + '/GetPupilTask';
+    return this.http.get<any>(url, { params: params });
+  }
+
   public completeWordTask(model: AssignableVerbTaskModel) {
     var url = this.baseUrl + '/CompleteVerbTask';
     return this.http.post<AssignableVerbTaskModel>(url, model);

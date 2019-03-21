@@ -56,6 +56,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
         this.dataSource.data.push(result);
         this.resetDataSource();
         this.clearForm();
+        this.alertService.success("User successfully created");
       }, error => {
         this.alertService.error(error);
       });
