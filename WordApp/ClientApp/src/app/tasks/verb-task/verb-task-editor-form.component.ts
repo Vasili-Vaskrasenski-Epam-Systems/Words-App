@@ -66,9 +66,10 @@ export class VerbTaskEditorFormComponent implements OnInit {
       return;
     }
     else {
+      this.assignedVerbs.forEach(w => (<OrderedVerbTaskModel>w.key).order = w.order);
       var model = new VerbTaskModel(
         this.verbAssignmentForm.controls.name.value,
-        this.assignedVerbs.map(mod => mod.key),
+        this.assignedVerbs.map(v => v.key),
         this.editableObject ? this.editableObject.id : Constants.guidEmpty,
         this.editableObject ? this.editableObject.rowVersion : null);
 

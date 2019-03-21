@@ -16,12 +16,22 @@ export class CommonDraggableListComponent {
   }
 
   onDrag(obj: any) {
-    this.inputObjectArray[obj.previousIndex].order = obj.currentIndex;
-    this.inputObjectArray[obj.currentIndex].order = obj.previousIndex;
+    var tmp = this.inputObjectArray[obj.previousIndex];
+    this.inputObjectArray[obj.previousIndex] = null;
+    if (obj.previousIndex > obj.currentIndex) {
+      for (var i = obj.previousIndex; i > obj.currentIndex; i--) {
+        this.inputObjectArray[i] = this.inputObjectArray[i - 1];
+        this.inputObjectArray[i].order = i;
+      }
 
-    const temp = this.inputObjectArray[obj.previousIndex];
-    this.inputObjectArray[obj.previousIndex] = this.inputObjectArray[obj.currentIndex];
-    this.inputObjectArray[obj.currentIndex] = temp;
+    } else {
+      for (var j = obj.previousIndex; j < obj.currentIndex; j++) {
+        this.inputObjectArray[j] = this.inputObjectArray[j + 1];
+        this.inputObjectArray[j].order = j;
+      }
+    }
+    this.inputObjectArray[obj.currentIndex] = tmp;
+    this.inputObjectArray[obj.currentIndex].order = obj.currentIndex;
 
     this.notifyAboutDrag.emit(this.inputObjectArray);
   }

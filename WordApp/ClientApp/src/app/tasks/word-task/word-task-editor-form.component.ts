@@ -39,7 +39,7 @@ export class WordTaskEditorFormComponent implements OnInit {
   setEditableObject(task: WordTaskModel) {
     this.editableObject = new WordTaskModel(task.name, task.isTranslationTask, task.words, task.id, task.rowVersion);
     this.assignedWords = new Array<CommonDraggableListModel>(
-      ...task.words.map(e => new CommonDraggableListModel(e.order, e, e.word.word)));
+      ...task.words.map(e => new CommonDraggableListModel(e.order, e, e.word.word.concat('-', e.word.transcription))));
 
     if (this.assignedWords) {
       for (var i = 0; i < this.assignedWords.length; i++) {
@@ -62,6 +62,7 @@ export class WordTaskEditorFormComponent implements OnInit {
       return;
     }
     else {
+      this.assignedWords.forEach(w => (<OrderedWordTaskModel>w.key).order = w.order);
       var model = new WordTaskModel(
         this.wordAssignmentForm.controls.name.value,
         this.wordAssignmentForm.controls.isTranslation.value,
