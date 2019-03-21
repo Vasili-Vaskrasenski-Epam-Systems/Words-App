@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using BL.Services;
+using Entities.Enums;
 using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
 using Microsoft.AspNetCore.Mvc;
@@ -68,6 +69,12 @@ namespace WordApp.Controllers.Verbs
         public IActionResult CompleteVerbTask([FromBody] AssignVerbTaskModel model)
         {
             model.CompleteDate = DateTime.UtcNow;
+
+            if (model.CompleteDate.Value.Date > model.Deadline.Date)
+            {
+                model.TaskStatus = TaskStatus.Failed;
+            }
+
             var entityToUpdate = base.Mapper.Map<AssignedVerbTaskEntity>(model);
             this._service.UpdateEntity(entityToUpdate);
             return Ok();

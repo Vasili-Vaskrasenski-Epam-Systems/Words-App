@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 using BL.Services;
+using Entities.Enums;
 using Entities.Instances.Task.WordTask;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models.TaskModels.WordTaskModels;
@@ -66,6 +67,12 @@ namespace WordApp.Controllers.Words
         public IActionResult CompleteWordTask([FromBody] AssignableWordTaskModel model)
         {
             model.CompleteDate = DateTime.UtcNow;
+
+            if (model.CompleteDate.Value.Date > model.Deadline.Date)
+            {
+                model.TaskStatus = TaskStatus.Failed;
+            }
+
             var entityToUpdate = base.Mapper.Map<AssignedWordTaskEntity>(model);
             this._service.UpdateEntity(entityToUpdate);
             return Ok();

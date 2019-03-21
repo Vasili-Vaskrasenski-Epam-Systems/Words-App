@@ -37,7 +37,8 @@ export class AssignTaskComponent implements OnInit {
     if (this.userAssignmentForm.valid) {
       var user = <UserModel>this.userAssignmentForm.controls.userList.value;
       var date = <NgbDateStruct>this.userAssignmentForm.controls.datepicker.value;
-      this.assignedUsers.push(new AssignableUserModel(user, new Date(date.year, date.month, date.day)));
+      
+      this.assignedUsers.push(new AssignableUserModel(user, new Date(Date.UTC(date.year, date.month - 1, date.day))));
 
       var assignedUserIndex = this.availableUsers.findIndex(u => u.id === user.id);
       this.availableUsers.splice(assignedUserIndex, 1);

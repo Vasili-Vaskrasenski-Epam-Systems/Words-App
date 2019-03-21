@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordApp", "WordApp\WordApp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{42F35A69-9684-4357-B2D3-1AAD7347EEB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{6029FDF5-9FDB-437C-99EC-5D76549F2D8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{6029FDF5-9FDB-437C-99EC-5D76549F2D8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{C6F25C2C-C1BA-4858-8999-BA6535487CE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6029FDF5-9FDB-437C-99EC-5D76549F2D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6029FDF5-9FDB-437C-99EC-5D76549F2D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6029FDF5-9FDB-437C-99EC-5D76549F2D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F25C2C-C1BA-4858-8999-BA6535487CE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F25C2C-C1BA-4858-8999-BA6535487CE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F25C2C-C1BA-4858-8999-BA6535487CE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F25C2C-C1BA-4858-8999-BA6535487CE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserModel } from './../users/user.model';
+import { Constants } from './../app-constants';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -12,7 +13,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl + 'api/User';
-    this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(sessionStorage.getItem(Constants.currentUser)));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -28,7 +29,7 @@ export class AuthService {
       .pipe(map(user => {
         if (user) {
           var typedUser = <UserModel>user;
-          localStorage.setItem('currentUser', JSON.stringify(user));
+          sessionStorage.setItem(Constants.currentUser, JSON.stringify(user));
           this.currentUserSubject.next(typedUser);
         }
 
@@ -41,7 +42,7 @@ export class AuthService {
   }
 
   public logout(): any {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem(Constants.currentUser);
     this.currentUserSubject.next(null);
     this.currentUser = null;
   }
