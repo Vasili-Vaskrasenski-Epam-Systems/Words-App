@@ -7,6 +7,7 @@ import { AuthService } from './../../auth/auth.service';
 import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
 
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { Enums } from './../../app-enums';
 
 @Component(
   {
@@ -16,6 +17,7 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 export class PupilWordTaskListComponent implements OnInit {
   public dataSource: MatTableDataSource<AssignableWordTaskModel>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  public taskStatuses = Enums.ETaskStatus;
 
   constructor(private authService: AuthService, private assignWordTaskService: AssignWordTaskService, private datePipe: DatePipe) {
 

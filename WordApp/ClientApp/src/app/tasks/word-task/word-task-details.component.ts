@@ -10,6 +10,8 @@ import { OrderedWordTaskModel } from './../models/ordered-word-task.model';
 import { WordTaskDetailModel } from './../models/word-task-detail.model';
 import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
 
+import { Enums } from './../../app-enums';
+
 @Component(
   {
     selector: 'word-task-details',
@@ -18,7 +20,8 @@ import { AssignableWordTaskModel } from './../models/assignable-word-task.model'
 export class WordTaskDetailsComponent implements OnInit {
   public task: WordTaskDetailModel;
   public assigneeDataSource: MatTableDataSource<AssignableWordTaskModel>;
-  public wordsDataSource : MatTableDataSource<OrderedWordTaskModel>;
+  public wordsDataSource: MatTableDataSource<OrderedWordTaskModel>;
+  public taskStatuses = Enums.ETaskStatus;
 
   @ViewChild('wordsPaginator') wordsPaginator: MatPaginator;
   @ViewChild('assigneePaginator') assigneePaginator: MatPaginator;

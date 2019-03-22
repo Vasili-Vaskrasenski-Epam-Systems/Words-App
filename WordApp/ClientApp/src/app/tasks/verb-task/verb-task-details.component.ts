@@ -10,6 +10,8 @@ import { VerbTaskDetailModel } from './../models/verb-task-detail.model';
 import { AssignableVerbTaskModel } from './../models/assignable-verb-task.model';
 import { OrderedVerbTaskModel } from './../models/ordered-verb-task.model';
 
+import { Enums } from './../../app-enums';
+
 @Component(
   {
     selector: 'verb-task-details',
@@ -19,6 +21,7 @@ export class VerbTaskDetailsComponent implements OnInit {
   public task: VerbTaskDetailModel;
   public verbsDataSource: MatTableDataSource<OrderedVerbTaskModel>;
   public assigneeDataSource: MatTableDataSource<AssignableVerbTaskModel>;
+  public taskStatuses = Enums.ETaskStatus;
 
   @ViewChild('verbsPaginator') verbsPaginator: MatPaginator;
   @ViewChild('assigneePaginator') assigneePaginator: MatPaginator;
@@ -34,6 +37,8 @@ export class VerbTaskDetailsComponent implements OnInit {
 
         this.verbsDataSource = new MatTableDataSource<OrderedVerbTaskModel>(this.task.verbs);
         this.verbsDataSource.paginator = this.verbsPaginator;
+
+        console.log(this.taskStatuses.Done);
       });
     });
   }
