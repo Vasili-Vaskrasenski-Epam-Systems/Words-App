@@ -1,5 +1,7 @@
 ﻿using Entities.Instances;
+using Entities.Instances.Sentence;
 using Entities.Instances.Task;
+using Entities.Instances.Task.SentenceTask;
 using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
 using Entities.Instances.Verb;
@@ -30,6 +32,14 @@ namespace DAL.Infrastructure
         public DbSet<RelVerbTaskEntity> RelVerbTasks { get; set; }
         public DbSet<VerbTaskEntity> VerbTasks { get; set; }
 
+        public DbSet<SentenceEntity> Sentences { get; set; }
+        public DbSet<SentenceTranslationEntity> SentenceTranslations { get; set; }
+        public DbSet<RelSentenceTaskEntity> RelSentenceTasks { get; set; }
+        public DbSet<SentenceTaskEntity> SentenceTasks { get; set; }
+        public DbSet<AssignedSentenceTaskEntity> AssignedSentenceTasks { get; set; }
+        public DbSet<RelAnswerSentenceEntity> RelAnsweredSentences { get; set; }
+        public DbSet<SentenceAnswerEntity> SentenceAnswers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -42,13 +52,21 @@ namespace DAL.Infrastructure
             modelBuilder.ApplyConfiguration(new AssignedWordTaskConfigurator());
             modelBuilder.ApplyConfiguration(new UserConfigurator());
             modelBuilder.ApplyConfiguration(new AnsweredWordConfigurator());
-            modelBuilder.ApplyConfiguration(new AnsweredWordConfigurator());
+            modelBuilder.ApplyConfiguration(new WordAnswerConfigurator());
 
             modelBuilder.ApplyConfiguration(new AnsweredVerbConfigurator());
             modelBuilder.ApplyConfiguration(new VerbAnswerConfigurator());
             modelBuilder.ApplyConfiguration(new AssignedVerbTaskConfigurator());
             modelBuilder.ApplyConfiguration(new VerbTaskConfigurator());
             modelBuilder.ApplyConfiguration(new RelVerbTaskConfigurator());
+
+            modelBuilder.ApplyConfiguration(new SentenceConfigurator());
+            modelBuilder.ApplyConfiguration(new SentenceTranslationConfigurator());
+            modelBuilder.ApplyConfiguration(new RelSentenceTaskConfigurator());
+            modelBuilder.ApplyConfiguration(new SentenceTaskConfigurator());
+            modelBuilder.ApplyConfiguration(new AssignedSentenceTaskConfigurator());
+            modelBuilder.ApplyConfiguration(new SentenceAnswerConfigurator());
+            modelBuilder.ApplyConfiguration(new RelAnsweredSentenceConfigurator());
         }
     }
 }

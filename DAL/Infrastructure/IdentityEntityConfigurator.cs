@@ -1,7 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using Entities.Instances;
+﻿using Entities.Instances;
 using Entities.Instances.Base;
-using Entities.Instances.Task;
+using Entities.Instances.Sentence;
+using Entities.Instances.Task.SentenceTask;
 using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
 using Entities.Instances.Verb;
@@ -115,7 +115,54 @@ namespace DAL.Infrastructure
         }
     }
 
-    #region relational entities
+    internal class SentenceConfigurator : IdentityEntityConfigurator<SentenceEntity>
+    {
+        public override void Configure(EntityTypeBuilder<SentenceEntity> builder)
+        {
+            base.Configure(builder);
+            builder.HasMany(e => e.Translations)
+                .WithOne(ee => ee.Sentence)
+                .HasForeignKey(ee => ee.SentenceId);
+
+            builder.HasMany(e => e.SentenceTasks)
+                .WithOne(ee => ee.Sentence)
+                .HasForeignKey(ee => ee.SentenceId);
+
+            builder.HasMany(e => e.AnsweredSentences)
+                .WithOne(ee => ee.Sentence)
+                .HasForeignKey(ee => ee.SentenceId);
+        }
+    }
+
+    internal class SentenceTranslationConfigurator : IdentityEntityConfigurator<SentenceTranslationEntity> { }
+
+    internal class SentenceTaskConfigurator : IdentityEntityConfigurator<SentenceTaskEntity>
+    {
+        public override void Configure(EntityTypeBuilder<SentenceTaskEntity> builder)
+        {
+            base.Configure(builder);
+            builder.HasMany(e => e.SentenceTasks)
+                .WithOne(ee => ee.Task)
+                .HasForeignKey(ee => ee.TaskId);
+
+            builder.HasMany(e => e.AssignedSentenceTasks)
+                .WithOne(ee => ee.SentenceTask)
+                .HasForeignKey(ee => ee.SentenceTaskId);
+        }
+    }
+
+    internal class SentenceAnswerConfigurator : IdentityEntityConfigurator<SentenceAnswerEntity>
+    {
+        public override void Configure(EntityTypeBuilder<SentenceAnswerEntity> builder)
+        {
+            base.Configure(builder);
+            builder.HasMany(e => e.AnsweredSentences)
+                .WithOne(ee => ee.SentenceAnswer)
+                .HasForeignKey(ee => ee.SentenceAnswerId);
+        }
+    }
+
+    #region Relational entities
     internal class VerbWordConfigurator : IdentityEntityConfigurator<RelWordVerbEntity>
     {
 
@@ -137,9 +184,9 @@ namespace DAL.Infrastructure
         }
     }
 
-    internal class AnsweredWordConfigurator : IdentityEntityConfigurator<RelAnswerWordEntity>{}
+    internal class AnsweredWordConfigurator : IdentityEntityConfigurator<RelAnswerWordEntity> { }
 
-    internal class AnsweredVerbConfigurator: IdentityEntityConfigurator<RelAnsweredVerbEntity> { }
+    internal class AnsweredVerbConfigurator : IdentityEntityConfigurator<RelAnsweredVerbEntity> { }
 
     internal class AssignedVerbTaskConfigurator : IdentityEntityConfigurator<AssignedVerbTaskEntity>
     {
@@ -152,6 +199,21 @@ namespace DAL.Infrastructure
         }
     }
 
-    internal class RelVerbTaskConfigurator: IdentityEntityConfigurator<RelVerbTaskEntity> { }
+    internal class RelVerbTaskConfigurator : IdentityEntityConfigurator<RelVerbTaskEntity> { }
+
+    internal class RelSentenceTaskConfigurator: IdentityEntityConfigurator<RelSentenceTaskEntity> { }
+
+    internal class AssignedSentenceTaskConfigurator : IdentityEntityConfigurator<AssignedSentenceTaskEntity>
+    {
+        public override void Configure(EntityTypeBuilder<AssignedSentenceTaskEntity> builder)
+        {
+            base.Configure(builder);
+            builder.HasMany(e => e.AnsweredSentences)
+                .WithOne(ee => ee.AssignedSentenceTask)
+                .HasForeignKey(ee => ee.AssignedSentenceTaskId);
+        }
+    }
+
+    internal class RelAnsweredSentenceConfigurator: IdentityEntityConfigurator<RelAnswerSentenceEntity> { }
     #endregion
 }
