@@ -28,8 +28,11 @@
           <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Administrator] || userRole === this.roleTypes[this.roleTypes.Teacher]" mat-menu-item [routerLink]='["/word-task-management"]'>Word Tasks</a>
           <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Pupil]" mat-menu-item [routerLink]='["/pupil-word-tasks"]'>Word Tasks</a>
 
-          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Administrator] || userRole === this.roleTypes[this.roleTypes.Teacher]" mat-menu-item [routerLink]='["/verb-task-management"]'>Word Tasks</a>
-          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Pupil]" mat-menu-item [routerLink]='["/pupil-verb-tasks"]'>Word Tasks</a>
+          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Administrator] || userRole === this.roleTypes[this.roleTypes.Teacher]" mat-menu-item [routerLink]='["/verb-task-management"]'>Verb Tasks</a>
+          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Pupil]" mat-menu-item [routerLink]='["/pupil-verb-tasks"]'>Verb Tasks</a>
+
+          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Administrator] || userRole === this.roleTypes[this.roleTypes.Teacher]" mat-menu-item [routerLink]='["/sentence-task-management"]'>Sentence Tasks</a>
+          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Pupil]" mat-menu-item [routerLink]='["/pupil-sentence-tasks"]'>Sentence Tasks</a>
         </mat-menu>
       </li>
       <li class="nav-link" [routerLinkActive]='["link-active"]'>

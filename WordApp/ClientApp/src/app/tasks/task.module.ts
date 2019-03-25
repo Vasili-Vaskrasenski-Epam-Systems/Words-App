@@ -9,8 +9,12 @@ import { MatPaginatorModule, MatFormFieldModule, MatInputModule } from '@angular
 
 import { WordTaskService } from './services/word-task.service';
 import { AssignWordTaskService } from './services/assign-word-task.service';
+
 import { VerbTaskService } from './services/verb-task.service';
 import { AssignVerbTaskService } from './services/assign-verb-task.service';
+
+import { SentenceTaskService } from './../services/tasks/sentence-task.service';
+import { AssignSentenceTaskService } from './../services/tasks/assign-sentence-task.service';
 
 import { HelpersModule } from './../helpers/helpers.module';
 
@@ -30,16 +34,21 @@ import { VerbTaskWizardComponent } from './verb-task/verb-task-wizard.component'
 import { VerbTaskResultsComponent } from './verb-task/verb-task-results.component';
 import { PupilVerbTaskListComponent } from './verb-task/pupil-verb-task-list.component';
 
+import { SentenceTaskEditorFormComponent } from './sentence-task/sentence-task-editor-form.component';
+import { SentenceTaskListComponent } from './sentence-task/sentence-task-list.component';
+import { SentenceTaskDetailsComponent } from './sentence-task/sentence-task-details.component';
+
 @NgModule({
   declarations: [
     WordTaskEditorFormComponent, WordTaskListComponent, AssignTaskComponent, WordTaskDetailsComponent, PupilWordTaskListComponent, WordTaskWizardComponent,
     WordTaskResultsComponent, VerbTaskEditorFormComponent, VerbTaskListComponent, VerbTaskDetailsComponent, VerbTaskWizardComponent, VerbTaskResultsComponent,
-    PupilVerbTaskListComponent
+    PupilVerbTaskListComponent, SentenceTaskEditorFormComponent, SentenceTaskListComponent, SentenceTaskDetailsComponent
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule, MatCheckboxModule, MatPaginatorModule, MatTableModule, MatFormFieldModule, MatInputModule],
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule, MatCheckboxModule,
+    MatPaginatorModule, MatTableModule, MatFormFieldModule, MatInputModule],
   exports: [],
-  providers: [WordTaskService, AssignWordTaskService, VerbTaskService, AssignVerbTaskService],
-  entryComponents: [WordTaskEditorFormComponent, AssignTaskComponent, VerbTaskEditorFormComponent]
+  providers: [WordTaskService, AssignWordTaskService, VerbTaskService, AssignVerbTaskService, SentenceTaskService, AssignSentenceTaskService],
+  entryComponents: [WordTaskEditorFormComponent, AssignTaskComponent, VerbTaskEditorFormComponent, SentenceTaskEditorFormComponent]
 })
 
 export class TaskModule {

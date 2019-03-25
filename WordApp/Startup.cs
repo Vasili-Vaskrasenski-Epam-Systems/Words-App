@@ -1,8 +1,8 @@
 using System;
-using System.Text;
 using AutoMapper;
 using BL.Infrastructure.Encoders;
 using BL.Services;
+using BL.Services.Task.SentenceTaskServices;
 using BL.Services.Task.VerbTaskServices;
 using BL.Services.Task.WordTaskServices;
 using Configuration;
@@ -10,16 +10,14 @@ using DAL.Helpers;
 using DAL.Infrastructure;
 using Entities.Instances;
 using Entities.Instances.Sentence;
-using Entities.Instances.Task;
+using Entities.Instances.Task.SentenceTask;
 using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.IIS;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -94,6 +92,8 @@ namespace WordApp
             services.AddScoped(typeof(BaseEntityService<VerbTaskEntity>), typeof(VerbTaskService));
             services.AddScoped(typeof(BaseEntityService<AssignedVerbTaskEntity>), typeof(AssignVerbTaskService));
             services.AddScoped(typeof(BaseEntityService<SentenceEntity>), typeof(SentenceService));
+            services.AddScoped(typeof(BaseEntityService<SentenceTaskEntity>), typeof(SentenceTaskService));
+            services.AddScoped(typeof(BaseEntityService<AssignedSentenceTaskEntity>), typeof(AssignSentenceTaskService));
             #endregion
 
             // In production, the Angular files will be served from this directory

@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
 using Entities.Instances;
 using Entities.Instances.Sentence;
-using Entities.Instances.Task;
+using Entities.Instances.Task.SentenceTask;
 using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
 using WordApp.Models;
 using WordApp.Models.Sentences;
+using WordApp.Models.TaskModels.SentenceTaskModels;
 using WordApp.Models.TaskModels.VerbTaskModels;
 using WordApp.Models.TaskModels.WordTaskModels;
 
@@ -110,6 +110,34 @@ namespace WordApp.Infrastructure
                 ;
             #endregion
             #endregion
+
+            #region Sentence Task
+            CreateMap<SentenceTaskEntity, SentenceTaskModel>()
+                .ForMember(dest => dest.Sentences, opt => opt.MapFrom(src => src.SentenceTasks));
+            CreateMap<SentenceTaskModel, SentenceTaskEntity>()
+                .ForMember(dest => dest.SentenceTasks, opt => opt.MapFrom(src => src.Sentences.Select(s => new RelSentenceTaskEntity()
+                {
+                    SentenceId = s.Sentence.Id,
+                    Order = s.Order,
+                })));
+
+            #region AssignableSentenceTaskModel <-> AssignedSentenceTaskEntity
+            CreateMap<AssignSentenceTaskModel, AssignedSentenceTaskEntity>()
+                .ForMember(dest => dest.User, opt => opt.Ignore())
+                .ForMember(dest => dest.SentenceTask, opt => opt.Ignore());
+            CreateMap<AssignedWordTaskEntity, AssignableWordTaskModel>();
+            #endregion
+
+            #region SentenceTaskEntity -> SentenceTaskDetailsModel
+
+            CreateMap<SentenceTaskEntity, SentenceTaskDetailsModel>()
+                .ForMember(dest => dest.SentenceTask, opt => opt.MapFrom(src => src))
+                .ForMember(dest => dest.Assignees, opt => opt.MapFrom(src => src.AssignedSentenceTasks))
+                .ForMember(dest => dest.Sentences, opt => opt.MapFrom(src => src.SentenceTasks));
+            #endregion
+
+            #endregion
+
         }
     }
 }

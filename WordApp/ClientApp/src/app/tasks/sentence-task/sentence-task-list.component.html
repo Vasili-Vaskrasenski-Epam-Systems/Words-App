@@ -1,0 +1,43 @@
+<div class="form-group">
+  <h1>Sentence Tasks</h1>
+  <button #showAddFormBtn (click)="onShowCreateForm()" class="btn btn-success">+</button>
+  <ng-container #createFormContainer></ng-container>
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="!dataSource">
+  <mat-spinner></mat-spinner>
+</div>
+<div mat-elevation-z8 mt-lg-2 *ngIf="dataSource">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <table mat-table [dataSource]="dataSource" class="w-100">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Sentence </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="sentenceCount">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Sentences Count </th>
+      <td mat-cell *matCellDef="let element" class="text-center"> {{element.sentences.length}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Actions </th>
+      <td mat-cell *matCellDef="let element" class="text-center">
+        <div class="btn-group">
+          <button (click)="onShowEditForm(element)" class="btn btn-info">Edit</button>
+          <button (click)="onDelete(element)" class="btn btn-danger">Delete</button>
+          <button (click)="onShowAssignForm(element)" class="btn btn-warning">Assign</button>
+          <button class="btn btn-primary" [routerLink]='["/sentence-task-details", element.id]'>Details</button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'sentenceCount', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'sentenceCount', 'actions'];"></tr>
+  </table>
+</div>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+

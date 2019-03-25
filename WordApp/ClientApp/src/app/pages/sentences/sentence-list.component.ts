@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core';
 
-import { SentenceModel } from './../../models/sentence.model';
+import { SentenceModel } from './../../models/sentences/sentence.model';
 
 import { SentenceService } from './../../services/sentence.service';
 

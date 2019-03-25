@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { SentenceModel } from "./../../models/sentence.model";
-import { SentenceTranslationModel } from "./../../models/sentence-translation.model";
+import { SentenceModel } from "./../../models/sentences/sentence.model";
+import { SentenceTranslationModel } from "./../../models/sentences/sentence-translation.model";
 import { CommonDraggableListModel } from "./../../common/common-draggable-list.component";
 
 import { AlertService } from './../../alert/alert.service';
