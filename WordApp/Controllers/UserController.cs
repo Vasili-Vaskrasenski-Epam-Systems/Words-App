@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Text;
 using AutoMapper;
 using BL.Infrastructure.Builder;
+using BL.Infrastructure.Encoders;
 using BL.Services;
 using Entities.Enums;
 using Entities.Instances;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using WordApp.Infrastructure;
 using WordApp.Models;
 
 namespace WordApp.Controllers
@@ -15,19 +22,15 @@ namespace WordApp.Controllers
     public class UserController: BaseController
     {
         private readonly BaseEntityService<UserEntity> _service;
-        public UserController(IMapper mapper, BaseEntityService<UserEntity> service) : base(mapper)
+        private readonly IJwtSigningEncodingKey _singingEncodingKey;
+        public UserController(IMapper mapper, BaseEntityService<UserEntity> service,[FromServices] IJwtSigningEncodingKey singingEncodingKey) : base(mapper)
         {
             this._service = service;
+            this._singingEncodingKey = singingEncodingKey;
         }
 
         [HttpPost("[action]")]
-        public IActionResult Register([FromBody] UserModel model)
-        {
-            model.UserType = UserType.Pupil;
-            return this.CreateUser(model);
-        }
-
-        [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator))]
         public IActionResult CreateUser([FromBody] UserModel model)
         {
             var userToCreate = base.Mapper.Map<UserEntity>(model);
@@ -35,32 +38,15 @@ namespace WordApp.Controllers
             return Ok(base.Mapper.Map<UserModel>(createdUser));
         }
 
-        [HttpPost("[action]")]
-        public IActionResult Login(string userName, string password)
-        {
-            var expression = ExpressionBuilder.BuildExpression<UserEntity>(new Tuple<string, string, ExpressionMethod>[]
-            {
-                new Tuple<string, string, ExpressionMethod>("Name", userName, ExpressionMethod.Equal), 
-                new Tuple<string, string, ExpressionMethod>("Password", password, ExpressionMethod.Equal), 
-            });
-
-            var result = this._service.GetEntities(expression);
-
-            if (result.Any())
-            {
-                return Ok(base.Mapper.Map<UserModel>(result.First()));
-            }
-
-            return Ok("Wrong login or password");
-        }
-
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator))]
         public IActionResult GetUsers()
         {
             return Ok(this._service.GetEntities().Select(e => Mapper.Map<UserModel>(e)).ToList());
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator))]
         public IActionResult DeleteUser([FromBody] UserModel model)
         {
             var userToDelete = base.Mapper.Map<UserEntity>(model);
@@ -69,6 +55,7 @@ namespace WordApp.Controllers
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator))]
         public IActionResult UpdateUser([FromBody] UserModel model)
         {
             var userToUpdate = base.Mapper.Map<UserEntity>(model);
@@ -77,11 +64,11 @@ namespace WordApp.Controllers
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult GetUsersByType(UserType userType)
         {
             var foundUsers = this._service.GetEntities(u => u.UserType == userType);
             return Ok(foundUsers.Select(fu => base.Mapper.Map<UserModel>(fu)).ToList());
         }
-
     }
 }

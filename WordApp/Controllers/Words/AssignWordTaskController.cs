@@ -4,20 +4,22 @@ using AutoMapper;
 using BL.Services;
 using Entities.Enums;
 using Entities.Instances.Task.WordTask;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models.TaskModels.WordTaskModels;
 
 namespace WordApp.Controllers.Words
 {
-    public class AssignWordTaskController: BaseController
+    public class AssignWordTaskController : BaseController
     {
-        public readonly BaseEntityService<AssignedWordTaskEntity> _service;
+        private readonly BaseEntityService<AssignedWordTaskEntity> _service;
         public AssignWordTaskController(IMapper mapper, BaseEntityService<AssignedWordTaskEntity> service) : base(mapper)
         {
             this._service = service;
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Pupil))]
         public IActionResult AssignWordTasks([FromBody]List<AssignableWordTaskModel> models)
         {
             var entitiesToCreate = base.Mapper.Map<List<AssignedWordTaskEntity>>(models);
@@ -26,6 +28,7 @@ namespace WordApp.Controllers.Words
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Pupil))]
         public IActionResult UnassignWordTask([FromBody] AssignableWordTaskModel model)
         {
             var entityToDelete = base.Mapper.Map<AssignedWordTaskEntity>(model);
@@ -34,9 +37,10 @@ namespace WordApp.Controllers.Words
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Pupil) + "," + nameof(UserType.Teacher))]
         public IActionResult GetPupilTasks(Guid userId)
         {
-            var includeProperties = new[] {"WordTask"};
+            var includeProperties = new[] { "WordTask" };
             var entities = this._service.GetQueryableEntities(e => e.UserId == userId, includeProperties);
             var mappedEntities = base.Mapper.Map<List<AssignableWordTaskModel>>(entities);
 
@@ -44,6 +48,7 @@ namespace WordApp.Controllers.Words
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher) + "," + nameof(UserType.Pupil))]
         public IActionResult GetPupilTask(Guid userId, Guid assignedTaskId)
         {
             var includeProperties = new[] { "WordTask", "WordTask.TaskWords", "WordTask.TaskWords.Word" };
@@ -54,9 +59,11 @@ namespace WordApp.Controllers.Words
 
 
         [HttpGet("[action]")]
+        [Authorize]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Pupil) +"," + nameof(UserType.Teacher))]
         public IActionResult GetCompletedTask(Guid taskId)
         {
-            var includeProperties = new[] {"WordTask", "AnsweredWords", "AnsweredWords.Answer", "AnsweredWords.Word" };
+            var includeProperties = new[] { "WordTask", "AnsweredWords", "AnsweredWords.Answer", "AnsweredWords.Word" };
             var entity = this._service.GetQueryableEntity(taskId, includeProperties);
             var mappedEntity = base.Mapper.Map<AssignableWordTaskModel>(entity);
 
@@ -64,6 +71,7 @@ namespace WordApp.Controllers.Words
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Pupil))]
         public IActionResult CompleteWordTask([FromBody] AssignableWordTaskModel model)
         {
             model.CompleteDate = DateTime.UtcNow;

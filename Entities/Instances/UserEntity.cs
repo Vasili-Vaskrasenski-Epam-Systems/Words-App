@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Entities.Enums;
 using Entities.Instances.Base;
-using Entities.Instances.Task;
 using Entities.Instances.Task.WordTask;
 
 namespace Entities.Instances

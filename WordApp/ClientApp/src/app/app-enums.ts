@@ -2,6 +2,7 @@ export module Enums {
   export enum EUserType {
     Pupil = 1,
     Administrator = 2,
+    Teacher = 3
   }
 
   export enum ETaskStatus {

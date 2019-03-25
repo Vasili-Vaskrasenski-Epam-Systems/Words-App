@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using BL.Services;
+using Entities.Enums;
 using Entities.Instances.Verb;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models;
 
 namespace WordApp.Controllers.Verbs
 {
-    public class VerbController: BaseController
+    public class VerbController : BaseController
     {
         private readonly BaseEntityService<VerbEntity> _irregularVerbService;
         public VerbController(IMapper mapper, BaseEntityService<VerbEntity> irregularVerbService) : base(mapper)
@@ -16,6 +18,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher) + "," + nameof(UserType.Pupil))]
         public IEnumerable<VerbModel> GetVerbs()
         {
             var entities = this._irregularVerbService.GetEntities();
@@ -23,6 +26,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher) + "," + nameof(UserType.Pupil))]
         public VerbModel UpdateVerb([FromBody] VerbModel verbModel)
         {
             var verbToUpdate = base.Mapper.Map<VerbEntity>(verbModel);
@@ -31,6 +35,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher) + "," + nameof(UserType.Pupil))]
         public VerbModel CreateVerb([FromBody] VerbModel verbModel)
         {
             var verbToCreate = base.Mapper.Map<VerbEntity>(verbModel);
@@ -39,6 +44,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher) + "," + nameof(UserType.Pupil))]
         public VerbModel DeleteVerb([FromBody] VerbModel verbModel)
         {
             var verbToDelete = base.Mapper.Map<VerbEntity>(verbModel);

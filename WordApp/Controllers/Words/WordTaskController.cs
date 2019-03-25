@@ -2,7 +2,9 @@
 using System.Linq;
 using AutoMapper;
 using BL.Services;
+using Entities.Enums;
 using Entities.Instances.Task.WordTask;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models.TaskModels.WordTaskModels;
 
@@ -17,12 +19,14 @@ namespace WordApp.Controllers.Words
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult GetWordTasks()
         {
             return Ok(this._service.GetEntities().Select(e => base.Mapper.Map<WordTaskModel>(e)).ToList());
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult CreateWordTask([FromBody] WordTaskModel model)
         {
             var entityToCreate = base.Mapper.Map<WordTaskEntity>(model);
@@ -31,6 +35,7 @@ namespace WordApp.Controllers.Words
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult DeleteWordTask([FromBody] WordTaskModel model)
         {
             var entityToDelete = base.Mapper.Map<WordTaskEntity>(model);
@@ -39,6 +44,7 @@ namespace WordApp.Controllers.Words
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult UpdateWordTask([FromBody] WordTaskModel model)
         {
             var entityToAct = base.Mapper.Map<WordTaskEntity>(model);
@@ -47,6 +53,7 @@ namespace WordApp.Controllers.Words
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult GetTaskDetails(Guid taskId)
         {
             var taskEntity = this._service.GetQueryableEntity(taskId, new []{"TaskWords","TaskWords.Word", "AssignedWordTasks", "AssignedWordTasks.User"});

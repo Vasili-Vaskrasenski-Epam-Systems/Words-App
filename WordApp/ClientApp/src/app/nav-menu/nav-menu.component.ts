@@ -12,7 +12,8 @@ import { Enums } from './../app-enums';
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
   public currentUserName: string;
-  public isAdmin: boolean;
+  public userRole: Enums.EUserType;
+  public roleTypes = Enums.EUserType;
 
   constructor(private svc: AuthService, private router: Router) {
 
@@ -20,7 +21,7 @@ export class NavMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserName = this.svc.currentUserValue.name;
-    this.isAdmin = this.svc.currentUserValue.userType === Enums.EUserType[Enums.EUserType.Administrator];
+    this.userRole = this.svc.currentUserValue.userType;
   }
 
   collapse() {

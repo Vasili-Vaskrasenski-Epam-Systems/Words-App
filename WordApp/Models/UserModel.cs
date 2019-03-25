@@ -12,5 +12,6 @@ namespace WordApp.Models
 
         [JsonConverter(typeof(StringEnumConverter))]
         public UserType UserType { get; set; }
+        public string Token { get; set; }
     }
 }

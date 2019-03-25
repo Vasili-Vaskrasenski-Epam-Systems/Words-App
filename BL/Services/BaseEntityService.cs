@@ -55,6 +55,11 @@ namespace BL.Services
             return dbSet.FirstOrDefault(e => e.Id == id);
         }
 
+        public virtual T GetEntity(Expression<Func<T, bool>> expression)
+        {
+            return this.DbContext.Set<T>().FirstOrDefault(expression);
+        }
+
         public virtual T GetQueryableEntity(Guid entityId, params string[] properties)
         {
             var query = this.DbContext.Set<T>().AsQueryable();

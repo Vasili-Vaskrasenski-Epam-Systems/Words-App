@@ -8,24 +8,28 @@ import { AlertService } from './alert/alert.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthService, private alertSerevice: AlertService) { }
+  constructor(private authenticationService: AuthService, private alertService: AlertService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
       if (err.status === 401) {
         this.authenticationService.logout();
-        location.reload(true);
+        location.href = ('/login');
+      }
+
+      if (err.status === 403) {
+        location.href = ('/forbidden');
       }
 
       if (err.status === 404) {
-        this.alertSerevice.error("Ooops, it looks like resource not found");
+        this.alertService.error("Ooops, it looks like resource not found");
       }
 
       if (err.status === 500) {
-        this.alertSerevice.error("Ooops, something went wrong and server felt bad");
+        this.alertService.error("Ooops, something went wrong and server felt bad");
       }
 
-      const error = err.error.text || err.error.message || err.error;
+      const error = err.message || err.error.text || err.error.message || err.error;
       return throwError(error);
     }));
   }

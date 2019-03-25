@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using BL.Services;
+using Entities.Enums;
 using Entities.Instances.Task.VerbTask;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models.TaskModels.VerbTaskModels;
 using WordApp.Models.TaskModels.WordTaskModels;
@@ -19,6 +21,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult GetVerbTasks()
         {
             var properties = new[] { "TaskVerbs", "TaskVerbs.Verb" };
@@ -27,6 +30,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult CreateVerbTask([FromBody] VerbTaskModel model)
         {
             var entityToCreate = base.Mapper.Map<VerbTaskEntity>(model);
@@ -35,6 +39,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult UpdateVerbTask([FromBody] VerbTaskModel model)
         {
             var entityToUpdate = base.Mapper.Map<VerbTaskEntity>(model);
@@ -43,6 +48,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult DeleteVerbTask([FromBody] VerbTaskModel model)
         {
             var entityToDelete = base.Mapper.Map<VerbTaskEntity>(model);
@@ -51,6 +57,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult GetTaskDetails(Guid taskId)
         {
             var taskEntity = this._service.GetQueryableEntity(taskId, new[] { "TaskVerbs", "TaskVerbs.Verb", "TaskVerbs.Verb.WordVerbs", "TaskVerbs.Verb.WordVerbs.Word",

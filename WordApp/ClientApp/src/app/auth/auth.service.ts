@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserModel } from './../users/user.model';
@@ -12,7 +12,7 @@ export class AuthService {
   private baseUrl: string;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = baseUrl + 'api/User';
+    this.baseUrl = baseUrl + 'api/Authentication';
     this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(sessionStorage.getItem(Constants.currentUser)));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -38,13 +38,22 @@ export class AuthService {
   }
 
   public register(user: UserModel) {
-    return this.http.post(this.baseUrl + '/Register', user);
+    var url = this.baseUrl + '/RegisterUser';
+    return this.http.post<string>(url, user);
   }
 
   public logout(): any {
-    localStorage.removeItem(Constants.currentUser);
+    sessionStorage.removeItem(Constants.currentUser);
     this.currentUserSubject.next(null);
     this.currentUser = null;
+  }
+
+  public getAuthenticationHeaders() : HttpHeaders {
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer'+ ' ' + this.currentUserValue.token
+    });
+    return headers;
   }
 }
 

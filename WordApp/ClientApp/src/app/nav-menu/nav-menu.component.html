@@ -14,16 +14,19 @@
         <a class="nav-link" [routerLink]='["/words"]'>Words</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]='["/irregular-verbs"]'>Verbs</a>
+        <a class="nav-link" [routerLink]='["/verbs"]'>Verbs</a>
       </li>
-      <li class="nav-item" *ngIf="isAdmin">
+      <li class="nav-item" *ngIf="userRole === this.roleTypes[this.roleTypes.Administrator]">
         <a class="nav-link" [routerLink]='["/user-management"]'>Users</a>
       </li>
       <li class="nav-item">
         <a class="btn nav-link" mat-button [matMenuTriggerFor]="menu">Tasks</a>
         <mat-menu #menu="matMenu">
-          <a class="nav-link" mat-menu-item [routerLink]='isAdmin? ["/word-task-management"] : ["/pupil-word-tasks"]'>Word Tasks</a>
-          <a class="nav-link" mat-menu-item [routerLink]='isAdmin? ["/verb-task-management"] : ["/pupil-verb-tasks"]'>Verb Tasks</a>
+          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Administrator] || userRole === this.roleTypes[this.roleTypes.Teacher]" mat-menu-item [routerLink]='["/word-task-management"]'>Word Tasks</a>
+          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Pupil]" mat-menu-item [routerLink]='["/pupil-word-tasks"]'>Word Tasks</a>
+
+          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Administrator] || userRole === this.roleTypes[this.roleTypes.Teacher]" mat-menu-item [routerLink]='["/verb-task-management"]'>Word Tasks</a>
+          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Pupil]" mat-menu-item [routerLink]='["/pupil-verb-tasks"]'>Word Tasks</a>
         </mat-menu>
       </li>
       <li class="nav-link" [routerLinkActive]='["link-active"]'>

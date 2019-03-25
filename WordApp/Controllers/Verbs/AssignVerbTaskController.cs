@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using BL.Services;
 using Entities.Enums;
 using Entities.Instances.Task.VerbTask;
-using Entities.Instances.Task.WordTask;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models.TaskModels.VerbTaskModels;
-using WordApp.Models.TaskModels.WordTaskModels;
 
 namespace WordApp.Controllers.Verbs
 {
-    public class AssignVerbTaskController: BaseController
+    public class AssignVerbTaskController : BaseController
     {
         private readonly BaseEntityService<AssignedVerbTaskEntity> _service;
         public AssignVerbTaskController(IMapper mapper, BaseEntityService<AssignedVerbTaskEntity> service) : base(mapper)
@@ -21,6 +19,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult AssignVerbsToTask([FromBody]List<AssignVerbTaskModel> models)
         {
             var entitiesToCreate = base.Mapper.Map<List<AssignedVerbTaskEntity>>(models);
@@ -28,7 +27,9 @@ namespace WordApp.Controllers.Verbs
             return Ok(base.Mapper.Map<List<AssignVerbTaskModel>>(createdEntities));
         }
 
+
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult UnassignTask([FromBody] AssignVerbTaskModel model)
         {
             var entityToDelete = base.Mapper.Map<AssignedVerbTaskEntity>(model);
@@ -37,9 +38,10 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher) + "," + nameof(UserType.Pupil))]
         public IActionResult GetPupilTasks(Guid userId)
         {
-            var includeProperties = new[] { "VerbTask"};
+            var includeProperties = new[] { "VerbTask" };
             var entities = this._service.GetQueryableEntities(e => e.UserId == userId, includeProperties);
             var mappedEntities = base.Mapper.Map<List<AssignVerbTaskModel>>(entities);
 
@@ -47,6 +49,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher) + "," + nameof(UserType.Pupil))]
         public IActionResult GetPupilTask(Guid userId, Guid assignedTaskId)
         {
             var includeProperties = new[] { "VerbTask", "VerbTask.TaskVerbs", "VerbTask.TaskVerbs.Verb", "VerbTask.TaskVerbs.Verb.WordVerbs", "VerbTask.TaskVerbs.Verb.WordVerbs.Word" };
@@ -56,6 +59,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher) + "," + nameof(UserType.Pupil))]
         public IActionResult GetCompletedTask(Guid taskId)
         {
             var includeProperties = new[] { "AnsweredVerbs", "AnsweredVerbs.Answer", "AnsweredVerbs.Verb", "AnsweredVerbs.Verb.WordVerbs", "AnsweredVerbs.Verb.WordVerbs.Word" };
@@ -66,6 +70,7 @@ namespace WordApp.Controllers.Verbs
         }
 
         [HttpPost("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Pupil))]
         public IActionResult CompleteVerbTask([FromBody] AssignVerbTaskModel model)
         {
             model.CompleteDate = DateTime.UtcNow;

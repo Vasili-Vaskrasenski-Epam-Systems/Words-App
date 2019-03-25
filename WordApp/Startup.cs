@@ -1,7 +1,11 @@
+using System;
+using System.Text;
 using AutoMapper;
+using BL.Infrastructure.Encoders;
 using BL.Services;
 using BL.Services.Task.VerbTaskServices;
 using BL.Services.Task.WordTaskServices;
+using Configuration;
 using DAL.Helpers;
 using DAL.Infrastructure;
 using Entities.Instances;
@@ -10,6 +14,7 @@ using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +24,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using WordApp.Infrastructure;
 
 
@@ -38,8 +44,47 @@ namespace WordApp
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+
             #region Auth
-            services.AddAuthentication(IISServerDefaults.AuthenticationScheme);
+            var signingKey = new SigningSymmetricKey(Config.JwtConstants.AuthenticationKey);
+            services.AddSingleton<IJwtSigningEncodingKey>(signingKey);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            var signingDecodingKey = (IJwtSigningDecodingKey)signingKey;
+            services
+                .AddAuthentication(options => {
+                    options.DefaultAuthenticateScheme = Config.JwtConstants.SchemaName;
+                    options.DefaultChallengeScheme = Config.JwtConstants.SchemaName;
+                })
+                .AddJwtBearer(Config.JwtConstants.SchemaName, jwtBearerOptions => {
+                    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        ValidateIssuer = true,
+                        ValidateLifetime = true,
+                        ValidateAudience = true,
+
+                        IssuerSigningKey = signingDecodingKey.GetKey(),
+                        ValidIssuer = Config.JwtConstants.ValidIssuerName,
+                        ValidAudience = Config.JwtConstants.ValidAudienceName,
+                        ClockSkew = TimeSpan.FromSeconds(5)
+                    };
+                });
+
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(options =>
+            //    {
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidateIssuer = true,
+            //            ValidateAudience = true,
+            //            ValidateLifetime = true,
+            //            ValidateIssuerSigningKey = true,
+            //            ValidIssuer = "a.com",
+            //            ValidAudience = "a.com",
+            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("key"))
+            //        };
+            //    });
             #endregion
 
             #region AutoMapper
@@ -50,7 +95,7 @@ namespace WordApp
 
             #region DbContext
 
-            var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString("WordsDbConnectionString"));
+            var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString(Config.WordsDbConnectionStringName));
             services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer(connectionString));
             
             #endregion
