@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(WordsDbContext))]
-    [Migration("20190318075416_Initial")]
+    [Migration("20190325122025_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,152 @@ namespace DAL.Migrations
                     b.HasIndex("WordId");
 
                     b.ToTable("RelWordVerbs");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Sentence.RelAnswerSentenceEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AssignedSentenceTaskId");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<Guid>("SentenceAnswerId");
+
+                    b.Property<Guid>("SentenceId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignedSentenceTaskId");
+
+                    b.HasIndex("SentenceAnswerId");
+
+                    b.HasIndex("SentenceId");
+
+                    b.ToTable("RelAnsweredSentences");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Sentence.SentenceAnswerEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Answer");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SentenceAnswers");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Sentence.SentenceEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sentences");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Sentence.SentenceTranslationEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<Guid>("SentenceId");
+
+                    b.Property<string>("Translation");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SentenceId");
+
+                    b.ToTable("SentenceTranslations");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Task.SentenceTask.AssignedSentenceTaskEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("CompleteDate");
+
+                    b.Property<DateTime>("Deadline");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<Guid>("SentenceTaskId");
+
+                    b.Property<int>("TaskStatus");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SentenceTaskId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AssignedSentenceTasks");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Task.SentenceTask.RelSentenceTaskEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Order");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<Guid>("SentenceId");
+
+                    b.Property<Guid>("TaskId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SentenceId");
+
+                    b.HasIndex("TaskId");
+
+                    b.ToTable("RelSentenceTasks");
+                });
+
+            modelBuilder.Entity("Entities.Instances.Task.SentenceTask.SentenceTaskEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SentenceTasks");
                 });
 
             modelBuilder.Entity("Entities.Instances.Task.VerbTask.AssignedVerbTaskEntity", b =>
@@ -76,19 +222,21 @@ namespace DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("Order");
+
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
-                    b.Property<Guid>("VerbId");
+                    b.Property<Guid>("TaskVerbId");
 
-                    b.Property<Guid>("VerbTaskId");
+                    b.Property<Guid>("VerbId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VerbId");
+                    b.HasIndex("TaskVerbId");
 
-                    b.HasIndex("VerbTaskId");
+                    b.HasIndex("VerbId");
 
                     b.ToTable("RelVerbTasks");
                 });
@@ -142,8 +290,6 @@ namespace DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("IsTranslation");
-
                     b.Property<int>("Order");
 
                     b.Property<byte[]>("RowVersion")
@@ -167,6 +313,8 @@ namespace DAL.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsTranslationTask");
 
                     b.Property<string>("Name");
 
@@ -230,11 +378,15 @@ namespace DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Answer");
+                    b.Property<string>("FirstForm");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("SecondForm");
+
+                    b.Property<string>("ThirdForm");
 
                     b.HasKey("Id");
 
@@ -290,7 +442,9 @@ namespace DAL.Migrations
 
                     b.Property<string>("Answer");
 
-                    b.Property<byte[]>("RowVersion");
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
 
@@ -330,6 +484,58 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Entities.Instances.Sentence.RelAnswerSentenceEntity", b =>
+                {
+                    b.HasOne("Entities.Instances.Task.SentenceTask.AssignedSentenceTaskEntity", "AssignedSentenceTask")
+                        .WithMany("AnsweredSentences")
+                        .HasForeignKey("AssignedSentenceTaskId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.Sentence.SentenceAnswerEntity", "SentenceAnswer")
+                        .WithMany("AnsweredSentences")
+                        .HasForeignKey("SentenceAnswerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.Sentence.SentenceEntity", "Sentence")
+                        .WithMany("AnsweredSentences")
+                        .HasForeignKey("SentenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Entities.Instances.Sentence.SentenceTranslationEntity", b =>
+                {
+                    b.HasOne("Entities.Instances.Sentence.SentenceEntity", "Sentence")
+                        .WithMany("Translations")
+                        .HasForeignKey("SentenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Entities.Instances.Task.SentenceTask.AssignedSentenceTaskEntity", b =>
+                {
+                    b.HasOne("Entities.Instances.Task.SentenceTask.SentenceTaskEntity", "SentenceTask")
+                        .WithMany("AssignedSentenceTasks")
+                        .HasForeignKey("SentenceTaskId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Entities.Instances.Task.SentenceTask.RelSentenceTaskEntity", b =>
+                {
+                    b.HasOne("Entities.Instances.Sentence.SentenceEntity", "Sentence")
+                        .WithMany("SentenceTasks")
+                        .HasForeignKey("SentenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Entities.Instances.Task.SentenceTask.SentenceTaskEntity", "Task")
+                        .WithMany("SentenceTasks")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Entities.Instances.Task.VerbTask.AssignedVerbTaskEntity", b =>
                 {
                     b.HasOne("Entities.Instances.UserEntity", "User")
@@ -345,14 +551,14 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("Entities.Instances.Task.VerbTask.RelVerbTaskEntity", b =>
                 {
+                    b.HasOne("Entities.Instances.Task.VerbTask.VerbTaskEntity", "TaskVerb")
+                        .WithMany("TaskVerbs")
+                        .HasForeignKey("TaskVerbId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Entities.Instances.Verb.VerbEntity", "Verb")
                         .WithMany("VerbTasks")
                         .HasForeignKey("VerbId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Entities.Instances.Task.VerbTask.VerbTaskEntity", "VerbTask")
-                        .WithMany("VerbTasks")
-                        .HasForeignKey("VerbTaskId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

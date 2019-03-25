@@ -29,7 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.alertService.error("Ooops, something went wrong and server felt bad");
       }
 
-      const error = err.message || err.error.text || err.error.message || err.error;
+      const error = err.error ? err.error.text || err.error.message : err.message;
       return throwError(error);
     }));
   }

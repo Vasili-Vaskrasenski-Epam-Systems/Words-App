@@ -15,6 +15,7 @@ import { WordsModule } from './words/words.module';
 import { VerbModule } from './verbs/verb.module';
 import { UsersModule } from './users/users.module';
 import { TaskModule } from './tasks/task.module';
+import { SentenceModule } from './pages/sentences/sentence.module';
 
 import { DatePipe } from "@angular/common";
 
@@ -43,6 +44,7 @@ import { ErrorInterceptor } from './app-error-interceptor';
     VerbModule,
     UsersModule,
     TaskModule,
+    SentenceModule
   ],
   declarations: [
     AppComponent,

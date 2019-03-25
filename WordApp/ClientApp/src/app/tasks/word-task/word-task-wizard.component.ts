@@ -41,7 +41,7 @@ export class WordTaskWizardComponent implements OnInit {
         var taskInstance = (<AssignableWordTaskModel>task);
         this.assignedWordTask = taskInstance.wordTask;
         this.answeredWordTask = task;
-        this.answeredWordTask.user = new UserModel(null, null, Enums.EUserType[Enums.EUserType.Pupil], this.authService.currentUserValue.id, null);
+        this.answeredWordTask.user = new UserModel(null, null, Enums.EUserType.Pupil, this.authService.currentUserValue.id, null);
         this.assignedWordTask.words.sort((f, s) => f.order - s.order);
       });
     });

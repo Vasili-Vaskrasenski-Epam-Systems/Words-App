@@ -16,6 +16,9 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]='["/verbs"]'>Verbs</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]='["/sentences"]'>Sentences</a>
+      </li>
       <li class="nav-item" *ngIf="userRole === this.roleTypes[this.roleTypes.Administrator]">
         <a class="nav-link" [routerLink]='["/user-management"]'>Users</a>
       </li>

@@ -5,6 +5,7 @@ import { AuthGuard } from './../auth-guard';
 import { HomeComponent } from './../home/home.component';
 import { WordListComponent } from "./../words/word-list.component";
 import { VerbListComponent } from './../verbs/verb-list.component';
+import { SentenceListComponent } from './../pages/sentences/sentence-list.component';
 import { LoginComponent } from './../auth/login.component';
 import { RegistrationComponent } from './../auth/registration.component';
 import { UserListComponent } from './../users/user-list.component';
@@ -37,7 +38,11 @@ export class ConfiguredRoutes {
   {
     route: { path: 'verbs', component: VerbListComponent, canActivate: [AuthGuard] },
     roles: [],
-  },
+    },
+    {
+      route: { path: 'sentences', component: SentenceListComponent, canActivate: [AuthGuard] },
+      roles: [],
+    },
   {
     route: { path: 'user-management', component: UserListComponent, canActivate: [AuthGuard] },
     roles: [Enums.EUserType.Administrator],

@@ -9,6 +9,7 @@ using Configuration;
 using DAL.Helpers;
 using DAL.Infrastructure;
 using Entities.Instances;
+using Entities.Instances.Sentence;
 using Entities.Instances.Task;
 using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
@@ -44,7 +45,6 @@ namespace WordApp
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-
             #region Auth
             var signingKey = new SigningSymmetricKey(Config.JwtConstants.AuthenticationKey);
             services.AddSingleton<IJwtSigningEncodingKey>(signingKey);
@@ -70,21 +70,6 @@ namespace WordApp
                         ClockSkew = TimeSpan.FromSeconds(5)
                     };
                 });
-
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuer = true,
-            //            ValidateAudience = true,
-            //            ValidateLifetime = true,
-            //            ValidateIssuerSigningKey = true,
-            //            ValidIssuer = "a.com",
-            //            ValidAudience = "a.com",
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("key"))
-            //        };
-            //    });
             #endregion
 
             #region AutoMapper
@@ -108,6 +93,7 @@ namespace WordApp
             services.AddScoped(typeof(BaseEntityService<AssignedWordTaskEntity>), typeof(AssignedWordTaskService));
             services.AddScoped(typeof(BaseEntityService<VerbTaskEntity>), typeof(VerbTaskService));
             services.AddScoped(typeof(BaseEntityService<AssignedVerbTaskEntity>), typeof(AssignVerbTaskService));
+            services.AddScoped(typeof(BaseEntityService<SentenceEntity>), typeof(SentenceService));
             #endregion
 
             // In production, the Angular files will be served from this directory

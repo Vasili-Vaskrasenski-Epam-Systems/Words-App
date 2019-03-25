@@ -41,7 +41,7 @@ export class VerbTaskWizardComponent implements OnInit {
         var taskInstance = (<AssignableVerbTaskModel>task);
         this.assignedVerbTask = taskInstance.verbTask;
         this.answeredVerbTask = task;
-        this.answeredVerbTask.user = new UserModel(null, null, Enums.EUserType[Enums.EUserType.Pupil], this.authService.currentUserValue.id, null);
+        this.answeredVerbTask.user = new UserModel(null, null, Enums.EUserType.Pupil, this.authService.currentUserValue.id, null);
         this.assignedVerbTask.verbs.sort((f, s) => f.order - s.order);
       });
     });

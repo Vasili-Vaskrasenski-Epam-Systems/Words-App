@@ -2,12 +2,14 @@
 using System.Linq;
 using AutoMapper;
 using Entities.Instances;
+using Entities.Instances.Sentence;
 using Entities.Instances.Task;
 using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
 using WordApp.Models;
+using WordApp.Models.Sentences;
 using WordApp.Models.TaskModels.VerbTaskModels;
 using WordApp.Models.TaskModels.WordTaskModels;
 
@@ -41,6 +43,11 @@ namespace WordApp.Infrastructure
 
             CreateMap<RelAnsweredVerbEntity, AnsweredVerbModel>();
             CreateMap<AnsweredVerbModel, RelAnsweredVerbEntity>().ForMember(dest => dest.Verb, opt => opt.Ignore());
+            #endregion
+
+            #region Sentence
+            CreateMap<SentenceEntity, SentenceModel>().ReverseMap();
+            CreateMap<SentenceTranslationEntity, SentenceTranslationModel>().ReverseMap();
             #endregion
 
             #region User
