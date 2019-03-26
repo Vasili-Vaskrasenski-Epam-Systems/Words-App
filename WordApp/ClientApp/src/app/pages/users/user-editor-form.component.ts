@@ -1,7 +1,9 @@
-import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserModel } from "./../../models/users/user.model";
+
+import { EnumToArrayPipe } from "./../../infrastructure/pipes/enum-to-array.pipe";
 
 import { Enums } from './../../app-enums';
 import { Constants } from './../../app-constants';
@@ -20,8 +22,8 @@ export class UserEditorFormComponent implements OnInit {
   @Output() notifyAboutConfirm: EventEmitter<UserModel> = new EventEmitter<UserModel>();
   @Output() notifyAboutCancel = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder) {
-    //this.userTypes = Enums.EUserType.map; /*this.pipe.transform(Enums.EUserType);*/
+  constructor(private formBuilder: FormBuilder, private enumToArrayPipe: EnumToArrayPipe) {
+    this.userTypes = this.enumToArrayPipe.transform(Enums.EUserType);
   }
 
   ngOnInit(): void {

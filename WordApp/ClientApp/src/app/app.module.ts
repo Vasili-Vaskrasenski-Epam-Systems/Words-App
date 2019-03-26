@@ -16,6 +16,7 @@ import { TaskModule } from './pages/tasks/task.module';
 import { SentenceModule } from './pages/sentences/sentence.module';
 
 import { DatePipe } from "@angular/common";
+import { EnumToArrayPipe } from './infrastructure/pipes/enum-to-array.pipe';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -50,9 +51,10 @@ import { ErrorInterceptor } from './app-error-interceptor';
     RegistrationComponent,
     HomeComponent,
     AlertComponent,
+    EnumToArrayPipe,
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, DatePipe]
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, DatePipe, EnumToArrayPipe]
 })
 export class AppModule { }

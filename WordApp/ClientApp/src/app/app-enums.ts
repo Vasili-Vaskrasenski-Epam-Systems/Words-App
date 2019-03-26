@@ -1,4 +1,5 @@
 export module Enums {
+
   export enum EUserType {
     Pupil = 1,
     Administrator = 2,
