@@ -8,6 +8,7 @@ using Entities.Instances.Task.WordTask;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
 using WordApp.Models;
+using WordApp.Models.Base;
 using WordApp.Models.Sentences;
 using WordApp.Models.TaskModels.SentenceTaskModels;
 using WordApp.Models.TaskModels.VerbTaskModels;
@@ -22,7 +23,7 @@ namespace WordApp.Infrastructure
             #region Word
 
             CreateMap<WordEntity, WordModel>().ReverseMap();
-            CreateMap<WordAnswerEntity, AnswerModel>().ReverseMap();
+            CreateMap<WordAnswerEntity, WordAnswerModel>().ReverseMap();
             CreateMap<RelAnswerWordEntity, AnsweredWordModel>().ReverseMap();
 
             #endregion
@@ -48,6 +49,8 @@ namespace WordApp.Infrastructure
             #region Sentence
             CreateMap<SentenceEntity, SentenceModel>().ReverseMap();
             CreateMap<SentenceTranslationEntity, SentenceTranslationModel>().ReverseMap();
+            CreateMap<RelAnswerSentenceEntity, AnsweredSentenceModel>().ReverseMap();
+            CreateMap<SentenceAnswerEntity, SentenceAnswerModel>().ReverseMap();
             #endregion
 
             #region User
@@ -113,9 +116,9 @@ namespace WordApp.Infrastructure
 
             #region Sentence Task
             CreateMap<SentenceTaskEntity, SentenceTaskModel>()
-                .ForMember(dest => dest.Sentences, opt => opt.MapFrom(src => src.SentenceTasks));
+                .ForMember(dest => dest.Sentences, opt => opt.MapFrom(src => src.Sentences));
             CreateMap<SentenceTaskModel, SentenceTaskEntity>()
-                .ForMember(dest => dest.SentenceTasks, opt => opt.MapFrom(src => src.Sentences.Select(s => new RelSentenceTaskEntity()
+                .ForMember(dest => dest.Sentences, opt => opt.MapFrom(src => src.Sentences.Select(s => new RelSentenceTaskEntity()
                 {
                     SentenceId = s.Sentence.Id,
                     Order = s.Order,
@@ -125,7 +128,7 @@ namespace WordApp.Infrastructure
             CreateMap<AssignSentenceTaskModel, AssignedSentenceTaskEntity>()
                 .ForMember(dest => dest.User, opt => opt.Ignore())
                 .ForMember(dest => dest.SentenceTask, opt => opt.Ignore());
-            CreateMap<AssignedWordTaskEntity, AssignableWordTaskModel>();
+            CreateMap<AssignedSentenceTaskEntity, AssignSentenceTaskModel>();
             #endregion
 
             #region SentenceTaskEntity -> SentenceTaskDetailsModel
@@ -133,7 +136,7 @@ namespace WordApp.Infrastructure
             CreateMap<SentenceTaskEntity, SentenceTaskDetailsModel>()
                 .ForMember(dest => dest.SentenceTask, opt => opt.MapFrom(src => src))
                 .ForMember(dest => dest.Assignees, opt => opt.MapFrom(src => src.AssignedSentenceTasks))
-                .ForMember(dest => dest.Sentences, opt => opt.MapFrom(src => src.SentenceTasks));
+                .ForMember(dest => dest.Sentences, opt => opt.MapFrom(src => src.Sentences));
             #endregion
 
             #endregion

@@ -4,7 +4,7 @@ namespace WordApp.Models.TaskModels.WordTaskModels
 {
     public class AnsweredWordModel: BaseModel
     {
-        public virtual AnswerModel Answer { get; set; }
+        public virtual WordAnswerModel Answer { get; set; }
         public virtual WordModel Word { get; set; }
     }
 }

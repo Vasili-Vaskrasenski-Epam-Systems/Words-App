@@ -57,7 +57,7 @@ namespace WordApp.Controllers.Sentences
         [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult GetTaskDetails(Guid taskId)
         {
-            var taskEntity = this._service.GetQueryableEntity(taskId, new[] { "SentenceTasks", "SentenceTasks.Sentence", "AssignedSentenceTasks", "AssignedSentenceTasks.User" });
+            var taskEntity = this._service.GetQueryableEntity(taskId, new[] { "Sentences", "Sentences.Sentence", "AssignedSentenceTasks", "AssignedSentenceTasks.User" });
             var mappedEntity = base.Mapper.Map<SentenceTaskDetailsModel>(taskEntity);
             return Ok(mappedEntity);
         }

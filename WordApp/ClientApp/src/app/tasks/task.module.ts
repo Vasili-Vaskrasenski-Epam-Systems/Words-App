@@ -37,12 +37,16 @@ import { PupilVerbTaskListComponent } from './verb-task/pupil-verb-task-list.com
 import { SentenceTaskEditorFormComponent } from './sentence-task/sentence-task-editor-form.component';
 import { SentenceTaskListComponent } from './sentence-task/sentence-task-list.component';
 import { SentenceTaskDetailsComponent } from './sentence-task/sentence-task-details.component';
+import { SentenceTaskWizardComponent } from './sentence-task/sentence-task-wizard.component';
+import { PupilSentenceTaskListComponent } from './sentence-task/pupil-sentence-task-list.component';
+import { SentenceTaskResultsComponent } from './sentence-task/sentence-task-results.component';
 
 @NgModule({
   declarations: [
     WordTaskEditorFormComponent, WordTaskListComponent, AssignTaskComponent, WordTaskDetailsComponent, PupilWordTaskListComponent, WordTaskWizardComponent,
     WordTaskResultsComponent, VerbTaskEditorFormComponent, VerbTaskListComponent, VerbTaskDetailsComponent, VerbTaskWizardComponent, VerbTaskResultsComponent,
-    PupilVerbTaskListComponent, SentenceTaskEditorFormComponent, SentenceTaskListComponent, SentenceTaskDetailsComponent
+    PupilVerbTaskListComponent, SentenceTaskEditorFormComponent, SentenceTaskListComponent, SentenceTaskDetailsComponent, SentenceTaskWizardComponent, PupilSentenceTaskListComponent,
+    SentenceTaskResultsComponent
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule, MatCheckboxModule,
     MatPaginatorModule, MatTableModule, MatFormFieldModule, MatInputModule],

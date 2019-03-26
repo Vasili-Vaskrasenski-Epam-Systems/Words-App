@@ -15,7 +15,7 @@ namespace BL.Services.Task.SentenceTaskServices
         public override List<SentenceTaskEntity> GetEntities()
         {
             return base.DbContext.SentenceTasks
-                .Include(t => t.SentenceTasks).ThenInclude(tw => tw.Sentence)
+                .Include(t => t.Sentences).ThenInclude(tw => tw.Sentence)
                 .Include(t => t.AssignedSentenceTasks).ThenInclude(awt => awt.User).ToList();
         }
 
@@ -31,7 +31,7 @@ namespace BL.Services.Task.SentenceTaskServices
         public override SentenceTaskEntity GetEntity(Guid id)
         {
             return DbContext.SentenceTasks
-                .Include(t => t.SentenceTasks).ThenInclude(tw => tw.Sentence)
+                .Include(t => t.Sentences).ThenInclude(tw => tw.Sentence)
                 .Include(t => t.AssignedSentenceTasks).ThenInclude(awt => awt.User)
                 .FirstOrDefault(wt => wt.Id == id);
         }

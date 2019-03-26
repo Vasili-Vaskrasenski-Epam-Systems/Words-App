@@ -4,11 +4,9 @@ using AutoMapper;
 using BL.Services;
 using Entities.Enums;
 using Entities.Instances.Task.SentenceTask;
-using Entities.Instances.Task.WordTask;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WordApp.Models.TaskModels.SentenceTaskModels;
-using WordApp.Models.TaskModels.WordTaskModels;
 
 namespace WordApp.Controllers.Sentences
 {
@@ -53,7 +51,7 @@ namespace WordApp.Controllers.Sentences
         [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher) + "," + nameof(UserType.Pupil))]
         public IActionResult GetPupilTask(Guid userId, Guid assignedTaskId)
         {
-            var includeProperties = new[] { "SentenceTask", "SentenceTask.SentenceTasks", "WordTask.SentenceTasks.Sentence" };
+            var includeProperties = new[] { "SentenceTask", "SentenceTask.Sentences", "SentenceTask.Sentences.Sentence" };
             var entity = this._assignSentenceTaskService.GetQueryableEntity(e => e.UserId == userId && e.Id == assignedTaskId, includeProperties);
             var mappedEntity = base.Mapper.Map<AssignSentenceTaskModel>(entity);
             return Ok(mappedEntity);
@@ -65,7 +63,7 @@ namespace WordApp.Controllers.Sentences
         [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Pupil) + "," + nameof(UserType.Teacher))]
         public IActionResult GetCompletedTask(Guid taskId)
         {
-            var includeProperties = new[] { "SentenceTask", "AnsweredSentences", "AnsweredSentences.SentenceAnswer", "AnsweredSentences.Sentence" };
+            var includeProperties = new[] { "SentenceTask", "AnsweredSentences", "AnsweredSentences.Answer", "AnsweredSentences.Sentence", "AnsweredSentences.Sentence.Translations" };
             var entity = this._assignSentenceTaskService.GetQueryableEntity(taskId, includeProperties);
             var mappedEntity = base.Mapper.Map<AssignSentenceTaskModel>(entity);
 

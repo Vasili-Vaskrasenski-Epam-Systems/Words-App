@@ -1,10 +1,11 @@
 ﻿using WordApp.Models.Base;
+using WordApp.Models.Sentences;
 
 namespace WordApp.Models.TaskModels.SentenceTaskModels
 {
     public class AnsweredSentenceModel: BaseModel
     {
-        public AnswerModel Answer { get; set; }
-        public SentenceTaskModel Sentence { get; set; }
+        public SentenceAnswerModel Answer { get; set; }
+        public SentenceModel Sentence { get; set; }
     }
 }

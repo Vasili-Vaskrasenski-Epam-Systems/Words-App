@@ -21,6 +21,9 @@ import { VerbTaskResultsComponent } from './../tasks/verb-task/verb-task-results
 import { PupilVerbTaskListComponent } from './../tasks/verb-task/pupil-verb-task-list.component';
 import { SentenceTaskListComponent } from './../tasks/sentence-task/sentence-task-list.component';
 import { SentenceTaskDetailsComponent } from './../tasks/sentence-task/sentence-task-details.component';
+import { SentenceTaskWizardComponent } from './../tasks/sentence-task/sentence-task-wizard.component';
+import { PupilSentenceTaskListComponent } from './../tasks/sentence-task/pupil-sentence-task-list.component';
+import { SentenceTaskResultsComponent } from './../tasks/sentence-task/sentence-task-results.component';
 
 import { NotFoundPageComponent } from './../error-pages/not-found-page.component';
 import { ForbiddenPageComponent } from './../error-pages/forbidden-page.component';
@@ -82,6 +85,10 @@ export class ConfiguredRoutes {
       roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
     },
     {
+      route: { path: 'pupil-sentence-tasks', component: PupilSentenceTaskListComponent, canActivate: [AuthGuard] },
+      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
+    },
+    {
       route: { path: 'word-task-wizard/:id', component: WordTaskWizardComponent, canActivate: [AuthGuard] },
       roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
     },
@@ -90,11 +97,19 @@ export class ConfiguredRoutes {
       roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
     },
     {
+      route: { path: 'sentence-task-wizard/:id', component: SentenceTaskWizardComponent, canActivate: [AuthGuard] },
+      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
+    },
+    {
       route: { path: 'word-task-results/:id', component: WordTaskResultsComponent, canActivate: [AuthGuard] },
       roles: [],
     },
     {
       route: { path: 'verb-task-results/:id', component: VerbTaskResultsComponent, canActivate: [AuthGuard] },
+      roles: [],
+    },
+    {
+      route: { path: 'sentence-task-results/:id', component: SentenceTaskResultsComponent, canActivate: [AuthGuard] },
       roles: [],
     },
     {

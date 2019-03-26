@@ -141,7 +141,7 @@ namespace DAL.Infrastructure
         public override void Configure(EntityTypeBuilder<SentenceTaskEntity> builder)
         {
             base.Configure(builder);
-            builder.HasMany(e => e.SentenceTasks)
+            builder.HasMany(e => e.Sentences)
                 .WithOne(ee => ee.Task)
                 .HasForeignKey(ee => ee.TaskId);
 
@@ -157,7 +157,7 @@ namespace DAL.Infrastructure
         {
             base.Configure(builder);
             builder.HasMany(e => e.AnsweredSentences)
-                .WithOne(ee => ee.SentenceAnswer)
+                .WithOne(ee => ee.Answer)
                 .HasForeignKey(ee => ee.SentenceAnswerId);
         }
     }
