@@ -1,4 +1,4 @@
-import { RoutesModel } from './routes.model';
+import { Route } from '@angular/router';
 import { AuthGuard } from './../auth-guard';
 
 import { HomeComponent } from './../home/home.component';
@@ -30,102 +30,30 @@ import { ForbiddenPageComponent } from './../error-pages/forbidden-page.componen
 import { Enums } from './../app-enums';
 
 export class ConfiguredRoutes {
-  public static routes: RoutesModel[] = [
-    {
-      route: { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Administrator, Enums.EUserType.Pupil, Enums.EUserType.Teacher],
-    },
-    {
-      route: { path: 'words', component: WordListComponent, canActivate: [AuthGuard] },
-      roles: [],
-    },
-    {
-      route: { path: 'verbs', component: VerbListComponent, canActivate: [AuthGuard] },
-      roles: [],
-    },
-    {
-      route: { path: 'sentences', component: SentenceListComponent, canActivate: [AuthGuard] },
-      roles: [],
-    },
-    {
-      route: { path: 'sentence-task-management', component: SentenceTaskListComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Administrator, Enums.EUserType.Teacher],
-    },
-    {
-      route: { path: 'user-management', component: UserListComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Administrator],
-    },
-    {
-      route: { path: 'word-task-management', component: WordTaskListComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Teacher, Enums.EUserType.Administrator],
-    },
-    {
-      route: { path: 'verb-task-management', component: VerbTaskListComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Teacher, Enums.EUserType.Administrator],
-    },
-    {
-      route: { path: 'word-task-details/:id', component: WordTaskDetailsComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Teacher, Enums.EUserType.Administrator]
-    },
-    {
-      route: { path: 'verb-task-details/:id', component: VerbTaskDetailsComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Teacher, Enums.EUserType.Administrator]
-    },
-    {
-      route: { path: 'sentence-task-details/:id', component: SentenceTaskDetailsComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Teacher, Enums.EUserType.Administrator]
-    },
-    {
-      route: { path: 'pupil-word-tasks', component: PupilWordTaskListComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
-    },
-    {
-      route: { path: 'pupil-verb-tasks', component: PupilVerbTaskListComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
-    },
-    {
-      route: { path: 'pupil-sentence-tasks', component: PupilSentenceTaskListComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
-    },
-    {
-      route: { path: 'word-task-wizard/:id', component: WordTaskWizardComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
-    },
-    {
-      route: { path: 'verb-task-wizard/:id', component: VerbTaskWizardComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
-    },
-    {
-      route: { path: 'sentence-task-wizard/:id', component: SentenceTaskWizardComponent, canActivate: [AuthGuard] },
-      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
-    },
-    {
-      route: { path: 'word-task-results/:id', component: WordTaskResultsComponent, canActivate: [AuthGuard] },
-      roles: [],
-    },
-    {
-      route: { path: 'verb-task-results/:id', component: VerbTaskResultsComponent, canActivate: [AuthGuard] },
-      roles: [],
-    },
-    {
-      route: { path: 'sentence-task-results/:id', component: SentenceTaskResultsComponent, canActivate: [AuthGuard] },
-      roles: [],
-    },
-    {
-      route: { path: 'login', component: LoginComponent },
-      roles: [],
-    },
-    {
-      route: { path: 'register', component: RegistrationComponent },
-      roles: [],
-    },
-    {
-      route: { path: 'forbidden', component: ForbiddenPageComponent },
-      roles: [],
-    },
-    {
-      route: { path: '**', component: NotFoundPageComponent },
-      roles: [],
-    }
+  public static routes: Route[] = [
+    { path: Enums.ERoutes.Home.toString(), component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.Words.toString(), component: WordListComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.Verbs.toString(), component: VerbListComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.Sentences.toString(), component: SentenceListComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.SentenceTaskManagement.toString(), component: SentenceTaskListComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.UserManagement.toString(), component: UserListComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.WordTaskManagement.toString(), component: WordTaskListComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.VerbTaskManagement.toString(), component: VerbTaskListComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.WordTaskDetails.toString(), component: WordTaskDetailsComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.VerbTaskDetails.toString(), component: VerbTaskDetailsComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.SentenceTaskDetails.toString(), component: SentenceTaskDetailsComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.PupilWordTasks.toString(), component: PupilWordTaskListComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.PupilVerbTasks.toString(), component: PupilVerbTaskListComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.PupilSentenceTasks.toString(), component: PupilSentenceTaskListComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.WordTaskWizard.toString(), component: WordTaskWizardComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.VerbTaskWizard.toString(), component: VerbTaskWizardComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.SentenceTaskWizard.toString(), component: SentenceTaskWizardComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.WordTaskResults.toString(), component: WordTaskResultsComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.VerbTaskResults.toString(), component: VerbTaskResultsComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.SentenceTaskResults.toString(), component: SentenceTaskResultsComponent, canActivate: [AuthGuard] },
+    { path: Enums.ERoutes.Login.toString(), component: LoginComponent },
+    { path: Enums.ERoutes.Register.toString(), component: RegistrationComponent },
+    { path: Enums.ERoutes.Forbidden.toString(), component: ForbiddenPageComponent },
+    { path: Enums.ERoutes.Other.toString(), component: NotFoundPageComponent },
   ];
 }

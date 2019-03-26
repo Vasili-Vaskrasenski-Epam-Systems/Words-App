@@ -12,4 +12,31 @@ export module Enums {
     Done = 3,
     Failed = 4,
   }
+
+  export enum ERoutes {
+    Words = <any>"words",
+    Verbs = <any>"verbs",
+    Sentences = <any>"sentences",
+    SentenceTaskManagement = <any>"sentence-task-management",
+    UserManagement = <any>"user-management",
+    WordTaskManagement = <any>"word-task-management",
+    VerbTaskManagement = <any>"verb-task-management",
+    WordTaskDetails = <any>"word-task-details/:id",
+    VerbTaskDetails = <any>"verb-task-details/:id",
+    SentenceTaskDetails = <any>"sentence-task-details/:id",
+    PupilWordTasks = <any>"pupil-word-tasks",
+    PupilVerbTasks = <any>"pupil-verb-tasks",
+    PupilSentenceTasks = <any>"pupil-sentence-tasks",
+    WordTaskWizard = <any>"word-task-wizard/:id",
+    VerbTaskWizard = <any>"verb-task-wizard/:id",
+    SentenceTaskWizard = <any>"sentence-task-wizard/:id",
+    WordTaskResults = <any>"word-task-results/:id",
+    VerbTaskResults = <any>"verb-task-results/:id",
+    SentenceTaskResults = <any>"sentence-task-results/:id",
+    Login = <any>"login",
+    Register = <any>"register",
+    Forbidden = <any>"forbidden",
+    Other = <any>"**",
+    Home = <any>""
+  }
 }

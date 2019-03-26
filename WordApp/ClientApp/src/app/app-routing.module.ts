@@ -7,7 +7,7 @@ import { NotFoundPageComponent } from './error-pages/not-found-page.component';
 import { ForbiddenPageComponent } from './error-pages/forbidden-page.component';
 
 @NgModule({
-  imports: [RouterModule.forRoot(ConfiguredRoutes.routes.map(r => r.route))],
+  imports: [RouterModule.forRoot(ConfiguredRoutes.routes)],
   exports: [RouterModule],
   declarations: [NotFoundPageComponent, ForbiddenPageComponent]
 })
