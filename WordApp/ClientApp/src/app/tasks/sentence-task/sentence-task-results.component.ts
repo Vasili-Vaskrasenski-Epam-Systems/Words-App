@@ -17,7 +17,6 @@ export class SentenceTaskResultsComponent implements OnInit {
     this.route.params.subscribe(e => {
       this.assignTaskService.getCompletedTask(e['id']).subscribe(data => {
         this.completedTask = data;
-        console.log(data);
       });
     });
   }

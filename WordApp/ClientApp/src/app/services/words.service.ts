@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { WordModel } from './word.model';
+import { WordModel } from './../models/words/word.model';
 import { AuthService } from './../auth/auth.service';
 
 @Injectable()

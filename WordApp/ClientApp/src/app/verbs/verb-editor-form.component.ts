@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, OnInit } from "@angular/core";
-import { WordModel } from "./../words/word.model";
+import { WordModel } from "./../models/words/word.model";
 import { VerbModel } from "./verb.model";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Constants } from './../app-constants';

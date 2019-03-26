@@ -16,6 +16,7 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private authenticationService: AuthService) {
     this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

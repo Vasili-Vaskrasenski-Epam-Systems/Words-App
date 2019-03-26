@@ -37,8 +37,6 @@ export class SentenceTaskDetailsComponent implements OnInit {
 
         this.sentenceDataSource = new MatTableDataSource<OrderedSentenceTaskModel>(this.task.sentences);
         this.sentenceDataSource.paginator = this.verbsPaginator;
-
-        console.log(this.taskStatuses.Done);
       });
     });
   }

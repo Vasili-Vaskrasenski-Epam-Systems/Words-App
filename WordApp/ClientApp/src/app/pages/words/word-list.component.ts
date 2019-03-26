@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ComponentFactoryResolver, ViewContainerRef, ElementRef } from "@angular/core";
-import { WordsService } from "./words.service";
-import { WordModel } from "./word.model";
+import { WordsService } from "./../../services/words.service";
+import { WordModel } from "./../../models/words/word.model";
 import { WordEditorFormComponent } from "./word-editor-form.component";
-import { AlertService } from './../alert/alert.service';
+import { AlertService } from './../../alert/alert.service';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 @Component({

@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HelpersModule } from './helpers/helpers.module';
 
 import { HomeModule } from './home/home.module';
-import { WordsModule } from './words/words.module';
+import { WordsModule } from './pages/words/words.module';
 import { VerbModule } from './verbs/verb.module';
 import { UsersModule } from './users/users.module';
 import { TaskModule } from './tasks/task.module';

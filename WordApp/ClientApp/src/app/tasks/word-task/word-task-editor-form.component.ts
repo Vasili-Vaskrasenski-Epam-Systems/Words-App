@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { OrderedWordTaskModel } from "./../models/ordered-word-task.model";
 import { WordTaskModel } from "./../models/word-task.model";
-import { WordModel } from "./../../words/word.model";
+import { WordModel } from "./../../models/words/word.model";
 import { CommonDraggableListModel } from './../../common/common-draggable-list.component';
 
 import { AlertService } from './../../alert/alert.service';

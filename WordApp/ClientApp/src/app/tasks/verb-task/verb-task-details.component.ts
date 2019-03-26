@@ -37,8 +37,6 @@ export class VerbTaskDetailsComponent implements OnInit {
 
         this.verbsDataSource = new MatTableDataSource<OrderedVerbTaskModel>(this.task.verbs);
         this.verbsDataSource.paginator = this.verbsPaginator;
-
-        console.log(this.taskStatuses.Done);
       });
     });
   }

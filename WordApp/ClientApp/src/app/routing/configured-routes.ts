@@ -1,9 +1,8 @@
 import { RoutesModel } from './routes.model';
-
 import { AuthGuard } from './../auth-guard';
 
 import { HomeComponent } from './../home/home.component';
-import { WordListComponent } from "./../words/word-list.component";
+import { WordListComponent } from "./../pages/words/word-list.component";
 import { VerbListComponent } from './../verbs/verb-list.component';
 import { SentenceListComponent } from './../pages/sentences/sentence-list.component';
 import { LoginComponent } from './../auth/login.component';

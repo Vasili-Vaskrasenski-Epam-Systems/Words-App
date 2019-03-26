@@ -66,7 +66,6 @@ export class SentenceEditorFormComponent implements OnInit {
 
   public onAddTranslation() {
     this.submitted = true;
-    console.log(this.sentenceEditorForm);
     if (this.sentenceEditorForm.controls.translation.invalid) {
       this.submitted = true;
       return;

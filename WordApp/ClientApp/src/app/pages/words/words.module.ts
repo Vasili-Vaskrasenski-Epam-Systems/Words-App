@@ -3,18 +3,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { WordListComponent } from './word-list.component';
 import { WordEditorFormComponent } from './word-editor-form.component';
-import { WordsService } from './words.service';
-import { CommonComponentsModule } from './../common/common-components.module';
+import { WordsService } from './../../services/words.service';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule, MatFormFieldModule, MatInputModule } from '@angular/material';
-
+import { MatPaginatorModule, MatFormFieldModule, MatInputModule, MatSpinner } from '@angular/material';
+import { CommonComponentsModule } from './../../common/common-components.module';
 
 @NgModule({
   declarations: [
     WordListComponent,
     WordEditorFormComponent
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule],
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, CommonComponentsModule],
   exports: [
     WordListComponent
   ],

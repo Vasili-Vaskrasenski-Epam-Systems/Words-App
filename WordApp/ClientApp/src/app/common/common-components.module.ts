@@ -6,16 +6,15 @@ import { SelectComponent } from './select.component';
 import { CommonDatepickerComponent } from './common-datepicker.component';
 import { CommonDraggableListComponent } from './common-draggable-list.component';
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { MatSpinner } from '@angular/material';
+import { MatProgressSpinnerModule, MatSpinner } from '@angular/material';
 
 @NgModule({
   declarations: [
     SelectComponent,
     CommonDatepickerComponent,
     CommonDraggableListComponent,
-    MatSpinner
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, NgbModule, DragDropModule],
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, NgbModule, DragDropModule, MatProgressSpinnerModule],
   exports: [
     SelectComponent,
     CommonDatepickerComponent,
@@ -27,6 +26,6 @@ import { MatSpinner } from '@angular/material';
 })
 
 export class CommonComponentsModule {
-
+  
 }
 

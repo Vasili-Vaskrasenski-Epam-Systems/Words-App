@@ -1,4 +1,4 @@
-import { WordModel } from './../../words/word.model';
+import { WordModel } from './../../models/words/word.model';
 import { TaskAnswerModel } from './task-answer.model';
 
 export class AnsweredWordModel {

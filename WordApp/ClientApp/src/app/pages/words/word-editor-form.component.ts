@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { WordModel } from './word.model';
-import { Constants } from './../app-constants';
+import { WordModel } from './../../models/words/word.model';
+import { Constants } from './../../app-constants';
 
 @Component({
   selector: "app-word-editor-form",
