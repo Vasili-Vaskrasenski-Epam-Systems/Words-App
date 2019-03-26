@@ -8,7 +8,7 @@ import { WordTaskModel } from './../models/word-task.model';
 import { AnsweredWordModel } from './../models/answered-word.model';
 import { TaskAnswerModel } from './../models/task-answer.model';
 import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
-import { UserModel } from './../../users/user.model';
+import { UserModel } from './../../models/users/user.model';
 
 import { Router, ActivatedRoute } from "@angular/router";
 

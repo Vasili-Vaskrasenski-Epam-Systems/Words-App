@@ -1,4 +1,4 @@
-import { Enums } from './../app-enums';
+import { Enums } from './../../app-enums';
 
 export class UserModel {
   name: string;

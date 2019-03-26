@@ -1,10 +1,10 @@
 import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core';
 
-import { VerbModel } from './verb.model';
-import { WordModel } from './../models/words/word.model';
+import { VerbModel } from './../../models/verbs/verb.model';
+import { WordModel } from './../../models/words/word.model';
 
-import { VerbService } from './verb.service';
-import { WordsService } from "./../services/words.service";
+import { VerbService } from './../../services/verb.service';
+import { WordsService } from "./../../services/words.service";
 
 import { VerbEditorFormComponent } from "./verb-editor-form.component";
 import { MatPaginator, MatTableDataSource } from '@angular/material';

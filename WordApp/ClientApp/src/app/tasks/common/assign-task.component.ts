@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
-import { UserModel } from "./../../users/user.model";
+import { UserModel } from "./../../models/users/user.model";
 import { WordTaskModel } from "./../models/word-task.model";
 import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
 

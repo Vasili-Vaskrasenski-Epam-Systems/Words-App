@@ -1,4 +1,4 @@
-import { WordModel } from './../models/words/word.model';
+import { WordModel } from './../words/word.model';
 
 export class VerbModel {
   id: string;

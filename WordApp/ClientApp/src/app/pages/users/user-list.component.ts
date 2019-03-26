@@ -1,9 +1,9 @@
 import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core';
 
-import { UserService } from './user.service';
-import { AlertService } from './../alert/alert.service';
+import { UserService } from './../../services/user.service';
+import { AlertService } from './../../alert/alert.service';
 
-import { UserModel } from './user.model';
+import { UserModel } from './../../models/users/user.model';
 
 import { UserEditorFormComponent } from './user-editor-form.component';
 import { MatPaginator, MatTableDataSource } from '@angular/material';

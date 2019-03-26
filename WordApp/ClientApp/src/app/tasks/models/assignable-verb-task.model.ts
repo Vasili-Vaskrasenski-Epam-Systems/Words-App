@@ -1,4 +1,4 @@
-import { UserModel } from './../../users/user.model';
+import { UserModel } from './../../models/users/user.model';
 import { VerbTaskModel } from './verb-task.model';
 import { Enums } from './../../app-enums';
 import { AnsweredVerbModel } from './answered-verb.model';

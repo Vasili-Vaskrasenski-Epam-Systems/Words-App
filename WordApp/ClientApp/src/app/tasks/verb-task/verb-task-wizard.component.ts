@@ -8,7 +8,7 @@ import { VerbTaskModel } from './../models/verb-task.model';
 import { AnsweredVerbModel } from './../models/answered-verb.model';
 import { VerbTaskAnswerModel } from './../models/verb-task-answer.model';
 import { AssignableVerbTaskModel } from './../models/assignable-verb-task.model';
-import { UserModel } from './../../users/user.model';
+import { UserModel } from './../../models/users/user.model';
 
 import { Router,ActivatedRoute } from "@angular/router";
 

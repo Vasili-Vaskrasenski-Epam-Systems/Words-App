@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core';
 
 import { AlertService } from './../../alert/alert.service';
-import { UserService } from './../../users/user.service';
+import { UserService } from './../../services/user.service';
 import { SentenceTaskService } from './../../services/tasks/sentence-task.service';
 import { AssignSentenceTaskService } from './../../services/tasks/assign-sentence-task.service';
 import { SentenceService } from './../../services/sentence.service';
@@ -9,7 +9,7 @@ import { SentenceService } from './../../services/sentence.service';
 import { AssignSentenceTaskModel } from './../../models/tasks/sentences/assign-sentence-task.model';
 import { SentenceTaskModel } from './../../models/tasks/sentences/sentence-task.model';
 import { SentenceModel } from './../../models/sentences/sentence.model';
-import { UserModel } from './../../users/user.model';
+import { UserModel } from './../../models/users/user.model';
 
 import { SentenceTaskEditorFormComponent } from './sentence-task-editor-form.component';
 import { AssignTaskComponent, AssignableUserModel } from './../common/assign-task.component';

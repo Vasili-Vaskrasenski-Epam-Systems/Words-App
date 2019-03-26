@@ -9,7 +9,7 @@ import { AssignSentenceTaskModel } from './../../models/tasks/sentences/assign-s
 import { AnsweredSentenceModel } from './../../models/tasks/sentences/answered-sentence.model'
 import { TaskAnswerModel } from './../models/task-answer.model';
 
-import { UserModel } from './../../users/user.model';
+import { UserModel } from './../../models/users/user.model';
 
 import { Router, ActivatedRoute } from "@angular/router";
 

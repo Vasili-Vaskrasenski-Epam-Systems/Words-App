@@ -1,4 +1,4 @@
-import { VerbModel } from './../../verbs/verb.model';
+import { VerbModel } from './../../models/verbs/verb.model';
 
 export class OrderedVerbTaskModel {
   order: number;

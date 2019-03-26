@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { VerbModel } from './verb.model';
+import { VerbModel } from './../models/verbs/verb.model';
 import { AuthService } from './../auth/auth.service';
 
 @Injectable()

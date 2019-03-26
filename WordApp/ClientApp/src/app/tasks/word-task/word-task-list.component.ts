@@ -3,13 +3,13 @@ import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryRes
 import { WordTaskService } from './../services/word-task.service';
 import { WordsService } from './../../services/words.service';
 import { AlertService } from './../../alert/alert.service';
-import { UserService } from './../../users/user.service';
+import { UserService } from './../../services/user.service';
 import { AssignWordTaskService } from './../services/assign-word-task.service';
 
 import { WordTaskModel } from './../models/word-task.model';
 import { WordModel } from './../../models/words/word.model';
 import { AssignableWordTaskModel } from './../models/assignable-word-task.model';
-import { UserModel } from './../../users/user.model';
+import { UserModel } from './../../models/users/user.model';
 
 import { WordTaskEditorFormComponent } from './word-task-editor-form.component';
 import { AssignTaskComponent, AssignableUserModel } from './../common/assign-task.component';

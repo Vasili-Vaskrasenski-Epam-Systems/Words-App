@@ -1,14 +1,14 @@
 import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, OnInit } from '@angular/core';
 
 import { VerbTaskService } from './../services/verb-task.service';
-import { VerbService } from './../../verbs/verb.service';
+import { VerbService } from './../../services/verb.service';
 import { AlertService } from './../../alert/alert.service';
-import { UserService } from './../../users/user.service';
+import { UserService } from './../../services/user.service';
 import { AssignVerbTaskService } from './../services/assign-verb-task.service';
 
 import { VerbTaskModel } from './../models/verb-task.model';
-import { VerbModel } from './../../verbs/verb.model';
-import { UserModel } from './../../users/user.model';
+import { VerbModel } from './../../models/verbs/verb.model';
+import { UserModel } from './../../models/users/user.model';
 import { AssignableVerbTaskModel } from './../models/assignable-verb-task.model';
 
 import { VerbTaskEditorFormComponent } from './verb-task-editor-form.component';

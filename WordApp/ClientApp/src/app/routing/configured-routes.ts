@@ -3,11 +3,11 @@ import { AuthGuard } from './../auth-guard';
 
 import { HomeComponent } from './../home/home.component';
 import { WordListComponent } from "./../pages/words/word-list.component";
-import { VerbListComponent } from './../verbs/verb-list.component';
+import { VerbListComponent } from './../pages/verbs/verb-list.component';
 import { SentenceListComponent } from './../pages/sentences/sentence-list.component';
 import { LoginComponent } from './../auth/login.component';
 import { RegistrationComponent } from './../auth/registration.component';
-import { UserListComponent } from './../users/user-list.component';
+import { UserListComponent } from './../pages/users/user-list.component';
 import { WordTaskListComponent } from './../tasks/word-task/word-task-list.component';
 import { WordTaskDetailsComponent } from './../tasks/word-task/word-task-details.component';
 import { PupilWordTaskListComponent } from './../tasks/word-task/pupil-word-task-list.component';

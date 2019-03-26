@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { VerbTaskModel } from "./../models/verb-task.model";
-import { VerbModel } from "./../../verbs/verb.model";
+import { VerbModel } from "./../../models/verbs/verb.model";
 import { OrderedVerbTaskModel } from "./../models/ordered-verb-task.model";
 import { CommonDraggableListModel } from './../../common/common-draggable-list.component';
 

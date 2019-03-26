@@ -1,4 +1,4 @@
-import { UserModel } from './../../users/user.model';
+import { UserModel } from './../../models/users/user.model';
 import { WordTaskModel } from './word-task.model';
 import { Enums } from './../../app-enums';
 import { AnsweredWordModel } from './answered-word.model';

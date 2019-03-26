@@ -16,8 +16,6 @@ import { AssignVerbTaskService } from './services/assign-verb-task.service';
 import { SentenceTaskService } from './../services/tasks/sentence-task.service';
 import { AssignSentenceTaskService } from './../services/tasks/assign-sentence-task.service';
 
-import { HelpersModule } from './../helpers/helpers.module';
-
 import { AssignTaskComponent } from './common/assign-task.component';
 
 import { WordTaskEditorFormComponent } from './word-task/word-task-editor-form.component';
@@ -48,7 +46,7 @@ import { SentenceTaskResultsComponent } from './sentence-task/sentence-task-resu
     PupilVerbTaskListComponent, SentenceTaskEditorFormComponent, SentenceTaskListComponent, SentenceTaskDetailsComponent, SentenceTaskWizardComponent, PupilSentenceTaskListComponent,
     SentenceTaskResultsComponent
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, HelpersModule, RouterModule, MatCheckboxModule,
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, RouterModule, MatCheckboxModule,
     MatPaginatorModule, MatTableModule, MatFormFieldModule, MatInputModule],
   exports: [],
   providers: [WordTaskService, AssignWordTaskService, VerbTaskService, AssignVerbTaskService, SentenceTaskService, AssignSentenceTaskService],

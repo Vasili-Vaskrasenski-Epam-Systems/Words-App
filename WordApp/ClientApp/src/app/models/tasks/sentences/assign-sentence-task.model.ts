@@ -1,4 +1,4 @@
-import { UserModel } from './../../../users/user.model';
+import { UserModel } from './../../../models/users/user.model';
 import { SentenceTaskModel } from './sentence-task.model';
 import { Enums } from './../../../app-enums';
 import { AnsweredSentenceModel } from './answered-sentence.model';

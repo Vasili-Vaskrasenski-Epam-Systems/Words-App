@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserModel } from './../users/user.model';
+import { UserModel } from './../models/users/user.model';
 import { Constants } from './../app-constants';
 
 @Injectable({ providedIn: 'root' })

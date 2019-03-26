@@ -8,12 +8,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HelpersModule } from './helpers/helpers.module';
 
 import { HomeModule } from './home/home.module';
 import { WordsModule } from './pages/words/words.module';
-import { VerbModule } from './verbs/verb.module';
-import { UsersModule } from './users/users.module';
+import { VerbModule } from './pages/verbs/verb.module';
+import { UsersModule } from './pages/users/users.module';
 import { TaskModule } from './tasks/task.module';
 import { SentenceModule } from './pages/sentences/sentence.module';
 
@@ -37,8 +36,7 @@ import { ErrorInterceptor } from './app-error-interceptor';
     MatMenuModule,
 
     AppRoutingModule,
-    HelpersModule,
-
+    
     WordsModule,
     HomeModule,
     VerbModule,
