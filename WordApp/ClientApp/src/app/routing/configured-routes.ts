@@ -1,31 +1,31 @@
 import { Route } from '@angular/router';
 import { AuthGuard } from './../auth-guard';
 
-import { HomeComponent } from './../home/home.component';
+import { HomeComponent } from './../pages/home/home.component';
 import { WordListComponent } from "./../pages/words/word-list.component";
 import { VerbListComponent } from './../pages/verbs/verb-list.component';
 import { SentenceListComponent } from './../pages/sentences/sentence-list.component';
 import { LoginComponent } from './../auth/login.component';
 import { RegistrationComponent } from './../auth/registration.component';
 import { UserListComponent } from './../pages/users/user-list.component';
-import { WordTaskListComponent } from './../tasks/word-task/word-task-list.component';
-import { WordTaskDetailsComponent } from './../tasks/word-task/word-task-details.component';
-import { PupilWordTaskListComponent } from './../tasks/word-task/pupil-word-task-list.component';
-import { WordTaskWizardComponent } from './../tasks/word-task/word-task-wizard.component';
-import { WordTaskResultsComponent } from './../tasks/word-task/word-task-results.component';
-import { VerbTaskListComponent } from './../tasks/verb-task/verb-task-list.component';
-import { VerbTaskDetailsComponent } from './../tasks/verb-task/verb-task-details.component';
-import { VerbTaskWizardComponent } from './../tasks/verb-task/verb-task-wizard.component';
-import { VerbTaskResultsComponent } from './../tasks/verb-task/verb-task-results.component';
-import { PupilVerbTaskListComponent } from './../tasks/verb-task/pupil-verb-task-list.component';
-import { SentenceTaskListComponent } from './../tasks/sentence-task/sentence-task-list.component';
-import { SentenceTaskDetailsComponent } from './../tasks/sentence-task/sentence-task-details.component';
-import { SentenceTaskWizardComponent } from './../tasks/sentence-task/sentence-task-wizard.component';
-import { PupilSentenceTaskListComponent } from './../tasks/sentence-task/pupil-sentence-task-list.component';
-import { SentenceTaskResultsComponent } from './../tasks/sentence-task/sentence-task-results.component';
+import { WordTaskListComponent } from './../pages/tasks/word-task/word-task-list.component';
+import { WordTaskDetailsComponent } from './../pages/tasks/word-task/word-task-details.component';
+import { PupilWordTaskListComponent } from './../pages/tasks/word-task/pupil-word-task-list.component';
+import { WordTaskWizardComponent } from './../pages/tasks/word-task/word-task-wizard.component';
+import { WordTaskResultsComponent } from './../pages/tasks/word-task/word-task-results.component';
+import { VerbTaskListComponent } from './../pages/tasks/verb-task/verb-task-list.component';
+import { VerbTaskDetailsComponent } from './../pages/tasks/verb-task/verb-task-details.component';
+import { VerbTaskWizardComponent } from './../pages/tasks/verb-task/verb-task-wizard.component';
+import { VerbTaskResultsComponent } from './../pages/tasks/verb-task/verb-task-results.component';
+import { PupilVerbTaskListComponent } from './../pages/tasks/verb-task/pupil-verb-task-list.component';
+import { SentenceTaskListComponent } from './../pages/tasks/sentence-task/sentence-task-list.component';
+import { SentenceTaskDetailsComponent } from './../pages/tasks/sentence-task/sentence-task-details.component';
+import { SentenceTaskWizardComponent } from './../pages/tasks/sentence-task/sentence-task-wizard.component';
+import { PupilSentenceTaskListComponent } from './../pages/tasks/sentence-task/pupil-sentence-task-list.component';
+import { SentenceTaskResultsComponent } from './../pages/tasks/sentence-task/sentence-task-results.component';
 
-import { NotFoundPageComponent } from './../error-pages/not-found-page.component';
-import { ForbiddenPageComponent } from './../error-pages/forbidden-page.component';
+import { NotFoundPageComponent } from './../pages/error-pages/not-found-page.component';
+import { ForbiddenPageComponent } from './../pages/error-pages/forbidden-page.component';
 
 import { Enums } from './../app-enums';
 
@@ -54,6 +54,6 @@ export class ConfiguredRoutes {
     { path: Enums.ERoutes.Login.toString(), component: LoginComponent },
     { path: Enums.ERoutes.Register.toString(), component: RegistrationComponent },
     { path: Enums.ERoutes.Forbidden.toString(), component: ForbiddenPageComponent },
-    { path: Enums.ERoutes.Other.toString(), component: NotFoundPageComponent },
+    { path: Enums.ERoutes.Other.toString(), component: NotFoundPageComponent }
   ];
 }

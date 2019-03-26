@@ -9,11 +9,10 @@ import { MatMenuModule} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { HomeModule } from './home/home.module';
 import { WordsModule } from './pages/words/words.module';
 import { VerbModule } from './pages/verbs/verb.module';
 import { UsersModule } from './pages/users/users.module';
-import { TaskModule } from './tasks/task.module';
+import { TaskModule } from './pages/tasks/task.module';
 import { SentenceModule } from './pages/sentences/sentence.module';
 
 import { DatePipe } from "@angular/common";
@@ -22,6 +21,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LoginComponent } from './auth/login.component';
 import { RegistrationComponent } from './auth/registration.component';
+import { HomeComponent} from './pages/home/home.component'
 import { AlertComponent } from './alert/alert.component';
 import { ErrorInterceptor } from './app-error-interceptor';
 
@@ -38,7 +38,6 @@ import { ErrorInterceptor } from './app-error-interceptor';
     AppRoutingModule,
     
     WordsModule,
-    HomeModule,
     VerbModule,
     UsersModule,
     TaskModule,
@@ -49,6 +48,7 @@ import { ErrorInterceptor } from './app-error-interceptor';
     NavMenuComponent,
     LoginComponent,
     RegistrationComponent,
+    HomeComponent,
     AlertComponent,
   ],
   bootstrap: [AppComponent],

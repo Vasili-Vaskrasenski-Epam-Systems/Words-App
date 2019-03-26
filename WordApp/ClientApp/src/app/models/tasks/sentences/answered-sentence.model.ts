@@ -1,5 +1,5 @@
 import { SentenceModel } from './../../sentences/sentence.model';
-import { TaskAnswerModel } from './../../../tasks/models/task-answer.model';
+import { TaskAnswerModel } from './../../../models/tasks//task-answer.model';
 
 export class AnsweredSentenceModel {
   sentence: SentenceModel;
