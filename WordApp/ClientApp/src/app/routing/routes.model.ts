@@ -1,10 +1,10 @@
-import { ERoutes, EUserType } from './../app-enums';
+import { EUserType } from './../app-enums';
 
 export class RoutesModel {
-  public route: ERoutes;
+  public route: string;
   public roles: EUserType[];
 
-  constructor(route: ERoutes, roles: EUserType[]) {
+  constructor(route: string, roles: EUserType[]) {
     this.route = route;
     this.roles = roles;
   }

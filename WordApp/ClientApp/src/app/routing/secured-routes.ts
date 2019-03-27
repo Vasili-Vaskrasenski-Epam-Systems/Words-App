@@ -1,102 +1,103 @@
-import { ERoutes, EUserType } from './../app-enums';
+import { EUserType } from './../app-enums';
 import { RoutesModel } from './routes.model';
+import { ExistingRoutes } from './existing-routes';
 
 export class SecuredRoutes {
   public static routes: RoutesModel[] = [
     {
-      route: ERoutes.Home,
+      route: ExistingRoutes.home,
       roles: [EUserType.Administrator, EUserType.Pupil, EUserType.Teacher],
     },
     {
-      route: ERoutes.Words,
+      route: ExistingRoutes.words,
       roles: [],
     },
     {
-      route: ERoutes.Verbs,
+      route: ExistingRoutes.verbs,
       roles: [],
     },
     {
-      route: ERoutes.Sentences,
+      route: ExistingRoutes.sentences,
       roles: [],
     },
     {
-      route: ERoutes.SentenceTaskManagement,
+      route: ExistingRoutes.sentenceTaskManagement,
       roles: [EUserType.Administrator, EUserType.Teacher],
     },
     {
-      route: ERoutes.UserManagement,
+      route: ExistingRoutes.userManagement,
       roles: [EUserType.Administrator],
     },
     {
-      route: ERoutes.WordTaskManagement,
+      route: ExistingRoutes.wordTaskManagement,
       roles: [EUserType.Teacher, EUserType.Administrator],
     },
     {
-      route: ERoutes.VerbTaskManagement,
+      route: ExistingRoutes.verbTaskManagement,
       roles: [EUserType.Teacher, EUserType.Administrator],
     },
     {
-      route: ERoutes.WordTaskDetails,
+      route: ExistingRoutes.wordTaskDetails,
       roles: [EUserType.Teacher, EUserType.Administrator]
     },
     {
-      route: ERoutes.VerbTaskDetails,
+      route: ExistingRoutes.verbTaskDetails,
       roles: [EUserType.Teacher, EUserType.Administrator]
     },
     {
-      route: ERoutes.SentenceTaskDetails,
+      route: ExistingRoutes.sentenceTaskDetails,
       roles: [EUserType.Teacher, EUserType.Administrator]
     },
     {
-      route: ERoutes.PupilWordTasks,
+      route: ExistingRoutes.pupilWordTasks,
       roles: [EUserType.Pupil, EUserType.Administrator],
     },
     {
-      route: ERoutes.PupilVerbTasks,
+      route: ExistingRoutes.pupilVerbTasks,
       roles: [EUserType.Pupil],
     },
     {
-      route: ERoutes.PupilSentenceTasks,
+      route: ExistingRoutes.pupilSentenceTasks,
       roles: [EUserType.Pupil, EUserType.Administrator],
     },
     {
-      route: ERoutes.WordTaskWizard,
+      route: ExistingRoutes.wordTaskWizard,
       roles: [EUserType.Pupil, EUserType.Administrator],
     },
     {
-      route: ERoutes.VerbTaskWizard,
+      route: ExistingRoutes.verbTaskWizard,
       roles: [EUserType.Pupil, EUserType.Administrator],
     },
     {
-      route: ERoutes.SentenceTaskWizard,
+      route: ExistingRoutes.sentenceTaskWizard,
       roles: [EUserType.Pupil, EUserType.Administrator],
     },
     {
-      route: ERoutes.WordTaskResults,
+      route: ExistingRoutes.wordTaskResults,
       roles: [],
     },
     {
-      route: ERoutes.VerbTaskResults,
+      route: ExistingRoutes.verbTaskResults,
       roles: [],
     },
     {
-      route: ERoutes.SentenceTaskResults,
+      route: ExistingRoutes.sentenceTaskResults,
       roles: [],
     },
     {
-      route: ERoutes.Login,
+      route: ExistingRoutes.login,
       roles: [],
     },
     {
-      route: ERoutes.Register,
+      route: ExistingRoutes.register,
       roles: [],
     },
     {
-      route: ERoutes.Forbidden,
+      route: ExistingRoutes.forbidden,
       roles: [],
     },
     {
-      route: ERoutes.Other,
+      route: ExistingRoutes.other,
       roles: [],
     }
   ];

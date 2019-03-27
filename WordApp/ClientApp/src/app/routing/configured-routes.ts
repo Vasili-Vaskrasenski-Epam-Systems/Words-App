@@ -27,34 +27,36 @@ import { SentenceTaskResultsComponent } from './../pages/tasks/sentence-task/sen
 import { NotFoundPageComponent } from './../pages/error-pages/not-found-page.component';
 import { ForbiddenPageComponent } from './../pages/error-pages/forbidden-page.component';
 
-import { ERoutes } from './../app-enums';
+import { ExistingRoutes} from './existing-routes';
 
 export class ConfiguredRoutes {
+
   public static routes: Route[] = [
-    { path: ERoutes.Home.toString(), component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
-    { path: ERoutes.Words.toString(), component: WordListComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.Verbs.toString(), component: VerbListComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.Sentences.toString(), component: SentenceListComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.SentenceTaskManagement.toString(), component: SentenceTaskListComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.UserManagement.toString(), component: UserListComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.WordTaskManagement.toString(), component: WordTaskListComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.VerbTaskManagement.toString(), component: VerbTaskListComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.WordTaskDetails.toString(), component: WordTaskDetailsComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.VerbTaskDetails.toString(), component: VerbTaskDetailsComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.SentenceTaskDetails.toString(), component: SentenceTaskDetailsComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.PupilWordTasks.toString(), component: PupilWordTaskListComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.PupilVerbTasks.toString(), component: PupilVerbTaskListComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.PupilSentenceTasks.toString(), component: PupilSentenceTaskListComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.WordTaskWizard.toString(), component: WordTaskWizardComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.VerbTaskWizard.toString(), component: VerbTaskWizardComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.SentenceTaskWizard.toString(), component: SentenceTaskWizardComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.WordTaskResults.toString(), component: WordTaskResultsComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.VerbTaskResults.toString(), component: VerbTaskResultsComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.SentenceTaskResults.toString(), component: SentenceTaskResultsComponent, canActivate: [AuthGuard] },
-    { path: ERoutes.Login.toString(), component: LoginComponent },
-    { path: ERoutes.Register.toString(), component: RegistrationComponent },
-    { path: ERoutes.Forbidden.toString(), component: ForbiddenPageComponent },
-    { path: ERoutes.Other.toString(), component: NotFoundPageComponent }
+    { path: ExistingRoutes.home, component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+    { path: ExistingRoutes.words, component: WordListComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.verbs, component: VerbListComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.sentences, component: SentenceListComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.sentenceTaskManagement, component: SentenceTaskListComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.userManagement, component: UserListComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.wordTaskManagement, component: WordTaskListComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.verbTaskManagement, component: VerbTaskListComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.verbTaskDetails, component: WordTaskDetailsComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.verbTaskDetails, component: VerbTaskDetailsComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.sentenceTaskDetails, component: SentenceTaskDetailsComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.pupilWordTasks, component: PupilWordTaskListComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.pupilVerbTasks, component: PupilVerbTaskListComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.pupilSentenceTasks, component: PupilSentenceTaskListComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.wordTaskWizard, component: WordTaskWizardComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.verbTaskWizard, component: VerbTaskWizardComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.sentenceTaskWizard, component: SentenceTaskWizardComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.wordTaskResults, component: WordTaskResultsComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.verbTaskResults, component: VerbTaskResultsComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.sentenceTaskResults, component: SentenceTaskResultsComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.login, component: LoginComponent },
+    { path: ExistingRoutes.register, component: RegistrationComponent },
+    { path: ExistingRoutes.forbidden, component: ForbiddenPageComponent },
+    { path: '', redirectTo: "/" + ExistingRoutes.home, pathMatch: "full" },
+    { path: '**', component: NotFoundPageComponent }
   ];
 
 }
