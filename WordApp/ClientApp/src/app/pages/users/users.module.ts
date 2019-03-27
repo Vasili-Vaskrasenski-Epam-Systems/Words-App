@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonComponentsModule } from './../../common/common-components.module';
 
 import { UserService } from './../../services/user.service';
+import { UserTokenService } from './../../services/users/user-token.service';
 
 import { UserListComponent } from './user-list.component';
 import { UserEditorFormComponent } from './user-editor-form.component';
@@ -18,9 +19,9 @@ import { MatPaginatorModule, MatFormFieldModule, MatInputModule } from '@angular
     UserListComponent,
     UserEditorFormComponent
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule ],
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, CommonComponentsModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule],
   exports: [],
-  providers:[UserService],
+  providers: [UserService, UserTokenService],
   entryComponents: [UserEditorFormComponent]
 })
 

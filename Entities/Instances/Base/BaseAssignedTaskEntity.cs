@@ -1,4 +1,5 @@
 ﻿using System;
+using Entities.Instances.User;
 using TaskStatus = Entities.Enums.TaskStatus;
 
 namespace Entities.Instances.Base

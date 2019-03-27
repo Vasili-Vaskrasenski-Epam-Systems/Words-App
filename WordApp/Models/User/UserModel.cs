@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WordApp.Models.Base;
 
-namespace WordApp.Models
+namespace WordApp.Models.User
 {
     public class UserModel: BaseModel
     {
@@ -12,6 +12,6 @@ namespace WordApp.Models
 
         [JsonConverter(typeof(StringEnumConverter))]
         public UserType UserType { get; set; }
-        public string Token { get; set; }
+        public UserTokenModel Token { get; set; }
     }
 }

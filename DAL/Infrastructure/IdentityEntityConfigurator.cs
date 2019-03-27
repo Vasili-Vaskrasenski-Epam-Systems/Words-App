@@ -4,6 +4,7 @@ using Entities.Instances.Sentence;
 using Entities.Instances.Task.SentenceTask;
 using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
+using Entities.Instances.User;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -73,6 +74,10 @@ namespace DAL.Infrastructure
         {
             base.Configure(builder);
             builder.HasMany(e => e.AssignedTasks)
+                .WithOne(ee => ee.User)
+                .HasForeignKey(ee => ee.UserId);
+
+            builder.HasMany(e => e.Tokens)
                 .WithOne(ee => ee.User)
                 .HasForeignKey(ee => ee.UserId);
         }
@@ -161,6 +166,8 @@ namespace DAL.Infrastructure
                 .HasForeignKey(ee => ee.SentenceAnswerId);
         }
     }
+
+    internal class UserTokenConfigurator : IdentityEntityConfigurator<UserTokenEntity> { }
 
     #region Relational entities
     internal class VerbWordConfigurator : IdentityEntityConfigurator<RelWordVerbEntity>

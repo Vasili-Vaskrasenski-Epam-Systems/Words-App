@@ -1,9 +1,9 @@
 ﻿using Entities.Instances;
 using Entities.Instances.Sentence;
-using Entities.Instances.Task;
 using Entities.Instances.Task.SentenceTask;
 using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
+using Entities.Instances.User;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
 using Microsoft.EntityFrameworkCore;
@@ -17,13 +17,15 @@ namespace DAL.Infrastructure
 
         }
 
+        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<UserTokenEntity> UserTokens { get; set; }
+
         public DbSet<WordEntity> Words { get; set; }
         public DbSet<VerbEntity> Verbs { get; set; }
         public DbSet<RelWordVerbEntity> RelWordVerbs { get; set; }
         public DbSet<WordTaskEntity> WordTasks { get; set; }
         public DbSet<RelTaskWordEntity> RelWordTasks { get; set; }
         public DbSet<AssignedWordTaskEntity> AssignedWordTasks { get; set; }
-        public DbSet<UserEntity> Users { get; set; }
         public DbSet<RelAnswerWordEntity> RelAnsweredWords { get; set; }
         public DbSet<WordAnswerEntity> WordAnswers { get; set; }
         public DbSet<VerbAnswerEntity> VerbAnswers { get; set; }
@@ -44,13 +46,15 @@ namespace DAL.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.ApplyConfiguration(new UserConfigurator());
+            modelBuilder.ApplyConfiguration(new UserTokenConfigurator());
+
             modelBuilder.ApplyConfiguration(new WordConfigurator());
             modelBuilder.ApplyConfiguration(new VerbConfigurator());
             modelBuilder.ApplyConfiguration(new VerbWordConfigurator());
             modelBuilder.ApplyConfiguration(new WordTaskConfigurator());
             modelBuilder.ApplyConfiguration(new TaskWordConfigurator());
             modelBuilder.ApplyConfiguration(new AssignedWordTaskConfigurator());
-            modelBuilder.ApplyConfiguration(new UserConfigurator());
             modelBuilder.ApplyConfiguration(new AnsweredWordConfigurator());
             modelBuilder.ApplyConfiguration(new WordAnswerConfigurator());
 

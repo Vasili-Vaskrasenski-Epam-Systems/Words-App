@@ -5,14 +5,15 @@ using BL.Services;
 using BL.Services.Task.SentenceTaskServices;
 using BL.Services.Task.VerbTaskServices;
 using BL.Services.Task.WordTaskServices;
+using BL.Services.User;
 using Configuration;
 using DAL.Helpers;
 using DAL.Infrastructure;
-using Entities.Instances;
 using Entities.Instances.Sentence;
 using Entities.Instances.Task.SentenceTask;
 using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
+using Entities.Instances.User;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +26,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using WordApp.Infrastructure;
+using WordApp.Infrastructure.TokenGenerators;
 
 
 namespace WordApp
@@ -44,15 +46,17 @@ namespace WordApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             #region Auth
-            var signingKey = new SigningSymmetricKey(Config.JwtConstants.AuthenticationKey);
+            var signingKey = new SigningSymmetricKey((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.AuthenticationKey));
+
             services.AddSingleton<IJwtSigningEncodingKey>(signingKey);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var signingDecodingKey = (IJwtSigningDecodingKey)signingKey;
             services
                 .AddAuthentication(options => {
-                    options.DefaultAuthenticateScheme = Config.JwtConstants.SchemaName;
-                    options.DefaultChallengeScheme = Config.JwtConstants.SchemaName;
+                    options.DefaultAuthenticateScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
+                    options.DefaultChallengeScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
                 })
                 .AddJwtBearer(Config.JwtConstants.SchemaName, jwtBearerOptions => {
                     jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
@@ -63,9 +67,9 @@ namespace WordApp
                         ValidateAudience = true,
 
                         IssuerSigningKey = signingDecodingKey.GetKey(),
-                        ValidIssuer = Config.JwtConstants.ValidIssuerName,
-                        ValidAudience = Config.JwtConstants.ValidAudienceName,
-                        ClockSkew = TimeSpan.FromSeconds(5)
+                        ValidIssuer = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidIssuerName),
+                        ValidAudience = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidIssuerName),
+                        ClockSkew = TimeSpan.Zero,
                     };
                 });
             #endregion
@@ -80,10 +84,13 @@ namespace WordApp
 
             var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString(Config.WordsDbConnectionStringName));
             services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer(connectionString));
-            
+
             #endregion
 
             #region Business Services
+
+            services.AddScoped(typeof(ITokenGenerator), typeof(TokenGenerator));
+
             services.AddScoped(typeof(BaseEntityService<WordEntity>), typeof(WordService));
             services.AddScoped(typeof(BaseEntityService<VerbEntity>), typeof(VerbService));
             services.AddScoped(typeof(BaseEntityService<UserEntity>), typeof(UserService));
@@ -94,6 +101,7 @@ namespace WordApp
             services.AddScoped(typeof(BaseEntityService<SentenceEntity>), typeof(SentenceService));
             services.AddScoped(typeof(BaseEntityService<SentenceTaskEntity>), typeof(SentenceTaskService));
             services.AddScoped(typeof(BaseEntityService<AssignedSentenceTaskEntity>), typeof(AssignSentenceTaskService));
+            services.AddScoped(typeof(BaseEntityService<UserTokenEntity>), typeof(UserTokenService));
             #endregion
 
             // In production, the Angular files will be served from this directory

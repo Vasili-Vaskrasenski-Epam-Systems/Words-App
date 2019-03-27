@@ -17,12 +17,16 @@ namespace Configuration
             public static string SchemaName;
             public static string ValidIssuerName;
             public static string ValidAudienceName;
+            public static string AccessTokenExpirationMinutes;
+            public static string RefreshTokenExpirationMinutes;
             static JwtConstants()
             {
-                AuthenticationKey = "0d5b3235a8b403c3dab9c3f4f65c07fcalskd234n1k41230";
-                SchemaName = "JwtBearer";
-                ValidIssuerName = "WordApplication";
-                ValidAudienceName = "WordApplicationClients";
+                AuthenticationKey = "JwtKey";
+                SchemaName = "JwtSchemaName";
+                ValidIssuerName = "JwtIssuerName";
+                ValidAudienceName = "JwtAudienceName";
+                AccessTokenExpirationMinutes = "JwtAccessKeyExpirationMinutes";
+                RefreshTokenExpirationMinutes = "JwtRefreshKeyExpirationMinutes";
             }
         }
     }

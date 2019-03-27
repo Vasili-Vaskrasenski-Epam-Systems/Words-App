@@ -5,6 +5,7 @@ using Entities.Instances.Sentence;
 using Entities.Instances.Task.SentenceTask;
 using Entities.Instances.Task.VerbTask;
 using Entities.Instances.Task.WordTask;
+using Entities.Instances.User;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
 using WordApp.Models;
@@ -13,6 +14,7 @@ using WordApp.Models.Sentences;
 using WordApp.Models.TaskModels.SentenceTaskModels;
 using WordApp.Models.TaskModels.VerbTaskModels;
 using WordApp.Models.TaskModels.WordTaskModels;
+using WordApp.Models.User;
 
 namespace WordApp.Infrastructure
 {

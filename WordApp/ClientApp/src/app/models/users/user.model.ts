@@ -1,4 +1,5 @@
 import { Enums } from './../../app-enums';
+import { UserTokenModel } from './user-token.model';
 
 export class UserModel {
   name: string;
@@ -6,7 +7,7 @@ export class UserModel {
   userType: Enums.EUserType;
   id: string;
   rowVersion: string;
-  token: string;
+  token: UserTokenModel;
 
   constructor(name: string, password: string, userType: Enums.EUserType, id: string, rowVersion: string) {
     this.name = name;

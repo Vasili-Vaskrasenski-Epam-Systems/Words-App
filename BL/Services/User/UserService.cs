@@ -1,7 +1,7 @@
 ﻿using DAL.Infrastructure;
-using Entities.Instances;
+using Entities.Instances.User;
 
-namespace BL.Services
+namespace BL.Services.User
 {
     public class UserService:BaseEntityService<UserEntity>
     {

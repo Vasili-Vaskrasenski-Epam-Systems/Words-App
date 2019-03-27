@@ -1,22 +1,22 @@
 ﻿using AutoMapper;
-using BL.Infrastructure.Encoders;
 using BL.Services;
 using Entities.Enums;
-using Entities.Instances;
+using Entities.Instances.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WordApp.Infrastructure;
-using WordApp.Models;
+using Microsoft.Extensions.Configuration;
+using WordApp.Infrastructure.TokenGenerators;
+using WordApp.Models.User;
 
 namespace WordApp.Controllers
 {
-    public class AuthenticationController: BaseController
+    public class AuthenticationController : BaseController
     {
-        private readonly IJwtSigningEncodingKey _encodingKey;
+        private readonly ITokenGenerator _tokenGenerator;
         private readonly BaseEntityService<UserEntity> _userService;
-        public AuthenticationController(IMapper mapper, BaseEntityService<UserEntity> service, [FromServices] IJwtSigningEncodingKey singingEncodingKey) : base(mapper)
+        public AuthenticationController(IMapper mapper, BaseEntityService<UserEntity> service, ITokenGenerator tokenGenerator, IConfiguration configuration) : base(mapper)
         {
-            this._encodingKey = singingEncodingKey;
+            this._tokenGenerator = tokenGenerator;
             this._userService = service;
         }
 
@@ -36,13 +36,33 @@ namespace WordApp.Controllers
         [HttpPost("[action]")]
         public IActionResult Login(string userName, string password)
         {
-            var existingUser = this._userService.GetQueryableEntity(e => e.Name == userName && e.Password == password);
+            var existingUser = this._userService.GetQueryableEntity(e => e.Name == userName && e.Password == password, "Tokens");
 
             if (existingUser != null)
             {
-                var tokenGenerator = new TokenGenerator(this._encodingKey);
-                var userModel = base.Mapper.Map<UserModel>(existingUser);
-                userModel.Token = tokenGenerator.GenerateToken(userModel.Id, userModel.UserType);
+                var accessToken = this._tokenGenerator.GenerateAccessToken(existingUser.Id, existingUser.UserType);
+                var refreshToken = this._tokenGenerator.GenerateRefreshToken(existingUser.Id);
+
+                var userTokenEntity = new UserTokenEntity()
+                {
+                    AccessToken = this._tokenGenerator.WriteToken(accessToken),
+                    RefreshToken = this._tokenGenerator.WriteToken(refreshToken),
+                    IsActive = true
+                };
+
+                existingUser.Tokens.Add(userTokenEntity);
+                
+                var updatedEntity = this._userService.UpdateEntity(existingUser);
+
+                var userModel = base.Mapper.Map<UserModel>(updatedEntity);
+                userModel.Token = new UserTokenModel()
+                {
+                    RefreshToken = userTokenEntity.RefreshToken,
+                    RefreshTokenExpirationDate = refreshToken.ValidTo,
+                    AccessToken = userTokenEntity.AccessToken,
+                    AccessTokenExpirationDate = accessToken.ValidTo,
+                };
+
                 return Ok(userModel);
             }
 

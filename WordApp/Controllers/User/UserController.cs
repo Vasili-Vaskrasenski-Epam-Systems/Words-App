@@ -11,11 +11,13 @@ using BL.Infrastructure.Encoders;
 using BL.Services;
 using Entities.Enums;
 using Entities.Instances;
+using Entities.Instances.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using WordApp.Infrastructure;
 using WordApp.Models;
+using WordApp.Models.User;
 
 namespace WordApp.Controllers
 {

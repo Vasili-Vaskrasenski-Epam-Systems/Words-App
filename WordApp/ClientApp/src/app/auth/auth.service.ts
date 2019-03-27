@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserModel } from './../models/users/user.model';
+import { UserTokenModel } from './../models/users/user-token.model';
 import { Constants } from './../app-constants';
 
 @Injectable({ providedIn: 'root' })
@@ -21,9 +22,9 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  public login(userName: string, password: string){
+  public login(userName: string, password: string) {
 
-    var params = new HttpParams({fromObject: {userName: userName, password: password}});
+    var params = new HttpParams({ fromObject: { userName: userName, password: password } });
 
     return this.http.post<any>(this.baseUrl + '/Login', null, { params: params })
       .pipe(map(user => {
@@ -37,6 +38,13 @@ export class AuthService {
       }));
   }
 
+  public updateUserToken(token: UserTokenModel) {
+    var user = this.currentUserValue;
+    user.token = token;
+    sessionStorage.setItem(Constants.currentUser, JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
+
   public register(user: UserModel) {
     var url = this.baseUrl + '/RegisterUser';
     return this.http.post<string>(url, user);
@@ -48,10 +56,10 @@ export class AuthService {
     this.currentUser = null;
   }
 
-  public getAuthenticationHeaders() : HttpHeaders {
+  public getAuthenticationHeaders(): HttpHeaders {
     var headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer'+ ' ' + this.currentUserValue.token
+      'Authorization': 'Bearer' + ' ' + this.currentUserValue.token.accessToken
     });
     return headers;
   }

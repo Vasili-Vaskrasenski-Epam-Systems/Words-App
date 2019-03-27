@@ -2,6 +2,7 @@
 using Entities.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using WordApp.Models.User;
 
 namespace WordApp.Models.Base
 {
