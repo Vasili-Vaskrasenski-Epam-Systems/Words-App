@@ -13,7 +13,7 @@ import { UserModel } from './../../../models/users/user.model';
 import { Router,ActivatedRoute } from "@angular/router";
 
 import { Constants } from './../../../app-constants';
-import { Enums } from './../../../app-enums';
+import { EUserType, ETaskStatus } from './../../../app-enums';
 
 @Component(
   {
@@ -41,7 +41,7 @@ export class VerbTaskWizardComponent implements OnInit {
         var taskInstance = (<AssignVerbTaskModel>task);
         this.assignedVerbTask = taskInstance.verbTask;
         this.answeredVerbTask = task;
-        this.answeredVerbTask.user = new UserModel(null, null, Enums.EUserType.Pupil, this.authService.currentUserValue.id, null);
+        this.answeredVerbTask.user = new UserModel(null, null, EUserType.Pupil, this.authService.currentUserValue.id, null);
         this.assignedVerbTask.verbs.sort((f, s) => f.order - s.order);
       });
     });
@@ -78,7 +78,7 @@ export class VerbTaskWizardComponent implements OnInit {
     } else {
       this.handleAnswer();
     }
-    this.answeredVerbTask.taskStatus = Enums.ETaskStatus.Done;
+    this.answeredVerbTask.taskStatus = ETaskStatus.Done;
     this.assignService.completeWordTask(this.answeredVerbTask).subscribe(e => {
       this.router.navigate(['/pupil-verb-tasks']);
     });

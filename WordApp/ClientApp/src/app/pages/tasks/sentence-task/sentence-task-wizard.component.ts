@@ -13,7 +13,7 @@ import { UserModel } from './../../../models/users/user.model';
 
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { Enums } from './../../../app-enums';
+import { EUserType, ETaskStatus } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
 
 @Component(
@@ -42,7 +42,7 @@ export class SentenceTaskWizardComponent implements OnInit {
         var taskInstance = (<AssignSentenceTaskModel>task);
         this.assignedSentenceTask = taskInstance.sentenceTask;
         this.answeredSentenceTask = task;
-        this.answeredSentenceTask.user = new UserModel(null, null, Enums.EUserType.Pupil, this.authService.currentUserValue.id, null);
+        this.answeredSentenceTask.user = new UserModel(null, null, EUserType.Pupil, this.authService.currentUserValue.id, null);
         this.assignedSentenceTask.sentences.sort((f, s) => f.order - s.order);
       });
     });
@@ -76,7 +76,7 @@ export class SentenceTaskWizardComponent implements OnInit {
     } else {
       this.handleAnswer();
     }
-    this.answeredSentenceTask.taskStatus = Enums.ETaskStatus.Done;
+    this.answeredSentenceTask.taskStatus = ETaskStatus.Done;
     this.assignService.completeSentenceTask(this.answeredSentenceTask).subscribe(e => {
       this.router.navigate(['/pupil-sentence-tasks']);
     });

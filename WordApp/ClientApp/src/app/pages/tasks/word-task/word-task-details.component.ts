@@ -10,7 +10,7 @@ import { OrderedWordTaskModel } from './../../../models/tasks/words/ordered-word
 import { WordTaskDetailModel } from './../../../models/tasks/words/word-task-detail.model';
 import { AssignWordTaskModel } from './../../../models/tasks/words/assign-word-task.model';
 
-import { Enums } from './../../../app-enums';
+import { ETaskStatus } from './../../../app-enums';
 
 @Component(
   {
@@ -21,7 +21,7 @@ export class WordTaskDetailsComponent implements OnInit {
   public task: WordTaskDetailModel;
   public assigneeDataSource: MatTableDataSource<AssignWordTaskModel>;
   public wordsDataSource: MatTableDataSource<OrderedWordTaskModel>;
-  public taskStatuses = Enums.ETaskStatus;
+  public taskStatuses = ETaskStatus;
 
   @ViewChild('wordsPaginator') wordsPaginator: MatPaginator;
   @ViewChild('assigneePaginator') assigneePaginator: MatPaginator;

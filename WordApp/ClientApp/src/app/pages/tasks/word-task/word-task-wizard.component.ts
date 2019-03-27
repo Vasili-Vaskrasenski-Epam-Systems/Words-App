@@ -12,7 +12,7 @@ import { UserModel } from './../../../models/users/user.model';
 
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { Enums } from './../../../app-enums';
+import { EUserType, ETaskStatus } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
 
 @Component(
@@ -41,7 +41,7 @@ export class WordTaskWizardComponent implements OnInit {
         var taskInstance = (<AssignWordTaskModel>task);
         this.assignedWordTask = taskInstance.wordTask;
         this.answeredWordTask = task;
-        this.answeredWordTask.user = new UserModel(null, null, Enums.EUserType.Pupil, this.authService.currentUserValue.id, null);
+        this.answeredWordTask.user = new UserModel(null, null, EUserType.Pupil, this.authService.currentUserValue.id, null);
         this.assignedWordTask.words.sort((f, s) => f.order - s.order);
       });
     });
@@ -75,7 +75,7 @@ export class WordTaskWizardComponent implements OnInit {
     } else {
       this.handleAnswer();
     }
-    this.answeredWordTask.taskStatus = Enums.ETaskStatus.Done;
+    this.answeredWordTask.taskStatus = ETaskStatus.Done;
     this.assignService.completeWordTask(this.answeredWordTask).subscribe(e => {
       this.router.navigate(['/pupil-word-tasks']);
     });

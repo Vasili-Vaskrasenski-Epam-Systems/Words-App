@@ -7,7 +7,7 @@ import { AuthService } from './../../../auth/auth.service';
 import { AssignVerbTaskModel } from './../../../models/tasks/verbs/assign-verb-task.model';
 
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { Enums } from './../../../app-enums';
+import { ETaskStatus } from './../../../app-enums';
 
 @Component(
   {
@@ -16,7 +16,7 @@ import { Enums } from './../../../app-enums';
   })
 export class PupilVerbTaskListComponent implements OnInit {
   public dataSource: MatTableDataSource<AssignVerbTaskModel>;
-  public taskStatuses = Enums.ETaskStatus;
+  public taskStatuses = ETaskStatus;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

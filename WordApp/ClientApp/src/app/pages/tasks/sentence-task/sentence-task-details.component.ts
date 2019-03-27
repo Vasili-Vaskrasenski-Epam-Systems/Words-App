@@ -10,7 +10,7 @@ import { SentenceTaskDetailModel } from './../../../models/tasks/sentences/sente
 import { AssignSentenceTaskModel } from './../../../models/tasks/sentences/assign-sentence-task.model';
 import { OrderedSentenceTaskModel } from './../../../models/tasks/sentences/ordered-sentence-task.model';
 
-import { Enums } from './../../../app-enums';
+import { ETaskStatus } from './../../../app-enums';
 
 @Component(
   {
@@ -21,7 +21,7 @@ export class SentenceTaskDetailsComponent implements OnInit {
   public task: SentenceTaskDetailModel;
   public sentenceDataSource: MatTableDataSource<OrderedSentenceTaskModel>;
   public assigneeDataSource: MatTableDataSource<AssignSentenceTaskModel>;
-  public taskStatuses = Enums.ETaskStatus;
+  public taskStatuses = ETaskStatus;
 
   @ViewChild('sentencePaginator') verbsPaginator: MatPaginator;
   @ViewChild('assigneePaginator') assigneePaginator: MatPaginator;

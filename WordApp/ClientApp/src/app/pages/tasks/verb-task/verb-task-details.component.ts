@@ -10,7 +10,7 @@ import { VerbTaskDetailModel } from './../../../models/tasks/verbs/verb-task-det
 import { AssignVerbTaskModel } from './../../../models/tasks/verbs/assign-verb-task.model';
 import { OrderedVerbTaskModel } from './../../../models/tasks/verbs/ordered-verb-task.model';
 
-import { Enums } from './../../../app-enums';
+import { ETaskStatus } from './../../../app-enums';
 
 @Component(
   {
@@ -21,7 +21,7 @@ export class VerbTaskDetailsComponent implements OnInit {
   public task: VerbTaskDetailModel;
   public verbsDataSource: MatTableDataSource<OrderedVerbTaskModel>;
   public assigneeDataSource: MatTableDataSource<AssignVerbTaskModel>;
-  public taskStatuses = Enums.ETaskStatus;
+  public taskStatuses = ETaskStatus;
 
   @ViewChild('verbsPaginator') verbsPaginator: MatPaginator;
   @ViewChild('assigneePaginator') assigneePaginator: MatPaginator;

@@ -7,7 +7,7 @@ import { AuthService } from './../../../auth/auth.service';
 import { AssignSentenceTaskModel } from './../../../models/tasks/sentences/assign-sentence-task.model';
 
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { Enums } from './../../../app-enums';
+import { ETaskStatus } from './../../../app-enums';
 
 @Component(
   {
@@ -17,7 +17,7 @@ import { Enums } from './../../../app-enums';
 export class PupilSentenceTaskListComponent implements OnInit {
   public dataSource: MatTableDataSource<AssignSentenceTaskModel>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public taskStatuses = Enums.ETaskStatus;
+  public taskStatuses = ETaskStatus;
 
   constructor(private authService: AuthService, private assignSentenceTaskService: AssignSentenceTaskService, private datePipe: DatePipe) {
 

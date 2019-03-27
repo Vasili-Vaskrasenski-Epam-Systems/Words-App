@@ -1,102 +1,102 @@
-import { Enums } from './../app-enums';
+import { ERoutes, EUserType } from './../app-enums';
 import { RoutesModel } from './routes.model';
 
 export class SecuredRoutes {
   public static routes: RoutesModel[] = [
     {
-      route: Enums.ERoutes.Home,
-      roles: [Enums.EUserType.Administrator, Enums.EUserType.Pupil, Enums.EUserType.Teacher],
+      route: ERoutes.Home,
+      roles: [EUserType.Administrator, EUserType.Pupil, EUserType.Teacher],
     },
     {
-      route: Enums.ERoutes.Words,
+      route: ERoutes.Words,
       roles: [],
     },
     {
-      route: Enums.ERoutes.Verbs,
+      route: ERoutes.Verbs,
       roles: [],
     },
     {
-      route: Enums.ERoutes.Sentences,
+      route: ERoutes.Sentences,
       roles: [],
     },
     {
-      route: Enums.ERoutes.SentenceTaskManagement,
-      roles: [Enums.EUserType.Administrator, Enums.EUserType.Teacher],
+      route: ERoutes.SentenceTaskManagement,
+      roles: [EUserType.Administrator, EUserType.Teacher],
     },
     {
-      route: Enums.ERoutes.UserManagement,
-      roles: [Enums.EUserType.Administrator],
+      route: ERoutes.UserManagement,
+      roles: [EUserType.Administrator],
     },
     {
-      route: Enums.ERoutes.WordTaskManagement,
-      roles: [Enums.EUserType.Teacher, Enums.EUserType.Administrator],
+      route: ERoutes.WordTaskManagement,
+      roles: [EUserType.Teacher, EUserType.Administrator],
     },
     {
-      route: Enums.ERoutes.VerbTaskManagement,
-      roles: [Enums.EUserType.Teacher, Enums.EUserType.Administrator],
+      route: ERoutes.VerbTaskManagement,
+      roles: [EUserType.Teacher, EUserType.Administrator],
     },
     {
-      route: Enums.ERoutes.WordTaskDetails,
-      roles: [Enums.EUserType.Teacher, Enums.EUserType.Administrator]
+      route: ERoutes.WordTaskDetails,
+      roles: [EUserType.Teacher, EUserType.Administrator]
     },
     {
-      route: Enums.ERoutes.VerbTaskDetails,
-      roles: [Enums.EUserType.Teacher, Enums.EUserType.Administrator]
+      route: ERoutes.VerbTaskDetails,
+      roles: [EUserType.Teacher, EUserType.Administrator]
     },
     {
-      route: Enums.ERoutes.SentenceTaskDetails,
-      roles: [Enums.EUserType.Teacher, Enums.EUserType.Administrator]
+      route: ERoutes.SentenceTaskDetails,
+      roles: [EUserType.Teacher, EUserType.Administrator]
     },
     {
-      route: Enums.ERoutes.PupilWordTasks,
-      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
+      route: ERoutes.PupilWordTasks,
+      roles: [EUserType.Pupil, EUserType.Administrator],
     },
     {
-      route: Enums.ERoutes.PupilVerbTasks,
-      roles: [Enums.EUserType.Pupil],
+      route: ERoutes.PupilVerbTasks,
+      roles: [EUserType.Pupil],
     },
     {
-      route: Enums.ERoutes.PupilSentenceTasks,
-      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
+      route: ERoutes.PupilSentenceTasks,
+      roles: [EUserType.Pupil, EUserType.Administrator],
     },
     {
-      route: Enums.ERoutes.WordTaskWizard,
-      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
+      route: ERoutes.WordTaskWizard,
+      roles: [EUserType.Pupil, EUserType.Administrator],
     },
     {
-      route: Enums.ERoutes.VerbTaskWizard,
-      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
+      route: ERoutes.VerbTaskWizard,
+      roles: [EUserType.Pupil, EUserType.Administrator],
     },
     {
-      route: Enums.ERoutes.SentenceTaskWizard,
-      roles: [Enums.EUserType.Pupil, Enums.EUserType.Administrator],
+      route: ERoutes.SentenceTaskWizard,
+      roles: [EUserType.Pupil, EUserType.Administrator],
     },
     {
-      route: Enums.ERoutes.WordTaskResults,
+      route: ERoutes.WordTaskResults,
       roles: [],
     },
     {
-      route: Enums.ERoutes.VerbTaskResults,
+      route: ERoutes.VerbTaskResults,
       roles: [],
     },
     {
-      route: Enums.ERoutes.SentenceTaskResults,
+      route: ERoutes.SentenceTaskResults,
       roles: [],
     },
     {
-      route: Enums.ERoutes.Login,
+      route: ERoutes.Login,
       roles: [],
     },
     {
-      route: Enums.ERoutes.Register,
+      route: ERoutes.Register,
       roles: [],
     },
     {
-      route: Enums.ERoutes.Forbidden,
+      route: ERoutes.Forbidden,
       roles: [],
     },
     {
-      route: Enums.ERoutes.Other,
+      route: ERoutes.Other,
       roles: [],
     }
   ];

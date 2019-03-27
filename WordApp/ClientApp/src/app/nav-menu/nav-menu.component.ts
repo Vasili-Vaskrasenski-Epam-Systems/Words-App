@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from './../auth/auth.service';
 import { Router } from '@angular/router';
-import { Enums } from './../app-enums';
+import { EUserType } from './../app-enums';
 
 @Component({
   selector: 'app-nav-menu',
@@ -12,8 +12,8 @@ import { Enums } from './../app-enums';
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
   public currentUserName: string;
-  public userRole: Enums.EUserType;
-  public roleTypes = Enums.EUserType;
+  public userRole: string;
+  public roleTypes = EUserType;
 
   constructor(private svc: AuthService, private router: Router) {
 
@@ -21,7 +21,7 @@ export class NavMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserName = this.svc.currentUserValue.name;
-    this.userRole = this.svc.currentUserValue.userType;
+    this.userRole = this.svc.currentUserValue.userType.toString();
   }
 
   collapse() {

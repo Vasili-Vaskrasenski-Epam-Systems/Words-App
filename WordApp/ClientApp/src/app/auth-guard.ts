@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { SecuredRoutes } from './routing/secured-routes';
 import { AuthService } from './auth/auth.service';
-import { Enums } from './app-enums';
+import { EUserType } from './app-enums';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
     else {
       var requestedRoute = SecuredRoutes.routes.find(r => r.route.toString() === route.routeConfig.path);
 
-      if (!requestedRoute.roles.length || requestedRoute.roles.find(r => Enums.EUserType[r] === currentUser.userType.toString())) {
+      if (!requestedRoute.roles.length || requestedRoute.roles.find(r => EUserType[r] === currentUser.userType.toString())) {
         return true;
       }
     }

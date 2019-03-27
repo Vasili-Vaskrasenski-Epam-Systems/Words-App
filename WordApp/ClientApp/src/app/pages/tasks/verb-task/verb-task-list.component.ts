@@ -17,7 +17,7 @@ import { AssignTaskComponent, AssignableUserModel } from './../common/assign-tas
 
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
-import { Enums } from './../../../app-enums';
+import { EUserType } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
 
 @Component(
@@ -52,7 +52,7 @@ export class VerbTaskListComponent implements OnInit {
       this.availableVerbs = e;
     });
 
-    this.userService.getUsersByType(Enums.EUserType[Enums.EUserType.Pupil]).subscribe(e => {
+    this.userService.getUsersByType(EUserType[EUserType.Pupil]).subscribe(e => {
       this.availableUsers = e;
     });
   }

@@ -58,7 +58,7 @@ namespace WordApp
                     options.DefaultAuthenticateScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
                     options.DefaultChallengeScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
                 })
-                .AddJwtBearer(Config.JwtConstants.SchemaName, jwtBearerOptions => {
+                .AddJwtBearer((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName), jwtBearerOptions => {
                     jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -68,7 +68,7 @@ namespace WordApp
 
                         IssuerSigningKey = signingDecodingKey.GetKey(),
                         ValidIssuer = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidIssuerName),
-                        ValidAudience = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidIssuerName),
+                        ValidAudience = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidAudienceName),
                         ClockSkew = TimeSpan.Zero,
                     };
                 });

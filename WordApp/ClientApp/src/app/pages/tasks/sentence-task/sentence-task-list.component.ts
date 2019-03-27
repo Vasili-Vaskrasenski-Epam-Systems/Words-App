@@ -16,7 +16,7 @@ import { AssignTaskComponent, AssignableUserModel } from './../common/assign-tas
 
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 
-import { Enums } from './../../../app-enums';
+import { EUserType } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
 
 @Component(
@@ -56,7 +56,7 @@ export class SentenceTaskListComponent implements OnInit, AfterViewInit {
       this.existingSentences = w;
     });
 
-    this.userService.getUsersByType(Enums.EUserType[Enums.EUserType.Pupil]).subscribe(u => {
+    this.userService.getUsersByType(EUserType[EUserType.Pupil]).subscribe(u => {
       this.existingUsers = u;
     });
   }

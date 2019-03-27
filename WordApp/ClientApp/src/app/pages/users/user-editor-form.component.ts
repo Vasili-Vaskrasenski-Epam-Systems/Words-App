@@ -5,7 +5,7 @@ import { UserModel } from "./../../models/users/user.model";
 
 import { EnumToArrayPipe } from "./../../infrastructure/pipes/enum-to-array.pipe";
 
-import { Enums } from './../../app-enums';
+import { EUserType } from './../../app-enums';
 import { Constants } from './../../app-constants';
 
 @Component({
@@ -23,7 +23,7 @@ export class UserEditorFormComponent implements OnInit {
   @Output() notifyAboutCancel = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private enumToArrayPipe: EnumToArrayPipe) {
-    this.userTypes = this.enumToArrayPipe.transform(Enums.EUserType);
+    this.userTypes = this.enumToArrayPipe.transform(EUserType);
   }
 
   ngOnInit(): void {
