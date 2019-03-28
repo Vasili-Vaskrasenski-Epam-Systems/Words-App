@@ -26,6 +26,8 @@ import { HomeComponent} from './pages/home/home.component'
 import { AlertComponent } from './alert/alert.component';
 import { ErrorInterceptor } from './app-error-interceptor';
 
+import { Randomizer } from './infrastructure/helpers/randomizer';
+
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -55,6 +57,6 @@ import { ErrorInterceptor } from './app-error-interceptor';
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, DatePipe, EnumToArrayPipe]
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, DatePipe, EnumToArrayPipe, Randomizer]
 })
 export class AppModule { }

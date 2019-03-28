@@ -22,7 +22,7 @@
           </div>
           <div class="form-group">
             <div>
-              <p>Select Word:</p>
+              <p>Select Word or <button class="btn btn-sm btn-info" mat-raised-button (click)="onAddRandom()">Add Random</button></p>
               <select class="form-control" formControlName="verbList" id="verbList" name="verbList" [ngClass]="{ 'is-invalid': submitted && verbAssignmentForm.controls.verbList.errors }">
                 <option *ngFor="let verb  of this.availableVerbs" [ngValue]="verb">{{verb.commonWord}}</option>
               </select>

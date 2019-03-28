@@ -1,5 +1,8 @@
 import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { Randomizer } from './../../../infrastructure/helpers/randomizer';
+import { CommonCountSetterDialogComponent, CountSetterModel } from './../../../common/common-count-setter-dialog.component';
 
 import { VerbTaskModel } from "./../../../models/tasks/verbs/verb-task.model";
 import { VerbModel } from "./../../../models/verbs/verb.model";
@@ -25,7 +28,8 @@ export class VerbTaskEditorFormComponent implements OnInit {
   @Output() notifyAboutConfirm: EventEmitter<VerbTaskModel> = new EventEmitter<VerbTaskModel>();
   @Output() notifyAboutCancel = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService) {
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService, public dialog: MatDialog,
+    private randomizer: Randomizer) {
     this.assignedVerbs = new Array<CommonDraggableListModel>();
   }
 
@@ -93,7 +97,7 @@ export class VerbTaskEditorFormComponent implements OnInit {
       var index = this.availableVerbs.findIndex(aw => aw.id === verb.id);
       this.availableVerbs.splice(index, 1);
 
-      this.assignedVerbs.push(new CommonDraggableListModel(0, new OrderedVerbTaskModel(this.assignedVerbs.length, verb, Constants.guidEmpty, null), verb.commonWord));
+      this.assignedVerbs.push(new CommonDraggableListModel(this.assignedVerbs.length, new OrderedVerbTaskModel(this.assignedVerbs.length, verb, Constants.guidEmpty, null), verb.commonWord));
 
       this.submitted = false;
       this.setVerbListValue();
@@ -110,6 +114,23 @@ export class VerbTaskEditorFormComponent implements OnInit {
       instance.order = i;
       this.assignedVerbs[i].order = i;
     }
+  }
+
+  public onAddRandom() {
+    const dialogRef = this.dialog.open(CommonCountSetterDialogComponent, { data: {count: 1, maximumCount: this.availableVerbs.length } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        var numbers = this.randomizer.getRandomArrayIndexes(this.availableVerbs, result);
+        var wordsToUse = new Array();
+        for (var i = 0; i < numbers.length; i++) {
+          wordsToUse.push(this.availableVerbs[numbers[i]]);
+        }
+        wordsToUse.forEach(w => {
+          this.verbAssignmentForm.controls.verbList.setValue(w);
+          this.onAddVerb();
+        });
+      }
+    });
   }
 
   private setVerbListValue() {

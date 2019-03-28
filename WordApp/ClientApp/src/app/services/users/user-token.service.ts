@@ -16,7 +16,6 @@ export class UserTokenService implements OnDestroy {
   }
 
   public handleTokenExpiration(): void {
-    console.log(this.intervalSet);
     if (!this.intervalSet)
       setInterval(() => {
         this.intervalSet = true;

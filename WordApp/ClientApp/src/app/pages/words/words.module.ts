@@ -5,7 +5,7 @@ import { WordListComponent } from './word-list.component';
 import { WordEditorFormComponent } from './word-editor-form.component';
 import { WordsService } from './../../services/words.service';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule, MatFormFieldModule, MatInputModule, MatSpinner } from '@angular/material';
+import { MatPaginatorModule, MatInputModule } from '@angular/material';
 import { CommonComponentsModule } from './../../common/common-components.module';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { CommonComponentsModule } from './../../common/common-components.module'
     WordListComponent,
     WordEditorFormComponent
   ],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, CommonComponentsModule],
+  imports: [FormsModule, BrowserModule, ReactiveFormsModule, MatTableModule, MatPaginatorModule, MatInputModule, CommonComponentsModule],
   exports: [
     WordListComponent
   ],

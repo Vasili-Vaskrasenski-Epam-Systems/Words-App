@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog} from '@angular/material';
 
 import { OrderedWordTaskModel } from "./../../../models/tasks/words/ordered-word-task.model";
 import { WordTaskModel } from "./../../../models/tasks/words/word-task.model";
@@ -9,11 +10,14 @@ import { CommonDraggableListModel } from './../../../common/common-draggable-lis
 import { AlertService } from './../../../alert/alert.service';
 import { Constants } from './../../../app-constants';
 
+import { CommonCountSetterDialogComponent} from './../../../common/common-count-setter-dialog.component';
+
+import { Randomizer } from './../../../infrastructure/helpers/randomizer';
+
 @Component({
   selector: 'word-task-editor-form',
   templateUrl: './word-task-editor-form.component.html',
 })
-
 export class WordTaskEditorFormComponent implements OnInit {
   public wordAssignmentForm: FormGroup;
   public assignedWords: Array<CommonDraggableListModel>;
@@ -21,20 +25,25 @@ export class WordTaskEditorFormComponent implements OnInit {
   private editableObject: WordTaskModel;
   public submitted = false;
 
-  @Output() notifyAboutConfirm: EventEmitter<WordTaskModel> = new EventEmitter<WordTaskModel>();
-  @Output() notifyAboutCancel = new EventEmitter();
+  @Output()
+  notifyAboutConfirm: EventEmitter<WordTaskModel> = new EventEmitter<WordTaskModel>();
+  @Output()
+  notifyAboutCancel = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService) {
+  constructor(private formBuilder: FormBuilder,
+    private alertService: AlertService,
+    public dialog: MatDialog,
+    private randomizer: Randomizer) {
     this.assignedWords = new Array<CommonDraggableListModel>();
   }
 
   ngOnInit(): void {
     this.wordAssignmentForm = this.formBuilder.group({
       name: [this.editableObject ? this.editableObject.name : '', Validators.required],
-      isTranslation:[this.editableObject ? this.editableObject.isTranslationTask : false],
+      isTranslation: [this.editableObject ? this.editableObject.isTranslationTask : false],
       wordList: [this.availableWords ? this.availableWords[0] : '', Validators.required],
     });
-    }
+  }
 
   setEditableObject(task: WordTaskModel) {
     this.editableObject = new WordTaskModel(task.name, task.isTranslationTask, task.words, task.id, task.rowVersion);
@@ -60,8 +69,7 @@ export class WordTaskEditorFormComponent implements OnInit {
     if (this.assignedWords.length === 0) {
       this.alertService.error("At least one word should be assigned to the task");
       return;
-    }
-    else {
+    } else {
       this.assignedWords.forEach(w => (<OrderedWordTaskModel>w.key).order = w.order);
       var model = new WordTaskModel(
         this.wordAssignmentForm.controls.name.value,
@@ -71,6 +79,7 @@ export class WordTaskEditorFormComponent implements OnInit {
         this.editableObject ? this.editableObject.rowVersion : null);
 
       this.submitted = false;
+     
       this.notifyAboutConfirm.emit(model);
     }
   }
@@ -84,10 +93,11 @@ export class WordTaskEditorFormComponent implements OnInit {
     if (this.wordAssignmentForm.controls.wordList.invalid) {
       this.submitted = true;
       return;
-    }
-    else {
+    } else {
       var word = <WordModel>this.wordAssignmentForm.controls.wordList.value;
-      this.assignedWords.push(new CommonDraggableListModel(0, new OrderedWordTaskModel(this.assignedWords.length, word, Constants.guidEmpty, null), word.word.concat('-', word.transcription)));
+      this.assignedWords.push(new CommonDraggableListModel(this.assignedWords.length,
+        new OrderedWordTaskModel(this.assignedWords.length, word, Constants.guidEmpty, null),
+        word.word.concat('-', word.transcription)));
 
       var index = this.availableWords.findIndex(aw => aw.id === word.id);
       this.availableWords.splice(index, 1);
@@ -106,6 +116,23 @@ export class WordTaskEditorFormComponent implements OnInit {
       instance.order = i;
       this.assignedWords[i].order = i;
     }
+  }
+
+  public onAddRandom() {
+    const dialogRef = this.dialog.open(CommonCountSetterDialogComponent, { data: { count:1, maximumCount: this.availableWords.length}});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        var numbers = this.randomizer.getRandomArrayIndexes(this.availableWords, result);
+        var wordsToUse = new Array();
+        for (var i = 0; i < numbers.length; i++) {
+          wordsToUse.push(this.availableWords[numbers[i]]);
+        }
+        wordsToUse.forEach(w => {
+          this.wordAssignmentForm.controls.wordList.setValue(w);
+          this.onAddWord();
+        });
+      }
+    });
   }
 
   private setWordListValue() {

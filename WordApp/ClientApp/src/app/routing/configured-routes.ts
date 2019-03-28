@@ -40,7 +40,7 @@ export class ConfiguredRoutes {
     { path: ExistingRoutes.userManagement, component: UserListComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.wordTaskManagement, component: WordTaskListComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.verbTaskManagement, component: VerbTaskListComponent, canActivate: [AuthGuard] },
-    { path: ExistingRoutes.verbTaskDetails, component: WordTaskDetailsComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.wordTaskDetails, component: WordTaskDetailsComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.verbTaskDetails, component: VerbTaskDetailsComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.sentenceTaskDetails, component: SentenceTaskDetailsComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.pupilWordTasks, component: PupilWordTaskListComponent, canActivate: [AuthGuard] },

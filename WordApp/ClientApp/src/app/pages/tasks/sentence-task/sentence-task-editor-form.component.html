@@ -19,7 +19,7 @@
           </div>
           <div class="form-group">
             <div>
-              <p>Select sentence:</p>
+              <p>Select sentence or <button class="btn btn-sm btn-info" mat-raised-button (click)="onAddRandom()">Add Random</button></p>
               <select class="form-control" formControlName="sentenceList" id="wordList" name="wordList" [ngClass]="{ 'is-invalid': submitted && sentenceAssignmentForm.controls.sentenceList.errors }">
                 <option *ngFor="let sentence  of this.availableSentences" [ngValue]="sentence">{{sentence.text}}</option>
               </select>

@@ -1,6 +1,10 @@
 import { Component, Output, EventEmitter, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { MatDialog } from '@angular/material';
+import { Randomizer } from './../../../infrastructure/helpers/randomizer';
+import { CommonCountSetterDialogComponent, CountSetterModel } from './../../../common/common-count-setter-dialog.component';
+
 import { SentenceTaskModel } from './../../../models/tasks/sentences/sentence-task.model';
 import { OrderedSentenceTaskModel } from "./../../../models/tasks/sentences/ordered-sentence-task.model";
 import { SentenceModel } from "./../../../models/sentences/sentence.model";
@@ -24,7 +28,9 @@ export class SentenceTaskEditorFormComponent implements OnInit {
   @Output() notifyAboutConfirm: EventEmitter<SentenceTaskModel> = new EventEmitter<SentenceTaskModel>();
   @Output() notifyAboutCancel = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService) {
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService,
+    public dialog: MatDialog,
+    private randomizer: Randomizer) {
     this.assignedSentences = new Array<CommonDraggableListModel>();
   }
 
@@ -85,7 +91,7 @@ export class SentenceTaskEditorFormComponent implements OnInit {
     }
     else {
       var sentence = <SentenceModel>this.sentenceAssignmentForm.controls.sentenceList.value;
-      this.assignedSentences.push(new CommonDraggableListModel(0, new OrderedSentenceTaskModel(
+      this.assignedSentences.push(new CommonDraggableListModel(this.assignedSentences.length, new OrderedSentenceTaskModel(
         this.assignedSentences.length, sentence, Constants.guidEmpty, null), sentence.text));
 
       var index = this.availableSentences.findIndex(aw => aw.id === sentence.id);
@@ -105,6 +111,23 @@ export class SentenceTaskEditorFormComponent implements OnInit {
       instance.order = i;
       this.assignedSentences[i].order = i;
     }
+  }
+
+  public onAddRandom() {
+    const dialogRef = this.dialog.open(CommonCountSetterDialogComponent, { data: { count: 1, maximumCount: this.availableSentences.length } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        var numbers = this.randomizer.getRandomArrayIndexes(this.availableSentences, result);
+        var wordsToUse = new Array();
+        for (var i = 0; i < numbers.length; i++) {
+          wordsToUse.push(this.availableSentences[numbers[i]]);
+        }
+        wordsToUse.forEach(w => {
+          this.sentenceAssignmentForm.controls.sentenceList.setValue(w);
+          this.onAdd();
+        });
+      }
+    });
   }
 
   private setSentenceListValue() {

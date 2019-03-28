@@ -1,0 +1,19 @@
+<div class="row justify-content-center align-items-center">
+  <div class="col-11">
+    <div class="card">
+      <div class="card-header"><h1 mat-dialog-title>Count setter</h1></div>
+      <div class="card-body">
+        <div class="form-group">
+          <div mat-dialog-content>
+            <p>Max value: {{data.maximumCount}}</p>
+            <input type="number" class="form-control" [(ngModel)]="data.count" [max]="data.maximumCount" />
+          </div>
+          <div mat-dialog-actions class="btn-group">
+            <button mat-button class="btn btn-danger" (click)="onCancel()">Cancel</button>
+            <button mat-button class="btn btn-success col-lg-7" (click)="onSubmit()">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
