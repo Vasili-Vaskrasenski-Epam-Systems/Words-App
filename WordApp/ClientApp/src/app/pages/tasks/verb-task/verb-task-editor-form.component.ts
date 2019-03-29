@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Randomizer } from './../../../infrastructure/helpers/randomizer';
 import { CommonCountSetterDialogComponent, CountSetterModel } from './../../../common/common-count-setter-dialog.component';
 
@@ -25,39 +25,39 @@ export class VerbTaskEditorFormComponent implements OnInit {
   private editableObject: VerbTaskModel;
   public submitted = false;
 
-  @Output() notifyAboutConfirm: EventEmitter<VerbTaskModel> = new EventEmitter<VerbTaskModel>();
-  @Output() notifyAboutCancel = new EventEmitter();
-
   constructor(private formBuilder: FormBuilder, private alertService: AlertService, public dialog: MatDialog,
+    public dialogRef: MatDialogRef<VerbTaskEditorFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private randomizer: Randomizer) {
     this.assignedVerbs = new Array<CommonDraggableListModel>();
   }
 
   ngOnInit(): void {
+    this.availableVerbs = this.data.verbs;
+    if (this.data.task) {
+      this.editableObject = new VerbTaskModel(this.data.task.name, this.data.task.verbs, this.data.task.id, this.data.task.rowVersion);
+
+      if (this.data.task.verbs) {
+        this.assignedVerbs =
+          new Array<CommonDraggableListModel>(
+          ...this.data.task.verbs.map(e => new CommonDraggableListModel(e.order, e, e.verb.commonWord)));
+      }
+
+      if (this.assignedVerbs) {
+        for (var i = 0; i < this.assignedVerbs.length; i++) {
+          var tmpInstance = this.assignedVerbs[i].key as OrderedVerbTaskModel;
+          var index = this.availableVerbs.findIndex(aw => aw.id === tmpInstance.id);
+          if (index !== -1) {
+            this.availableVerbs.splice(index, 1);
+          }
+        }
+      }
+    }
+
     this.verbAssignmentForm = this.formBuilder.group({
       name: [this.editableObject ? this.editableObject.name : '', Validators.required],
       verbList: [this.availableVerbs ? this.availableVerbs[0] : '', Validators.required],
     });
-  }
-
-  setEditableObject(task: VerbTaskModel) {
-    this.editableObject = new VerbTaskModel(task.name, task.verbs, task.id, task.rowVersion);
-
-    if (task.verbs) {
-      this.assignedVerbs =
-        new Array<CommonDraggableListModel>(
-          ...task.verbs.map(e => new CommonDraggableListModel(e.order, e, e.verb.commonWord)));
-    }
-
-    if (this.assignedVerbs) {
-      for (var i = 0; i < this.assignedVerbs.length; i++) {
-        var tmpInstance = this.assignedVerbs[i].key as OrderedVerbTaskModel;
-        var index = this.availableVerbs.findIndex(aw => aw.id === tmpInstance.id);
-        if (index !== -1) {
-          this.availableVerbs.splice(index, 1);
-        }
-      }
-    }
   }
 
   public onSubmit(): void {
@@ -78,12 +78,12 @@ export class VerbTaskEditorFormComponent implements OnInit {
         this.editableObject ? this.editableObject.rowVersion : null);
 
       this.submitted = false;
-      this.notifyAboutConfirm.emit(model);
+      this.dialogRef.close(model);
     }
   }
 
   public onCancel(): void {
-    this.notifyAboutCancel.emit();
+    this.dialogRef.close();
   }
 
   public onAddVerb() {

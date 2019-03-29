@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 
 import { VerbTaskService } from './../../../services/tasks/verb-task.service';
 import { VerbService } from './../../../services/verb.service';
@@ -15,8 +16,6 @@ import { VerbTaskEditorFormComponent } from './verb-task-editor-form.component';
 
 import { AssignTaskComponent, AssignableUserModel } from './../common/assign-task.component';
 
-import { MatPaginator, MatTableDataSource } from '@angular/material';
-
 import { EUserType } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
 
@@ -30,15 +29,11 @@ export class VerbTaskListComponent implements OnInit {
   public availableVerbs: Array<VerbModel>;
   public availableUsers: Array<UserModel>;
   public displayContent: boolean;
-  
-  private componentFactory: any;
 
-  @ViewChild('createFormContainer', { read: ViewContainerRef }) createFormContainer: ViewContainerRef;
-  @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private verbTaskService: VerbTaskService, private alertService: AlertService, private verbsService: VerbService,
-    private userService: UserService, private assignVerbTaskService: AssignVerbTaskService, private componentFactoryResolver: ComponentFactoryResolver) {
+    private userService: UserService, private assignVerbTaskService: AssignVerbTaskService, public dialog: MatDialog) {
     this.displayContent = true;
   }
 
@@ -57,91 +52,45 @@ export class VerbTaskListComponent implements OnInit {
     });
   }
 
-  onShowCreateForm(): void {
-    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(VerbTaskEditorFormComponent);
-    this.showFormBtn.nativeElement.disabled = true;
-    this.displayContent = false;
+  public onShowEditForm(task: VerbTaskModel): void {
+    var dialogRef = this.dialog.open(VerbTaskEditorFormComponent,
+      { data: { task: task, verbs: this.availableVerbs } });
 
-    var ref = this.createFormContainer.createComponent(this.componentFactory);
-    var instance = <VerbTaskEditorFormComponent>ref.instance;
-
-    instance.availableVerbs = new Array<VerbModel>(...this.availableVerbs);
-
-    instance.notifyAboutCancel.subscribe(e => {
-      this.clearForm();
-    });
-
-    instance.notifyAboutConfirm.subscribe(e => {
-      this.verbTaskService.createTask(e).subscribe(result => {
-        this.dataSource.data.push(result);
-        this.resetDataSource();
-        this.clearForm();
-      }, error => {
-        this.alertService.error(error);
-      });
-    });
-  }
-
-  onShowEditForm(task: VerbTaskModel): void {
-    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(VerbTaskEditorFormComponent);
-    this.displayContent = false;
-    this.showFormBtn.nativeElement.disabled = true;
-
-    var ref = this.createFormContainer.createComponent(this.componentFactory);
-    var instance = <VerbTaskEditorFormComponent>ref.instance;
-    instance.availableVerbs = new Array<VerbModel>(...this.availableVerbs);
-    instance.setEditableObject(task);
-
-    instance.notifyAboutCancel.subscribe(e => {
-      this.clearForm();
-    });
-
-    instance.notifyAboutConfirm.subscribe(e => {
-      this.verbTaskService.updateTask(e).subscribe(result => {
-        var index = this.dataSource.data.findIndex(w => w.id === result.id);
-        this.dataSource.data.splice(index, 1, result);
-        this.resetDataSource();
-        this.clearForm();
-      }, error => console.error(error));
-    });
-  }
-
-  onShowAssignForm(task: VerbTaskModel): void {
-    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(AssignTaskComponent);
-    this.showFormBtn.nativeElement.disabled = true;
-    this.displayContent = false;
-
-    var ref = this.createFormContainer.createComponent(this.componentFactory);
-    var instance = <AssignTaskComponent>ref.instance;
-    instance.availableUsers = new Array<UserModel>(...this.availableUsers);
-
-    instance.notifyAboutCancel.subscribe(e => {
-      this.clearForm();
-    });
-
-    instance.notifyAboutConfirm.subscribe(e => {
-      var assignees = <Array<AssignableUserModel>>e;
-      var assignObjects = new Array<AssignVerbTaskModel>();
-
-      for (var i = 0; i < assignees.length; i++) {
-        assignObjects.push(new AssignVerbTaskModel(task,
-          assignees[i].user,
-          null,
-          assignees[i].deadline,
-          null,
-          null,
-          Constants.guidEmpty,
-          null));
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        task ? this.edit(result as VerbTaskModel) : this.create(result as VerbTaskModel);
       }
-
-      this.assignVerbTaskService.assignTask(assignObjects).subscribe(s => {
-          this.clearForm();
-        },
-        error => this.alertService.error(error));
     });
   }
 
-  onDelete(task: VerbTaskModel): void {
+  public onShowAssignForm(task: VerbTaskModel): void {
+    var dialogRef = this.dialog.open(AssignTaskComponent, { data: { users: this.availableUsers } });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        var assignees = <Array<AssignableUserModel>>result;
+        var assignObjects = new Array<AssignVerbTaskModel>();
+
+        for (var i = 0; i < assignees.length; i++) {
+          assignObjects.push(new AssignVerbTaskModel(task,
+            assignees[i].user,
+            null,
+            assignees[i].deadline,
+            null,
+            null,
+            Constants.guidEmpty,
+            null));
+        }
+
+        this.assignVerbTaskService.assignTask(assignObjects).subscribe(s => {
+            //todo
+          },
+          error => this.alertService.error(error));
+      }
+    });
+  }
+
+  public onDelete(task: VerbTaskModel): void {
     this.verbTaskService.deleteTask(task).subscribe(result => {
       var index = this.dataSource.data.findIndex(w => w.id === result.id);
       this.dataSource.data.splice(index, 1);
@@ -151,7 +100,7 @@ export class VerbTaskListComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  public applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
@@ -160,10 +109,21 @@ export class VerbTaskListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  private clearForm() {
-    this.createFormContainer.clear();
-    this.showFormBtn.nativeElement.disabled = false;
-    this.displayContent = true;
+  private create(verbTask: VerbTaskModel) {
+    this.verbTaskService.createTask(verbTask).subscribe(result => {
+      this.dataSource.data.push(result);
+      this.resetDataSource();
+    }, error => {
+      this.alertService.error(error);
+    });
+  }
+
+  private edit(verbTask: VerbTaskModel) {
+    this.verbTaskService.updateTask(verbTask).subscribe(result => {
+      var index = this.dataSource.data.findIndex(w => w.id === result.id);
+      this.dataSource.data.splice(index, 1, result);
+      this.resetDataSource();
+    }, error => console.error(error));
   }
 }
 

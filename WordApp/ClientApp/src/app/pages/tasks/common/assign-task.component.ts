@@ -1,7 +1,7 @@
-import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component,OnInit, Inject } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UserModel } from "./../../../models/users/user.model";
 import { WordTaskModel } from "./../../../models/tasks/words/word-task.model";
 import { AssignWordTaskModel } from './../../../models/tasks/words/assign-word-task.model';
@@ -18,14 +18,17 @@ export class AssignTaskComponent implements OnInit {
   public userAssignmentForm: FormGroup;
   public submitted = false;
 
-  @Output() notifyAboutConfirm: EventEmitter<Array<AssignableUserModel>> = new EventEmitter<Array<AssignableUserModel>>();
-  @Output() notifyAboutCancel = new EventEmitter();
-
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService) {
+  constructor(private formBuilder: FormBuilder,
+    private alertService: AlertService,
+    public dialogRef: MatDialogRef<AssignTaskComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
     this.assignedUsers = new Array<AssignableUserModel>();
   }
 
   ngOnInit() {
+
+    this.availableUsers = this.data.users;
+
     this.userAssignmentForm = this.formBuilder.group({
       userList: [this.availableUsers ? this.availableUsers[0]:  '', Validators.required],
       datepicker: ['', Validators.required]
@@ -59,11 +62,11 @@ export class AssignTaskComponent implements OnInit {
       return;
     }
 
-    this.notifyAboutConfirm.emit(this.assignedUsers);
+    this.dialogRef.close(this.assignedUsers);
   }
 
   onCancel() {
-    this.notifyAboutCancel.emit();
+    this.dialogRef.close();
   }
 }
 

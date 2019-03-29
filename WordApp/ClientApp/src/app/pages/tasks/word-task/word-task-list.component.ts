@@ -1,4 +1,5 @@
-import { Component, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild,OnInit } from '@angular/core';
+import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 
 import { WordTaskService } from './../../../services/tasks/word-task.service';
 import { WordsService } from './../../../services/words.service';
@@ -14,9 +15,6 @@ import { UserModel } from './../../../models/users/user.model';
 import { WordTaskEditorFormComponent } from './word-task-editor-form.component';
 import { AssignTaskComponent, AssignableUserModel } from './../common/assign-task.component';
 
-import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { MatDialog } from '@angular/material';
-
 import { EUserType } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
 
@@ -25,16 +23,12 @@ import { Constants } from './../../../app-constants';
     selector: 'word-task-list',
     templateUrl: './word-task-list.component.html',
   })
-export class WordTaskListComponent implements OnInit, AfterViewInit {
+export class WordTaskListComponent implements OnInit {
   public dataSource: MatTableDataSource<WordTaskModel>;
   public displayContent: boolean;
   private existingWords: Array<WordModel>;
   private existingUsers: Array<UserModel>;
 
-  private componentFactory: any;
-
-  @ViewChild('createFormContainer', { read: ViewContainerRef }) createFormContainer: ViewContainerRef;
-  @ViewChild('showAddFormBtn') showFormBtn: ElementRef<HTMLButtonElement>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private taskService: WordTaskService,
@@ -42,7 +36,6 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
     private alertService: AlertService,
     private userService: UserService,
     private assignWordTaskService: AssignWordTaskService,
-    private componentFactoryResolver: ComponentFactoryResolver,
     public dialog: MatDialog) {
 
     this.displayContent = true;
@@ -63,98 +56,44 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
+  public onShowEditForm(task: WordTaskModel): void {
+    var dialogRef = this.dialog.open(WordTaskEditorFormComponent, { data: { task: task, words: this.existingWords } });
 
-  }
-
-  onShowCreateForm(): void {
-    this.dialog.open(WordTaskEditorFormComponent);
-    //this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordTaskEditorFormComponent);
-    //this.showFormBtn.nativeElement.disabled = true;
-    //this.displayContent = false;
-
-    //var ref = this.createFormContainer.createComponent(this.componentFactory);
-    //var instance = <WordTaskEditorFormComponent>ref.instance;
-
-    //instance.availableWords = new Array<WordModel>(...this.existingWords);
-
-    //instance.notifyAboutCancel.subscribe(e => {
-    //  this.clearForm();
-    //});
-
-    //instance.notifyAboutConfirm.subscribe(e => {
-    //  this.taskService.createTask(e).subscribe(result => {
-    //    this.dataSource.data.push(result);
-    //    this.clearForm();
-    //    this.resetDataSource();
-    //  },
-    //    error => {
-    //      this.alertService.error(error);
-    //    });
-    //});
-  }
-
-  onShowEditForm(task: WordTaskModel): void {
-    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordTaskEditorFormComponent);
-    this.displayContent = false;
-    this.showFormBtn.nativeElement.disabled = true;
-
-    var ref = this.createFormContainer.createComponent(this.componentFactory);
-    var instance = <WordTaskEditorFormComponent>ref.instance;
-    instance.availableWords = new Array<WordModel>(...this.existingWords);
-    instance.setEditableObject(task);
-
-    instance.notifyAboutCancel.subscribe(e => {
-      this.clearForm();
-    });
-
-    instance.notifyAboutConfirm.subscribe(e => {
-      this.taskService.updateTask(e).subscribe(result => {
-        var index = this.dataSource.data.findIndex(w => w.id === result.id);
-        this.dataSource.data.splice(index, 1, result);
-        this.clearForm();
-        this.resetDataSource();
-      },
-        error => console.error(error));
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        task ? this.edit(result as WordTaskModel) : this.create(result as WordTaskModel);
+      }
     });
   }
+  
+  public onShowAssignForm(task: WordTaskModel) {
+    var dialogRef = this.dialog.open(AssignTaskComponent, { data: {users: this.existingUsers} });
 
-  onShowAssignForm(task: WordTaskModel): void {
-    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(AssignTaskComponent);
-    this.showFormBtn.nativeElement.disabled = true;
-    this.displayContent = false;
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        var assignees = <Array<AssignableUserModel>>result;
+        var assignObjects = new Array<AssignWordTaskModel>();
 
-    var ref = this.createFormContainer.createComponent(this.componentFactory);
-    var instance = <AssignTaskComponent>ref.instance;
-    instance.availableUsers = new Array<UserModel>(...this.existingUsers);
+        for (var i = 0; i < assignees.length; i++) {
+          assignObjects.push(new AssignWordTaskModel(task,
+            assignees[i].user,
+            null,
+            assignees[i].deadline,
+            null,
+            null,
+            Constants.guidEmpty,
+            null));
 
-    instance.notifyAboutCancel.subscribe(e => {
-      this.clearForm();
-    });
-
-    instance.notifyAboutConfirm.subscribe(e => {
-      var assignees = <Array<AssignableUserModel>>e;
-      var assignObjects = new Array<AssignWordTaskModel>();
-
-      for (var i = 0; i < assignees.length; i++) {
-        assignObjects.push(new AssignWordTaskModel(task,
-          assignees[i].user,
-          null,
-          assignees[i].deadline,
-          null,
-          null,
-          Constants.guidEmpty,
-          null));
-
-        this.assignWordTaskService.assignTask(assignObjects).subscribe(s => {
-          this.clearForm();
-        },
-          error => this.alertService.error(error));
+          this.assignWordTaskService.assignTask(assignObjects).subscribe(s => {
+              //todo
+            },
+            error => this.alertService.error(error));
+        }
       }
     });
   }
 
-  onDelete(task: WordTaskModel): void {
+  public onDelete(task: WordTaskModel): void {
     this.taskService.deleteTask(task).subscribe(result => {
       var index = this.dataSource.data.findIndex(w => w.id === result.id);
       this.dataSource.data.splice(index, 1);
@@ -164,18 +103,31 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  applyFilter(filterValue: string) {
+  public applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  private create(wordTask: WordTaskModel) {
+      this.taskService.createTask(wordTask).subscribe(result => {
+        this.dataSource.data.push(result);
+        this.resetDataSource();
+      },
+        error => {
+          this.alertService.error(error);
+        });
+  }
+
+  private edit(wordTask: WordTaskModel) {
+    this.taskService.updateTask(wordTask).subscribe(result => {
+        var index = this.dataSource.data.findIndex(w => w.id === result.id);
+        this.dataSource.data.splice(index, 1, result);
+        this.resetDataSource();
+      },
+      error => console.error(error));
+  }
+  
   private resetDataSource() {
     this.dataSource = new MatTableDataSource<WordTaskModel>(this.dataSource.data);
     this.dataSource.paginator = this.paginator;
-  }
-
-  private clearForm() {
-    this.createFormContainer.clear();
-    this.showFormBtn.nativeElement.disabled = false;
-    this.displayContent = true;
   }
 }

@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material';
 
 import { OrderedWordTaskModel } from "./../../../models/tasks/words/ordered-word-task.model";
 import { WordTaskModel } from "./../../../models/tasks/words/word-task.model";
@@ -25,40 +25,39 @@ export class WordTaskEditorFormComponent implements OnInit {
   private editableObject: WordTaskModel;
   public submitted = false;
 
-  @Output()
-  notifyAboutConfirm: EventEmitter<WordTaskModel> = new EventEmitter<WordTaskModel>();
-  @Output()
-  notifyAboutCancel = new EventEmitter();
-
   constructor(private formBuilder: FormBuilder,
     private alertService: AlertService,
     public dialog: MatDialog,
+    public dialogRef: MatDialogRef<WordTaskEditorFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private randomizer: Randomizer) {
     this.assignedWords = new Array<CommonDraggableListModel>();
   }
 
   ngOnInit(): void {
+    if (this.data.task) {
+      this.editableObject = new WordTaskModel(this.data.task.name, this.data.task.isTranslationTask, this.data.task.words, this.data.task.id, this.data.task.rowVersion);
+      this.assignedWords = new Array<CommonDraggableListModel>(
+        ...this.data.task.words.map(e => new CommonDraggableListModel(e.order, e, e.word.word.concat('-', e.word.transcription))));
+
+      if (this.assignedWords) {
+        for (var i = 0; i < this.assignedWords.length; i++) {
+          var tmpInstance = this.assignedWords[i].key as OrderedWordTaskModel;
+          var index = this.availableWords.findIndex(aw => aw.id === tmpInstance.word.id);
+          if (index !== -1) {
+            this.availableWords.splice(index, 1);
+          }
+        }
+      }
+    }
+
+    this.availableWords = this.data.words;
+
     this.wordAssignmentForm = this.formBuilder.group({
       name: [this.editableObject ? this.editableObject.name : '', Validators.required],
       isTranslation: [this.editableObject ? this.editableObject.isTranslationTask : false],
       wordList: [this.availableWords ? this.availableWords[0] : '', Validators.required],
     });
-  }
-
-  setEditableObject(task: WordTaskModel) {
-    this.editableObject = new WordTaskModel(task.name, task.isTranslationTask, task.words, task.id, task.rowVersion);
-    this.assignedWords = new Array<CommonDraggableListModel>(
-      ...task.words.map(e => new CommonDraggableListModel(e.order, e, e.word.word.concat('-', e.word.transcription))));
-
-    if (this.assignedWords) {
-      for (var i = 0; i < this.assignedWords.length; i++) {
-        var tmpInstance = this.assignedWords[i].key as OrderedWordTaskModel;
-        var index = this.availableWords.findIndex(aw => aw.id === tmpInstance.word.id);
-        if (index !== -1) {
-          this.availableWords.splice(index, 1);
-        }
-      }
-    }
   }
 
   public onSubmit(): void {
@@ -80,12 +79,12 @@ export class WordTaskEditorFormComponent implements OnInit {
 
       this.submitted = false;
      
-      this.notifyAboutConfirm.emit(model);
+      this.dialogRef.close(model);
     }
   }
 
   public onCancel(): void {
-    this.notifyAboutCancel.emit();
+    this.dialogRef.close();
   }
 
   public onAddWord() {

@@ -1,7 +1,6 @@
 <div class="form-group">
   <h1>Sentence Tasks</h1>
-  <button #showAddFormBtn (click)="onShowCreateForm()" class="btn btn-success">+</button>
-  <ng-container #createFormContainer></ng-container>
+  <button (click)="onShowEditForm()" class="btn btn-success">+</button>
 </div>
 
 <div class="d-flex justify-content-center" *ngIf="!dataSource">
