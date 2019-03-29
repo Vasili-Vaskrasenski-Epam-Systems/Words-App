@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { WordModel } from "./../../models/words/word.model";
 import { VerbModel } from "./../../models/verbs/verb.model";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,15 +14,19 @@ export class VerbEditorFormComponent implements OnInit {
   public verbEditorForm: FormGroup;
   private editableVerb: VerbModel;
   public submitted = false;
-
   existingWords: Array<WordModel>;
-  @Output() notifyAboutConfirm: EventEmitter<VerbModel> = new EventEmitter<VerbModel>();
-  @Output() notifyAboutCancel = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<VerbEditorFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit(): void {
+    this.existingWords = this.data.words;
+
+    if (this.data.verb) {
+      this.editableVerb = this.data.verb;
+    }
+
     this.verbEditorForm = this.formBuilder.group({
       commonWord: [this.editableVerb ? this.editableVerb.commonWord : '', Validators.required],
       firstForm: [this.editableVerb ? this.existingWords.find(w => w.id === this.editableVerb.words[0].id) : this.existingWords[0], Validators.required],
@@ -29,10 +34,6 @@ export class VerbEditorFormComponent implements OnInit {
       thirdForm: [this.editableVerb ? this.existingWords.find(w => w.id === this.editableVerb.words[2].id) : this.existingWords[0], Validators.required],
     });
     
-  }
-
-  setVerbs(verb: VerbModel) {
-    this.editableVerb = new VerbModel(verb.commonWord, verb.words, verb.id, verb.rowVersion);
   }
 
   public onSubmit(): void {
@@ -48,12 +49,12 @@ export class VerbEditorFormComponent implements OnInit {
         wordsArray,
         this.editableVerb ? this.editableVerb.id : Constants.guidEmpty,
         this.editableVerb ? this.editableVerb.rowVersion : null);
-      this.notifyAboutConfirm.emit(model);
+      this.dialogRef.close(model);
     }
   }
 
   public onCancel(): void {
-    this.notifyAboutCancel.emit();
+    this.dialogRef.close();
   }
 };
 

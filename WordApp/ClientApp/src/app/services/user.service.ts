@@ -34,18 +34,18 @@ export class UserService {
     });
   }
 
-  public createUser(word: UserModel): any {
+  public createUser(user: UserModel): any {
     var url = this.baseUrl + '/CreateUser';
-    return this.http.post<string>(url, word, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, user, { headers: this.authService.getAuthenticationHeaders() });
   }
 
-  public updateUser(word: UserModel): any {
+  public updateUser(user: UserModel): any {
     var url = this.baseUrl + '/UpdateUser';
-    return this.http.post<string>(url, word, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, user, { headers: this.authService.getAuthenticationHeaders() });
   }
 
-  public deleteUser(word: UserModel): any {
+  public deleteUser(user: UserModel): any {
     var url = this.baseUrl + '/DeleteUser';
-    return this.http.post<string>(url, word);
+    return this.http.post<string>(url, user, { headers: this.authService.getAuthenticationHeaders() });
   }
 };

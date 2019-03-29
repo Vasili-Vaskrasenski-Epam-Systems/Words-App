@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { UserModel } from "./../../models/users/user.model";
 
@@ -19,14 +20,15 @@ export class UserEditorFormComponent implements OnInit {
   submitted = false;
   userTypes: Array<string>;
 
-  @Output() notifyAboutConfirm: EventEmitter<UserModel> = new EventEmitter<UserModel>();
-  @Output() notifyAboutCancel = new EventEmitter();
-
-  constructor(private formBuilder: FormBuilder, private enumToArrayPipe: EnumToArrayPipe) {
+  constructor(private formBuilder: FormBuilder, private enumToArrayPipe: EnumToArrayPipe, public dialogRef: MatDialogRef<UserEditorFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
     this.userTypes = this.enumToArrayPipe.transform(EUserType);
   }
 
   ngOnInit(): void {
+    if (this.data) {
+      this.editableObject = this.data;
+    }
     this.editorForm = this.formBuilder.group({
       userName: [this.editableObject ? this.editableObject.name : '', Validators.required],
       password: [this.editableObject ? this.editableObject.password : '', Validators.required],
@@ -50,12 +52,11 @@ export class UserEditorFormComponent implements OnInit {
         this.editorForm.controls.userType.value,
         this.editableObject ? this.editableObject.id : Constants.guidEmpty,
         this.editableObject ? this.editableObject.rowVersion : null);
-
-      this.notifyAboutConfirm.emit(model);
+      this.dialogRef.close(model);
     }
   }
 
   public onCancel(): void {
-    this.notifyAboutCancel.emit();
+    this.dialogRef.close();
   }
 };

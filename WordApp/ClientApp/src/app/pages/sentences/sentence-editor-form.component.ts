@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Output, EventEmitter, OnInit, Inject } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { SentenceModel } from "./../../models/sentences/sentence.model";
 import { SentenceTranslationModel } from "./../../models/sentences/sentence-translation.model";
@@ -22,21 +23,22 @@ export class SentenceEditorFormComponent implements OnInit {
   @Output() notifyAboutConfirm: EventEmitter<SentenceModel> = new EventEmitter<SentenceModel>();
   @Output() notifyAboutCancel = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, private alertService: AlertService) {
+  constructor(private formBuilder: FormBuilder, private alertService: AlertService, public dialogRef: MatDialogRef<SentenceEditorFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
     this.assignedTranslations = new Array<CommonDraggableListModel>();
   }
 
   ngOnInit(): void {
+    if (this.data) {
+      this.editableObject = this.data;
+      this.assignedTranslations =
+        this.editableObject.translations.map(t => new CommonDraggableListModel(0, t, t.translation));
+    }
+
     this.sentenceEditorForm = this.formBuilder.group({
       text: [this.editableObject ? this.editableObject.text : '', Validators.required],
       translation: ['', Validators.required],
     });
-  }
-
-  setEditableObject(sentence: SentenceModel) {
-    this.editableObject = new SentenceModel(sentence.text, sentence.translations, sentence.id, sentence.rowVersion);
-    this.assignedTranslations = new Array<CommonDraggableListModel>(
-      ...sentence.translations.map(e => new CommonDraggableListModel(0, e, e.translation)));
   }
 
   public onSubmit(): void {
@@ -51,17 +53,15 @@ export class SentenceEditorFormComponent implements OnInit {
     else {
       var model = new SentenceModel(
         this.sentenceEditorForm.controls.text.value,
-        this.assignedTranslations.map(t => <SentenceTranslationModel> t.key),
+        this.assignedTranslations.map(t => <SentenceTranslationModel>t.key),
         this.editableObject ? this.editableObject.id : Constants.guidEmpty,
         this.editableObject ? this.editableObject.rowVersion : null);
-
-      this.submitted = false;
-      this.notifyAboutConfirm.emit(model);
+      this.dialogRef.close(model);
     }
   }
 
   public onCancel(): void {
-    this.notifyAboutCancel.emit();
+    this.dialogRef.close();
   }
 
   public onAddTranslation() {
