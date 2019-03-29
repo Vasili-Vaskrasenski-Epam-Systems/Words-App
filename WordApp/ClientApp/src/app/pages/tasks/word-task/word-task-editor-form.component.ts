@@ -119,7 +119,10 @@ export class WordTaskEditorFormComponent implements OnInit {
   }
 
   public onAddRandom() {
-    const dialogRef = this.dialog.open(CommonCountSetterDialogComponent, { data: { count:1, maximumCount: this.availableWords.length}});
+    const dialogRef = this.dialog.open(CommonCountSetterDialogComponent, { data: {
+      count: 1,
+      maximumCount: this.availableWords.length
+    }});
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         var numbers = this.randomizer.getRandomArrayIndexes(this.availableWords, result);

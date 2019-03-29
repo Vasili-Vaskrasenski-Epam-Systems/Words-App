@@ -15,6 +15,7 @@ import { WordTaskEditorFormComponent } from './word-task-editor-form.component';
 import { AssignTaskComponent, AssignableUserModel } from './../common/assign-task.component';
 
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { EUserType } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
@@ -41,7 +42,8 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
     private alertService: AlertService,
     private userService: UserService,
     private assignWordTaskService: AssignWordTaskService,
-    private componentFactoryResolver: ComponentFactoryResolver) {
+    private componentFactoryResolver: ComponentFactoryResolver,
+    public dialog: MatDialog) {
 
     this.displayContent = true;
   }
@@ -66,29 +68,30 @@ export class WordTaskListComponent implements OnInit, AfterViewInit {
   }
 
   onShowCreateForm(): void {
-    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordTaskEditorFormComponent);
-    this.showFormBtn.nativeElement.disabled = true;
-    this.displayContent = false;
+    this.dialog.open(WordTaskEditorFormComponent);
+    //this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordTaskEditorFormComponent);
+    //this.showFormBtn.nativeElement.disabled = true;
+    //this.displayContent = false;
 
-    var ref = this.createFormContainer.createComponent(this.componentFactory);
-    var instance = <WordTaskEditorFormComponent>ref.instance;
+    //var ref = this.createFormContainer.createComponent(this.componentFactory);
+    //var instance = <WordTaskEditorFormComponent>ref.instance;
 
-    instance.availableWords = new Array<WordModel>(...this.existingWords);
+    //instance.availableWords = new Array<WordModel>(...this.existingWords);
 
-    instance.notifyAboutCancel.subscribe(e => {
-      this.clearForm();
-    });
+    //instance.notifyAboutCancel.subscribe(e => {
+    //  this.clearForm();
+    //});
 
-    instance.notifyAboutConfirm.subscribe(e => {
-      this.taskService.createTask(e).subscribe(result => {
-        this.dataSource.data.push(result);
-        this.clearForm();
-        this.resetDataSource();
-      },
-        error => {
-          this.alertService.error(error);
-        });
-    });
+    //instance.notifyAboutConfirm.subscribe(e => {
+    //  this.taskService.createTask(e).subscribe(result => {
+    //    this.dataSource.data.push(result);
+    //    this.clearForm();
+    //    this.resetDataSource();
+    //  },
+    //    error => {
+    //      this.alertService.error(error);
+    //    });
+    //});
   }
 
   onShowEditForm(task: WordTaskModel): void {
