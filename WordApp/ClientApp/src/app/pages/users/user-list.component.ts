@@ -6,7 +6,8 @@ import { AlertService } from './../../alert/alert.service';
 import { UserModel } from './../../models/users/user.model';
 
 import { UserEditorFormComponent } from './user-editor-form.component';
-import { MatPaginator, MatTableDataSource, MatDialog} from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
+import { CommonLoadingComponent } from './../../common/common-loading.component';
 
 @Component(
   {
@@ -17,16 +18,20 @@ import { MatPaginator, MatTableDataSource, MatDialog} from '@angular/material';
 export class UserListComponent implements OnInit {
 
   public dataSource: MatTableDataSource<UserModel>;
-  
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private userService: UserService, private dialog: MatDialog, private alertService: AlertService) {}
+  constructor(private userService: UserService, private dialog: MatDialog, private alertService: AlertService) {
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
+  }
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe(result => {
       this.dataSource = result ? new MatTableDataSource<UserModel>(result) : new MatTableDataSource<UserModel>();
       this.dataSource.paginator = this.paginator;
-    });
+      this.dialog.closeAll();
+    },
+      error => {this.dialog.closeAll(); console.log(error)});
   }
 
   public onShowEditorForm(user: UserModel) {
@@ -50,11 +55,11 @@ export class UserListComponent implements OnInit {
   }
 
   private edit(user: UserModel): void {
-      this.userService.updateUser(user).subscribe(result => {
-        var index = this.dataSource.data.findIndex(w => w.id === result.id);
-        this.dataSource.data.splice(index, 1, result);
-        this.resetDataSource();
-      }, error => console.error(error));
+    this.userService.updateUser(user).subscribe(result => {
+      var index = this.dataSource.data.findIndex(w => w.id === result.id);
+      this.dataSource.data.splice(index, 1, result);
+      this.resetDataSource();
+    }, error => console.error(error));
   }
 
   public applyFilter(filterValue: string) {

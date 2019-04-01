@@ -6,7 +6,8 @@ import { AuthService } from './../../../auth/auth.service';
 
 import { AssignVerbTaskModel } from './../../../models/tasks/verbs/assign-verb-task.model';
 
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
+import { CommonLoadingComponent } from './../../../common/common-loading.component';
 import { ETaskStatus } from './../../../app-enums';
 
 @Component(
@@ -20,7 +21,8 @@ export class PupilVerbTaskListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private authService: AuthService, private assignVerbTaskService: AssignVerbTaskService, private datePipe: DatePipe) {
+  constructor(private authService: AuthService, private assignVerbTaskService: AssignVerbTaskService, private datePipe: DatePipe, private dialog: MatDialog) {
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
   }
 
   ngOnInit(): void {
@@ -29,7 +31,8 @@ export class PupilVerbTaskListComponent implements OnInit {
     this.assignVerbTaskService.getPupilTasks(currentUserId).subscribe(e => {
       this.dataSource = new MatTableDataSource<AssignVerbTaskModel>(e);
       this.dataSource.paginator = this.paginator;
-    });
+      this.dialog.closeAll();
+    }, error => {this.dialog.closeAll(); console.log(error);});
   }
 
   applyFilter(filterValue: string) {

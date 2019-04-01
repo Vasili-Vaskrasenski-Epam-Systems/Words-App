@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Router, ActivatedRoute } from "@angular/router";
+import { MatDialog } from "@angular/material";
 import { AssignSentenceTaskService } from './../../../services/tasks/assign-sentence-task.service';
 import { AuthService } from './../../../auth/auth.service';
 
@@ -11,10 +12,9 @@ import { TaskAnswerModel } from './../../../models/tasks/task-answer.model';
 
 import { UserModel } from './../../../models/users/user.model';
 
-import { Router, ActivatedRoute } from "@angular/router";
-
 import { EUserType, ETaskStatus } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
+import { CommonLoadingComponent } from './../../../common/common-loading.component';
 
 @Component(
   {
@@ -32,8 +32,10 @@ export class SentenceTaskWizardComponent implements OnInit {
     private assignService: AssignSentenceTaskService,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dialog: MatDialog) {
     this.sentenceIndex = 0;
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
   }
 
   ngOnInit(): void {
@@ -44,7 +46,8 @@ export class SentenceTaskWizardComponent implements OnInit {
         this.answeredSentenceTask = task;
         this.answeredSentenceTask.user = new UserModel(null, null, EUserType.Pupil, this.authService.currentUserValue.id, null);
         this.assignedSentenceTask.sentences.sort((f, s) => f.order - s.order);
-      });
+        this.dialog.closeAll();
+      }, error => { this.dialog.closeAll(); console.log(error); });
     });
 
     this.wizardForm = this.formBuilder.group({

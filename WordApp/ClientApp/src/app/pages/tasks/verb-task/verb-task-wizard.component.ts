@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Router, ActivatedRoute } from "@angular/router";
+import { MatDialog } from "@angular/material";
 import { AssignVerbTaskService } from './../../../services/tasks/assign-verb-task.service';
 import { AuthService } from './../../../auth/auth.service';
 
@@ -10,11 +11,9 @@ import { VerbTaskAnswerModel } from './../../../models/tasks/verbs/verb-task-ans
 import { AssignVerbTaskModel } from './../../../models/tasks/verbs/assign-verb-task.model';
 import { UserModel } from './../../../models/users/user.model';
 
-import { Router,ActivatedRoute } from "@angular/router";
-
 import { Constants } from './../../../app-constants';
 import { EUserType, ETaskStatus } from './../../../app-enums';
-
+import { CommonLoadingComponent } from './../../../common/common-loading.component';
 @Component(
   {
     selector: 'verb-task-wizard',
@@ -31,8 +30,10 @@ export class VerbTaskWizardComponent implements OnInit {
     private assignService: AssignVerbTaskService,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dialog: MatDialog) {
     this.verbIndex = 0;
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
   }
 
   ngOnInit(): void {
@@ -43,9 +44,10 @@ export class VerbTaskWizardComponent implements OnInit {
         this.answeredVerbTask = task;
         this.answeredVerbTask.user = new UserModel(null, null, EUserType.Pupil, this.authService.currentUserValue.id, null);
         this.assignedVerbTask.verbs.sort((f, s) => f.order - s.order);
-      });
+        this.dialog.closeAll();
+      }, error => { this.dialog.closeAll(); console.log(error); });
     });
-   
+
 
     this.wizardForm = this.formBuilder.group({
       firstForm: ['', Validators.required],

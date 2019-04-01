@@ -1,7 +1,3 @@
-<div class="d-flex justify-content-center" *ngIf="!completedTask">
-  <mat-spinner></mat-spinner>
-</div>
-
 <div *ngIf="completedTask">
   <h3>{{completedTask.wordTask.name}}</h3>
   <div class="card mt-lg-4" *ngFor="let answeredWord of completedTask.answeredWords" [ngClass]="{

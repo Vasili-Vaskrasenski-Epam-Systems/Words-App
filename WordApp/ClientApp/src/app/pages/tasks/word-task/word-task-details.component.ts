@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 import { DatePipe } from '@angular/common';
 
 import { WordTaskService } from './../../../services/tasks/word-task.service';
@@ -11,7 +11,7 @@ import { WordTaskDetailModel } from './../../../models/tasks/words/word-task-det
 import { AssignWordTaskModel } from './../../../models/tasks/words/assign-word-task.model';
 
 import { ETaskStatus } from './../../../app-enums';
-
+import { CommonLoadingComponent } from './../../../common/common-loading.component';
 @Component(
   {
     selector: 'word-task-details',
@@ -26,7 +26,13 @@ export class WordTaskDetailsComponent implements OnInit {
   @ViewChild('wordsPaginator') wordsPaginator: MatPaginator;
   @ViewChild('assigneePaginator') assigneePaginator: MatPaginator;
 
-  constructor(private route: ActivatedRoute, private wordTaskService: WordTaskService, private assignTaskService: AssignWordTaskService, private datePipe: DatePipe) { }
+  constructor(private route: ActivatedRoute,
+    private wordTaskService: WordTaskService,
+    private assignTaskService: AssignWordTaskService,
+    private datePipe: DatePipe,
+    private dialog: MatDialog) {
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(e => {
@@ -37,7 +43,8 @@ export class WordTaskDetailsComponent implements OnInit {
 
         this.wordsDataSource = new MatTableDataSource<OrderedWordTaskModel>(this.task.words);
         this.wordsDataSource.paginator = this.wordsPaginator;
-      });
+        this.dialog.closeAll();
+      }, error => {this.dialog.closeAll(); console.log(error);});
     });
   }
 

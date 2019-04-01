@@ -7,22 +7,27 @@ import { SentenceService } from './../../services/sentence.service';
 import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 import { SentenceEditorFormComponent } from './sentence-editor-form.component';
 
+import { CommonLoadingComponent } from './../../common/common-loading.component';
+
 @Component({
   selector: 'sentence-list',
   templateUrl: './sentence-list.component.html',
 })
 export class SentenceListComponent implements OnInit {
   public dataSource: MatTableDataSource<SentenceModel>;
-  
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private dialog: MatDialog, private sentenceService: SentenceService) { }
+  constructor(private dialog: MatDialog, private sentenceService: SentenceService) {
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
+  }
 
   ngOnInit(): void {
     this.sentenceService.getSentences().subscribe(result => {
       this.dataSource = result ? new MatTableDataSource<SentenceModel>(result) : new MatTableDataSource<SentenceModel>();
       this.dataSource.paginator = this.paginator;
-    }, error => console.error(error));
+      this.dialog.closeAll();
+    }, error => { this.dialog.closeAll(); console.error(error)});
   }
 
 
@@ -37,6 +42,7 @@ export class SentenceListComponent implements OnInit {
   }
 
   public onDelete(sentence: SentenceModel): void {
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
     this.sentenceService.deleteSentence(sentence).subscribe(e => {
       var index = this.dataSource.data.findIndex(w => w.id === e.id);
       this.dataSource.data.splice(index, 1);
@@ -67,6 +73,7 @@ export class SentenceListComponent implements OnInit {
   private resetDataSource() {
     this.dataSource = new MatTableDataSource<SentenceModel>(this.dataSource.data);
     this.dataSource.paginator = this.paginator;
+    this.dialog.closeAll();
   }
 }
 

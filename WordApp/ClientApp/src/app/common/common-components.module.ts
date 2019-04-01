@@ -6,6 +6,7 @@ import { SelectComponent } from './select.component';
 import { CommonDatepickerComponent } from './common-datepicker.component';
 import { CommonDraggableListComponent } from './common-draggable-list.component';
 import { CommonCountSetterDialogComponent } from './common-count-setter-dialog.component';
+import { CommonLoadingComponent } from './common-loading.component';
 
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { MatProgressSpinnerModule, MatSpinner, MatDialogModule, MatFormFieldModule } from '@angular/material';
@@ -15,7 +16,8 @@ import { MatProgressSpinnerModule, MatSpinner, MatDialogModule, MatFormFieldModu
     SelectComponent,
     CommonDatepickerComponent,
     CommonDraggableListComponent,
-    CommonCountSetterDialogComponent
+    CommonCountSetterDialogComponent,
+    CommonLoadingComponent
   ],
   imports: [FormsModule, BrowserModule, ReactiveFormsModule, NgbModule, DragDropModule, MatProgressSpinnerModule, MatDialogModule, MatFormFieldModule],
   exports: [
@@ -23,10 +25,10 @@ import { MatProgressSpinnerModule, MatSpinner, MatDialogModule, MatFormFieldModu
     CommonDatepickerComponent,
     CommonDraggableListComponent,
     CommonCountSetterDialogComponent,
-    MatSpinner
+    MatSpinner, CommonLoadingComponent
   ],
   providers: [],
-  entryComponents: [CommonCountSetterDialogComponent]
+  entryComponents: [CommonCountSetterDialogComponent, CommonLoadingComponent]
 })
 
 export class CommonComponentsModule {

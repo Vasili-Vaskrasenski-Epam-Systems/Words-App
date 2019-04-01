@@ -3,9 +3,6 @@
   <button (click)="onShowEditForm()" class="btn btn-success">+</button>
 </div>
 
-<div class="d-flex justify-content-center" *ngIf="!dataSource">
-  <mat-spinner></mat-spinner>
-</div>
 <div mat-elevation-z8 mt-lg-2 *ngIf="dataSource">
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">

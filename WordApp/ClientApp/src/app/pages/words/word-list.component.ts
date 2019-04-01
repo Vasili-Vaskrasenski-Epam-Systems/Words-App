@@ -4,6 +4,7 @@ import { WordModel } from "./../../models/words/word.model";
 import { WordEditorFormComponent } from "./word-editor-form.component";
 import { AlertService } from './../../alert/alert.service';
 import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
+import { CommonLoadingComponent } from './../../common/common-loading.component';
 
 @Component({
   selector: 'word-list',
@@ -17,13 +18,15 @@ export class WordListComponent implements OnInit {
   constructor(private wordsService: WordsService,
     private alertService: AlertService,
     private dialog: MatDialog) {
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
   }
 
   ngOnInit() {
     this.wordsService.getWords().subscribe(result => {
       this.dataSource = result ? new MatTableDataSource<WordModel>(result) : new MatTableDataSource<WordModel>();
       this.dataSource.paginator = this.paginator;
-    }, error => console.error(error));
+      this.dialog.closeAll();
+    }, error => {this.dialog.closeAll(); console.error(error)});
   };
 
   public onDelete(word: WordModel): void {

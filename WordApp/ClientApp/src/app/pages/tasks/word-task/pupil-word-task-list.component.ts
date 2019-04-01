@@ -6,8 +6,9 @@ import { AuthService } from './../../../auth/auth.service';
 
 import { AssignWordTaskModel } from './../../../models/tasks/words/assign-word-task.model';
 
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 import { ETaskStatus } from './../../../app-enums';
+import { CommonLoadingComponent } from './../../../common/common-loading.component';
 
 @Component(
   {
@@ -19,8 +20,8 @@ export class PupilWordTaskListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public taskStatuses = ETaskStatus;
 
-  constructor(private authService: AuthService, private assignWordTaskService: AssignWordTaskService, private datePipe: DatePipe) {
-
+  constructor(private authService: AuthService, private assignWordTaskService: AssignWordTaskService, private datePipe: DatePipe, private dialog: MatDialog) {
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
   }
 
   ngOnInit(): void {
@@ -29,7 +30,8 @@ export class PupilWordTaskListComponent implements OnInit {
     this.assignWordTaskService.getPupilTasks(currentUserId).subscribe(e => {
       this.dataSource = new MatTableDataSource<AssignWordTaskModel>(e);
       this.dataSource.paginator = this.paginator;
-    });
+      this.dialog.closeAll();
+    }, error => {this.dialog.closeAll(); console.log(error);});
   }
 
   applyFilter(filterValue: string) {

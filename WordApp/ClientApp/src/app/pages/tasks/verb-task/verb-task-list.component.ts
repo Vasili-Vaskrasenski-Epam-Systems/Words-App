@@ -15,6 +15,7 @@ import { AssignVerbTaskModel } from './../../../models/tasks/verbs/assign-verb-t
 import { VerbTaskEditorFormComponent } from './verb-task-editor-form.component';
 
 import { AssignTaskComponent, AssignableUserModel } from './../common/assign-task.component';
+import { CommonLoadingComponent } from './../../../common/common-loading.component';
 
 import { EUserType } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
@@ -28,20 +29,20 @@ export class VerbTaskListComponent implements OnInit {
   public dataSource: MatTableDataSource<VerbTaskModel>;
   public availableVerbs: Array<VerbModel>;
   public availableUsers: Array<UserModel>;
-  public displayContent: boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private verbTaskService: VerbTaskService, private alertService: AlertService, private verbsService: VerbService,
     private userService: UserService, private assignVerbTaskService: AssignVerbTaskService, public dialog: MatDialog) {
-    this.displayContent = true;
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
   }
 
   ngOnInit(): void {
     this.verbTaskService.getTasks().subscribe(result => {
       this.dataSource = result ? new MatTableDataSource<VerbTaskModel>(result) : new MatTableDataSource<VerbTaskModel>();
       this.dataSource.paginator = this.paginator;
-    });
+      this.dialog.closeAll();
+    }, error => { this.dialog.closeAll(); console.log(error); });
 
     this.verbsService.getVerbs().subscribe(e => {
       this.availableVerbs = e;
@@ -83,8 +84,8 @@ export class VerbTaskListComponent implements OnInit {
         }
 
         this.assignVerbTaskService.assignTask(assignObjects).subscribe(s => {
-            //todo
-          },
+          //todo
+        },
           error => this.alertService.error(error));
       }
     });

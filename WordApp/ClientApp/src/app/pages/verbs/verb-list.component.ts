@@ -8,6 +8,7 @@ import { WordsService } from "./../../services/words.service";
 
 import { VerbEditorFormComponent } from "./verb-editor-form.component";
 import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
+import { CommonLoadingComponent } from './../../common/common-loading.component';
 
 @Component({
   selector: 'verb-list',
@@ -21,16 +22,18 @@ export class VerbListComponent implements OnInit {
 
   constructor(private verbsService: VerbService,
     private wordsService: WordsService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog) { this.dialog.open(CommonLoadingComponent, {disableClose: true}) }
 
   ngOnInit(): void {
     this.wordsService.getWords().subscribe(result => {
       this.availableWords = result;
-    });
+      this.dialog.closeAll();
+    }, error => {this.dialog.closeAll();console.log(error);});
 
     this.verbsService.getVerbs().subscribe(result => {
       this.dataSource = result ? new MatTableDataSource<VerbModel>(result) : new MatTableDataSource<VerbModel>();
       this.dataSource.paginator = this.paginator;
+
     }, error => console.error(error));
   }
 

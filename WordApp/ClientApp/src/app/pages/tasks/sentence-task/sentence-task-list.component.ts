@@ -18,6 +18,7 @@ import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 
 import { EUserType } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
+import { CommonLoadingComponent } from './../../../common/common-loading.component';
 
 @Component(
   {
@@ -37,13 +38,15 @@ export class SentenceTaskListComponent implements OnInit {
     private sentenceService: SentenceService,
     private assignSentenceTaskService: AssignSentenceTaskService,
     public dialog: MatDialog) {
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
   }
 
   ngOnInit(): void {
     this.sentenceTaskService.getSentenceTasks().subscribe(result => {
       this.dataSource = result ? new MatTableDataSource<SentenceTaskModel>(result) : new MatTableDataSource<SentenceTaskModel>();
       this.dataSource.paginator = this.paginator;
-    });
+      this.dialog.closeAll();
+    }, error => {this.dialog.closeAll(); console.log(error);});
 
     this.sentenceService.getSentences().subscribe(w => {
       this.existingSentences = w;

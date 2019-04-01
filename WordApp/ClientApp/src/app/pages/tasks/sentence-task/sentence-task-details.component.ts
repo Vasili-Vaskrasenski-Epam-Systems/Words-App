@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog} from '@angular/material';
 import { DatePipe } from "@angular/common";
 
 import { SentenceTaskService } from './../../../services/tasks/sentence-task.service';
@@ -10,6 +10,7 @@ import { SentenceTaskDetailModel } from './../../../models/tasks/sentences/sente
 import { AssignSentenceTaskModel } from './../../../models/tasks/sentences/assign-sentence-task.model';
 import { OrderedSentenceTaskModel } from './../../../models/tasks/sentences/ordered-sentence-task.model';
 
+import { CommonLoadingComponent } from './../../../common/common-loading.component';
 import { ETaskStatus } from './../../../app-enums';
 
 @Component(
@@ -26,7 +27,13 @@ export class SentenceTaskDetailsComponent implements OnInit {
   @ViewChild('sentencePaginator') verbsPaginator: MatPaginator;
   @ViewChild('assigneePaginator') assigneePaginator: MatPaginator;
 
-  constructor(private route: ActivatedRoute, private sentenceTaskService: SentenceTaskService, private assignTaskService: AssignSentenceTaskService, private datePipe: DatePipe) { }
+  constructor(private route: ActivatedRoute,
+    private sentenceTaskService: SentenceTaskService,
+    private assignTaskService: AssignSentenceTaskService,
+    private datePipe: DatePipe,
+    private dialog: MatDialog) {
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(e => {
@@ -37,7 +44,9 @@ export class SentenceTaskDetailsComponent implements OnInit {
 
         this.sentenceDataSource = new MatTableDataSource<OrderedSentenceTaskModel>(this.task.sentences);
         this.sentenceDataSource.paginator = this.verbsPaginator;
-      });
+
+        this.dialog.closeAll();
+      }, error => {this.dialog.closeAll(); console.log(error);});
     });
   }
 

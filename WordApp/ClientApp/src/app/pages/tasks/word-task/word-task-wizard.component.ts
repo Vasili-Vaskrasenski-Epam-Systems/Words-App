@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { MatDialog } from "@angular/material";
+
 import { AssignWordTaskService } from './../../../services/tasks/assign-word-task.service';
 import { AuthService } from './../../../auth/auth.service';
 
@@ -14,6 +16,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { EUserType, ETaskStatus } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
+
+import { CommonLoadingComponent } from './../../../common/common-loading.component';
 
 @Component(
   {
@@ -31,8 +35,10 @@ export class WordTaskWizardComponent implements OnInit {
     private assignService: AssignWordTaskService,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dialog: MatDialog) {
     this.wordIndex = 0;
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
   }
 
   ngOnInit(): void {
@@ -43,7 +49,8 @@ export class WordTaskWizardComponent implements OnInit {
         this.answeredWordTask = task;
         this.answeredWordTask.user = new UserModel(null, null, EUserType.Pupil, this.authService.currentUserValue.id, null);
         this.assignedWordTask.words.sort((f, s) => f.order - s.order);
-      });
+        this.dialog.closeAll();
+      }, error => {console.log(error);this.dialog.closeAll();});
     });
 
     this.wizardForm = this.formBuilder.group({

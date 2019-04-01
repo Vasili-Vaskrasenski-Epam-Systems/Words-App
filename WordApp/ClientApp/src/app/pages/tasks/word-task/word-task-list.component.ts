@@ -1,4 +1,4 @@
-import { Component, ViewChild,OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 
 import { WordTaskService } from './../../../services/tasks/word-task.service';
@@ -17,6 +17,7 @@ import { AssignTaskComponent, AssignableUserModel } from './../common/assign-tas
 
 import { EUserType } from './../../../app-enums';
 import { Constants } from './../../../app-constants';
+import { CommonLoadingComponent } from './../../../common/common-loading.component';
 
 @Component(
   {
@@ -25,7 +26,6 @@ import { Constants } from './../../../app-constants';
   })
 export class WordTaskListComponent implements OnInit {
   public dataSource: MatTableDataSource<WordTaskModel>;
-  public displayContent: boolean;
   private existingWords: Array<WordModel>;
   private existingUsers: Array<UserModel>;
 
@@ -37,15 +37,15 @@ export class WordTaskListComponent implements OnInit {
     private userService: UserService,
     private assignWordTaskService: AssignWordTaskService,
     public dialog: MatDialog) {
-
-    this.displayContent = true;
+    this.dialog.open(CommonLoadingComponent, { disableClose: true });
   }
 
   ngOnInit(): void {
     this.taskService.getTasks().subscribe(result => {
       this.dataSource = result ? new MatTableDataSource<WordTaskModel>(result) : new MatTableDataSource<WordTaskModel>();
       this.dataSource.paginator = this.paginator;
-    });
+      this.dialog.closeAll();
+    }, error => { this.dialog.closeAll(); console.log(error); });
 
     this.wordService.getWords().subscribe(w => {
       this.existingWords = w;
@@ -65,9 +65,9 @@ export class WordTaskListComponent implements OnInit {
       }
     });
   }
-  
+
   public onShowAssignForm(task: WordTaskModel) {
-    var dialogRef = this.dialog.open(AssignTaskComponent, { data: {users: this.existingUsers} });
+    var dialogRef = this.dialog.open(AssignTaskComponent, { data: { users: this.existingUsers } });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -85,8 +85,8 @@ export class WordTaskListComponent implements OnInit {
             null));
 
           this.assignWordTaskService.assignTask(assignObjects).subscribe(s => {
-              //todo
-            },
+            //todo
+          },
             error => this.alertService.error(error));
         }
       }
@@ -108,24 +108,24 @@ export class WordTaskListComponent implements OnInit {
   }
 
   private create(wordTask: WordTaskModel) {
-      this.taskService.createTask(wordTask).subscribe(result => {
-        this.dataSource.data.push(result);
-        this.resetDataSource();
-      },
-        error => {
-          this.alertService.error(error);
-        });
+    this.taskService.createTask(wordTask).subscribe(result => {
+      this.dataSource.data.push(result);
+      this.resetDataSource();
+    },
+      error => {
+        this.alertService.error(error);
+      });
   }
 
   private edit(wordTask: WordTaskModel) {
     this.taskService.updateTask(wordTask).subscribe(result => {
-        var index = this.dataSource.data.findIndex(w => w.id === result.id);
-        this.dataSource.data.splice(index, 1, result);
-        this.resetDataSource();
-      },
+      var index = this.dataSource.data.findIndex(w => w.id === result.id);
+      this.dataSource.data.splice(index, 1, result);
+      this.resetDataSource();
+    },
       error => console.error(error));
   }
-  
+
   private resetDataSource() {
     this.dataSource = new MatTableDataSource<WordTaskModel>(this.dataSource.data);
     this.dataSource.paginator = this.paginator;
