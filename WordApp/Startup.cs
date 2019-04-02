@@ -17,11 +17,8 @@ using Entities.Instances.User;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -46,21 +43,22 @@ namespace WordApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
             #region Auth
             var signingKey = new SigningSymmetricKey((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.AuthenticationKey));
 
             services.AddSingleton<IJwtSigningEncodingKey>(signingKey);
 
-            var signingDecodingKey = (IJwtSigningDecodingKey)signingKey;
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            var signingDecodingKey = (IJwtSigningDecodingKey)signingKey;
             services
-                .AddAuthentication(options =>
-                {
+                .AddAuthentication(options => {
                     options.DefaultAuthenticateScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
                     options.DefaultChallengeScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
                 })
-                .AddJwtBearer((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName), jwtBearerOptions =>
-                {
+                .AddJwtBearer((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName), jwtBearerOptions => {
                     jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -73,14 +71,6 @@ namespace WordApp
                         ValidAudience = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidAudienceName),
                         ClockSkew = TimeSpan.Zero,
                     };
-                })
-                .AddGoogle(googleOptions =>
-                {
-                    googleOptions.ClientId =
-                        (string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientId);
-
-                    googleOptions.ClientSecret =
-                        (string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientSecret);
                 });
             #endregion
 
@@ -91,11 +81,10 @@ namespace WordApp
             #endregion
 
             #region DbContext
-            services.AddIdentity<ApplicationUserEntity, IdentityRole>()
-                .AddEntityFrameworkStores<WordsDbContext>()
-                .AddDefaultTokenProviders();
+
             var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString(Config.WordsDbConnectionStringName));
             services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer(connectionString));
+
             #endregion
 
             #region Business Services
@@ -115,13 +104,11 @@ namespace WordApp
             services.AddScoped(typeof(BaseEntityService<UserTokenEntity>), typeof(UserTokenService));
             #endregion
 
-            //// In production, the Angular files will be served from this directory
+            // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -140,7 +127,8 @@ namespace WordApp
 
             loggerFactory.AddLog4Net();
 
-            //app.UseHttpsRedirection();
+
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseAuthentication();

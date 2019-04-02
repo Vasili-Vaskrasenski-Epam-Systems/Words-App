@@ -325,49 +325,6 @@ namespace DAL.Migrations
                     b.ToTable("WordTasks");
                 });
 
-            modelBuilder.Entity("Entities.Instances.User.ApplicationUserEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp");
-
-                    b.Property<string>("Email");
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail");
-
-                    b.Property<string>("NormalizedUserName");
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<Guid>("UserId");
-
-                    b.Property<string>("UserName");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("ApplicationUsers");
-                });
-
             modelBuilder.Entity("Entities.Instances.User.UserEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -650,14 +607,6 @@ namespace DAL.Migrations
                     b.HasOne("Entities.Instances.Word.WordEntity", "Word")
                         .WithMany("TaskWords")
                         .HasForeignKey("WordId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Entities.Instances.User.ApplicationUserEntity", b =>
-                {
-                    b.HasOne("Entities.Instances.User.UserEntity", "User")
-                        .WithOne("AppUser")
-                        .HasForeignKey("Entities.Instances.User.ApplicationUserEntity", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -1,4 +1,6 @@
-﻿namespace Configuration
+﻿using System;
+
+namespace Configuration
 {
     public class Config
     {
@@ -25,18 +27,6 @@
                 ValidAudienceName = "JwtAudienceName";
                 AccessTokenExpirationMinutes = "JwtAccessKeyExpirationMinutes";
                 RefreshTokenExpirationMinutes = "JwtRefreshKeyExpirationMinutes";
-            }
-        }
-
-        public class GoogleConstants
-        {
-            public static string ClientId { get; set; }
-            public static string ClientSecret { get; set; }
-
-            static GoogleConstants()
-            {
-                ClientId = "GoogleClientId";
-                ClientSecret = "GoogleClientSecret";
             }
         }
     }

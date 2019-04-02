@@ -18,7 +18,6 @@ namespace DAL.Infrastructure
         }
 
         public DbSet<UserEntity> Users { get; set; }
-        public DbSet<ApplicationUserEntity> ApplicationUsers { get; set; }
         public DbSet<UserTokenEntity> UserTokens { get; set; }
 
         public DbSet<WordEntity> Words { get; set; }
