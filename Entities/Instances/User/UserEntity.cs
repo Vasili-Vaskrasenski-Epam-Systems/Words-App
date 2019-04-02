@@ -12,5 +12,6 @@ namespace Entities.Instances.User
         public UserType UserType { get; set; }
         public List<AssignedWordTaskEntity> AssignedTasks { get; set; }
         public virtual List<UserTokenEntity> Tokens { get; set; }
+        public virtual ApplicationUserEntity AppUser { get; set; }
     }
 }

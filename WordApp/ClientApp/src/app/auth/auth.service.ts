@@ -38,6 +38,31 @@ export class AuthService {
       }));
   }
 
+  public loginViaGoogle() {
+    const form = window.document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", this.baseUrl + '/LoginWithGoogle');
+    //use _self to redirect in same tab, _blank to open in new tab
+    form.setAttribute("target", "_blank");
+
+    //Add all the data to be posted as Hidden elements
+
+    window.document.body.appendChild(form);
+    form.submit();
+  }
+
+    //var params = new HttpParams({ fromObject: { } });
+    //return this.http.post<any>(this.baseUrl + '/LoginWithGoogle', null, {params: params})
+    //  .pipe(map(user => {
+    //    if (user) {
+    //      var typedUser = <UserModel>user;
+    //      //sessionStorage.setItem(Constants.currentUser, JSON.stringify(user));
+    //      //this.currentUserSubject.next(typedUser);
+    //    }
+    //    return user;
+    //  }));
+  //}
+
   public updateUserToken(token: UserTokenModel) {
     var user = this.currentUserValue;
     user.token = token;

@@ -52,4 +52,10 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         });
   }
+
+  loginViaGoogle() {
+    this.authenticationService.loginViaGoogle().subscribe(e => {
+      console.log('here');
+    });
+  }
 }

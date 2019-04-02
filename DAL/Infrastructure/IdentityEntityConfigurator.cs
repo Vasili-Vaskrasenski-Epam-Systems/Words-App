@@ -80,6 +80,9 @@ namespace DAL.Infrastructure
             builder.HasMany(e => e.Tokens)
                 .WithOne(ee => ee.User)
                 .HasForeignKey(ee => ee.UserId);
+
+            builder.HasOne(e => e.AppUser)
+                .WithOne(ee => ee.User);
         }
     }
 

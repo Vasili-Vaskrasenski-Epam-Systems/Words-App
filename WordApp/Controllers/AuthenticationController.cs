@@ -1,8 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using BL.Services;
 using Entities.Enums;
 using Entities.Instances.User;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WordApp.Infrastructure.TokenGenerators;
@@ -14,10 +18,13 @@ namespace WordApp.Controllers
     {
         private readonly ITokenGenerator _tokenGenerator;
         private readonly BaseEntityService<UserEntity> _userService;
-        public AuthenticationController(IMapper mapper, BaseEntityService<UserEntity> service, ITokenGenerator tokenGenerator, IConfiguration configuration) : base(mapper)
+        private readonly SignInManager<ApplicationUserEntity> _signInManager;
+        public AuthenticationController(IMapper mapper, BaseEntityService<UserEntity> service, 
+            ITokenGenerator tokenGenerator, IConfiguration configuration, SignInManager<ApplicationUserEntity> signInManager) : base(mapper)
         {
             this._tokenGenerator = tokenGenerator;
             this._userService = service;
+            this._signInManager = signInManager;
         }
 
 
@@ -67,6 +74,16 @@ namespace WordApp.Controllers
             }
 
             return Ok("Wrong login or password");
+        }
+
+        [AllowAnonymous]
+        [HttpPost("[action]")]
+        public IActionResult LoginWithGoogle()
+        {
+            var provider = ProviderType.Google.ToString();
+            var properties = this._signInManager.ConfigureExternalAuthenticationProperties(provider, "/home");
+            var result = Challenge(properties, provider);
+            return result;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Configuration
+﻿namespace Configuration
 {
     public class Config
     {
@@ -27,6 +25,18 @@ namespace Configuration
                 ValidAudienceName = "JwtAudienceName";
                 AccessTokenExpirationMinutes = "JwtAccessKeyExpirationMinutes";
                 RefreshTokenExpirationMinutes = "JwtRefreshKeyExpirationMinutes";
+            }
+        }
+
+        public class GoogleConstants
+        {
+            public static string ClientId { get; set; }
+            public static string ClientSecret { get; set; }
+
+            static GoogleConstants()
+            {
+                ClientId = "GoogleClientId";
+                ClientSecret = "GoogleClientSecret";
             }
         }
     }
