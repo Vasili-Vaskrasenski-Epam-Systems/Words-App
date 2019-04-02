@@ -14,7 +14,9 @@ namespace WordApp.Controllers
     {
         private readonly ITokenGenerator _tokenGenerator;
         private readonly BaseEntityService<UserEntity> _userService;
-        public AuthenticationController(IMapper mapper, BaseEntityService<UserEntity> service, ITokenGenerator tokenGenerator, IConfiguration configuration) : base(mapper)
+
+        public AuthenticationController(IMapper mapper, BaseEntityService<UserEntity> service,
+            ITokenGenerator tokenGenerator, IConfiguration configuration) : base(mapper)
         {
             this._tokenGenerator = tokenGenerator;
             this._userService = service;
@@ -36,7 +38,8 @@ namespace WordApp.Controllers
         [HttpPost("[action]")]
         public IActionResult Login(string userName, string password)
         {
-            var existingUser = this._userService.GetQueryableEntity(e => e.Name == userName && e.Password == password, "Tokens");
+            var existingUser =
+                this._userService.GetQueryableEntity(e => e.Name == userName && e.Password == password, "Tokens");
 
             if (existingUser != null)
             {
@@ -51,7 +54,7 @@ namespace WordApp.Controllers
                 };
 
                 existingUser.Tokens.Add(userTokenEntity);
-                
+
                 var updatedEntity = this._userService.UpdateEntity(existingUser);
 
                 var userModel = base.Mapper.Map<UserModel>(updatedEntity);
@@ -68,5 +71,12 @@ namespace WordApp.Controllers
 
             return Ok("Wrong login or password");
         }
-    }
+
+        [AllowAnonymous]
+        [HttpPost("[action]")]
+        public IActionResult LoginWithGoogle()
+        {
+            return Ok();
+        }
+}
 }
