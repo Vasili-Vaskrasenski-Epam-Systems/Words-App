@@ -7,7 +7,6 @@ using BL.Services.Task.VerbTaskServices;
 using BL.Services.Task.WordTaskServices;
 using BL.Services.User;
 using Configuration;
-using DAL.Helpers;
 using DAL.Infrastructure;
 using Entities.Instances.Sentence;
 using Entities.Instances.Task.SentenceTask;
@@ -77,10 +76,10 @@ namespace WordApp
                 .AddGoogle(googleOptions =>
                 {
                     googleOptions.ClientId =
-                        (string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientId);
+                        Encrypters.Decrypt((string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientId));
 
                     googleOptions.ClientSecret =
-                        (string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientSecret);
+                        Encrypters.Decrypt((string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientSecret));
                 });
             #endregion
 
