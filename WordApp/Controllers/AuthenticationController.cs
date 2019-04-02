@@ -1,5 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using BL.Infrastructure.Encoders;
 using BL.Services;
+using DAL.Helpers;
 using Entities.Enums;
 using Entities.Instances.User;
 using Microsoft.AspNetCore.Authorization;
@@ -14,23 +18,24 @@ namespace WordApp.Controllers
     {
         private readonly ITokenGenerator _tokenGenerator;
         private readonly BaseEntityService<UserEntity> _userService;
+        private readonly BaseEntityService<UserCredentialsEntity> _userCredentialsService;
 
         public AuthenticationController(IMapper mapper, BaseEntityService<UserEntity> service,
-            ITokenGenerator tokenGenerator, IConfiguration configuration) : base(mapper)
+            ITokenGenerator tokenGenerator, BaseEntityService<UserCredentialsEntity> credentialsService) : base(mapper)
         {
             this._tokenGenerator = tokenGenerator;
             this._userService = service;
+            this._userCredentialsService = credentialsService;
         }
 
 
         [AllowAnonymous]
         [HttpPost("[action]")]
-        public IActionResult Register([FromBody] UserModel model)
+        public IActionResult Register([FromBody] UserRegistrationModel model)
         {
-            model.UserType = UserType.Pupil;
             var userToCreate = base.Mapper.Map<UserEntity>(model);
             var createdUser = this._userService.CreateEntity(userToCreate);
-            return Ok(base.Mapper.Map<UserModel>(createdUser));
+            return Ok(model);
         }
 
 
@@ -39,33 +44,20 @@ namespace WordApp.Controllers
         public IActionResult Login(string userName, string password)
         {
             var existingUser =
-                this._userService.GetQueryableEntity(e => e.Name == userName && e.Password == password, "Tokens");
+                this._userCredentialsService.GetQueryableEntity(e => (e.User.Name == userName || e.User.Email == userName) && SaltedHash.Verify(e.Hash, password) && e.CredentialsType == UserCredentialsType.Internal, "User");
 
             if (existingUser != null)
             {
-                var accessToken = this._tokenGenerator.GenerateAccessToken(existingUser.Id, existingUser.UserType);
-                var refreshToken = this._tokenGenerator.GenerateRefreshToken(existingUser.Id);
+                var accessToken = this._tokenGenerator.GenerateAccessToken(existingUser.Id, existingUser.User.UserType);
 
-                var userTokenEntity = new UserTokenEntity()
+                var userModel = new UserLoginModel()
                 {
-                    AccessToken = this._tokenGenerator.WriteToken(accessToken),
-                    RefreshToken = this._tokenGenerator.WriteToken(refreshToken),
-                    IsActive = true
+                    Id = existingUser.UserId,
+                    Name = existingUser.User.Name,
+                    UserType = existingUser.User.UserType,
+                    Token = this._tokenGenerator.WriteToken(accessToken),
+                    TokenExpirationTime = accessToken.ValidTo,
                 };
-
-                existingUser.Tokens.Add(userTokenEntity);
-
-                var updatedEntity = this._userService.UpdateEntity(existingUser);
-
-                var userModel = base.Mapper.Map<UserModel>(updatedEntity);
-                userModel.Token = new UserTokenModel()
-                {
-                    RefreshToken = userTokenEntity.RefreshToken,
-                    RefreshTokenExpirationDate = refreshToken.ValidTo,
-                    AccessToken = userTokenEntity.AccessToken,
-                    AccessTokenExpirationDate = accessToken.ValidTo,
-                };
-
                 return Ok(userModel);
             }
 
@@ -74,9 +66,46 @@ namespace WordApp.Controllers
 
         [AllowAnonymous]
         [HttpPost("[action]")]
-        public IActionResult LoginWithGoogle()
+        public IActionResult LoginViaGoogle(string email, string password)
         {
-            return Ok();
+            var existingUser =
+                this._userCredentialsService.GetQueryableEntity(e => e.User.Email == email && SaltedHash.Verify(e.Hash, password) && e.CredentialsType == UserCredentialsType.Google, "User");
+
+            if (existingUser == null)
+            {
+                var userToCreate = new UserEntity()
+                {
+                    Email = email,
+                    Name = email,
+                    UserType = UserType.Pupil,
+                    UserProfile = new UserProfileEntity(),
+                    Credentials = new List<UserCredentialsEntity>()
+                    {
+                        new UserCredentialsEntity()
+                        {
+                            CredentialsType = UserCredentialsType.Google,
+                            Login = email,
+                            Hash = SaltedHash.ComputeHash(password),
+                        }
+                    },
+                };
+
+                var createdUser = this._userService.CreateEntity(userToCreate);
+
+                existingUser = createdUser.Credentials.First();
+            }
+
+            var accessToken = this._tokenGenerator.GenerateAccessToken(existingUser.Id, existingUser.User.UserType);
+
+            var userModel = new UserLoginModel()
+            {
+                Id = existingUser.UserId,
+                Name = existingUser.User.Name,
+                UserType = existingUser.User.UserType,
+                Token = this._tokenGenerator.WriteToken(accessToken),
+                TokenExpirationTime = accessToken.ValidTo,
+            };
+            return Ok(userModel);
         }
-}
+    }
 }

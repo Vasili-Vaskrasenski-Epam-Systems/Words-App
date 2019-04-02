@@ -29,5 +29,17 @@ namespace Configuration
                 RefreshTokenExpirationMinutes = "JwtRefreshKeyExpirationMinutes";
             }
         }
+
+        public class GoogleConstants
+        {
+            public static string ClientId;
+            public static string ClientSecret;
+
+            static GoogleConstants()
+            {
+                ClientId = "CliendId";
+                ClientSecret = "ClientSecret";
+            }
+        }
     }
 }

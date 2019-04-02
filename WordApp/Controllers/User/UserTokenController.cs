@@ -12,12 +12,12 @@ namespace WordApp.Controllers.User
 {
     public class UserTokenController : BaseController
     {
-        private readonly BaseEntityService<UserTokenEntity> _userTokenService;
+        private readonly BaseEntityService<UserCredentialsEntity> _userTokenService;
         private readonly BaseEntityService<UserEntity> _userService;
         private readonly ITokenGenerator _tokenGenerator;
 
         public UserTokenController(IMapper mapper,
-            BaseEntityService<UserTokenEntity> userTokenService,
+            BaseEntityService<UserCredentialsEntity> userTokenService,
             BaseEntityService<UserEntity> userService,
             ITokenGenerator tokenGenerator) : base(mapper)
         {
@@ -28,50 +28,25 @@ namespace WordApp.Controllers.User
 
         [HttpPost("[action]")]
         [Authorize]
-        public IActionResult RefreshToken(Guid userId, string refreshToken)
+        public IActionResult RefreshToken(Guid userId)
         {
-            var existingUser = this._userService.GetQueryableEntity(userId, new[] { "Tokens" });
+            //TODO
+            var existingUser = this._userService.GetEntity(userId);
 
             if (existingUser == null)
             {
                 return BadRequest("No user found");
             }
 
-            var existingToken = existingUser.Tokens.FirstOrDefault(t => t.RefreshToken == refreshToken);
-            if (existingToken == null)
+            var accessToken = this._tokenGenerator.GenerateAccessToken(existingUser.Id, existingUser.UserType);
+
+            var userTokenModel = new UserTokenModel()
             {
-                return BadRequest("Unknown refresh token");
-            }
-            else if (!existingToken.IsActive)
-            {
-                return BadRequest("Token has expired");
-            }
-            else
-            {
-                existingToken.IsActive = false;
-                this._userTokenService.UpdateEntity(existingToken);
+                AccessToken = this._tokenGenerator.WriteToken(accessToken),
+                AccessTokenExpirationDate = accessToken.ValidTo,
+            };
 
-                var newAccessToken = this._tokenGenerator.GenerateAccessToken(existingUser.Id, existingUser.UserType);
-                var newRefreshToken = this._tokenGenerator.GenerateRefreshToken(existingUser.Id);
-
-                var userTokenEntity = new UserTokenEntity()
-                {
-                    AccessToken = this._tokenGenerator.WriteToken(newAccessToken),
-                    RefreshToken = this._tokenGenerator.WriteToken(newRefreshToken),
-                    IsActive = true,
-                    UserId = existingUser.Id,
-                };
-
-                this._userTokenService.CreateEntity(userTokenEntity);
-
-                return Ok(new UserTokenModel()
-                {
-                    AccessToken = userTokenEntity.AccessToken,
-                    AccessTokenExpirationDate = newAccessToken.ValidTo,
-                    RefreshToken = userTokenEntity.RefreshToken,
-                    RefreshTokenExpirationDate = newRefreshToken.ValidTo,
-                });
-            }
+            return Ok(userTokenModel);
         }
     }
 }

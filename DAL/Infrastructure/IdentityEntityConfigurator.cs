@@ -21,6 +21,7 @@ namespace DAL.Infrastructure
         }
     }
 
+    #region Words
     internal class WordConfigurator : IdentityEntityConfigurator<WordEntity>
     {
         public override void Configure(EntityTypeBuilder<WordEntity> builder)
@@ -40,7 +41,9 @@ namespace DAL.Infrastructure
                 .HasForeignKey(ee => ee.WordId);
         }
     }
+    #endregion
 
+    #region Verbs
     internal class VerbConfigurator : IdentityEntityConfigurator<VerbEntity>
     {
         public override void Configure(EntityTypeBuilder<VerbEntity> builder)
@@ -52,7 +55,7 @@ namespace DAL.Infrastructure
                 .HasForeignKey(ee => ee.VerbId);
         }
     }
-
+    #endregion
     internal class WordTaskConfigurator : IdentityEntityConfigurator<WordTaskEntity>
     {
         public override void Configure(EntityTypeBuilder<WordTaskEntity> builder)
@@ -68,7 +71,8 @@ namespace DAL.Infrastructure
         }
     }
 
-    internal class UserConfigurator : VersionEntityConfigurator<UserEntity>
+    #region Users
+    internal class UserConfigurator : IdentityEntityConfigurator<UserEntity>
     {
         public override void Configure(EntityTypeBuilder<UserEntity> builder)
         {
@@ -77,11 +81,23 @@ namespace DAL.Infrastructure
                 .WithOne(ee => ee.User)
                 .HasForeignKey(ee => ee.UserId);
 
-            builder.HasMany(e => e.Tokens)
+            builder.HasMany(e => e.Credentials)
                 .WithOne(ee => ee.User)
                 .HasForeignKey(ee => ee.UserId);
+
+            builder.HasOne(e => e.UserProfile)
+                .WithOne(ee => ee.User).HasForeignKey<UserEntity>(ee => ee.Id);
+
+            builder.Property(e => e.Email).IsRequired();
+            builder.HasIndex(e => e.Name).IsUnique();
+            builder.HasIndex(e => e.Email).IsUnique();
         }
     }
+
+    internal class UserProfileConfigurator: VersionEntityConfigurator<UserProfileEntity> { }
+
+    internal class UserCredentialsConfigurator : IdentityEntityConfigurator<UserCredentialsEntity> { }
+    #endregion
 
     internal class WordAnswerConfigurator : IdentityEntityConfigurator<WordAnswerEntity>
     {
@@ -166,9 +182,6 @@ namespace DAL.Infrastructure
                 .HasForeignKey(ee => ee.SentenceAnswerId);
         }
     }
-
-    internal class UserTokenConfigurator : IdentityEntityConfigurator<UserTokenEntity> { }
-
     #region Relational entities
     internal class VerbWordConfigurator : IdentityEntityConfigurator<RelWordVerbEntity>
     {

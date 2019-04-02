@@ -1,10 +1,9 @@
 ﻿using System;
-using Entities.Enums;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class Initial : Migration
+    public partial class UserRefactoring : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,18 +47,18 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "UserProfiles",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    UserType = table.Column<int>(nullable: false)
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    BirthDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_UserProfiles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -193,59 +192,22 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AssignedSentenceTasks",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    UserId = table.Column<Guid>(nullable: false),
-                    TaskStatus = table.Column<int>(nullable: false),
-                    Deadline = table.Column<DateTime>(nullable: false),
-                    CompleteDate = table.Column<DateTime>(nullable: true),
-                    SentenceTaskId = table.Column<Guid>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    UserType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AssignedSentenceTasks", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AssignedSentenceTasks_SentenceTasks_SentenceTaskId",
-                        column: x => x.SentenceTaskId,
-                        principalTable: "SentenceTasks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AssignedSentenceTasks_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AssignedVerbTasks",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    UserId = table.Column<Guid>(nullable: false),
-                    TaskStatus = table.Column<int>(nullable: false),
-                    Deadline = table.Column<DateTime>(nullable: false),
-                    CompleteDate = table.Column<DateTime>(nullable: true),
-                    VerbTaskId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AssignedVerbTasks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AssignedVerbTasks_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AssignedVerbTasks_VerbTasks_VerbTaskId",
-                        column: x => x.VerbTaskId,
-                        principalTable: "VerbTasks",
+                        name: "FK_Users_UserProfiles_Id",
+                        column: x => x.Id,
+                        principalTable: "UserProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -304,6 +266,91 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RelWordTasks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    TaskId = table.Column<Guid>(nullable: false),
+                    WordId = table.Column<Guid>(nullable: false),
+                    Order = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RelWordTasks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RelWordTasks_WordTasks_TaskId",
+                        column: x => x.TaskId,
+                        principalTable: "WordTasks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RelWordTasks_Words_WordId",
+                        column: x => x.WordId,
+                        principalTable: "Words",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AssignedSentenceTasks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    UserId = table.Column<Guid>(nullable: false),
+                    TaskStatus = table.Column<int>(nullable: false),
+                    Deadline = table.Column<DateTime>(nullable: false),
+                    CompleteDate = table.Column<DateTime>(nullable: true),
+                    SentenceTaskId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssignedSentenceTasks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AssignedSentenceTasks_SentenceTasks_SentenceTaskId",
+                        column: x => x.SentenceTaskId,
+                        principalTable: "SentenceTasks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AssignedSentenceTasks_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AssignedVerbTasks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    UserId = table.Column<Guid>(nullable: false),
+                    TaskStatus = table.Column<int>(nullable: false),
+                    Deadline = table.Column<DateTime>(nullable: false),
+                    CompleteDate = table.Column<DateTime>(nullable: true),
+                    VerbTaskId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssignedVerbTasks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AssignedVerbTasks_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AssignedVerbTasks_VerbTasks_VerbTaskId",
+                        column: x => x.VerbTaskId,
+                        principalTable: "VerbTasks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AssignedWordTasks",
                 columns: table => new
                 {
@@ -333,28 +380,23 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RelWordTasks",
+                name: "UserCredentials",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    TaskId = table.Column<Guid>(nullable: false),
-                    WordId = table.Column<Guid>(nullable: false),
-                    Order = table.Column<int>(nullable: false)
+                    CredentialsType = table.Column<int>(nullable: false),
+                    Login = table.Column<string>(nullable: true),
+                    Hash = table.Column<string>(nullable: true),
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RelWordTasks", x => x.Id);
+                    table.PrimaryKey("PK_UserCredentials", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RelWordTasks_WordTasks_TaskId",
-                        column: x => x.TaskId,
-                        principalTable: "WordTasks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RelWordTasks_Words_WordId",
-                        column: x => x.WordId,
-                        principalTable: "Words",
+                        name: "FK_UserCredentials_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -578,9 +620,10 @@ namespace DAL.Migrations
                 table: "SentenceTranslations",
                 column: "SentenceId");
 
-            migrationBuilder.InsertData(table: "Users",
-                columns: new[] { "Id", "Name", "Password", "UserType" },
-                values: new Object[] { Guid.NewGuid(), "admin", "admin1", (int)UserType.Administrator });
+            migrationBuilder.CreateIndex(
+                name: "IX_UserCredentials_UserId",
+                table: "UserCredentials",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -608,6 +651,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "SentenceTranslations");
+
+            migrationBuilder.DropTable(
+                name: "UserCredentials");
 
             migrationBuilder.DropTable(
                 name: "AssignedSentenceTasks");
@@ -647,6 +693,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "VerbTasks");
+
+            migrationBuilder.DropTable(
+                name: "UserProfiles");
         }
     }
 }

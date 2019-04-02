@@ -1,5 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
+using BL.Infrastructure.Encoders;
+using DAL.Helpers;
+using Entities.Enums;
 using Entities.Instances;
 using Entities.Instances.Sentence;
 using Entities.Instances.Task.SentenceTask;
@@ -57,7 +61,20 @@ namespace WordApp.Infrastructure
 
             #region User
             CreateMap<UserEntity, UserModel>().ReverseMap();
-
+            CreateMap<UserRegistrationModel, UserEntity>()
+                .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Credentials, opts => opts.MapFrom(src => new List<UserCredentialsEntity>()
+                {
+                    new UserCredentialsEntity()
+                    {
+                        Login = src.Email,
+                        Hash = SaltedHash.ComputeHash(src.Password),
+                        CredentialsType = UserCredentialsType.Internal,
+                    },
+                }))
+                .ForMember(dest => dest.UserProfile, opts => opts.MapFrom(src => new UserProfileEntity()))
+                .ForMember(dest => dest.UserType, opts => opts.MapFrom(src => UserType.Pupil));
 
             #endregion
 

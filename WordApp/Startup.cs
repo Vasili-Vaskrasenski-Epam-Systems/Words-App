@@ -40,11 +40,8 @@ namespace WordApp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
             #region Auth
             var signingKey = new SigningSymmetricKey((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.AuthenticationKey));
 
@@ -71,6 +68,13 @@ namespace WordApp
                         ValidAudience = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidAudienceName),
                         ClockSkew = TimeSpan.Zero,
                     };
+                }).
+                AddGoogle(opts =>
+                {
+                    opts.ClientId =
+                        (string) this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientId);
+                    opts.ClientSecret =
+                        (string) this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientSecret);
                 });
             #endregion
 
@@ -82,8 +86,8 @@ namespace WordApp
 
             #region DbContext
 
-            var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString(Config.WordsDbConnectionStringName));
-            services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer(connectionString));
+            //var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString(Config.WordsDbConnectionStringName));
+            services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer("Server=10.9.212.240,49172;Database=wordsDatabase; User Id=sa;password=qweasdzxc_123;Trusted_Connection=False;MultipleActiveResultSets=true;"));
 
             #endregion
 
@@ -101,7 +105,8 @@ namespace WordApp
             services.AddScoped(typeof(BaseEntityService<SentenceEntity>), typeof(SentenceService));
             services.AddScoped(typeof(BaseEntityService<SentenceTaskEntity>), typeof(SentenceTaskService));
             services.AddScoped(typeof(BaseEntityService<AssignedSentenceTaskEntity>), typeof(AssignSentenceTaskService));
-            services.AddScoped(typeof(BaseEntityService<UserTokenEntity>), typeof(UserTokenService));
+            services.AddScoped(typeof(BaseEntityService<UserCredentialsEntity>), typeof(UserCredentialsService));
+                
             #endregion
 
             // In production, the Angular files will be served from this directory

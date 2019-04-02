@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(WordsDbContext))]
-    [Migration("20190326144838_UserToken")]
-    partial class UserToken
+    [Migration("20190402101812_RequiredUserEmail")]
+    partial class RequiredUserEmail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -327,36 +327,16 @@ namespace DAL.Migrations
                     b.ToTable("WordTasks");
                 });
 
-            modelBuilder.Entity("Entities.Instances.User.UserEntity", b =>
+            modelBuilder.Entity("Entities.Instances.User.UserCredentialsEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<int>("CredentialsType");
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Hash");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<int>("UserType");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Entities.Instances.User.UserTokenEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AccessToken");
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<string>("RefreshToken");
+                    b.Property<string>("Login");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -368,7 +348,55 @@ namespace DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserTokens");
+                    b.ToTable("UserCredentials");
+                });
+
+            modelBuilder.Entity("Entities.Instances.User.UserEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("Name");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<int>("UserType");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Entities.Instances.User.UserProfileEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("BirthDate");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserProfiles");
                 });
 
             modelBuilder.Entity("Entities.Instances.Verb.RelAnsweredVerbEntity", b =>
@@ -612,11 +640,19 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Entities.Instances.User.UserTokenEntity", b =>
+            modelBuilder.Entity("Entities.Instances.User.UserCredentialsEntity", b =>
                 {
                     b.HasOne("Entities.Instances.User.UserEntity", "User")
-                        .WithMany("Tokens")
+                        .WithMany("Credentials")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Entities.Instances.User.UserEntity", b =>
+                {
+                    b.HasOne("Entities.Instances.User.UserProfileEntity", "UserProfile")
+                        .WithOne("User")
+                        .HasForeignKey("Entities.Instances.User.UserEntity", "Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

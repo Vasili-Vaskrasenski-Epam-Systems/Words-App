@@ -1,13 +1,14 @@
 import { Injectable, Inject, OnDestroy } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
+
 import { Constants } from './../../app-constants';
 import { AuthService } from './../../auth/auth.service';
 
 import { UserTokenModel } from './../../models/users/user-token.model';
 
 @Injectable()
-export class UserTokenService implements OnDestroy {
+export class UserTokenService {
   private intervalSet: boolean;
   private baseUrl: string;
 
@@ -26,9 +27,10 @@ export class UserTokenService implements OnDestroy {
           currentDate.getUTCHours(),
           currentDate.getUTCMinutes(),
           currentDate.getUTCSeconds());
+        console.log((new Date(this.authService.currentUserValue.tokenExpirationTime).getTime() - currentUtcDate));
 
-        if (new Date(this.authService.currentUserValue.token.accessTokenExpirationDate).getTime() - currentUtcDate < Constants.accessTokenTimeToRefresh) {
-          this.refreshToken(this.authService.currentUserValue.id, this.authService.currentUserValue.token.refreshToken)
+        if (new Date(this.authService.currentUserValue.tokenExpirationTime).getTime() - currentUtcDate < Constants.accessTokenTimeToRefresh) {
+          this.refreshToken(this.authService.currentUserValue.id)
             .subscribe(e => {
               this.authService.updateUserToken(e);
             });
@@ -37,13 +39,9 @@ export class UserTokenService implements OnDestroy {
         Constants.accessTokenCheckInterval);
   }
 
-  public refreshToken(userId: string, refreshToken: string) {
-    var params = new HttpParams({ fromObject: { userId: userId, refreshToken: refreshToken } });
+  public refreshToken(userId: string) {
+    var params = new HttpParams({ fromObject: { userId: userId } });
     var url = this.baseUrl + '/RefreshToken';
     return this.http.post<UserTokenModel>(url, null, { params: params, headers: this.authService.getAuthenticationHeaders() });
-  }
-
-  ngOnDestroy(): void {
-    console.log('destroy');
   }
 }

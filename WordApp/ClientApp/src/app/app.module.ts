@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { DatePipe } from "@angular/common";
 import { MatMenuModule} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,7 +18,6 @@ import { UsersModule } from './pages/users/users.module';
 import { TaskModule } from './pages/tasks/task.module';
 import { SentenceModule } from './pages/sentences/sentence.module';
 
-import { DatePipe } from "@angular/common";
 import { EnumToArrayPipe } from './infrastructure/pipes/enum-to-array.pipe';
 
 import { AppComponent } from './app.component';
@@ -30,12 +30,14 @@ import { ErrorInterceptor } from './app-error-interceptor';
 
 import { Randomizer } from './infrastructure/helpers/randomizer';
 
+import {ExternalAuthService} from './auth/external-auth.service';
+
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
     [
       {
         id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider('Your_Google_Client_ID')
+        provider: new GoogleLoginProvider('595140502300-0dfj8j89epsbojgt0s9eo7de3u64ctjg.apps.googleusercontent.com')
       }
     ]
   );
@@ -52,8 +54,7 @@ export function getAuthServiceConfigs() {
 
     MatMenuModule,
     SocialLoginModule,
-    AuthServiceConfig,
-
+    
     AppRoutingModule,
     
     WordsModule,
@@ -76,6 +77,6 @@ export function getAuthServiceConfigs() {
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, DatePipe, EnumToArrayPipe, Randomizer, {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs
-    }]
+    }, ExternalAuthService]
 })
 export class AppModule { }

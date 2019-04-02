@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,15 +5,17 @@ import { first } from 'rxjs/operators';
 
 import { AlertService } from './../alert/alert.service';
 import { AuthService } from './auth.service';
+import { ExternalAuthService } from './external-auth.service';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
+  private returnUrl: string;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthService, private alertService: AlertService) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
+    private authenticationService: AuthService, private alertService: AlertService, private externalAuthService: ExternalAuthService) {
     if (this.authenticationService.currentUser) {
       this.router.navigate(['/']);
     }
@@ -29,8 +30,6 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  get f() { return this.loginForm.controls; }
-
   onSubmit() {
     this.submitted = true;
 
@@ -40,20 +39,21 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
       .pipe(first())
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
         },
-      error => {
-        if(error)
-          this.alertService.error(error);
+        error => {
+          if (error)
+            this.alertService.error(error);
           this.loading = false;
         });
   }
 
   loginWithGoogle() {
-    
+    this.loading = true;
+    this.externalAuthService.loginWithGoogleAccount();
   }
 }

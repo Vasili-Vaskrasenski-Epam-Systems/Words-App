@@ -18,7 +18,8 @@ namespace DAL.Infrastructure
         }
 
         public DbSet<UserEntity> Users { get; set; }
-        public DbSet<UserTokenEntity> UserTokens { get; set; }
+        public DbSet<UserCredentialsEntity> UserCredentials { get; set; }
+        public DbSet<UserProfileEntity> UserProfiles { get; set; }
 
         public DbSet<WordEntity> Words { get; set; }
         public DbSet<VerbEntity> Verbs { get; set; }
@@ -47,7 +48,8 @@ namespace DAL.Infrastructure
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new UserConfigurator());
-            modelBuilder.ApplyConfiguration(new UserTokenConfigurator());
+            modelBuilder.ApplyConfiguration(new UserCredentialsConfigurator());
+            modelBuilder.ApplyConfiguration(new UserProfileConfigurator());
 
             modelBuilder.ApplyConfiguration(new WordConfigurator());
             modelBuilder.ApplyConfiguration(new VerbConfigurator());

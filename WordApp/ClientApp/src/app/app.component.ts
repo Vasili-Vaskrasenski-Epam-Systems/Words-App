@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { UserTokenService } from './services/users/user-token.service';
-import { UserModel } from './models/users/user.model';
+import { UserLoginModel } from './models/users/user-login.model';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { UserModel } from './models/users/user.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public currentUser: UserModel;
+  public currentUser: UserLoginModel;
 
   constructor(private authSvc: AuthService, private userTokenService: UserTokenService) {
     this.authSvc.currentUser.subscribe(e => {
