@@ -9,6 +9,8 @@ import { MatMenuModule} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider} from 'angular-6-social-login';
+
 import { WordsModule } from './pages/words/words.module';
 import { VerbModule } from './pages/verbs/verb.module';
 import { UsersModule } from './pages/users/users.module';
@@ -28,6 +30,18 @@ import { ErrorInterceptor } from './app-error-interceptor';
 
 import { Randomizer } from './infrastructure/helpers/randomizer';
 
+export function getAuthServiceConfigs() {
+  const config = new AuthServiceConfig(
+    [
+      {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        provider: new GoogleLoginProvider('Your_Google_Client_ID')
+      }
+    ]
+  );
+  return config;
+}
+
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,6 +51,8 @@ import { Randomizer } from './infrastructure/helpers/randomizer';
     ReactiveFormsModule,
 
     MatMenuModule,
+    SocialLoginModule,
+    AuthServiceConfig,
 
     AppRoutingModule,
     
@@ -57,6 +73,9 @@ import { Randomizer } from './infrastructure/helpers/randomizer';
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, DatePipe, EnumToArrayPipe, Randomizer]
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, DatePipe, EnumToArrayPipe, Randomizer, {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }]
 })
 export class AppModule { }
