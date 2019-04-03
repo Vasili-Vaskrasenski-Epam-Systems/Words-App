@@ -6,18 +6,19 @@ using Entities.Instances.Task.WordTask;
 using Entities.Instances.User;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Infrastructure
 {
-    public class WordsDbContext : DbContext
+    public class WordsDbContext : IdentityDbContext<ApplicationUser>
     {
         public WordsDbContext(DbContextOptions options) : base(options)
         {
 
         }
 
-        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<UserEntity> ApplicationUsers { get; set; }
         public DbSet<UserCredentialsEntity> UserCredentials { get; set; }
         public DbSet<UserProfileEntity> UserProfiles { get; set; }
 

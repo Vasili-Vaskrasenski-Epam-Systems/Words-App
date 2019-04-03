@@ -2,7 +2,6 @@
 using System.Linq;
 using AutoMapper;
 using BL.Infrastructure.Encoders;
-using DAL.Helpers;
 using Entities.Enums;
 using Entities.Instances;
 using Entities.Instances.Sentence;
@@ -13,7 +12,6 @@ using Entities.Instances.User;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
 using WordApp.Models;
-using WordApp.Models.Base;
 using WordApp.Models.Sentences;
 using WordApp.Models.TaskModels.SentenceTaskModels;
 using WordApp.Models.TaskModels.VerbTaskModels;
@@ -60,7 +58,9 @@ namespace WordApp.Infrastructure
             #endregion
 
             #region User
+
             CreateMap<UserEntity, UserModel>().ReverseMap();
+               
             CreateMap<UserRegistrationModel, UserEntity>()
                 .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.UserName))

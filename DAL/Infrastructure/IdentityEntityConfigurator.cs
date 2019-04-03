@@ -91,6 +91,10 @@ namespace DAL.Infrastructure
             builder.Property(e => e.Email).IsRequired();
             builder.HasIndex(e => e.Name).IsUnique();
             builder.HasIndex(e => e.Email).IsUnique();
+
+            builder.HasOne(e => e.ApplicationUser)
+                .WithOne(ee => ee.User)
+                .HasForeignKey<UserEntity>(ee => ee.ApplicationUserId);
         }
     }
 

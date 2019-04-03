@@ -14,10 +14,10 @@ export class AppComponent {
   constructor(private authSvc: AuthService, private userTokenService: UserTokenService) {
     this.authSvc.currentUser.subscribe(e => {
       this.currentUser = e;
-
-      if (e) {
-        this.userTokenService.handleTokenExpiration();
-      }
+      console.log(e);
+      //if (e) {
+      //  this.userTokenService.handleTokenExpiration();
+      //}
     });
   }
 }

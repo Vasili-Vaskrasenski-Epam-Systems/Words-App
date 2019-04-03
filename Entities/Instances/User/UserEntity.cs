@@ -13,5 +13,8 @@ namespace Entities.Instances.User
         public List<AssignedWordTaskEntity> AssignedTasks { get; set; }
         public virtual List<UserCredentialsEntity> Credentials { get; set; }
         public virtual UserProfileEntity UserProfile { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+        public string ApplicationUserId { get; set; }
     }
 }

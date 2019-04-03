@@ -74,7 +74,7 @@ export class AuthService {
   public getAuthenticationHeaders(): HttpHeaders {
     var headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer' + ' ' + this.currentUserValue.token
+      'Authorization': 'Bearer',// + ' ' + this.currentUserValue.token
     });
     return headers;
   }

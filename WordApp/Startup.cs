@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using BL.Infrastructure.Encoders;
 using BL.Services;
@@ -9,6 +11,7 @@ using BL.Services.User;
 using Configuration;
 using DAL.Helpers;
 using DAL.Infrastructure;
+using Entities.Enums;
 using Entities.Instances.Sentence;
 using Entities.Instances.Task.SentenceTask;
 using Entities.Instances.Task.VerbTask;
@@ -18,6 +21,7 @@ using Entities.Instances.Verb;
 using Entities.Instances.Word;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -43,32 +47,32 @@ namespace WordApp
         public void ConfigureServices(IServiceCollection services)
         {
             #region Auth
-            var signingKey = new SigningSymmetricKey((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.AuthenticationKey));
+            //var signingKey = new SigningSymmetricKey((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.AuthenticationKey));
 
-            services.AddSingleton<IJwtSigningEncodingKey>(signingKey);
+            //services.AddSingleton<IJwtSigningEncodingKey>(signingKey);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            var signingDecodingKey = (IJwtSigningDecodingKey)signingKey;
+            //var signingDecodingKey = (IJwtSigningDecodingKey)signingKey;
             services
                 .AddAuthentication(options => {
-                    options.DefaultAuthenticateScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
-                    options.DefaultChallengeScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
-                })
-                .AddJwtBearer((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName), jwtBearerOptions => {
-                    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        ValidateIssuer = true,
-                        ValidateLifetime = true,
-                        ValidateAudience = true,
-
-                        IssuerSigningKey = signingDecodingKey.GetKey(),
-                        ValidIssuer = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidIssuerName),
-                        ValidAudience = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidAudienceName),
-                        ClockSkew = TimeSpan.Zero,
-                    };
+                    //options.DefaultAuthenticateScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
+                    //options.DefaultChallengeScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
                 }).
+                //.AddJwtBearer((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName), jwtBearerOptions => {
+                //    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                //    {
+                //        ValidateIssuerSigningKey = true,
+                //        ValidateIssuer = true,
+                //        ValidateLifetime = true,
+                //        ValidateAudience = true,
+
+                //        IssuerSigningKey = signingDecodingKey.GetKey(),
+                //        ValidIssuer = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidIssuerName),
+                //        ValidAudience = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidAudienceName),
+                //        ClockSkew = TimeSpan.Zero,
+                //    };
+                //}).
                 AddGoogle(opts =>
                 {
                     opts.ClientId =
@@ -88,7 +92,8 @@ namespace WordApp
 
             //var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString(Config.WordsDbConnectionStringName));
             services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer("Server=10.9.212.240,49172;Database=wordsDatabase; User Id=sa;password=qweasdzxc_123;Trusted_Connection=False;MultipleActiveResultSets=true;"));
-
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<WordsDbContext>()
+                .AddDefaultTokenProviders();
             #endregion
 
             #region Business Services
@@ -117,7 +122,7 @@ namespace WordApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -157,6 +162,56 @@ namespace WordApp
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            this.CreateRoles(services).Wait();
+            this.CreateUsers(services).Wait();
         }
+
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+
+            var adminRoleExist = await roleManager.RoleExistsAsync(nameof(UserType.Administrator));
+            if (!adminRoleExist)
+            {
+                await roleManager.CreateAsync(new IdentityRole(nameof(UserType.Administrator)));
+            }
+
+            var pupilRoleExist = await roleManager.RoleExistsAsync(nameof(UserType.Pupil));
+            if (!pupilRoleExist)
+            {
+                await roleManager.CreateAsync(new IdentityRole(nameof(UserType.Pupil)));
+            }
+
+            var teacherRoleExists = await roleManager.RoleExistsAsync(nameof(UserType.Teacher));
+            if (!teacherRoleExists)
+            {
+                await roleManager.CreateAsync(new IdentityRole(nameof(UserType.Teacher)));
+            }
+        }
+
+        private async Task CreateUsers(IServiceProvider serviceProvider)
+        {
+            var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+
+            var administratorUser = await userManager.FindByEmailAsync(Config.AdministratorEmailAddress);
+            if (administratorUser == null)
+            {
+               await userManager.CreateAsync(
+                    new ApplicationUser()
+                    {
+                        Email = Config.AdministratorEmailAddress,
+                        UserName = Config.AdministratorName
+                    }, Encrypters.Decrypt(Config.AdministratorPassword));
+                administratorUser = await userManager.FindByEmailAsync(Config.AdministratorEmailAddress);
+            }
+            var administratoRoles = await userManager.GetRolesAsync(administratorUser);
+            if (administratoRoles.All(r => r != nameof(UserType.Administrator)))
+            {
+                await userManager.AddToRoleAsync(administratorUser, nameof(UserType.Administrator));
+            }
+        }
+        
     }
 }
