@@ -14,6 +14,7 @@ import { UserLoginModel } from "./../models/users/user-login.model";
 @Component({ templateUrl: 'login-google.component.html' })
 export class LoginGoogleComponent implements OnInit {
   @ViewChild('emailInput') emailInput: ElementRef;
+  private email: string;
 
   constructor(private googleAuthService: ExternalAuthService, private authService: AuthService, private alertService: AlertService, private dialog: MatDialog, private router: Router) {
     if (this.authService.currentUserValue) {
@@ -32,7 +33,8 @@ export class LoginGoogleComponent implements OnInit {
         this.dialog.closeAll();
       } else {
         var registrationModel = <UserRegistrationModel>e;
-        this.emailInput.nativeElement.value = registrationModel.email;
+        this.email = registrationModel.email;
+        this.emailInput.nativeElement.value = this.email;
         this.dialog.closeAll();
       }
     }, error => {
@@ -43,7 +45,7 @@ export class LoginGoogleComponent implements OnInit {
   }
 
   public register() {
-    this.googleAuthService.confirmGoogleLogin(this.emailInput.nativeElement.value as string).subscribe(e => {
+    this.googleAuthService.confirmGoogleLogin(this.email).subscribe(e => {
       var model = <UserLoginModel>e;
       this.authService.setCurrentUser(model);
       this.router.navigate(['/']);
