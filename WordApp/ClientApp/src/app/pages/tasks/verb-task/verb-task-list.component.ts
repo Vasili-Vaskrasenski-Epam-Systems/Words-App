@@ -4,7 +4,7 @@ import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 import { VerbTaskService } from './../../../services/tasks/verb-task.service';
 import { VerbService } from './../../../services/verb.service';
 import { AlertService } from './../../../alert/alert.service';
-import { UserService } from './../../../services/user.service';
+import { UserService } from './../../../services/users/user.service';
 import { AssignVerbTaskService } from './../../../services/tasks/assign-verb-task.service';
 
 import { VerbTaskModel } from './../../../models/tasks/verbs/verb-task.model';
@@ -27,8 +27,8 @@ import { Constants } from './../../../app-constants';
   })
 export class VerbTaskListComponent implements OnInit {
   public dataSource: MatTableDataSource<VerbTaskModel>;
-  public availableVerbs: Array<VerbModel>;
-  public availableUsers: Array<UserModel>;
+  public availableVerbs: VerbModel[];
+  public availableUsers: UserModel[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -69,7 +69,7 @@ export class VerbTaskListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        var assignees = <Array<AssignableUserModel>>result;
+        var assignees = <AssignableUserModel[]>result;
         var assignObjects = new Array<AssignVerbTaskModel>();
 
         for (var i = 0; i < assignees.length; i++) {

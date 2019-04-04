@@ -4,7 +4,7 @@ import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 import { WordTaskService } from './../../../services/tasks/word-task.service';
 import { WordsService } from './../../../services/words.service';
 import { AlertService } from './../../../alert/alert.service';
-import { UserService } from './../../../services/user.service';
+import { UserService } from './../../../services/users/user.service';
 import { AssignWordTaskService } from './../../../services/tasks/assign-word-task.service';
 
 import { WordTaskModel } from './../../../models/tasks/words/word-task.model';

@@ -16,28 +16,28 @@ import { AuthService } from './../../auth/auth.service';
 
   public getSentenceTasks(): any {
     var url = this.baseUrl + '/GetSentenceTasks';
-    return this.http.get<SentenceTaskModel[]>(url, {headers: this.authService.getAuthenticationHeaders()});
+    return this.http.get<SentenceTaskModel[]>(url);
   }
 
   public createSentenceTask(sentenceModel: SentenceTaskModel): any {
     var url = this.baseUrl + '/CreateSentenceTask';
-    return this.http.post<SentenceTaskModel>(url, sentenceModel, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<SentenceTaskModel>(url, sentenceModel);
   }
 
   public updateSentenceTask(sentenceModel: SentenceTaskModel): any {
     var url = this.baseUrl + '/UpdateSentenceTask';
-    return this.http.post<SentenceTaskModel>(url, sentenceModel, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<SentenceTaskModel>(url, sentenceModel);
   }
 
   public deleteSentenceTask(sentenceModel: SentenceTaskModel): any {
     var url = this.baseUrl + '/DeleteSentenceTask';
-    return this.http.post<string>(url, sentenceModel, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, sentenceModel);
   }
 
   public getTaskDetails(id: string): any {
     var params = new HttpParams({ fromObject: { taskId: id } });
     var url = this.baseUrl + '/GetTaskDetails';
-    return this.http.get<SentenceTaskDetailModel>(url, { params: params, headers: this.authService.getAuthenticationHeaders() });
+    return this.http.get<SentenceTaskDetailModel>(url);
   }
 };
 

@@ -14,21 +14,21 @@ export class VerbService {
 
   public getVerbs(): any {
     var url = this.baseUrl + '/GetVerbs';
-    return this.http.get<VerbModel[]>(url, {headers: this.authService.getAuthenticationHeaders()});
+    return this.http.get<VerbModel[]>(url);
   }
 
   public createVerb(verbModel: VerbModel): any {
     var url = this.baseUrl + '/CreateVerb';
-    return this.http.post<VerbModel>(url, verbModel, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<VerbModel>(url, verbModel);
   }
 
   public updateVerb(verbModel: VerbModel): any {
     var url = this.baseUrl + '/UpdateVerb';
-    return this.http.post<VerbModel>(url, verbModel, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<VerbModel>(url, verbModel);
   }
 
   public deleteVerb(verbModel: VerbModel): any {
     var url = this.baseUrl + '/DeleteVerb';
-    return this.http.post<string>(url, verbModel, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, verbModel);
   }
 };

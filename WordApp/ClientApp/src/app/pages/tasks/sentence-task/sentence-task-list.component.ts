@@ -1,7 +1,7 @@
 import { Component, ViewChild, ComponentFactoryResolver, OnInit } from '@angular/core';
 
 import { AlertService } from './../../../alert/alert.service';
-import { UserService } from './../../../services/user.service';
+import { UserService } from './../../../services/users/user.service';
 import { SentenceTaskService } from './../../../services/tasks/sentence-task.service';
 import { AssignSentenceTaskService } from './../../../services/tasks/assign-sentence-task.service';
 import { SentenceService } from './../../../services/sentence.service';
@@ -27,8 +27,8 @@ import { CommonLoadingComponent } from './../../../common/common-loading.compone
   })
 export class SentenceTaskListComponent implements OnInit {
   public dataSource: MatTableDataSource<SentenceTaskModel>;
-  private existingSentences: Array<SentenceModel>;
-  private existingUsers: Array<UserModel>;
+  private existingSentences: SentenceModel[];
+  private existingUsers: UserModel[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

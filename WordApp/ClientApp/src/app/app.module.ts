@@ -23,6 +23,7 @@ import { EnumToArrayPipe } from './infrastructure/pipes/enum-to-array.pipe';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LoginComponent } from './auth/login.component';
+import { LoginGoogleComponent } from './auth/login-google.component';
 import { RegistrationComponent } from './auth/registration.component';
 import { HomeComponent} from './pages/home/home.component'
 import { AlertComponent } from './alert/alert.component';
@@ -67,6 +68,7 @@ export function getAuthServiceConfigs() {
     AppComponent,
     NavMenuComponent,
     LoginComponent,
+    LoginGoogleComponent,
     RegistrationComponent,
     HomeComponent,
     AlertComponent,

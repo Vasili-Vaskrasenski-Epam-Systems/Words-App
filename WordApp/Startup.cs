@@ -76,9 +76,9 @@ namespace WordApp
                 AddGoogle(opts =>
                 {
                     opts.ClientId =
-                        (string) this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientId);
+                        "595140502300-0dfj8j89epsbojgt0s9eo7de3u64ctjg.apps.googleusercontent.com";
                     opts.ClientSecret =
-                        (string) this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientSecret);
+                        "LCyn2AEntZ3CwRQkqSzltUer";
                 });
             #endregion
 

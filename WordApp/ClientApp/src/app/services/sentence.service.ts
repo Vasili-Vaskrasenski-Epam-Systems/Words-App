@@ -13,21 +13,21 @@ import { AuthService } from './../auth/auth.service';
 
   public getSentences(): any {
     var url = this.baseUrl + '/GetSentences';
-    return this.http.get<SentenceModel[]>(url, {headers: this.authService.getAuthenticationHeaders()});
+    return this.http.get<SentenceModel[]>(url);
   }
 
   public createSentence(sentenceModel: SentenceModel): any {
     var url = this.baseUrl + '/CreateSentence';
-    return this.http.post<SentenceModel>(url, sentenceModel, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<SentenceModel>(url, sentenceModel);
   }
 
   public updateSentence(sentenceModel: SentenceModel): any {
     var url = this.baseUrl + '/UpdateSentence';
-    return this.http.post<SentenceModel>(url, sentenceModel, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<SentenceModel>(url, sentenceModel);
   }
 
   public deleteSentence(sentenceModel: SentenceModel): any {
     var url = this.baseUrl + '/DeleteSentence';
-    return this.http.post<string>(url, sentenceModel, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, sentenceModel);
   }
 };

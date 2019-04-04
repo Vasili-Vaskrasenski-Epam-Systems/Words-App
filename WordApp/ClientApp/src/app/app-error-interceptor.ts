@@ -13,8 +13,8 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
       if (err.status === 401) {
-        //this.authenticationService.logout();
-        //location.href = ('/login');
+        this.authenticationService.logout();
+        location.href = ('/login');
       }
 
       if (err.status === 403) {
@@ -29,7 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.alertService.error("Ooops, something went wrong and server felt bad");
       }
 
-      const error = err.error ? err.error.text || err.error.message : err.message;
+      const error = err.error ? err.error.text || err.error.message || err.error : err.message;
       return throwError(error);
     }));
   }

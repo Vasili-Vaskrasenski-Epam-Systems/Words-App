@@ -14,34 +14,34 @@ export class AssignWordTaskService {
 
   public assignTask(models: Array<AssignWordTaskModel>) {
     var url = this.baseUrl + '/AssignWordTasks';
-    return this.http.post<string>(url, models, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, models);
   }
 
   public unassignWordTask(model: AssignWordTaskModel) {
     var url = this.baseUrl + '/UnassignWordTask';
-    return this.http.post<AssignWordTaskModel>(url, model, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<AssignWordTaskModel>(url, model);
   }
 
   public getPupilTasks(userId: string) {
     var params = new HttpParams({ fromObject: { userId: userId } });
     var url = this.baseUrl + '/GetPupilTasks';
-    return this.http.get<any>(url, { params: params, headers: this.authService.getAuthenticationHeaders() });
+    return this.http.get<any>(url, { params: params});
   }
 
   public getPupilTask(userId: string, assignedTaskId: string) {
     var params = new HttpParams({ fromObject: { userId: userId, assignedTaskId: assignedTaskId } });
     var url = this.baseUrl + '/GetPupilTask';
-    return this.http.get<any>(url, { params: params, headers: this.authService.getAuthenticationHeaders() });
+    return this.http.get<any>(url, { params: params });
   }
 
   public completeWordTask(model: AssignWordTaskModel) {
     var url = this.baseUrl + '/CompleteWordTask';
-    return this.http.post<AssignWordTaskModel>(url, model, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<AssignWordTaskModel>(url, model);
   }
 
   public getCompletedTask(taskId: string) {
     var params = new HttpParams({ fromObject: { taskId: taskId } });
     var url = this.baseUrl + '/GetCompletedTask';
-    return this.http.get<any>(url, { params: params, headers: this.authService.getAuthenticationHeaders() });
+    return this.http.get<any>(url, { params: params });
   }
 }

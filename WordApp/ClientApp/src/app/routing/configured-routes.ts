@@ -5,8 +5,6 @@ import { HomeComponent } from './../pages/home/home.component';
 import { WordListComponent } from "./../pages/words/word-list.component";
 import { VerbListComponent } from './../pages/verbs/verb-list.component';
 import { SentenceListComponent } from './../pages/sentences/sentence-list.component';
-import { LoginComponent } from './../auth/login.component';
-import { RegistrationComponent } from './../auth/registration.component';
 import { UserListComponent } from './../pages/users/user-list.component';
 import { WordTaskListComponent } from './../pages/tasks/word-task/word-task-list.component';
 import { WordTaskDetailsComponent } from './../pages/tasks/word-task/word-task-details.component';
@@ -27,7 +25,11 @@ import { SentenceTaskResultsComponent } from './../pages/tasks/sentence-task/sen
 import { NotFoundPageComponent } from './../pages/error-pages/not-found-page.component';
 import { ForbiddenPageComponent } from './../pages/error-pages/forbidden-page.component';
 
-import { ExistingRoutes} from './existing-routes';
+import { LoginComponent } from './../auth/login.component';
+import { LoginGoogleComponent } from './../auth/login-google.component';
+import { RegistrationComponent } from './../auth/registration.component';
+
+import { ExistingRoutes } from './existing-routes';
 
 export class ConfiguredRoutes {
 
@@ -53,6 +55,7 @@ export class ConfiguredRoutes {
     { path: ExistingRoutes.verbTaskResults, component: VerbTaskResultsComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.sentenceTaskResults, component: SentenceTaskResultsComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.login, component: LoginComponent },
+    { path: ExistingRoutes.loginGoogle, component: LoginGoogleComponent },
     { path: ExistingRoutes.register, component: RegistrationComponent },
     { path: ExistingRoutes.forbidden, component: ForbiddenPageComponent },
     { path: '', redirectTo: "/" + ExistingRoutes.home, pathMatch: "full" },

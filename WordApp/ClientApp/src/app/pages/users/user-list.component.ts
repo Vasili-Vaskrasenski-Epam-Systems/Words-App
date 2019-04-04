@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { UserService } from './../../services/user.service';
+import { UserService } from './../../services/users/user.service';
 import { AlertService } from './../../alert/alert.service';
 
 import { UserModel } from './../../models/users/user.model';

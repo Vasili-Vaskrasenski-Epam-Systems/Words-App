@@ -14,27 +14,27 @@ export class VerbTaskService {
 
   public getTasks(): any {
     var url = this.baseUrl + '/GetVerbTasks';
-    return this.http.get<VerbTaskModel[]>(url, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.get<VerbTaskModel[]>(url);
   }
 
   public createTask(task: VerbTaskModel): any {
     var url = this.baseUrl + '/CreateVerbTask';
-    return this.http.post<string>(url, task, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, task);
   }
 
   public updateTask(task: VerbTaskModel): any {
     var url = this.baseUrl + '/UpdateVerbTask';
-    return this.http.post<string>(url, task, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, task);
   }
 
   public deleteTask(task: VerbTaskModel): any {
     var url = this.baseUrl + '/DeleteVerbTask';
-    return this.http.post<string>(url, task, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, task);
   }
 
   public getTaskDetails(id: string): any {
     var params = new HttpParams({ fromObject: { taskId: id } });
     var url = this.baseUrl + '/GetTaskDetails';
-    return this.http.get<WordTaskDetailModel>(url, { params: params, headers: this.authService.getAuthenticationHeaders() });
+    return this.http.get<WordTaskDetailModel>(url, { params: params });
   }
 }

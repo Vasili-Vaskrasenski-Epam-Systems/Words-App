@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using BL.Extensions.Enums;
@@ -15,7 +16,6 @@ namespace WordApp.Controllers
 {
     public class AuthenticationController : BaseController
     {
-        private readonly ITokenGenerator _tokenGenerator;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
@@ -74,6 +74,87 @@ namespace WordApp.Controllers
             {
                 return BadRequest("Authorization Error");
             }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("[action]")]
+        public IActionResult LoginWithGoogle(string provider, string returnUrl)
+        {
+            var properties = this._signInManager.ConfigureExternalAuthenticationProperties(provider, returnUrl);
+            return Challenge(properties, provider);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetLoginGoogleData()
+        {
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return BadRequest("No appropriate login info");
+            }
+
+            var principalEmail = info.Principal.Claims.FirstOrDefault(cl => cl.Type == ClaimTypes.Email);
+
+            if (principalEmail == null)
+            {
+                return BadRequest("No user email provided in authorization data");
+            }
+
+            // Sign in the user with this external login provider if the user already has a login.
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+            if (result.Succeeded)
+            {
+                var googleUser = await this._userManager.FindByEmailAsync(principalEmail.Value);
+                var userRoles = await this._userManager.GetRolesAsync(googleUser);
+                var model = new UserLoginModel()
+                {
+                    Name = googleUser.UserName,
+                    UserType = EnumExtension.GetEnumByStringValue<UserType>(userRoles.First())
+                };
+                return Ok(model);
+            }
+            else
+            {
+                var loginModel = new UserRegistrationModel()
+                {
+                    UserName = principalEmail.Value,
+                    Email = principalEmail.Value
+                };
+                return Ok(loginModel);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ConfigrmGoogleLogin(string email)
+        {
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                throw new ApplicationException("Error loading external login information during confirmation.");
+            }
+            var user = new ApplicationUser { UserName = email, Email = email };
+            var result = await _userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                result = await _userManager.AddLoginAsync(user, info);
+                if (result.Succeeded)
+                {
+                    var googleUser = await this._userManager.FindByEmailAsync(email);
+                    await this._userManager.AddToRoleAsync(googleUser, nameof(UserType.Pupil));
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    var loginModel = new UserLoginModel()
+                    {
+                        Name = email,
+                        UserType = UserType.Pupil,
+                    };
+
+                    return Ok(loginModel);
+                }
+            }
+            return BadRequest(result.Errors);
         }
 
         [AllowAnonymous]

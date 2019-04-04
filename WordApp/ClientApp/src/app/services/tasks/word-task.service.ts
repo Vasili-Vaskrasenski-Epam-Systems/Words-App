@@ -14,27 +14,27 @@ export class WordTaskService {
 
   public getTasks(): any {
     var url = this.baseUrl + '/GetWordTasks';
-    return this.http.get<WordTaskModel[]>(url, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.get<WordTaskModel[]>(url);
   }
 
   public createTask(task: WordTaskModel): any {
     var url = this.baseUrl + '/CreateWordTask';
-    return this.http.post<string>(url, task, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, task);
   }
 
   public updateTask(task: WordTaskModel): any {
     var url = this.baseUrl + '/UpdateWordTask';
-    return this.http.post<string>(url, task, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, task);
   }
 
   public deleteTask(task: WordTaskModel): any {
     var url = this.baseUrl + '/DeleteWordTask';
-    return this.http.post<string>(url, task, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<string>(url, task);
   }
 
   public getTaskDetails(id: string): any {
     var params = new HttpParams({ fromObject: { taskId: id} });
     var url = this.baseUrl + '/GetTaskDetails';
-    return this.http.get<WordTaskDetailModel>(url, { params: params, headers: this.authService.getAuthenticationHeaders() });
+    return this.http.get<WordTaskDetailModel>(url, { params: params });
   }
 }

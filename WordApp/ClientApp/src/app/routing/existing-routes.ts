@@ -22,6 +22,7 @@ export class ExistingRoutes {
   public static register = "register";
   public static forbidden = "forbidden";
   public static home = "home";
+  public static loginGoogle = "login-google";
   public static empty = "";
   public static other = "**";
 

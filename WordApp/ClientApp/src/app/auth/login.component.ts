@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
     private authenticationService: AuthService, private alertService: AlertService, private externalAuthService: ExternalAuthService) {
     if (this.authenticationService.currentUser) {
+      console.log(this.authenticationService.currentUser);
+      console.log(this.authenticationService.currentUserValue);
       this.router.navigate(['/']);
     }
   }
@@ -54,6 +56,6 @@ export class LoginComponent implements OnInit {
 
   loginWithGoogle() {
     this.loading = true;
-    this.externalAuthService.loginWithGoogleAccount();
+    this.externalAuthService.loginViaGoogle();
   }
 }

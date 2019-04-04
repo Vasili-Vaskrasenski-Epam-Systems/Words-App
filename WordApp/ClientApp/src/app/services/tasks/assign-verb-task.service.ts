@@ -11,36 +11,36 @@ export class AssignVerbTaskService {
     this.baseUrl = baseUrl + 'api/AssignVerbTask';
   }
 
-  public assignTask(models: Array<AssignVerbTaskModel>) {
+  public assignTask(models: AssignVerbTaskModel[]) {
     var url = this.baseUrl + '/AssignVerbsToTask';
-    return this.http.post<string>(url, models, {headers: this.authService.getAuthenticationHeaders()});
+    return this.http.post<string>(url, models);
   }
 
   public unassignTask(model: AssignVerbTaskModel) {
     var url = this.baseUrl + '/UnassignTask';
-    return this.http.post<AssignVerbTaskModel>(url, model, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<AssignVerbTaskModel>(url, model);
   }
 
   public getPupilTasks(userId: string) {
     var params = new HttpParams({ fromObject: { userId: userId } });
     var url = this.baseUrl + '/GetPupilTasks';
-    return this.http.get<any>(url, { params: params, headers: this.authService.getAuthenticationHeaders() });
+    return this.http.get<any>(url, { params: params });
   }
 
   public getPupilTask(userId: string, assignedTaskId: string) {
     var params = new HttpParams({ fromObject: { userId: userId, assignedTaskId: assignedTaskId} });
     var url = this.baseUrl + '/GetPupilTask';
-    return this.http.get<any>(url, { params: params, headers: this.authService.getAuthenticationHeaders() });
+    return this.http.get<any>(url, { params: params });
   }
 
   public completeWordTask(model: AssignVerbTaskModel) {
     var url = this.baseUrl + '/CompleteVerbTask';
-    return this.http.post<AssignVerbTaskModel>(url, model, { headers: this.authService.getAuthenticationHeaders() });
+    return this.http.post<AssignVerbTaskModel>(url, model);
   }
 
   public getCompletedTask(taskId: string) {
     var params = new HttpParams({ fromObject: { taskId: taskId } });
     var url = this.baseUrl + '/GetCompletedTask';
-    return this.http.get<any>(url, { params: params, headers: this.authService.getAuthenticationHeaders() });
+    return this.http.get<any>(url, { params: params });
   }
 }

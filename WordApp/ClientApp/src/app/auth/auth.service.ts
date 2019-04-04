@@ -5,7 +5,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { UserRegistrationModel } from './../models/users/user-registration.model';
 import { UserLoginModel } from './../models/users/user-login.model';
-import {UserTokenModel} from'./../models/users/user-token.model';
 import { Constants } from './../app-constants';
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +24,7 @@ export class AuthService {
   }
 
   public login(userName: string, password: string) {
-    
+
     var params = new HttpParams({ fromObject: { userName: userName, password: password } });
 
     return this.http.post<any>(this.baseUrl + '/Login', null, { params: params })
@@ -38,28 +37,6 @@ export class AuthService {
       }));
   }
 
-  public loginViaGoogle(email: string, password: string) {
-    var params = new HttpParams({ fromObject: { email: email, password: password } });
-
-    return this.http.post<any>(this.baseUrl + '/LoginViaGoogle', null, { params: params })
-      .pipe(map(user => {
-        if (user) {
-          var typedUser = <UserLoginModel>user;
-          this.setCurrentUser(typedUser);
-          console.log(typedUser);
-        }
-        return user;
-      }));
-  }
-
-  public updateUserToken(token: UserTokenModel) {
-    var user = this.currentUserValue;
-    user.token = token.accessToken;
-    user.tokenExpirationTime = token.accessTokenExpirationDate;
-    sessionStorage.setItem(Constants.currentUser, JSON.stringify(user));
-    this.currentUserSubject.next(user);
-  }
-
   public register(user: UserRegistrationModel) {
     var url = this.baseUrl + '/Register';
     return this.http.post<string>(url, user);
@@ -69,14 +46,6 @@ export class AuthService {
     sessionStorage.removeItem(Constants.currentUser);
     this.currentUserSubject.next(null);
     this.currentUser = null;
-  }
-
-  public getAuthenticationHeaders(): HttpHeaders {
-    var headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer',// + ' ' + this.currentUserValue.token
-    });
-    return headers;
   }
 
   public setCurrentUser(userModel: UserLoginModel) {

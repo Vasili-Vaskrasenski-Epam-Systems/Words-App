@@ -89,6 +89,10 @@ export class SecuredRoutes {
       roles: [],
     },
     {
+      route: ExistingRoutes.loginGoogle,
+      roles: [],
+    },
+    {
       route: ExistingRoutes.register,
       roles: [],
     },
