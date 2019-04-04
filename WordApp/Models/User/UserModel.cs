@@ -9,9 +9,7 @@ namespace WordApp.Models.User
     {
         public string Name { get; set; }
         public string Password { get; set; }
-
         [JsonConverter(typeof(StringEnumConverter))]
         public UserType UserType { get; set; }
-        public UserTokenModel Token { get; set; }
     }
 }

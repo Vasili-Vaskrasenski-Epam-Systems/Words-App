@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using BL.Infrastructure.Encoders;
 using BL.Services;
 using BL.Services.Task.SentenceTaskServices;
 using BL.Services.Task.VerbTaskServices;
@@ -28,10 +27,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using WordApp.Infrastructure;
-using WordApp.Infrastructure.TokenGenerators;
-
 
 namespace WordApp
 {
@@ -46,39 +42,17 @@ namespace WordApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            #region Auth
-            //var signingKey = new SigningSymmetricKey((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.AuthenticationKey));
-
-            //services.AddSingleton<IJwtSigningEncodingKey>(signingKey);
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            //var signingDecodingKey = (IJwtSigningDecodingKey)signingKey;
+            #region Auth
+                
             services
-                .AddAuthentication(options => {
-                    //options.DefaultAuthenticateScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
-                    //options.DefaultChallengeScheme = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName);
-                }).
-                //.AddJwtBearer((string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.SchemaName), jwtBearerOptions => {
-                //    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
-                //    {
-                //        ValidateIssuerSigningKey = true,
-                //        ValidateIssuer = true,
-                //        ValidateLifetime = true,
-                //        ValidateAudience = true,
-
-                //        IssuerSigningKey = signingDecodingKey.GetKey(),
-                //        ValidIssuer = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidIssuerName),
-                //        ValidAudience = (string)this.Configuration.GetValue(typeof(string), Config.JwtConstants.ValidAudienceName),
-                //        ClockSkew = TimeSpan.Zero,
-                //    };
-                //}).
-                AddGoogle(opts =>
+                .AddAuthentication()
+                .AddGoogle(opts =>
                 {
                     opts.ClientId =
-                        "595140502300-0dfj8j89epsbojgt0s9eo7de3u64ctjg.apps.googleusercontent.com";
+                        Encrypters.Decrypt((string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientId));
                     opts.ClientSecret =
-                        "LCyn2AEntZ3CwRQkqSzltUer";
+                        Encrypters.Decrypt((string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientSecret));
                 });
             #endregion
 
@@ -89,20 +63,20 @@ namespace WordApp
             #endregion
 
             #region DbContext
-
-            //var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString(Config.WordsDbConnectionStringName));
-            services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer("Server=10.9.212.240,49172;Database=wordsDatabase; User Id=sa;password=qweasdzxc_123;Trusted_Connection=False;MultipleActiveResultSets=true;"));
-            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<WordsDbContext>()
+            var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString(Config.WordsDbConnectionStringName));
+            services.AddDbContext<IdentityDbContext>(opts => opts.UseSqlServer(connectionString));
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer(connectionString));
             #endregion
 
             #region Business Services
 
-            services.AddScoped(typeof(ITokenGenerator), typeof(TokenGenerator));
-
             services.AddScoped(typeof(BaseEntityService<WordEntity>), typeof(WordService));
             services.AddScoped(typeof(BaseEntityService<VerbEntity>), typeof(VerbService));
             services.AddScoped(typeof(BaseEntityService<UserEntity>), typeof(UserService));
+            services.AddScoped(typeof(BaseEntityService<UserProfileEntity>), typeof(UserProfileService));
             services.AddScoped(typeof(BaseEntityService<WordTaskEntity>), typeof(WordTaskService));
             services.AddScoped(typeof(BaseEntityService<AssignedWordTaskEntity>), typeof(AssignedWordTaskService));
             services.AddScoped(typeof(BaseEntityService<VerbTaskEntity>), typeof(VerbTaskService));
@@ -110,8 +84,7 @@ namespace WordApp
             services.AddScoped(typeof(BaseEntityService<SentenceEntity>), typeof(SentenceService));
             services.AddScoped(typeof(BaseEntityService<SentenceTaskEntity>), typeof(SentenceTaskService));
             services.AddScoped(typeof(BaseEntityService<AssignedSentenceTaskEntity>), typeof(AssignSentenceTaskService));
-            services.AddScoped(typeof(BaseEntityService<UserCredentialsEntity>), typeof(UserCredentialsService));
-                
+
             #endregion
 
             // In production, the Angular files will be served from this directory
@@ -198,13 +171,23 @@ namespace WordApp
             var administratorUser = await userManager.FindByEmailAsync(Config.AdministratorEmailAddress);
             if (administratorUser == null)
             {
-               await userManager.CreateAsync(
-                    new ApplicationUser()
-                    {
-                        Email = Config.AdministratorEmailAddress,
-                        UserName = Config.AdministratorName
-                    }, Encrypters.Decrypt(Config.AdministratorPassword));
+                await userManager.CreateAsync(
+                     new ApplicationUser()
+                     {
+                         Email = Config.AdministratorEmailAddress,
+                         UserName = Config.AdministratorName
+                     }, Encrypters.Decrypt(Config.AdministratorPassword));
                 administratorUser = await userManager.FindByEmailAsync(Config.AdministratorEmailAddress);
+
+                var userService = serviceProvider.GetService<BaseEntityService<UserEntity>>();
+
+                userService.CreateEntity(new UserEntity()
+                {
+                    UserType = UserType.Administrator,
+                    Email = Config.AdministratorEmailAddress,
+                    Name = Config.AdministratorName,
+                    UserProfile = new UserProfileEntity()
+                });
             }
             var administratoRoles = await userManager.GetRolesAsync(administratorUser);
             if (administratoRoles.All(r => r != nameof(UserType.Administrator)))
@@ -212,6 +195,5 @@ namespace WordApp
                 await userManager.AddToRoleAsync(administratorUser, nameof(UserType.Administrator));
             }
         }
-        
     }
 }

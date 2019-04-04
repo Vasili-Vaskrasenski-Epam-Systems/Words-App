@@ -3,7 +3,11 @@
   <button class="navbar-toggler" type="button" data-target="#navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <p class="text-light">Hello, {{currentUserName}}</p>
+   <a class="btn nav-link text-light" mat-button [matMenuTriggerFor]="profileMenu">Hello, {{currentUserName}}</a>
+    <mat-menu #profileMenu="matMenu">
+      <a class="nav-link" mat-menu-item [routerLink]='["/pupil-sentence-tasks"]'>Profile</a>
+      <a class="nav-link" mat-menu-item (click)="logout()">Logout</a>
+    </mat-menu>
 
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav">

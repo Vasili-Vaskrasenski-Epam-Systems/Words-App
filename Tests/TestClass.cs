@@ -1,7 +1,4 @@
-﻿using System;
-using DAL.Helpers;
-using Entities.Enums;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Tests
 {
@@ -11,7 +8,7 @@ namespace Tests
         [Test]
         public void MainTest()
         {
-            var pswd = Encrypters.Encrypt("Application-Admin_1");
+
         }
     }
 }

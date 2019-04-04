@@ -60,22 +60,15 @@ namespace WordApp.Infrastructure
             #region User
 
             CreateMap<UserEntity, UserModel>().ReverseMap();
-               
+            CreateMap<UserProfileEntity, UserProfileModel>().ReverseMap();
+
             CreateMap<UserRegistrationModel, UserEntity>()
                 .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Credentials, opts => opts.MapFrom(src => new List<UserCredentialsEntity>()
-                {
-                    new UserCredentialsEntity()
-                    {
-                        Login = src.Email,
-                        Hash = SaltedHash.ComputeHash(src.Password),
-                        CredentialsType = UserCredentialsType.Internal,
-                    },
-                }))
                 .ForMember(dest => dest.UserProfile, opts => opts.MapFrom(src => new UserProfileEntity()))
                 .ForMember(dest => dest.UserType, opts => opts.MapFrom(src => UserType.Pupil));
 
+            
             #endregion
 
             #region Word Task

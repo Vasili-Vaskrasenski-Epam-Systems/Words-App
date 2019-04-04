@@ -81,26 +81,17 @@ namespace DAL.Infrastructure
                 .WithOne(ee => ee.User)
                 .HasForeignKey(ee => ee.UserId);
 
-            builder.HasMany(e => e.Credentials)
-                .WithOne(ee => ee.User)
-                .HasForeignKey(ee => ee.UserId);
-
             builder.HasOne(e => e.UserProfile)
                 .WithOne(ee => ee.User).HasForeignKey<UserEntity>(ee => ee.Id);
 
             builder.Property(e => e.Email).IsRequired();
             builder.HasIndex(e => e.Name).IsUnique();
             builder.HasIndex(e => e.Email).IsUnique();
-
-            builder.HasOne(e => e.ApplicationUser)
-                .WithOne(ee => ee.User)
-                .HasForeignKey<UserEntity>(ee => ee.ApplicationUserId);
         }
     }
 
     internal class UserProfileConfigurator: VersionEntityConfigurator<UserProfileEntity> { }
 
-    internal class UserCredentialsConfigurator : IdentityEntityConfigurator<UserCredentialsEntity> { }
     #endregion
 
     internal class WordAnswerConfigurator : IdentityEntityConfigurator<WordAnswerEntity>

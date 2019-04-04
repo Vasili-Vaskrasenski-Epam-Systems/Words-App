@@ -1,0 +1,29 @@
+<form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
+  <div class="row justify-content-center align-items-center" style="height: 100vh">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <p>Login</p>
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && this.userProfileForm.controls.firstName.errors }" />
+            <div *ngIf="submitted && this.userProfileForm.controls.firstName.errors" class="invalid-feedback">
+              <div *ngIf="this.userProfileForm.controls.firstName.errors.required">First name is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && this.userProfileForm.controls.lastName.errors }" />
+            <div *ngIf="submitted && this.userProfileForm.controls.lastName.errors" class="invalid-feedback">
+              <div *ngIf="this.userProfileForm.controls.lastName.errors.required">Last Name is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+

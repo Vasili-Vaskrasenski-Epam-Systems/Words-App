@@ -4,12 +4,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using BL.Extensions.Enums;
+using BL.Services;
 using Entities.Enums;
 using Entities.Instances.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WordApp.Infrastructure.TokenGenerators;
 using WordApp.Models.User;
 
 namespace WordApp.Controllers
@@ -18,14 +18,17 @@ namespace WordApp.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
+        private readonly BaseEntityService<UserEntity> _userService;
         public AuthenticationController(
             IMapper mapper,
            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signinManager) : base(mapper)
+            SignInManager<ApplicationUser> signinManager,
+            BaseEntityService<UserEntity> userService
+            ) : base(mapper)
         {
             this._userManager = userManager;
             this._signInManager = signinManager;
+            this._userService = userService;
         }
 
 
@@ -39,6 +42,12 @@ namespace WordApp.Controllers
             {
                 var createdUser = await this._userManager.FindByEmailAsync(user.Email);
                 await this._userManager.AddToRoleAsync(createdUser, nameof(UserType.Pupil));
+                this._userService.CreateEntity(new UserEntity()
+                {
+                    UserType = UserType.Pupil,
+                    Name = model.UserName,
+                    Email = model.Email,
+                });
                 return Ok();
             }
             else
@@ -138,6 +147,14 @@ namespace WordApp.Controllers
             var result = await _userManager.CreateAsync(user);
             if (result.Succeeded)
             {
+                this._userService.CreateEntity(new UserEntity()
+                {
+                    Name = email,
+                    Email = email,
+                    UserType = UserType.Pupil,
+                    UserProfile = new UserProfileEntity(),
+                });
+
                 result = await _userManager.AddLoginAsync(user, info);
                 if (result.Succeeded)
                 {

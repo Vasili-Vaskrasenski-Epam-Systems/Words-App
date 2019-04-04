@@ -1,34 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Text;
 using AutoMapper;
-using BL.Infrastructure.Builder;
-using BL.Infrastructure.Encoders;
 using BL.Services;
 using Entities.Enums;
-using Entities.Instances;
 using Entities.Instances.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using WordApp.Infrastructure;
-using WordApp.Models;
 using WordApp.Models.User;
 
-namespace WordApp.Controllers
+namespace WordApp.Controllers.User
 {
     public class UserController: BaseController
     {
-        private readonly BaseEntityService<UserEntity> _service;
-        private readonly IJwtSigningEncodingKey _singingEncodingKey;
-        public UserController(IMapper mapper, BaseEntityService<UserEntity> service,[FromServices] IJwtSigningEncodingKey singingEncodingKey) : base(mapper)
+        private readonly BaseEntityService<UserEntity> _userService;
+        private readonly BaseEntityService<UserProfileEntity> _userProfileService;
+        public UserController(IMapper mapper, BaseEntityService<UserEntity> service, BaseEntityService<UserProfileEntity> userProfileService) : base(mapper)
         {
-            this._service = service;
-            this._singingEncodingKey = singingEncodingKey;
+            this._userService = service;
+            this._userProfileService = userProfileService;
         }
 
         [HttpPost("[action]")]
@@ -36,7 +25,7 @@ namespace WordApp.Controllers
         public IActionResult CreateUser([FromBody] UserModel model)
         {
             var userToCreate = base.Mapper.Map<UserEntity>(model);
-            var createdUser = this._service.CreateEntity(userToCreate);
+            var createdUser = this._userService.CreateEntity(userToCreate);
             return Ok(base.Mapper.Map<UserModel>(createdUser));
         }
 
@@ -44,7 +33,7 @@ namespace WordApp.Controllers
         [Authorize(Roles = nameof(UserType.Administrator))]
         public IActionResult GetUsers()
         {
-            return Ok(this._service.GetEntities().Select(e => Mapper.Map<UserModel>(e)).ToList());
+            return Ok(this._userService.GetEntities().Select(e => Mapper.Map<UserModel>(e)).ToList());
         }
 
         [HttpPost("[action]")]
@@ -52,7 +41,7 @@ namespace WordApp.Controllers
         public IActionResult DeleteUser([FromBody] UserModel model)
         {
             var userToDelete = base.Mapper.Map<UserEntity>(model);
-            var deletedUser = this._service.DeleteEntity(userToDelete);
+            var deletedUser = this._userService.DeleteEntity(userToDelete);
             return Ok(base.Mapper.Map<UserModel>(deletedUser));
         }
 
@@ -61,15 +50,24 @@ namespace WordApp.Controllers
         public IActionResult UpdateUser([FromBody] UserModel model)
         {
             var userToUpdate = base.Mapper.Map<UserEntity>(model);
-            var updatedUser = this._service.UpdateEntity(userToUpdate);
+            var updatedUser = this._userService.UpdateEntity(userToUpdate);
             return Ok(base.Mapper.Map<UserModel>(updatedUser));
+        }
+
+        [HttpGet]
+        [Authorize(Roles =
+            nameof(UserType.Administrator) + "," + nameof(UserType.Teacher) + "," + nameof(UserType.Teacher))]
+        public IActionResult GetUserProfile(Guid userId)
+        {
+            var profile = this._userProfileService.GetEntity(userId);
+            return Ok(base.Mapper.Map<UserProfileModel>(profile));
         }
 
         [HttpGet("[action]")]
         [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Teacher))]
         public IActionResult GetUsersByType(UserType userType)
         {
-            var foundUsers = this._service.GetEntities(u => u.UserType == userType);
+            var foundUsers = this._userService.GetEntities(u => u.UserType == userType);
             return Ok(foundUsers.Select(fu => base.Mapper.Map<UserModel>(fu)).ToList());
         }
     }
