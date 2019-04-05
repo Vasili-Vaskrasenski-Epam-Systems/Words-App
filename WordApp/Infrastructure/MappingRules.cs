@@ -60,7 +60,10 @@ namespace WordApp.Infrastructure
             #region User
 
             CreateMap<UserEntity, UserModel>().ReverseMap();
-            CreateMap<UserProfileEntity, UserProfileModel>().ReverseMap();
+            CreateMap<UserEntity, UserProfileModel>()
+                .ForMember(dest => dest.FirstName, opts => opts.MapFrom(src => src.UserProfile.FirstName))
+                .ForMember(dest => dest.LastName, opts => opts.MapFrom(src => src.UserProfile.LastName))
+                .ForMember(dest => dest.BirthDate, opts => opts.MapFrom(src => src.UserProfile.BirthDate));
 
             CreateMap<UserRegistrationModel, UserEntity>()
                 .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))

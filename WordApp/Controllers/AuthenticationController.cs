@@ -72,16 +72,24 @@ namespace WordApp.Controllers
             if (loginResult.Succeeded)
             {
                 var userRoles = await this._userManager.GetRolesAsync(existingUser);
+
+                var user = this._userService.GetEntity(e => e.Name == userName || e.Email == userName);
+
+                if (user == null)
+                {
+                    return Forbid("No user registered with specified email or user name.");
+                }
+
                 return Ok(new UserLoginModel()
                 {
-                    Id = Guid.Parse(existingUser.Id),
+                    Id = user.Id,
                     Name = existingUser.UserName,
                     UserType = EnumExtension.GetEnumByStringValue<UserType>(userRoles.First()),
                 });
             }
             else
             {
-                return BadRequest("Authorization Error");
+                return Forbid("Authorization Error");
             }
         }
 
@@ -116,8 +124,17 @@ namespace WordApp.Controllers
             {
                 var googleUser = await this._userManager.FindByEmailAsync(principalEmail.Value);
                 var userRoles = await this._userManager.GetRolesAsync(googleUser);
+
+                var user = this._userService.GetEntity(e => e.Email == principalEmail.Value);
+
+                if (user == null)
+                {
+                    return Forbid("No user registered with specified email or user name.");
+                }
+
                 var model = new UserLoginModel()
                 {
+                    Id = user.Id,
                     Name = googleUser.UserName,
                     UserType = EnumExtension.GetEnumByStringValue<UserType>(userRoles.First())
                 };
@@ -147,7 +164,7 @@ namespace WordApp.Controllers
             var result = await _userManager.CreateAsync(user);
             if (result.Succeeded)
             {
-                this._userService.CreateEntity(new UserEntity()
+               var createdEntity = this._userService.CreateEntity(new UserEntity()
                 {
                     Name = email,
                     Email = email,
@@ -164,6 +181,7 @@ namespace WordApp.Controllers
 
                     var loginModel = new UserLoginModel()
                     {
+                        Id = createdEntity.Id,
                         Name = email,
                         UserType = UserType.Pupil,
                     };
@@ -172,51 +190,6 @@ namespace WordApp.Controllers
                 }
             }
             return BadRequest(result.Errors);
-        }
-
-        [AllowAnonymous]
-        [HttpPost("[action]")]
-        public IActionResult LoginViaGoogle(string email, string password)
-        {
-            //var existingUser =
-            //    this._userCredentialsService.GetQueryableEntity(e => e.User.Email == email && SaltedHash.Verify(e.Hash, password) && e.CredentialsType == UserCredentialsType.Google, "User");
-
-            //if (existingUser == null)
-            //{
-            //    var userToCreate = new UserEntity()
-            //    {
-            //        Email = email,
-            //        Name = email,
-            //        UserType = UserType.Pupil,
-            //        UserProfile = new UserProfileEntity(),
-            //        Credentials = new List<UserCredentialsEntity>()
-            //        {
-            //            new UserCredentialsEntity()
-            //            {
-            //                CredentialsType = UserCredentialsType.Google,
-            //                Login = email,
-            //                Hash = SaltedHash.ComputeHash(password),
-            //            }
-            //        },
-            //    };
-
-            //    var createdUser = this._userService.CreateEntity(userToCreate);
-
-            //    existingUser = createdUser.Credentials.First();
-            //}
-
-            //var accessToken = this._tokenGenerator.GenerateAccessToken(existingUser.Id, existingUser.User.UserType);
-
-            //var userModel = new UserLoginModel()
-            //{
-            //    Id = existingUser.UserId,
-            //    Name = existingUser.User.Name,
-            //    UserType = existingUser.User.UserType,
-            //    Token = this._tokenGenerator.WriteToken(accessToken),
-            //    TokenExpirationTime = accessToken.ValidTo,
-            //};
-            //return Ok(userModel);
-            return Ok();
         }
     }
 }

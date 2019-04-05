@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'common-datepicker',
@@ -11,4 +12,9 @@ export class CommonDatepickerComponent {
 
   @Input() submitted: boolean;
   @Input() parentForm: FormGroup;
+  @Output() notifyAboutDateChanged: EventEmitter<NgbDateStruct> = new EventEmitter<NgbDateStruct>();
+
+  dateChanged(obj: NgbDateStruct) {
+    this.notifyAboutDateChanged.emit(obj);
+  }
 }

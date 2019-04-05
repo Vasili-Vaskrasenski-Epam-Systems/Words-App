@@ -29,6 +29,10 @@ export class SecuredRoutes {
       roles: [EUserType.Administrator],
     },
     {
+      route: ExistingRoutes.userProfile,
+      roles: [EUserType.Administrator, EUserType.Pupil, EUserType.Administrator],
+    },
+    {
       route: ExistingRoutes.wordTaskManagement,
       roles: [EUserType.Teacher, EUserType.Administrator],
     },

@@ -2,7 +2,7 @@
   <div class="form-group">
     <div class="input-group">
       <input class="form-control" formControlName="datepicker" name="datepicker" placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker"
-             [ngClass]="{ 'is-invalid': submitted && parentForm.controls.datepicker.errors}">
+             [ngClass]="{ 'is-invalid': submitted && parentForm.controls.datepicker.errors}" (ngModelChange)="dateChanged($event)">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"
                 [ngClass]="{ 'border-danger': submitted && parentForm.controls.datepicker.errors}"></button>

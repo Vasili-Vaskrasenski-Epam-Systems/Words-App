@@ -13,15 +13,15 @@ export class NavMenuComponent implements OnInit {
   isExpanded = false;
   public currentUserName: string;
   public userRole: string;
+  public userId: string;
   public roleTypes = EUserType;
-
-  constructor(private svc: AuthService, private router: Router) {
-
-  }
+  
+  constructor(private svc: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.currentUserName = this.svc.currentUserValue.name;
     this.userRole = this.svc.currentUserValue.userType.toString();
+    this.userId = this.svc.currentUserValue.id;
   }
 
   collapse() {

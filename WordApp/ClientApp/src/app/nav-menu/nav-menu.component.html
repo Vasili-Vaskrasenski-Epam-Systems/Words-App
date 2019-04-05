@@ -5,7 +5,7 @@
   </button>
    <a class="btn nav-link text-light" mat-button [matMenuTriggerFor]="profileMenu">Hello, {{currentUserName}}</a>
     <mat-menu #profileMenu="matMenu">
-      <a class="nav-link" mat-menu-item [routerLink]='["/pupil-sentence-tasks"]'>Profile</a>
+      <a class="nav-link" mat-menu-item [routerLink]='["/user-profile", userId]'>Profile</a>
       <a class="nav-link" mat-menu-item (click)="logout()">Logout</a>
     </mat-menu>
 

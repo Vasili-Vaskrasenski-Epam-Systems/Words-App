@@ -3,9 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UserModel } from "./../../../models/users/user.model";
-import { WordTaskModel } from "./../../../models/tasks/words/word-task.model";
-import { AssignWordTaskModel } from './../../../models/tasks/words/assign-word-task.model';
-
 import { AlertService } from './../../../alert/alert.service';
 
 @Component({

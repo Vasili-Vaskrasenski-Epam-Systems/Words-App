@@ -13,11 +13,9 @@ namespace WordApp.Controllers.User
     public class UserController: BaseController
     {
         private readonly BaseEntityService<UserEntity> _userService;
-        private readonly BaseEntityService<UserProfileEntity> _userProfileService;
-        public UserController(IMapper mapper, BaseEntityService<UserEntity> service, BaseEntityService<UserProfileEntity> userProfileService) : base(mapper)
+        public UserController(IMapper mapper, BaseEntityService<UserEntity> service) : base(mapper)
         {
             this._userService = service;
-            this._userProfileService = userProfileService;
         }
 
         [HttpPost("[action]")]
@@ -54,13 +52,12 @@ namespace WordApp.Controllers.User
             return Ok(base.Mapper.Map<UserModel>(updatedUser));
         }
 
-        [HttpGet]
-        [Authorize(Roles =
-            nameof(UserType.Administrator) + "," + nameof(UserType.Teacher) + "," + nameof(UserType.Teacher))]
+        [HttpGet("[action]")]
+        [Authorize(Roles = nameof(UserType.Administrator) + "," + nameof(UserType.Pupil) + "," + nameof(UserType.Teacher))]
         public IActionResult GetUserProfile(Guid userId)
         {
-            var profile = this._userProfileService.GetEntity(userId);
-            return Ok(base.Mapper.Map<UserProfileModel>(profile));
+            var user = this._userService.GetQueryableEntity(userId, "UserProfile");
+            return Ok(base.Mapper.Map<UserProfileModel>(user));
         }
 
         [HttpGet("[action]")]

@@ -6,6 +6,7 @@ import { WordListComponent } from "./../pages/words/word-list.component";
 import { VerbListComponent } from './../pages/verbs/verb-list.component';
 import { SentenceListComponent } from './../pages/sentences/sentence-list.component';
 import { UserListComponent } from './../pages/users/user-list.component';
+import { UserProfileComponent } from './../pages/users/user-profile.component';
 import { WordTaskListComponent } from './../pages/tasks/word-task/word-task-list.component';
 import { WordTaskDetailsComponent } from './../pages/tasks/word-task/word-task-details.component';
 import { PupilWordTaskListComponent } from './../pages/tasks/word-task/pupil-word-task-list.component';
@@ -40,6 +41,7 @@ export class ConfiguredRoutes {
     { path: ExistingRoutes.sentences, component: SentenceListComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.sentenceTaskManagement, component: SentenceTaskListComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.userManagement, component: UserListComponent, canActivate: [AuthGuard] },
+    { path: ExistingRoutes.userProfile, component: UserProfileComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.wordTaskManagement, component: WordTaskListComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.verbTaskManagement, component: VerbTaskListComponent, canActivate: [AuthGuard] },
     { path: ExistingRoutes.wordTaskDetails, component: WordTaskDetailsComponent, canActivate: [AuthGuard] },

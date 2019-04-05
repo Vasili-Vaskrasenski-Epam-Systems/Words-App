@@ -4,6 +4,7 @@ export class ExistingRoutes {
   public static sentences = "sentences";
   public static sentenceTaskManagement = "sentence-task-management";
   public static userManagement = "user-management";
+  public static userProfile = "user-profile/:id";
   public static wordTaskManagement = "word-task-management";
   public static verbTaskManagement = "verb-task-management";
   public static wordTaskDetails = "word-task-details/:id";
@@ -32,6 +33,7 @@ export class ExistingRoutes {
     ExistingRoutes.sentences,
     ExistingRoutes.sentenceTaskManagement,
     ExistingRoutes.userManagement,
+    ExistingRoutes.userProfile,
     ExistingRoutes.wordTaskManagement,
     ExistingRoutes.verbTaskManagement,
     ExistingRoutes.wordTaskDetails,
