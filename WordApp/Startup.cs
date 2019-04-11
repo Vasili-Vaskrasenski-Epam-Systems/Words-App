@@ -18,6 +18,7 @@ using Entities.Instances.Task.WordTask;
 using Entities.Instances.User;
 using Entities.Instances.Verb;
 using Entities.Instances.Word;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -45,15 +46,21 @@ namespace WordApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             #region Auth
                 
-            services
-                .AddAuthentication()
-                .AddGoogle(opts =>
+            //services
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
                 {
-                    opts.ClientId =
-                        Encrypters.Decrypt((string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientId));
-                    opts.ClientSecret =
-                        Encrypters.Decrypt((string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientSecret));
+                    options.Authority = "http://localhost:5000"; // Auth Server  
+                    options.RequireHttpsMetadata = false; // only for development  
+                    options.ApiName = "customAPI"; // API Resource Id  
                 });
+                //.AddGoogle(opts =>
+                //{
+                //    opts.ClientId =
+                //        Encrypters.Decrypt((string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientId));
+                //    opts.ClientSecret =
+                //        Encrypters.Decrypt((string)this.Configuration.GetValue(typeof(string), Config.GoogleConstants.ClientSecret));
+                //});
             #endregion
 
             #region AutoMapper
