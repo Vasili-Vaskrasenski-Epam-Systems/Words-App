@@ -53,7 +53,7 @@ export class VerbTaskListComponent implements OnInit {
     });
   }
 
-  public onShowEditForm(task: VerbTaskModel): void {
+  public onShowEditForm(task: VerbTaskModel = null): void {
     var dialogRef = this.dialog.open(VerbTaskEditorFormComponent,
       { data: { task: task, verbs: this.availableVerbs } });
 

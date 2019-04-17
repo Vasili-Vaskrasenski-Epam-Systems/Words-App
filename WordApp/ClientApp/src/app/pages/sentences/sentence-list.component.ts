@@ -31,7 +31,7 @@ export class SentenceListComponent implements OnInit {
   }
 
 
-  public onShowEditorForm(sentence: SentenceModel) {
+  public onShowEditorForm(sentence: SentenceModel = null) {
     var dialogRef = this.dialog.open(SentenceEditorFormComponent, sentence ? { data: sentence } : null);
 
     dialogRef.afterClosed().subscribe(result => {

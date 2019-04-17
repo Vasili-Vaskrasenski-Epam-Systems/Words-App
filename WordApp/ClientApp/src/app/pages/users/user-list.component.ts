@@ -34,7 +34,7 @@ export class UserListComponent implements OnInit {
       error => {this.dialog.closeAll(); console.log(error)});
   }
 
-  public onShowEditorForm(user: UserModel) {
+  public onShowEditorForm(user: UserModel = null) {
     var dialogRef = this.dialog.open(UserEditorFormComponent, user ? { data: user } : null);
 
     dialogRef.afterClosed().subscribe(result => {

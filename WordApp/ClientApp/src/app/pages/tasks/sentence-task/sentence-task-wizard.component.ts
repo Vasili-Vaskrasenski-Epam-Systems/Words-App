@@ -44,7 +44,7 @@ export class SentenceTaskWizardComponent implements OnInit {
         var taskInstance = (<AssignSentenceTaskModel>task);
         this.assignedSentenceTask = taskInstance.sentenceTask;
         this.answeredSentenceTask = task;
-        this.answeredSentenceTask.user = new UserModel(null, null, EUserType.Pupil, this.authService.currentUserValue.id, null);
+        this.answeredSentenceTask.user = new UserModel(null, null, EUserType.Pupil, null, this.authService.currentUserValue.id, null);
         this.assignedSentenceTask.sentences.sort((f, s) => f.order - s.order);
         this.dialog.closeAll();
       }, error => { this.dialog.closeAll(); console.log(error); });

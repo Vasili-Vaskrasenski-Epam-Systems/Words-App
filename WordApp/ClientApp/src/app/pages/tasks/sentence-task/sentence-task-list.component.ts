@@ -61,7 +61,7 @@ export class SentenceTaskListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  public onShowEditForm(task: SentenceTaskModel): void {
+  public onShowEditForm(task: SentenceTaskModel = null): void {
     var dialogRef = this.dialog.open(SentenceTaskEditorFormComponent,
       { data: { task: task, sentences: this.existingSentences } });
 

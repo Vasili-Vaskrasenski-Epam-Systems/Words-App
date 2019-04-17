@@ -36,6 +36,7 @@ namespace WordApp.Controllers
         public IActionResult CreateUser([FromBody] UserModel model)
         {
             var userToCreate = base.Mapper.Map<UserEntity>(model);
+            userToCreate.UserProfile = new UserProfileEntity();
             var createdUser = this._service.CreateEntity(userToCreate);
             return Ok(base.Mapper.Map<UserModel>(createdUser));
         }

@@ -37,7 +37,7 @@ export class WordListComponent implements OnInit {
     }, error => console.error(error));
   }
 
-  public onShowEditorForm(word: WordModel) {
+  public onShowEditorForm(word: WordModel = null) {
     var dialogRef = this.dialog.open(WordEditorFormComponent, word ? { data: word } : null);
 
     dialogRef.afterClosed().subscribe(result => {

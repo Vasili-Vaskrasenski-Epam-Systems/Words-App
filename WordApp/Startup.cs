@@ -133,7 +133,7 @@ namespace WordApp
             loggerFactory.AddLog4Net();
 
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseAuthentication();

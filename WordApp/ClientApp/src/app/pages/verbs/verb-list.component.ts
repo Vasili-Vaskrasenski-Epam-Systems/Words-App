@@ -37,7 +37,7 @@ export class VerbListComponent implements OnInit {
     }, error => console.error(error));
   }
 
-  public onShowEditorForm(verb: VerbModel) {
+  public onShowEditorForm(verb: VerbModel = null) {
     var dialogRef = this.dialog.open(VerbEditorFormComponent, { data: { verb: verb ? verb : null, words: this.availableWords } });
 
     dialogRef.afterClosed().subscribe(result => {

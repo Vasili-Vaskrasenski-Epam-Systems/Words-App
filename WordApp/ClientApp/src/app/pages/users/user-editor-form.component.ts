@@ -31,13 +31,14 @@ export class UserEditorFormComponent implements OnInit {
     }
     this.editorForm = this.formBuilder.group({
       userName: [this.editableObject ? this.editableObject.name : '', Validators.required],
+      email: [this.editableObject ? this.editableObject.email : '', [Validators.required, Validators.email]],
       password: [this.editableObject ? this.editableObject.password : '', Validators.required],
       userType: [this.editableObject ? this.userTypes.find(ut => ut === this.editableObject.userType.toString()) : this.userTypes[0], Validators.required],
     });
   }
 
   setEditableObject(user: UserModel) {
-    this.editableObject = new UserModel(user.name, user.password, user.userType, user.id, user.rowVersion);
+    this.editableObject = new UserModel(user.name, user.password, user.userType, user.email, user.id, user.rowVersion);
   }
 
   public onSubmit(): void {
@@ -50,6 +51,7 @@ export class UserEditorFormComponent implements OnInit {
         this.editorForm.controls.userName.value,
         this.editorForm.controls.password.value,
         this.editorForm.controls.userType.value,
+        this.editorForm.controls.email.value,
         this.editableObject ? this.editableObject.id : Constants.guidEmpty,
         this.editableObject ? this.editableObject.rowVersion : null);
       this.dialogRef.close(model);

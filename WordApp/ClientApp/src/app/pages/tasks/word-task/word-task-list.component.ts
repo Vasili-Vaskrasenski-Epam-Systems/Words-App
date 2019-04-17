@@ -56,7 +56,7 @@ export class WordTaskListComponent implements OnInit {
     });
   }
 
-  public onShowEditForm(task: WordTaskModel): void {
+  public onShowEditForm(task: WordTaskModel = null): void {
     var dialogRef = this.dialog.open(WordTaskEditorFormComponent, { data: { task: task, words: this.existingWords } });
 
     dialogRef.afterClosed().subscribe(result => {
