@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using BL.Extensions.Collections;
 using BL.Infrastructure.Encoders;
 using BL.Services;
 using DAL.Helpers;
@@ -68,10 +69,12 @@ namespace WordApp.Controllers
         [HttpPost("[action]")]
         public IActionResult LoginViaGoogle(string email, string password)
         {
-            var existingUser =
-                this._userCredentialsService.GetQueryableEntity(e => e.User.Email == email && SaltedHash.Verify(e.Hash, password) && e.CredentialsType == UserCredentialsType.Google, "User");
+            var existingUsers =
+                this._userCredentialsService.GetQueryableEntities(e => e.User.Email == email, "User");
 
-            if (existingUser == null)
+            UserCredentialsEntity existingUser = null;
+
+            if (!existingUsers.ExistAndNotEmpty())
             {
                 var userToCreate = new UserEntity()
                 {
@@ -93,6 +96,24 @@ namespace WordApp.Controllers
                 var createdUser = this._userService.CreateEntity(userToCreate);
 
                 existingUser = createdUser.Credentials.First();
+            }
+            else
+            {
+                existingUser = existingUsers.FirstOrDefault(u =>
+                    SaltedHash.Verify(u.Hash, password) && u.CredentialsType == UserCredentialsType.Google);
+
+                if (existingUser == null)
+                {
+                    existingUser = new UserCredentialsEntity()
+                    {
+                        CredentialsType = UserCredentialsType.Google,
+                        Hash = SaltedHash.ComputeHash(password),
+                        UserId = existingUsers.First().UserId,
+                        Login = email,
+                    };
+
+                    this._userCredentialsService.CreateEntity(existingUser);
+                }
             }
 
             var accessToken = this._tokenGenerator.GenerateAccessToken(existingUser.Id, existingUser.User.UserType);
