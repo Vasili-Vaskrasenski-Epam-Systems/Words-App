@@ -1,6 +1,9 @@
 <div class="form-group">
   <h1>Already existing words</h1>
-  <button (click)="onShowEditorForm()" class="btn btn-success">+</button>
+  <div class="btn-group">
+    <button (click)="onShowEditorForm()" class="btn btn-success">+</button>
+    <button (click)="onShowCheckWordsForm()" class="btn btn-info">Test</button>
+  </div>
 </div>
 <div mat-elevation-z8 mt-lg-2 *ngIf="dataSource">
   <mat-form-field>

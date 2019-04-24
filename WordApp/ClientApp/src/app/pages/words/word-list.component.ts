@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { WordsService } from "./../../services/words.service";
 import { WordModel } from "./../../models/words/word.model";
 import { WordEditorFormComponent } from "./word-editor-form.component";
+import {WordCheckerComponent} from "./word-checker.component";
 import { AlertService } from './../../alert/alert.service';
 import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 import { CommonLoadingComponent } from './../../common/common-loading.component';
@@ -45,6 +46,10 @@ export class WordListComponent implements OnInit {
         word ? this.edit(result as WordModel) : this.create(result as WordModel);
       }
     });
+  }
+
+  onShowCheckWordsForm() {
+    this.dialog.open(WordCheckerComponent, { data: this.dataSource.data });
   }
 
   public applyFilter(filterValue: string) {

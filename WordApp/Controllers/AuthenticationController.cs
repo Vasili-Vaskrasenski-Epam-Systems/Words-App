@@ -4,12 +4,10 @@ using AutoMapper;
 using BL.Extensions.Collections;
 using BL.Infrastructure.Encoders;
 using BL.Services;
-using DAL.Helpers;
 using Entities.Enums;
 using Entities.Instances.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using WordApp.Infrastructure.TokenGenerators;
 using WordApp.Models.User;
 
