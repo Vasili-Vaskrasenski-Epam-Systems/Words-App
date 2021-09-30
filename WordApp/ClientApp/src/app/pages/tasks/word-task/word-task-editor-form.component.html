@@ -14,7 +14,7 @@
             </div>
           </div>
           <mat-checkbox formControlName="isTranslation">Is Translation</mat-checkbox>
-          <div class="form-group" *ngIf="assignedWords.length > 0">
+          <div class="form-group words-container" *ngIf="assignedWords.length > 0">
             <h5>Assigned Words:</h5>
             <common-draggable-list [inputObjectArray]="assignedWords" (notifyAboutDelete)="onDeleteWord($event)"></common-draggable-list>
           </div>

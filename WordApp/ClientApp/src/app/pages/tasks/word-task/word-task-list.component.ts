@@ -51,7 +51,7 @@ export class WordTaskListComponent implements OnInit {
       this.existingWords = w;
     });
 
-    this.userService.getUsersByType(EUserType[EUserType.Pupil]).subscribe(u => {
+    this.userService.getUsers().subscribe(u => {
       this.existingUsers = u;
     });
   }

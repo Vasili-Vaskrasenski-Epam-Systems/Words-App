@@ -86,7 +86,8 @@ namespace WordApp
 
             #region DbContext
 
-            var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString(Config.WordsDbConnectionStringName));
+            //var connectionString = Encrypters.Decrypt(Configuration.GetConnectionString(Config.WordsDbConnectionStringName));
+            var connectionString = Configuration.GetConnectionString(Config.WordsDbConnectionStringName);
             services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer(connectionString));
             //services.AddDbContext<WordsDbContext>(opts => opts.UseSqlServer("Server=10.9.212.240,49172;Database=wordsDatabase; User Id=sa;password=qweasdzxc_123;Trusted_Connection=False;MultipleActiveResultSets=true;"));
 

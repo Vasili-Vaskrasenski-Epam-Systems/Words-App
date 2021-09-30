@@ -26,7 +26,7 @@
         <a class="btn nav-link" mat-button [matMenuTriggerFor]="menu">Tasks</a>
         <mat-menu #menu="matMenu">
           <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Administrator] || userRole === this.roleTypes[this.roleTypes.Teacher]" mat-menu-item [routerLink]='["/word-task-management"]'>Word Tasks</a>
-          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Pupil]" mat-menu-item [routerLink]='["/pupil-word-tasks"]'>Word Tasks</a>
+          <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Administrator] || userRole === this.roleTypes[this.roleTypes.Pupil]" mat-menu-item [routerLink]='["/pupil-word-tasks"]'>Word Tasks</a>
 
           <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Administrator] || userRole === this.roleTypes[this.roleTypes.Teacher]" mat-menu-item [routerLink]='["/verb-task-management"]'>Verb Tasks</a>
           <a class="nav-link" *ngIf="userRole === this.roleTypes[this.roleTypes.Pupil]" mat-menu-item [routerLink]='["/pupil-verb-tasks"]'>Verb Tasks</a>

@@ -17,6 +17,7 @@ import { Randomizer } from './../../../infrastructure/helpers/randomizer';
 @Component({
   selector: 'word-task-editor-form',
   templateUrl: './word-task-editor-form.component.html',
+  styleUrls: ['./word-task-editor-form.component.css'],
 })
 export class WordTaskEditorFormComponent implements OnInit {
   public wordAssignmentForm: FormGroup;
